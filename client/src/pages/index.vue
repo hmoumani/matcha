@@ -6,7 +6,6 @@
 	});
 
 	const store = useStore();
-	const { t } = useI18n();
 </script>
 
 <template>
@@ -14,7 +13,6 @@
 		<div>
 			<img :src="VitailseLogo" width="300" class="mx-auto" />
 			<p class="lg:text-left text-center">
-				{{ t('intro.desc') }}
 				<a
 					href="https://tailwindcss.com/"
 					class="text-blue-500 hover:underline"
@@ -22,7 +20,6 @@
 				>
 			</p>
 			<p class="text-center">
-				{{ t('intro.github') }}
 				<a
 					class="text-blue-500 hover:underline"
 					href="https://github.com/zynth17/vitailse"
@@ -54,7 +51,7 @@
 				dark:hover:text-gray-500
 				hover:underline
 			"
-			>{{ t('pages.other.menu') }}</router-link
+			>w</router-link
 		>
 	</div>
 </template>
