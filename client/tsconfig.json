@@ -18,7 +18,6 @@
 			"vite/client",
 			"vite-plugin-vue-layouts/client",
 			"unplugin-icons/types/vue",
-			"vite-plugin-pwa/client",
 		]
 	},
 	"include": [

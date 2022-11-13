@@ -18,8 +18,6 @@ Inspired by [Vitesse](https://github.com/antfu/vitesse) ❤
 
 - 📑 [Layout system](./src/layouts)
 
-- 📲 [PWA](https://github.com/antfu/vite-plugin-pwa)
-
 - 🌍 [I18n ready](./locales)
 
 - 🎨 [Tailwind CSS](https://tailwindcss.com/) - Rapidly build modern websites without ever leaving your HTML.
@@ -62,7 +60,6 @@ Inspired by [Vitesse](https://github.com/antfu/vitesse) ❤
 - [`@vueuse/head`](https://github.com/vueuse/head) - manipulate document head reactively
 - [Vue I18n](https://github.com/intlify/vue-i18n-next) - Internationalization
   - [`vite-plugin-vue-i18n`](https://github.com/intlify/vite-plugin-vue-i18n) - Vite plugin for Vue I18n
-- [`vite-plugin-pwa`](https://github.com/antfu/vite-plugin-pwa) - PWA
 
 ### Coding Style
 
