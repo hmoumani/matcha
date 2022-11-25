@@ -1,63 +1,52 @@
+<script setup lang="ts">
+	defineProps({
+		title: String,
+		fields: Array,
+	});
+</script>
 <template>
 	<form>
-		<div className="grid grid-cols-6 gap-6">
-			<div v-for="field in fields" key="{field.name}">
-				<label
-					className="block uppercase text-gray-700 text-xs font-bold mb-2"
-					htmlFor="grid-password"
-				>
-					{field.name}
-				</label>
-				{field.type == "select" ? (
-				<CustomSelectMenu options="{field.options}" />
-				) : // ) : field.type == "checkbox" ? ( //
-				<CustomRadioInput options="{field.options}" />
-				field.type == "upload" ? (
-				<CustomImgUpldoad />
-				) : field.type == "tags" ? (
-				<CustomTagsInput options="{field.options}" />
-				) : field.type == "textarea" ? (
-				<textarea
-					ref="{register}"
-					name="{field.name}"
-					maxlength="150"
-					className="resize-none px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
-				/>
-				) : (
-				<input
-					ref="{register}"
-					type="{field.type}"
-					name="{field.name}"
-					className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
-					placeholder="{field.name}"
-				/>
-				)}
-			</div>
-			))}
-		</div>
 		<div>
-			<label className="inline-flex items-center cursor-pointer">
+			<label for="email" class="block text-sm font-medium text-gray-700"
+				>Email address</label
+			>
+			<div class="mt-1">
 				<input
-					id="customCheckLogin"
-					type="checkbox"
-					className="form-checkbox text-gray-800 ml-1 w-5 h-5"
+					id="email"
+					name="email"
+					type="email"
+					autocomplete="email"
+					required=""
+					class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 				/>
-				<span className="ml-2 text-sm font-semibold text-gray-700">
-					Remember me
-				</span>
-			</label>
+			</div>
 		</div>
 
-		<div className="text-center mt-6">
-			<input
-				className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+		<div>
+			<label
+				for="password"
+				class="block text-sm font-medium text-gray-700"
+				>Password</label
+			>
+			<div class="mt-1">
+				<input
+					id="password"
+					name="password"
+					type="password"
+					autocomplete="current-password"
+					required=""
+					class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+				/>
+			</div>
+		</div>
+
+		<div class="text-center mt-8">
+			<button
+				class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
 				type="submit"
-				value="{title}"
-			/>
+			>
+				{{ title }}
+			</button>
 		</div>
 	</form>
 </template>
-<script setup lang="ts">
-	const fields:any = [];
-    defineProps()
-</script>
