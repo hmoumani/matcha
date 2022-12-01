@@ -2,35 +2,35 @@
 	let fields = [
 		{ name: 'first name', type: 'text', width: 'half' },
 		{ name: 'last name', type: 'text', width: 'half' },
-		{ name: 'email', type: 'email', width: 'half' },
-		{ name: 'password', type: 'password', width: 'half' },
-		{
-			name: 'Tags',
-			type: 'tags',
-			options: [
-				{ value: 'sport', label: 'sport' },
-				{ value: 'napping', label: 'napping' },
-				{ value: 'tkfat', label: 'tkfat' },
-			],
-		},
-		{ name: 'Bio', type: 'textarea' },
-		{
-			name: 'Gendre',
-			type: 'select',
-			width: 'to',
-			options: [
-				{ value: 'male', label: 'male' },
-				{ value: 'female', label: 'female' },
-				{ value: 'other', label: 'other (Gaaaay)' },
-			],
-		},
-		{
-			name: 'Age',
-			type: 'select',
-			width: 'to',
-			// options: createList(10, 90),
-		},
-		{ name: 'PROFILE Img', type: 'upload', width: 'to' },
+		// { name: 'email', type: 'email', width: 'half' },
+		// { name: 'password', type: 'password', width: 'half' },
+		// {
+		// 	name: 'Tags',
+		// 	type: 'tags',
+		// 	options: [
+		// 		{ value: 'sport', label: 'sport' },
+		// 		{ value: 'napping', label: 'napping' },
+		// 		{ value: 'tkfat', label: 'tkfat' },
+		// 	],
+		// },
+		// { name: 'Bio', type: 'textarea' },
+		// {
+		// 	name: 'Gendre',
+		// 	type: 'select',
+		// 	width: 'to',
+		// 	options: [
+		// 		{ value: 'male', label: 'male' },
+		// 		{ value: 'female', label: 'female' },
+		// 		{ value: 'other', label: 'other (Gaaaay)' },
+		// 	],
+		// },
+		// {
+		// 	name: 'Age',
+		// 	type: 'select',
+		// 	width: 'to',
+		// 	// options: createList(10, 90),
+		// },
+		// { name: 'PROFILE Img', type: 'upload', width: 'to' },
 	];
 </script>
 <template>
