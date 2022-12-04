@@ -9,7 +9,7 @@ require('dotenv').config();
 // error handler
 require('express-async-errors');
 
-const {  } = require('./middlewares');
+const {  } = require('./middlewares/index.js');
 
 // enable cors
 app.use(cors());

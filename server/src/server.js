@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
-const http = require('http');
+import { createServer } from 'http';
 
-const stoppable = require('stoppable');
+import stoppable from 'stoppable';
 
-const app = require('./app');
+// import app, { set } from './app';
 
-const normalizePort = require('./utils/normalize-port');
+import normalizePort from './utils/normalize-port.js';
 
-const gracefulShutdown = require('./utils/graceful-shutdown');
+import gracefulShutdown from './utils/graceful-shutdown';
 
 /**
  * Get port from environment and store in Express.
@@ -15,13 +15,13 @@ const gracefulShutdown = require('./utils/graceful-shutdown');
 
 const port = normalizePort(process.env.PORT || '3000');
 
-app.set('port', port);
+set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-const server = http.createServer(app);
+const server = createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -1,7 +1,7 @@
 /**
  * Normalize a port into a number, string, or false.
  */
-module.exports = (val) => {
+const normalizePort = (val) => {
   const port = parseInt(val, 10);
   if (Number.isNaN(port)) {
     // named pipe
@@ -13,3 +13,5 @@ module.exports = (val) => {
   }
   return false;
 };
+
+export default normalizePort;

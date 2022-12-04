@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { makeExpressCallback } = require('../../middlewares');
+const { makeExpressCallback } = require('../../middlewares/index.js');
 
 // validator
 const AuthValidator = require('./auth.validator');
@@ -16,6 +16,7 @@ const routes = require('./auth.routes')({
   router,
   AuthController,
   AuthValidator,
+  ()=>{},
   makeExpressCallback
 });
 

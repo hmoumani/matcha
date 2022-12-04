@@ -9,9 +9,9 @@
  * @returns {ExpressRouter}
  */
 module.exports = ({ router, AuthController, AuthValidator, makeValidatorCallback, makeExpressCallback }) => {
-  // router.post('/login', makeValidatorCallback(AuthValidator.validateLogin), makeExpressCallback(AuthController.login));
-  router.get("/about", function (req, res) {
-    res.send("About this wiki");
-  });
+  router.post('/login', makeValidatorCallback(AuthValidator.validateLogin), makeExpressCallback(AuthController.login));
+  // router.get("/about", function (req, res) {
+  //   res.send("About this wiki");
+  // });
   return router;
 };
