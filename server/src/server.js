@@ -3,11 +3,11 @@ import { createServer } from 'http';
 
 import stoppable from 'stoppable';
 
-// import app, { set } from './app';
+import app from './app.js';
 
 import normalizePort from './utils/normalize-port.js';
 
-import gracefulShutdown from './utils/graceful-shutdown';
+import gracefulShutdown from './utils/graceful-shutdown.js';
 
 /**
  * Get port from environment and store in Express.
@@ -15,7 +15,7 @@ import gracefulShutdown from './utils/graceful-shutdown';
 
 const port = normalizePort(process.env.PORT || '3000');
 
-set('port', port);
+app.set('port', port);
 
 /**
  * Create HTTP server.

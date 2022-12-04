@@ -1,4 +1,4 @@
-module.exports = async (server) => {
+export default async (server) => {
   try {
     await server.close();
     process.exit();

@@ -67,7 +67,7 @@ class InternalServerError extends APIError {
   }
 }
 
-module.exports = {
+export default {
   APIError,
   ConflictError,
   ForbiddenError,

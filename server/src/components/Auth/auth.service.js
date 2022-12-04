@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs');
-const JwtService = require('./jwt.service');
-const { BadRequestError, NotFoundError } = require('../../utils/api-errors');
+import bcrypt from "bcryptjs";
+import JwtService from "./jwt.service";
+import { BadRequestError, NotFoundError } from "../../utils/api-errors";
 
 const AuthService = {
   /**
@@ -42,4 +42,4 @@ const AuthService = {
   }
 };
 
-module.exports = AuthService;
+export default AuthService;

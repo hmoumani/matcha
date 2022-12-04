@@ -1,6 +1,7 @@
 // Routes
-const { API_PREFIX } = require('config');
-const { AuthRoutes } = require('../components/Auth/auth.module');
+// import { API_PREFIX } from "./config"; TODO
+const API_PREFIX = '/api/v1';
+import { AuthRoutes } from "../components/Auth/auth.module";
 
 const routes = [
   {
@@ -9,7 +10,7 @@ const routes = [
   }
 ];
 
-module.exports = (app) => {
+export default (app) => {
   routes.forEach((route) => {
     app.use(API_PREFIX + route.path, route.route);
   });

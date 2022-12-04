@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
-const { JWT_ACCESS_TOKEN_SECRET, JWT_SIGN_OPTIONS } = require('config');
-const { BadRequestError } = require('../../utils/api-errors');
+import jwt from "jsonwebtoken";
+import { JWT_ACCESS_TOKEN_SECRET, JWT_SIGN_OPTIONS } from "config";
+import { BadRequestError } from "../../utils/api-errors";
 
 const generateJWT = async ({ payload, secretKey = JWT_ACCESS_TOKEN_SECRET, signOption = JWT_SIGN_OPTIONS }) => {
   try {

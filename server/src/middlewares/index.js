@@ -1,5 +1,5 @@
-// import makeValidatorCallback from './validator-callback';
+import makeValidatorCallback from './validator-callback';
 
-// export default {
-//     makeValidatorCallback
-// }
+export default {
+    makeValidatorCallback
+}

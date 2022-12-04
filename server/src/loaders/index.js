@@ -1,5 +1,5 @@
-const Config = require('./config');
-const Routes = require('./routes');
+import Config from "./config";
+import Routes from "./routes";
 
 module.exports = {
   Config,

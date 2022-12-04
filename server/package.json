@@ -7,7 +7,7 @@
   "scripts": {
     "test": "NODE_CONFIG_DIR=./src/config vitest --run --reporter verbose",
     "coverage": "vitest run --coverage",
-    "start": "nodemon -L ./src/server.js",
+    "start": "nodemon -L --es-module-specifier-resolution=node ./src/server.js",
     "lint": "./node_modules/.bin/eslint .",
     "migrate": "sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo",

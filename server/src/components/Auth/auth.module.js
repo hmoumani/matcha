@@ -1,26 +1,25 @@
-const router = require('express').Router();
+import { router } from "express";
 
-const { makeExpressCallback } = require('../../middlewares/index.js');
+import { makeExpressCallback } from "../../middlewares/index";
 
 // validator
-const AuthValidator = require('./auth.validator');
+import AuthValidator from "./auth.validator";
 
 // service
-const AuthService = require('./auth.service');
+import AuthService from "./auth.service";
 
 // controller
-const AuthController = require('./auth.controller');
+import AuthController from "./auth.controller";
 
 // routes
 const routes = require('./auth.routes')({
   router,
   AuthController,
   AuthValidator,
-  ()=>{},
   makeExpressCallback
 });
 
-module.exports = {
+export default {
   AuthController,
   AuthService,
   AuthRoutes: routes

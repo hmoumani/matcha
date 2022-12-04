@@ -21,6 +21,6 @@ const validateLogin = (httpRequest) => {
   return schema.validate(httpRequest.body, options);
 };
 
-module.exports = {
+export default {
   validateLogin
 };
