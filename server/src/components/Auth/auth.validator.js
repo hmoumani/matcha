@@ -13,11 +13,9 @@ const options = {
 
 const validateLogin = (httpRequest) => {
   const schema = Joi.object({
-    phone: Joi.string()
-      .required()
-      .messages({
-        'string.pattern.base': 'Provide valid phone number!'
-      }),
+    username: Joi.string().required().messages({
+      'string.pattern.base': 'Provide valid username'
+    }),
     password: Joi.string().min(8).max(20).alphanum().required()
   });
   return schema.validate(httpRequest.body, options);

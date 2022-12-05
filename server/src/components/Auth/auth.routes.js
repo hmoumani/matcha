@@ -10,8 +10,5 @@
  */
 export default ({ router, AuthController, AuthValidator, makeValidatorCallback, responseCallback }) => {
   router.post('/login', makeValidatorCallback(AuthValidator.validateLogin), responseCallback(AuthController.login));
-  // router.get("/about", function (req, res) {
-  //   res.send("About this wiki");
-  // });
   return router;
 };

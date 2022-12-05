@@ -1,6 +1,6 @@
 // Routes
 const API_PREFIX = '/api/v1';
-import { AuthRoutes } from "../components/Auth/auth.module";
+import { AuthRoutes } from '../components/Auth/auth.module';
 
 const routes = [
   {
