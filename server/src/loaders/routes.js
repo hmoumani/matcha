@@ -1,5 +1,4 @@
 // Routes
-// import { API_PREFIX } from "./config"; TODO
 const API_PREFIX = '/api/v1';
 import { AuthRoutes } from "../components/Auth/auth.module";
 

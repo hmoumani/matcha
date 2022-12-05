@@ -1,7 +1,3 @@
-import bcrypt from "bcryptjs";
-import JwtService from "./jwt.service";
-import { BadRequestError, NotFoundError } from "../../utils/api-errors";
-
 const AuthService = {
   /**
    * Login a user and generate token.
@@ -12,33 +8,8 @@ const AuthService = {
    * @throws {NotFoundError} When the user is not found.
    */
 
-  doLogin: async (requestBody) => {
-    const { phone, password } = requestBody;
-    const user = await User.findOne({
-      where: {
-        phone
-      }
-    });
-    if (!user) {
-      throw new NotFoundError('User not found');
-    }
-    const isValidPass = bcrypt.compareSync(password, user.password);
-    if (!isValidPass) {
-      throw new BadRequestError('Username or Password is invalid!');
-    }
-
-    const payload = {
-      userId: user.id,
-      role: user.role
-    };
-
-    const accessToken = await JwtService.generateJWT({
-      payload
-    });
-    return {
-      accessToken,
-      ...payload
-    };
+  login: async (requestBody) => {
+    return "hello world";
   }
 };
 

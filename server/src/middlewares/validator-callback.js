@@ -1,4 +1,6 @@
-import { BadRequestError } from '../utils/api-errors';
+import  status  from '../utils/api-errors';
+
+const {BadRequestError} =status;
 
 export default (validator) => (req, res, next) => {
   const httpRequest = {

@@ -9,7 +9,7 @@ const AuthController = {
    * @returns {Promise.<ControllerResponse> }
    */
   login: async (httpRequest) => {
-    const loginData = await AuthService.doLogin(httpRequest.body);
+    const loginData = await AuthService.login(httpRequest.body);
     return {
       statusCode: 200,
       body: {

@@ -4,12 +4,14 @@ const app = express();
 
 import cors from 'cors';
 
-// require('dotenv').config(); TODO
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // error handler
 import 'express-async-errors';
 
-import {} from './middlewares/index.js';
+import {} from './middlewares/index';
 
 // enable cors
 app.use(cors());
@@ -17,13 +19,9 @@ app.use(cors());
 // parse json body
 app.use(express.json());
 
-// load routes TODO
-import setupRoutes from './loaders/routes.js';
+// load routes
+import setupRoutes from './loaders/routes';
 
 setupRoutes(app);
-
-// load and validate env variables TODO
-// require('./loaders/config');
-import './loaders/config.js';
 
 export default app;

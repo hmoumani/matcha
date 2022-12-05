@@ -3,11 +3,11 @@ import { createServer } from 'http';
 
 import stoppable from 'stoppable';
 
-import app from './app.js';
+import app from './app';
 
-import normalizePort from './utils/normalize-port.js';
+import normalizePort from './utils/normalize-port';
 
-import gracefulShutdown from './utils/graceful-shutdown.js';
+import gracefulShutdown from './utils/graceful-shutdown';
 
 /**
  * Get port from environment and store in Express.

@@ -1,4 +1,7 @@
-const Joi = require('@hapi/joi').extend(require('@hapi/joi-date'));
+import joi from '@hapi/joi';
+import hapi from '@hapi/joi-date';
+
+const Joi = joi.extend(hapi);
 
 const options = {
   errors: {
@@ -11,7 +14,6 @@ const options = {
 const validateLogin = (httpRequest) => {
   const schema = Joi.object({
     phone: Joi.string()
-      .pattern(/^[6-9]\d{9}$/)
       .required()
       .messages({
         'string.pattern.base': 'Provide valid phone number!'
