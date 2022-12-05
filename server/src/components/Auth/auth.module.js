@@ -14,6 +14,7 @@ import AuthService from "./auth.service";
 import AuthController from "./auth.controller";
 import setupAuthRoutes from "./auth.routes";
 
+
 const {makeValidatorCallback, responseCallback} = middlewares;
 
 // routes
