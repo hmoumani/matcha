@@ -11,8 +11,6 @@ dotenv.config();
 // error handler
 import 'express-async-errors';
 
-import {} from './middlewares/index';
-
 // enable cors
 app.use(cors());
 
