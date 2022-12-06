@@ -14,7 +14,7 @@
 	<label for="email" class="block text-sm font-medium text-gray-700">{{
 		label
 	}}</label>
-	<div class="mt-1 mb-4">
+	<div class="mt-1 mb-2">
 		<input
 			id="email"
 			name="email"

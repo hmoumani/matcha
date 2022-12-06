@@ -2,11 +2,15 @@
 	import { useAuthStore } from '../store/auth.ts';
 	let fields = ref([
 		{ name: 'Username', type: 'text', value: '' },
+		{ name: 'First Name', type: 'text', value: '', width:'half' },
+		{ name: 'Last Name', type: 'text', value: '', width:'half'},
+		{ name: 'Email', type: 'email', value: '' },
 		{ name: 'Password', type: 'password', value: '' },
 	]);
 	let { logIn } = useAuthStore();
 
 	const login = () => {
+		console.log({fields})
 		const [username, password] = fields.value;
 		logIn(username.value, password.value);
 	};
@@ -36,17 +40,17 @@
 							<div class="flex-auto px-4 lg:px-10 pt-2 pb-0">
 								<Form
 									:fields="fields"
-									title="Sign In"
+									title="Sign up"
 									@submit.prevent="login"
 								/>
 							</div>
 							<hr class="mt-6 border-b-1 border-gray-400" />
 							<div class="flex">
 								<div class="w-1/2">
-									<Button link="/reset">Forgot Password ?</Button>
+									<Button link="/Reset">Forgot Password ?</Button>
 								</div>
 								<div class="w-1/2 text-right">
-									<Button link="/Register">Create new account ?</Button>
+									<Button link="/Login">Already Have An Account?</Button>
 								</div>
 							</div>
 						</div>

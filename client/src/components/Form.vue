@@ -11,6 +11,7 @@
 			:label="field.name"
 			:type="field.type"
 			v-model="field.value"
+			:class="[field.width === 'half' ? '!w-1/2' : ' w-d1/2']"
 		/>
 		<div className="text-center mt-6">
 			<input
