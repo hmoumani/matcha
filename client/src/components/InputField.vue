@@ -1,10 +1,11 @@
 <script setup>
 	defineProps({
 		label: String,
+		type: String,
 		modelValue: String,
 	});
 
-	const emit = defineEmits(['updateValue']);
+	const emit = defineEmits(['update:updateValue']);
 	const updateValue = event => {
 		emit('update:modelValue', event.target.value);
 	};
@@ -17,8 +18,8 @@
 		<input
 			id="email"
 			name="email"
-			type="email"
-			autocomplete="email"
+			:type="type"
+			autocomplete="off"
 			required=""
 			class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 			:value="modelValue"

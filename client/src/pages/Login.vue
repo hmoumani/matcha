@@ -1,8 +1,15 @@
 <script setup>
+	import { useAuthStore } from '../store/auth.ts';
 	let fields = ref([
 		{ name: 'Username', type: 'text', value: '' },
-		{ name: 'Password', type: 'text', value: '' },
+		{ name: 'Password', type: 'password', value: '' },
 	]);
+	let { logIn } = useAuthStore();
+
+	const login = () => {
+		const [username, password] = fields.value;
+		logIn(username.value, password.value);
+	};
 </script>
 <template>
 	<div class="h-screen">
@@ -28,7 +35,11 @@
 								</div>
 							</div>
 							<div class="flex-auto px-4 lg:px-10 pt-2 pb-0">
-								<Form :fields="fields" title="Sign In" />
+								<Form
+									:fields="fields"
+									title="Sign In"
+									@submit.prevent="login"
+								/>
 							</div>
 							<hr class="mt-6 border-b-1 border-gray-400" />
 							<div class="flex">

@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia';
+import { login } from '../services/authService';
 
-export const useStore = defineStore('auth', {
+export const useAuthStore = defineStore('auth', {
 	state: () => ({
 		user: null,
 	}),
 	actions: {
-		login() {},
+		logIn(username: string, password: string) {
+			console.log(username, password);
+			login(username, password);
+		},
 	},
 });
