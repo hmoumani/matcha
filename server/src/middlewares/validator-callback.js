@@ -1,6 +1,4 @@
-import  status  from '../utils/api-errors';
-
-const {BadRequestError} =status;
+import HttpStatusCode from '../enums/HttpStatusCode';
 
 export default (validator) => (req, res, next) => {
   const httpRequest = {
@@ -10,7 +8,10 @@ export default (validator) => (req, res, next) => {
   };
   const { error, value } = validator(httpRequest);
   if (error) {
-    throw new BadRequestError(error.message);
+    res.status(HttpStatusCode.BAD_REQUEST).json({
+      message: error.message,
+      status: HttpStatusCode.BAD_REQUEST
+    });
   }
   req.body = value;
   return next();
