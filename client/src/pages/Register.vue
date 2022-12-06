@@ -2,17 +2,15 @@
 	import { useAuthStore } from '../store/auth.ts';
 	let fields = ref([
 		{ name: 'Username', type: 'text', value: '' },
-		{ name: 'First Name', type: 'text', value: '', width:'half' },
-		{ name: 'Last Name', type: 'text', value: '', width:'half'},
+		{ name: 'First Name', type: 'text', value: '', width: 'half' },
+		{ name: 'Last Name', type: 'text', value: '', width: 'half' },
 		{ name: 'Email', type: 'email', value: '' },
 		{ name: 'Password', type: 'password', value: '' },
 	]);
-	let { logIn } = useAuthStore();
+	let { register } = useAuthStore();
 
-	const login = () => {
-		console.log({fields})
-		const [username, password] = fields.value;
-		logIn(username.value, password.value);
+	const getInputsValues = fields => {
+		return fields.map(field => field.value);
 	};
 </script>
 <template>
@@ -41,16 +39,20 @@
 								<Form
 									:fields="fields"
 									title="Sign up"
-									@submit.prevent="login"
+									@submit.prevent="register(getInputsValues())"
 								/>
 							</div>
 							<hr class="mt-6 border-b-1 border-gray-400" />
 							<div class="flex">
 								<div class="w-1/2">
-									<Button link="/Reset">Forgot Password ?</Button>
+									<Button link="/Reset"
+										>Forgot Password ?</Button
+									>
 								</div>
 								<div class="w-1/2 text-right">
-									<Button link="/Login">Already Have An Account?</Button>
+									<Button link="/Login"
+										>Already Have An Account?</Button
+									>
 								</div>
 							</div>
 						</div>

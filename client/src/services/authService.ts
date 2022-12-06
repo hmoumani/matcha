@@ -5,3 +5,9 @@ export const login = async (username: string, password: string) =>
 		username,
 		password,
 	});
+
+export const registerUser = async (username: string, password: string) =>
+	apiClient.post('/auth/login', {
+		username,
+		password,
+	});

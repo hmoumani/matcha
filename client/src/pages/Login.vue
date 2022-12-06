@@ -43,10 +43,14 @@
 							<hr class="mt-6 border-b-1 border-gray-400" />
 							<div class="flex">
 								<div class="w-1/2">
-									<Button link="/reset">Forgot Password ?</Button>
+									<Button link="/reset"
+										>Forgot Password ?</Button
+									>
 								</div>
 								<div class="w-1/2 text-right">
-									<Button link="/Register">Create new account ?</Button>
+									<Button link="/Register"
+										>Create new account ?</Button
+									>
 								</div>
 							</div>
 						</div>
