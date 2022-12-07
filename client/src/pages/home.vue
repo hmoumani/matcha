@@ -3,7 +3,7 @@
 
 <template>
 	<div class="grid place-items-center min-h-[80vh]">
-		home
+		Welcome home
 	</div>
 </template>
 
