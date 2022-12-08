@@ -13,7 +13,7 @@
 				:label="field.name"
 				:type="field.type"
 				v-model="field.value"
-				:class="{ '!w-1/2 float-right pr-4': field && field.width === 'half' }"
+				:class="{ '!w-1/2 float-left pr-4': field && field.width === 'half' }"
 			/>
 		<!-- </div> -->
 		<!-- :class="{ '!w-1/2': (field && field.width === 'half') }" -->

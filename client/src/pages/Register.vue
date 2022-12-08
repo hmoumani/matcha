@@ -1,16 +1,33 @@
 <script setup>
 	import { useAuthStore } from '../store/auth.ts';
 	let fields = ref([
-		{ name: 'Username', type: 'text', value: '' },
-		{ name: 'First Name', type: 'text', value: '', width: 'half' },
-		{ name: 'Last Name', type: 'text', value: '', width: 'half' },
-		{ name: 'Email', type: 'email', value: '' },
-		{ name: 'Password', type: 'password', value: '' },
+		{ name: 'Username', type: 'text', key: 'username', value: 'd' },
+		{
+			name: 'First Name',
+			type: 'text',
+			key: 'first_name',
+			value: 'd',
+			width: 'half',
+		},
+		{
+			name: 'Last Name',
+			type: 'text',
+			key: 'last_name',
+			value: 'd',
+			width: 'half',
+		},
+		{ name: 'Email', type: 'email', key: 'email', value: 'd@d.c' },
+		{ name: 'Password', type: 'password', key: 'password', value: 'd' },
 	]);
 	let { register } = useAuthStore();
 
-	const getInputsValues = fields => {
-		return fields.map(field => field.value);
+	const getInputsValues = () => {
+		let newObj = {};
+		for (let field of fields.value) {
+			let { key, value } = field;
+			newObj[key] = value;
+		}
+		return newObj;
 	};
 </script>
 <template>
@@ -39,7 +56,9 @@
 								<Form
 									:fields="fields"
 									title="Sign up"
-									@submit.prevent="register(getInputsValues())"
+									@submit.prevent="
+										register(getInputsValues())
+									"
 								/>
 							</div>
 							<hr class="mt-6 border-b-1 border-gray-400" />
