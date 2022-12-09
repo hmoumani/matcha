@@ -3,7 +3,7 @@
 	let fields = ref([
 		{ name: 'Email', type: 'email', value: '', key: 'email' },
 	]);
-	let { logIn } = useAuthStore();
+	let { requestPasswordReset } = useAuthStore();
 </script>
 <template>
 	<div class="h-screen">
@@ -31,7 +31,9 @@
 								<Form
 									:fields="fields"
 									title="Reset Password"
-									@submit.prevent="login"
+									@submit.prevent="
+										requestPasswordReset(fields[0].value)
+									"
 								/>
 							</div>
 							<hr class="mt-6 border-b-1 border-gray-400" />

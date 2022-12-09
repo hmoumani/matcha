@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { login, registerUser } from '../services/authService';
+import { login, registerUser, requestPasswordReset } from '../services/authService';
 
 export const useAuthStore = () => {
 	const router = useRouter();
@@ -16,6 +16,10 @@ export const useAuthStore = () => {
 				// TODO : catch will be removed;
 				await registerUser(newUser).catch(e => {console.log({e})});
 				router.push({ path:'/ConfirmationEmailSent' });
+			},
+			async requestPasswordReset(email:string){
+				await requestPasswordReset(email);
+				router.push({ path:'/ResetEmailSent' });
 			}
 		},
 	}))()
