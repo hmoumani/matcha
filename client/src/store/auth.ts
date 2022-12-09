@@ -13,8 +13,9 @@ export const useAuthStore = () => {
 				login(username, password);
 			},
 			async register(newUser){
-				await registerUser(newUser).catch();
-				router.push({ path:'/EmailSent' }); 
+				// TODO : catch will be removed;
+				await registerUser(newUser).catch(e => {console.log({e})});
+				router.push({ path:'/EmailSent' });
 			}
 		},
 	}))()
