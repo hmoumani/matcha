@@ -18,7 +18,7 @@
 				{{ user.distance }} from you.
 			</div>
 			<div class="text-lg">{{ user.bio }} from you.</div>
-			<div>Passions</div> 
+			<div>Passions: </div> 
 		</div>
 	</div>
 </template>
