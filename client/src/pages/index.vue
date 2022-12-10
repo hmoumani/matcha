@@ -16,7 +16,7 @@
 			</div>
 			<div class="text-md text-[#B7B5BF]">
 				{{ user.distance }} from you.
-			</div> 
+			</div>  
 			<div class="text-lg">{{ user.bio }} from you.</div>
 			<div>Passions: </div> 
 		</div>
