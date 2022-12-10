@@ -11,7 +11,7 @@
 <template>
 	<div class="bg-[#F6F7FF] h-screen">
 		<div class="w-5/12 bg-white  px-10 py-20 shadow-black shadow-sm">
-			<div class="text-2xl">
+			<div class="text-2xl"> 
 				{{ user.first_name }} {{ user.last_name }}, {{ user.age }}
 			</div>
 			<div class="text-md text-[#B7B5BF]">
