@@ -11,3 +11,6 @@ export const registerUser = newUser =>
 
 export const requestPasswordReset = email =>
 	apiClient.post('/auth/resetPassword', { email });
+
+export const changePassword = payload =>
+	apiClient.post('/auth/updatePassword', { ...payload });

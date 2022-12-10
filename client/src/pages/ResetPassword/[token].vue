@@ -1,8 +1,16 @@
 <script setup>
-	defineProps({
-		mainHeader: String,
-		secondaryHeader: String,
-	});
+	import { useAuthStore } from '@/store/auth.ts';
+	let fields = ref([
+		{ name: 'New Password', type: 'password', value: '', key: 'password' },
+	]);
+	let { changePassword } = useAuthStore();
+
+	const route = useRoute();
+
+	const resetPassword = () => {
+		let { token } = route.params;
+		changePassword(fields.value[0].value, token);
+	};
 </script>
 <template>
 	<div class="h-screen">
@@ -14,25 +22,36 @@
 				<div
 					class="flex content-center items-center justify-center h-full"
 				>
-					<div class="w-full lg:w-4/12">
+					<div class="w-full lg:w-4/12 px-4">
 						<div
 							class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-50 border-0"
 						>
 							<div class="rounded-t mb-0 px-6 py-6">
 								<div class="text-center mb-3">
 									<img
-										src="/openEmail.png"
-										class="w-39 mx-auto"
+										src="/assets/logo.svg"
+										class="w-12 mx-auto"
 									/>
 								</div>
 							</div>
-							<div class="text-2xl mx-auto font-bold">
-								{{ mainHeader }}
-							</div>
-							<div class="flex-auto mx-auto pt-4 text-lg">
-								{{ secondaryHeader }}
+							<div class="flex-auto px-4 lg:px-10 pt-2 pb-0">
+								<Form
+									:fields="fields"
+									title="Reset Password"
+									@submit.prevent="resetPassword"
+								/>
 							</div>
 							<hr class="mt-6 border-b-1 border-gray-400" />
+							<div class="flex">
+								<div class="w-1/2">
+									<Button link="/Login">Log in</Button>
+								</div>
+								<div class="w-1/2 text-right">
+									<Button link="/Register"
+										>Create new account ?</Button
+									>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

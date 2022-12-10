@@ -32,11 +32,12 @@ declare module '@vue-router/routes' {
     'home': RouteRecordInfo<'home', '/', Record<never, never>, Record<never, never>>,
     'not-found': RouteRecordInfo<'not-found', '/:all(.*)', { all: ParamValue<true> }, { all: ParamValue<false> }>,
     '/ConfirmationEmailSent': RouteRecordInfo<'/ConfirmationEmailSent', '/ConfirmationEmailSent', Record<never, never>, Record<never, never>>,
-    'home': RouteRecordInfo<'home', '/home', Record<never, never>, Record<never, never>>,
     '/Login': RouteRecordInfo<'/Login', '/Login', Record<never, never>, Record<never, never>>,
     '/Register': RouteRecordInfo<'/Register', '/Register', Record<never, never>, Record<never, never>>,
     '/Reset': RouteRecordInfo<'/Reset', '/Reset', Record<never, never>, Record<never, never>>,
     '/ResetEmailSent': RouteRecordInfo<'/ResetEmailSent', '/ResetEmailSent', Record<never, never>, Record<never, never>>,
+    '/ResetPassword/[token]': RouteRecordInfo<'/ResetPassword/[token]', '/ResetPassword/:token', { token: ParamValue<true> }, { token: ParamValue<false> }>,
+    '/ResetPassword/success': RouteRecordInfo<'/ResetPassword/success', '/ResetPassword/success', Record<never, never>, Record<never, never>>,
   }
 }
 
