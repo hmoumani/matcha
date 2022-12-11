@@ -8,20 +8,23 @@
 		</slide>
 
 		<template #addons>
-			<!-- <navigation /> -->
 			<div
-				class="absolute top-[50%] text-white flex justify-between w-full"
+				class="absolute top-[50%] text-white flex justify-between w-full px-3 text-3xl"
 			>
-				<FontAwesomeIcon
-					@click="next"
-					icon="fa-solid fa-arrow-right"
-					class="text-black bg-[#F8F7FF] action px-10"
-				/>
-                <FontAwesomeIcon
-					@click="next"
-					icon="fa-solid fa-arrow-left"
-					class="text-black bg-[#F8F7FF] action px-10"
-				/>
+				<div>
+					<FontAwesomeIcon
+						v-if="currentSlide !== 0"
+						@click="prev"
+						icon="fa-solid fa-arrow-left"
+					/>
+				</div>
+				<div>
+					<FontAwesomeIcon
+						v-if="currentSlide !== (avatars.length - 1)"
+						@click="next"
+						icon="fa-solid fa-arrow-right"
+					/>
+				</div>
 			</div>
 			<pagination />
 		</template>
@@ -29,6 +32,7 @@
 </template>
 
 <script setup>
+	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 	// If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
 	import 'vue3-carousel/dist/carousel.css';
 	import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
@@ -42,3 +46,13 @@
 	const next = () => currentSlide.value++;
 	const prev = () => currentSlide.value--;
 </script>
+
+<style>
+	.carousel__pagination-button::after {
+		width: 100px !important;
+		@apply bg-white mx-3;
+	}
+	svg {
+		@apply cursor-pointer;
+	}
+</style>
