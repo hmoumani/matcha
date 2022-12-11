@@ -139,7 +139,7 @@
 		</TransitionRoot>
 
 		<!-- Static sidebar for desktop -->
-		<div class="hidden md:fixed md:inset-y-0 md:flex md:w-2/12 md:flex-col">
+		<div class="hidden md:fixed md:inset-y-0 md:flex md:w-2/12 md:flex-col mt-24">
 			<!-- Sidebar component, swap this element with another sidebar if you like -->
 			<div
 				class="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white px-8"
@@ -183,7 +183,9 @@
 						</router-link>
 					</nav>
 				</div>
-				<div class="flex flex-shrink-0 border-t border-gray-200 px-4 py-8">
+				<div
+					class="flex flex-shrink-0 border-t border-gray-200 px-4 py-8"
+				>
 					<router-link
 						to="/settings"
 						class="group block w-full flex-shrink-0"
