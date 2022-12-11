@@ -66,7 +66,7 @@
 								</div>
 							</TransitionChild>
 							<div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
-								<div
+								<!-- <div
 									class="flex flex-shrink-0 items-center px-4"
 								>
 									<img
@@ -74,7 +74,7 @@
 										src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
 										alt="Your Company"
 									/>
-								</div>
+								</div> -->
 								<nav class="mt-5 space-y-1 px-2">
 									<a
 										v-for="item in navigation"
@@ -138,20 +138,23 @@
 		</TransitionRoot>
 
 		<!-- Static sidebar for desktop -->
-		<div class="hidden md:fixed md:inset-y-0 md:flex md:w-72 md:flex-col">
+		<div class="hidden md:fixed md:inset-y-0 md:flex md:w-2/12 md:flex-col">
 			<!-- Sidebar component, swap this element with another sidebar if you like -->
 			<div
-				class="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white px-4"
+				class="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white px-8"
 			>
-				<div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
-					<div class="flex flex-shrink-0 items-center px-4">
-						<img
-							class="h-8 w-auto"
-							src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-							alt="Your Company"
-						/>
-					</div>
-					<nav class="mt-5 flex-1 space-y-1 bg-white px-2">
+				<div class="flex flex-1 flex-col overflow-y-auto pt-9 pb-4">
+					<img
+						class="w-full rounded-3xl mb-2"
+						src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1600"
+						alt="Your Company"
+					/>
+					<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
+						John Doee
+					</h2>
+					<div class="text-xl text-[#B1AFBA] pl-2">New York, City.</div>
+
+					<nav class="mt-12 flex-1 space-y-1 bg-white">
 						<a
 							v-for="item in navigation"
 							:key="item.name"
@@ -222,31 +225,21 @@
 		TransitionRoot,
 	} from '@headlessui/vue';
 	import {
-		Bars3Icon,
-		CalendarIcon,
-		ChartBarIcon,
-		FolderIcon,
-		HomeIcon,
-		InboxIcon,
-		UsersIcon,
-		XMarkIcon,
 		ChatBubbleOvalLeftEllipsisIcon,
 		HeartIcon,
+		UserIcon,
 	} from '@heroicons/vue/24/solid';
 	// chat-bubble-oval-left-ellipsis
 
 	const navigation = [
 		{ name: 'Dating', href: '#', icon: HeartIcon, current: true },
-		{ name: 'Profile', href: '#', icon: UsersIcon, current: false },
+		{ name: 'Profile', href: '#', icon: UserIcon, current: false },
 		{
 			name: 'Messages',
 			href: '#',
 			icon: ChatBubbleOvalLeftEllipsisIcon,
 			current: false,
 		},
-		{ name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-		{ name: 'Documents', href: '#', icon: InboxIcon, current: false },
-		{ name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
 	];
 
 	const sidebarOpen = ref(false);
