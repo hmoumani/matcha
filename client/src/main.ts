@@ -9,11 +9,12 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 
 
 /* import specific icons */
-import { faHeart, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faXmark, faFlag } from '@fortawesome/free-solid-svg-icons';
 
 /* add icons to the library */
 library.add(faHeart);
 library.add(faXmark);
+library.add(faFlag);
 
 export const createApp = ViteSSG(
 	App,

@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
+    AvatarsSlider: typeof import('./src/components/avatarsSlider.vue')['default']
     Button: typeof import('./src/components/Button.vue')['default']
     EmailSent: typeof import('./src/components/EmailSent.vue')['default']
     Form: typeof import('./src/components/Form.vue')['default']
