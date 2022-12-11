@@ -90,7 +90,7 @@
 										<component
 											:is="item.icon"
 											:class="[
-												item.current
+												isCurrentRoute(item.href)
 													? 'text-gray-500'
 													: 'text-gray-400 group-hover:text-gray-500',
 												'mr-4 flex-shrink-0 h-6 w-6',
@@ -98,6 +98,7 @@
 											aria-hidden="true"
 										/>
 										{{ item.name }}
+										{{ item.href }}
 									</a>
 								</nav>
 							</div>
@@ -152,15 +153,17 @@
 					<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
 						John Doee
 					</h2>
-					<div class="text-xl text-[#B1AFBA] pl-2">New York, City.</div>
+					<div class="text-xl text-[#B1AFBA] pl-2">
+						New York, City.
+					</div>
 
 					<nav class="mt-12 flex-1 space-y-1 bg-white">
-						<a
+						<router-link
 							v-for="item in navigation"
 							:key="item.name"
-							:href="item.href"
+							:to="item.href"
 							:class="[
-								item.current
+								isCurrentRoute(item.href)
 									? 'bg-[#F5F6FF]'
 									: 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
 								'mb-2 group flex items-center p-4 text-sm font-medium rounded-xl',
@@ -169,7 +172,7 @@
 							<component
 								:is="item.icon"
 								:class="[
-									item.current
+									isCurrentRoute(item.href)
 										? 'text-[#5C5EED]'
 										: 'text-gray-400 group-hover:text-gray-500',
 									'font-bold mr-3 flex-shrink-0 h-6 w-6',
@@ -177,10 +180,10 @@
 								aria-hidden="true"
 							/>
 							<div class="text-xl">{{ item.name }}</div>
-						</a>
+						</router-link>
 					</nav>
 				</div>
-				<div class="flex flex-shrink-0 border-t border-gray-200 p-4">
+				<div class="flex flex-shrink-0 border-t border-gray-200 px-4 py-8">
 					<router-link
 						to="/settings"
 						class="group block w-full flex-shrink-0"
@@ -232,15 +235,21 @@
 	// chat-bubble-oval-left-ellipsis
 
 	const navigation = [
-		{ name: 'Dating', href: '#', icon: HeartIcon, current: true },
-		{ name: 'Profile', href: '#', icon: UserIcon, current: false },
+		{ name: 'Dating', href: '/', icon: HeartIcon },
+		{ name: 'Profile', href: '/profile', icon: UserIcon },
 		{
 			name: 'Messages',
-			href: '#',
+			href: '/messages',
 			icon: ChatBubbleOvalLeftEllipsisIcon,
-			current: false,
 		},
 	];
 
 	const sidebarOpen = ref(false);
+
+	const router = useRouter();
+	console.log(router.currentRoute.value.path);
+	const isCurrentRoute = link => {
+		console.log(link, router.currentRoute.path);
+		return link === router.currentRoute.value.path;
+	};
 </script>

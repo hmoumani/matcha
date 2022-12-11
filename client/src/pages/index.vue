@@ -26,6 +26,7 @@
 </script>
 
 <template>
+	<Header />
 	<Sidebar></Sidebar>
 	<div class="bg-[#F6F7FF] h-screen pt-6">
 		<div

@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     Button: typeof import('./src/components/Button.vue')['default']
     EmailSent: typeof import('./src/components/EmailSent.vue')['default']
     Form: typeof import('./src/components/Form.vue')['default']
+    Header: typeof import('./src/components/Header.vue')['default']
     'Icon:bx:bxMoon': typeof import('~icons/bx/bx-moon')['default']
     'Icon:bx:bxsMoon': typeof import('~icons/bx/bxs-moon')['default']
     'IconAkarIcons:githubFill': typeof import('~icons/akar-icons/github-fill')['default']
