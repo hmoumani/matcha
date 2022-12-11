@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	/* import font awesome icon component */
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 	const user = {
 		first_name: 'RebiKaa',
 		last_name: 'Talon',
@@ -100,12 +101,14 @@
 		@apply cursor-pointer p-4 mx-2 rounded-xl;
 	}
 	.carousel__pagination-button {
-		@apply -mt-8 z-50 relative
+		@apply -mt-8 z-50 relative;
 	}
 	.carousel__next {
-		@apply text-white !w-32 !h-24
+		@apply text-white !w-32 !h-24;
 	}
 </style>
 <route lang="yaml">
 name: home
+meta:
+    layout: sidebar
 </route>

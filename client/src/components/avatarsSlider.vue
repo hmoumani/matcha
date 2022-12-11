@@ -20,7 +20,7 @@
 				</div>
 				<div>
 					<FontAwesomeIcon
-						v-if="currentSlide !== (avatars.length - 1)"
+						v-if="currentSlide !== avatars.length - 1"
 						@click="next"
 						icon="fa-solid fa-arrow-right"
 					/>
@@ -48,9 +48,12 @@
 </script>
 
 <style>
+	.carousel__pagination-button--active::after, .carousel__pagination-button--active:hover::after {
+		@apply !opacity-100 !bg-white;
+	}
 	.carousel__pagination-button::after {
 		width: 100px !important;
-		@apply bg-white mx-3;
+		@apply bg-white mx-3 opacity-50;
 	}
 	svg {
 		@apply cursor-pointer;
