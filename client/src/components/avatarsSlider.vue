@@ -52,7 +52,7 @@
 		@apply !opacity-100 !bg-white;
 	}
 	.carousel__pagination-button::after {
-		width: 100px !important;
+		width: 4rem !important;
 		@apply bg-white mx-3 opacity-50;
 	}
 	svg {
