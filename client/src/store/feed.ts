@@ -10,7 +10,11 @@
 
 // const currentUser = computed(() => profilesQueue.value[0]);
 
-import { getNewProfiles } from '@/services/feedService';
+import feedService, {
+	getNewProfiles,
+	likeUser,
+	unLikeUser,
+} from '@/services/feedService';
 import { defineStore } from 'pinia';
 
 export const useFeedStore = defineStore('feed', {
@@ -23,20 +27,21 @@ export const useFeedStore = defineStore('feed', {
 			this.profilesQueue.shift();
 			if (this.profilesQueue.length <= 3) {
 				// get new list
-				let newPeople = await getNewProfiles(); //.catch(e => {});
+				let newPeople = await feedService.getNewProfiles(); //.catch(e => {});
 				this.profilesQueue = this.profilesQueue.concat(newPeople);
 				console.log('new ppl list got', this.profilesQueue.length);
 			}
 			this.currentProfile = this.profilesQueue[0];
 		},
 		async likeUser() {
-			this.showNextProfile();
+			await this.showNextProfile();
+			const { id } = this.currentProfile;
+			feedService.likeUser(id);
 		},
 		async unLikeUser() {
 			this.showNextProfile();
+			const { id } = this.currentProfile;
+			feedService.unLikeUser(id);
 		},
-		async reportUser(){
-			
-		}
 	},
 });

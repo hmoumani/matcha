@@ -1,3 +1,5 @@
+import apiClient from '@/modules/apiClient';
+
 const passions = [
 	{ name: 'masturbating', isCommon: false },
 	{ name: 'football', isCommon: true },
@@ -29,12 +31,28 @@ const ppl: any = [];
 
 for (let i = 0; i < 10; i++) {
 	// user.id = i;
-	ppl.push({...user, id : i});
+	ppl.push({ ...user, id: i });
 }
 
 const shufflePeople = () => ppl.sort((a, b) => 0.5 - Math.random());
 
-export const getNewProfiles = () => {
+const getNewProfiles = () => {
 	// apiClient.get('/feed/profiles');
 	return shufflePeople();
+};
+
+const likeUser = userId =>
+	apiClient.post('/like', {
+		userId,
+	});
+
+const unLikeUser = userId =>
+	apiClient.post('/unlike', {
+		userId,
+	});
+
+export default {
+	likeUser,
+	unLikeUser,
+	getNewProfiles,
 };
