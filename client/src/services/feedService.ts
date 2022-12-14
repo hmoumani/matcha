@@ -28,7 +28,7 @@ const user = {
 const ppl: any = [];
 
 for (let i = 0; i < 10; i++) {
-    ppl.push({ user });
+    ppl.push(user);
 }
 
 const shufflePeople = () => ppl.sort((a, b) => 0.5 - Math.random());

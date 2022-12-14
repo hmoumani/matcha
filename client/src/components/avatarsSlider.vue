@@ -48,7 +48,8 @@
 </script>
 
 <style>
-	.carousel__pagination-button--active::after, .carousel__pagination-button--active:hover::after {
+	.carousel__pagination-button--active::after,
+	.carousel__pagination-button--active:hover::after {
 		@apply !opacity-100 !bg-white;
 	}
 	.carousel__pagination-button::after {
