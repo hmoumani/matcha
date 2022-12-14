@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	/* import font awesome icon component */
+	import { useFeedStore } from '@/store/feed';
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 	const { user } = defineProps({
@@ -7,6 +8,10 @@
 	});
 
 	const { userAvatars, passions } = user;
+
+	const feedStore = useFeedStore();
+
+	const { likeUser, unLikeUser } = feedStore;
 </script>
 <template>
 	<div class="bg-[#F6F7FF] h-screen overflow-hidden pt-6">
@@ -19,6 +24,7 @@
 					<div
 						class="font-medium text-[#48496B] text-2xl flex items-center gap-x-3"
 					>
+						{{user.id}}
 						{{ user.first_name }} {{ user.last_name }},
 						{{ user.age }}
 						<span class="dot bg-[#4EB3AC] w-3 h-3"></span>
@@ -59,17 +65,19 @@
 				</div>
 				<div class="text-2xl">
 					<FontAwesomeIcon
+						@click="unLikeUser"
 						icon="fa-solid fa-xmark"
 						class="text-black bg-[#F8F7FF] action px-10"
 					/>
 					<FontAwesomeIcon
+						@click="likeUser"
 						icon="fa-solid fa-heart"
 						class="text-[#4EB3AC] bg-[#D5F9F7] action"
 					/>
-					<FontAwesomeIcon
+					<!-- <FontAwesomeIcon
 						icon="fa-solid fa-flag"
 						class="text-[#E11653] bg-[#f4a8bf] action"
-					/>
+					/> -->
 				</div>
 			</div>
 		</div>

@@ -16,7 +16,7 @@ import { defineStore } from 'pinia';
 export const useFeedStore = defineStore('feed', {
 	state: () => ({
 		profilesQueue: [],
-		currentProfile:null
+		currentProfile: null,
 	}),
 	actions: {
 		async showNextProfile() {
@@ -24,16 +24,19 @@ export const useFeedStore = defineStore('feed', {
 			if (this.profilesQueue.length <= 3) {
 				// get new list
 				let newPeople = await getNewProfiles(); //.catch(e => {});
-				console.log({ newPeople });
 				this.profilesQueue = this.profilesQueue.concat(newPeople);
+				console.log('new ppl list got', this.profilesQueue.length);
 			}
-			console.log( this.profilesQueue[0])
 			this.currentProfile = this.profilesQueue[0];
 		},
+		async likeUser() {
+			this.showNextProfile();
+		},
+		async unLikeUser() {
+			this.showNextProfile();
+		},
+		async reportUser(){
+			
+		}
 	},
-	// getters: {
-	// 	currentProfile() {
-	// 		return this.profilesQueue[0];
-	// 	},
-	// },
 });
