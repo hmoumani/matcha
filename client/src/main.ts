@@ -4,6 +4,7 @@ import { ViteSSG } from 'vite-ssg';
 import '@/styles/index.css';
 import { extendedRoutes } from '@/router';
 
+
 export const createApp = ViteSSG(
 	App,
 	{ routes: extendedRoutes },
