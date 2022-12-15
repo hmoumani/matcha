@@ -19,7 +19,11 @@ export const useUserStore = defineStore('user', {
 	}),
 	actions: {
 		async getCurrentUser() {
-			this.currentUser = await userService.getUserProfile();
+			let {
+				data
+			} = await userService.getUserProfile();
+			this.currentUser = data.data.user;
+			// console.log(data.data.user);
 		},
 	},
 });
