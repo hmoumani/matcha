@@ -8,8 +8,8 @@ const AuthService = {
    * @throws {NotFoundError} When the user is not found.
    */
 
-  login: async (requestBody) => {
-    return "hello world";
+  find: async (userId) => {
+    return 'hello world';
   }
 };
 

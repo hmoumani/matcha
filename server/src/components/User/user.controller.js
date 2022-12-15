@@ -1,4 +1,4 @@
-import AuthService from "./user.service";
+import userService from "./user.service";
 
 const AuthController = {
   /**
@@ -8,12 +8,12 @@ const AuthController = {
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
    */
-  login: async (httpRequest) => {
-    const loginData = await AuthService.login(httpRequest.body);
+  find: async (userId) => {
+    const user = await userService.find(userId);
     return {
       statusCode: 200,
       body: {
-        data: loginData
+        data: user
       }
     };
   }

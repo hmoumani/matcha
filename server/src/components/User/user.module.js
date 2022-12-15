@@ -1,32 +1,32 @@
-import express from "express";
+import express from 'express';
 
 const router = express.Router();
 
-import middlewares  from "../../middlewares";
+import middlewares from '../../middlewares';
 
 // validator
-import AuthValidator from "./auth.validator";
+import AuthValidator from './user.validator';
 
 // service
-import AuthService from "./auth.service";
+import AuthService from './user.service';
 
 // controller
-import AuthController from "./auth.controller";
-import setupAuthRoutes from "./auth.routes";
+import UserController from './user.controller';
+import setupAuthRoutes from './user.routes';
 
-
-const {makeValidatorCallback, responseCallback} = middlewares;
+const { makeValidatorCallback, responseCallback } = middlewares;
 
 // routes
-export const AuthRoutes = setupAuthRoutes({
+export const UserRoutes = setupAuthRoutes({
   router,
-  AuthController,
+  UserController,
   AuthValidator,
   makeValidatorCallback,
-  responseCallback,
+  responseCallback
 });
 
 export default {
-  AuthController,
-  AuthService
+  UserController,
+  AuthService,
+  UserRoutes
 };
