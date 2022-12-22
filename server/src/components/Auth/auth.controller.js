@@ -16,6 +16,22 @@ const AuthController = {
         data: loginData
       }
     };
+  } ,
+    /**
+   * Handle logging in user.
+   * @async
+   * @method
+   * @param {ExpressRequest} httpRequest
+   * @returns {Promise.<ControllerResponse> }
+   */
+  register: async (httpRequest) => {
+    const registerData = await AuthService.register(httpRequest.body);
+    return {
+      statusCode: 200,
+      body: {
+        data: registerData
+      }
+    };
   }
 };
 

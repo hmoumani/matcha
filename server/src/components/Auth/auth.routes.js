@@ -10,6 +10,6 @@
  */
 export default ({ router, AuthController, AuthValidator, makeValidatorCallback, responseCallback }) => {
   router.post('/login', makeValidatorCallback(AuthValidator.validateLogin), responseCallback(AuthController.login));
-  router.post('/register', makeValidatorCallback(AuthValidator.validateLogin), responseCallback(AuthController.login));
+  router.post('/register', makeValidatorCallback(AuthValidator.validateRegistration), responseCallback(AuthController.register));
   return router;
 };

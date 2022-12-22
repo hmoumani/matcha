@@ -10,6 +10,9 @@ const AuthService = {
 
   login: async (requestBody) => {
     return "hello world";
+  },
+  register: async (requestBody) => {
+    return "yoo everybody";
   }
 };
 
