@@ -1,4 +1,4 @@
-import userService from "./user.service";
+import userService from './user.service';
 
 const AuthController = {
   /**
@@ -14,6 +14,23 @@ const AuthController = {
       statusCode: 200,
       body: {
         data: user
+      }
+    };
+  },
+
+  /**
+   * Handle logging in user.
+   * @async
+   * @method
+   * @param {ExpressRequest} httpRequest
+   * @returns {Promise.<ControllerResponse> }
+   */
+  like: async (userId) => {
+    const data = await userService.like(userId);
+    return {
+      statusCode: 200,
+      body: {
+        data
       }
     };
   }

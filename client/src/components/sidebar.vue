@@ -44,7 +44,6 @@
 	getCurrentUser();
 </script>
 <template>
-	<router-view></router-view>
 	<!--
       This example requires updating your template:
   

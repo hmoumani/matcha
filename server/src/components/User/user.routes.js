@@ -10,5 +10,6 @@
  */
 export default ({ router, UserController, responseCallback }) => {
   router.get('/:id', responseCallback(UserController.find));
+  router.get('/like/:id', responseCallback(UserController.like));
   return router;
 };
