@@ -12,6 +12,7 @@ export default (validator) => (req, res, next) => {
       message: error.message,
       status: HttpStatusCode.BAD_REQUEST
     });
+    return;
   }
   req.body = value;
   return next();

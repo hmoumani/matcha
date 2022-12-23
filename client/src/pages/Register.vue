@@ -1,14 +1,33 @@
 <script setup>
 	import { useAuthStore } from '../store/auth.ts';
 	let fields = ref([
-		{ name: 'Username', type: 'text', value: '' },
-		{ name: 'Password', type: 'password', value: '' },
+		{ name: 'Username', type: 'text', key: 'username', value: 'd' },
+		{
+			name: 'First Name',
+			type: 'text',
+			key: 'first_name',
+			value: 'd',
+			width: 'half',
+		},
+		{
+			name: 'Last Name',
+			type: 'text',
+			key: 'last_name',
+			value: 'd',
+			width: 'half',
+		},
+		{ name: 'Email', type: 'email', key: 'email', value: 'd@d.c' },
+		{ name: 'Password', type: 'password', key: 'password', value: 'd' },
 	]);
-	let { logIn } = useAuthStore();
+	let { register } = useAuthStore();
 
-	const login = () => {
-		const [username, password] = fields.value;
-		logIn(username.value, password.value);
+	const getInputsValues = () => {
+		let newObj = {};
+		for (let field of fields.value) {
+			let { key, value } = field;
+			newObj[key] = value;
+		}
+		return newObj;
 	};
 </script>
 <template>
@@ -36,20 +55,22 @@
 							<div class="flex-auto px-4 lg:px-10 pt-2 pb-0">
 								<Form
 									:fields="fields"
-									title="Sign In"
-									@submit.prevent="login"
+									title="Sign up"
+									@submit.prevent="
+										register(getInputsValues())
+									"
 								/>
 							</div>
 							<hr class="mt-6 border-b-1 border-gray-400" />
 							<div class="flex">
 								<div class="w-1/2">
-									<Button link="/reset"
+									<Button link="/Reset"
 										>Forgot Password ?</Button
 									>
 								</div>
 								<div class="w-1/2 text-right">
-									<Button link="/Register"
-										>Create new account ?</Button
+									<Button link="/Login"
+										>Already Have An Account?</Button
 									>
 								</div>
 							</div>
