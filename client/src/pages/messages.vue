@@ -2,6 +2,6 @@
 	<Header />
 	<div class="flex">
 		<Sidebar></Sidebar>
-		<ContactsList />
+		<ContactsList class="px-8"/>
 	</div>
 </template>

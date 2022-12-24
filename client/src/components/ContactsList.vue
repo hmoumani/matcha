@@ -13,28 +13,45 @@
 		{
 			firstName: 'Zaboo',
 			lastName: 'Diiic',
-			lastMessage: 'take it easy, life is hard and I will fuck everyone',
+			lastMessage: {
+				content: 'take it easy, life is hard and I will fuck everyone',
+				created_at: '20223',
+			},
 		},
 		{
 			firstName: 'Wlaadd',
 			lastName: 'l9haaab',
-			lastMessage: 'take it easy, life is hard and I will fuck everyone',
+			lastMessage: {
+				content: 'take it easy, life is hard and I will fuck everyone',
+				created_at: '20223',
+			},
 		},
 	];
 </script>
 <template>
 	<div>
-		<h1>Last Chats</h1>
+		<h1 class="py-4 text-xl">Last Chats</h1>
 		<div>
-			<div v-for="contact in contacts" class="flex py-2">
+			<div
+				v-for="(contact, index) of contacts"
+				class="flex py-6 px-6 rounded-md cursor-pointer"
+				:class="{
+					'bg-[#EDF0F4]': index == 0,
+					'shadow-sm': index !== 0,
+				}"
+			>
 				<img
 					class="w-12 h-12 rounded-full"
 					:src="contacts[0].avatarUrl"
 					alt=""
 				/>
 				<div class="flex flex-col pl-4">
-					<h1>{{ contact.firstName + ' ' + contact.lastName }}</h1>
-					<p>{{ contact.lastMessage.content || '' }}</p>
+					<h1 class="font-bold">
+						{{ contact.firstName + ' ' + contact.lastName }}
+					</h1>
+					<p class="text-[#B2B9C5] font-bold w-[80%] truncate">
+						{{ contact.lastMessage.content || '' }}
+					</p>
 				</div>
 			</div>
 		</div>
