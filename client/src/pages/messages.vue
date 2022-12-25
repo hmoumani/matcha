@@ -1,7 +1,8 @@
 <template>
-	<Header />
-	<div class="flex">
+	<!-- <Header /> -->
+	<div class="flex p-8">
 		<Sidebar></Sidebar>
-		<ContactsList class="px-8"/>
+		<ContactsList class="pl-7 pr-4"/>
+		<Conversation/>
 	</div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	const contacts = [
+	let contacts = [
 		{
 			firstName: 'Rebikaa',
 			lastName: 'Zin',
@@ -27,17 +27,26 @@
 			},
 		},
 	];
+
+	contacts = contacts.concat(contacts);
+	const currentContact = ref(0);
+
+	const updateCurrentContact = (contact, index) => {
+		currentContact.value = index;	
+	};
 </script>
 <template>
 	<div>
-		<h1 class="py-4 text-xl">Last Chats</h1>
+		<searchContacts/>
+		<h1 class="py-4 text-xl text-[#3C444B] font-medium">Last Chats</h1>
 		<div>
 			<div
 				v-for="(contact, index) of contacts"
-				class="flex py-6 px-6 rounded-md cursor-pointer"
+				@click="updateCurrentContact(contact, index)"
+				class="flex py-6 px-6 rounded-xl cursor-pointer"
 				:class="{
-					'bg-[#EDF0F4]': index == 0,
-					'shadow-sm': index !== 0,
+					'bg-[#EDF0F4]': index == currentContact,
+					'shadow-sm': index !== currentContact,
 				}"
 			>
 				<img
@@ -49,7 +58,7 @@
 					<h1 class="font-bold">
 						{{ contact.firstName + ' ' + contact.lastName }}
 					</h1>
-					<p class="text-[#B2B9C5] font-bold w-[80%] truncate">
+					<p class="text-grey-color font-bold w-[80%] truncate">
 						{{ contact.lastMessage.content || '' }}
 					</p>
 				</div>
