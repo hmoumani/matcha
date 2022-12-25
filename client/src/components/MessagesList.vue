@@ -24,7 +24,7 @@
 					class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
 					:class="
 						isCurrentUserMessage(message.sender_id)
-							? 'bg-grey-color'
+							? 'bg-black-color'
 							: 'bg-white'
 					"
 				>

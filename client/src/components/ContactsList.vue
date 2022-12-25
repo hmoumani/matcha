@@ -32,21 +32,21 @@
 	const currentContact = ref(0);
 
 	const updateCurrentContact = (contact, index) => {
-		currentContact.value = index;	
+		currentContact.value = index;
 	};
 </script>
 <template>
 	<div>
-		<searchContacts/>
+		<searchContacts />
 		<h1 class="py-4 text-xl text-[#3C444B] font-medium">Last Chats</h1>
 		<div>
 			<div
 				v-for="(contact, index) of contacts"
 				@click="updateCurrentContact(contact, index)"
-				class="flex py-6 px-6 rounded-xl cursor-pointer"
+				class="flex py-6 px-6 rounded-xl cursor-pointer shadow-sm"
 				:class="{
 					'bg-[#EDF0F4]': index == currentContact,
-					'shadow-sm': index !== currentContact,
+					'': index !== currentContact,
 				}"
 			>
 				<img
@@ -55,10 +55,10 @@
 					alt=""
 				/>
 				<div class="flex flex-col pl-4">
-					<h1 class="font-bold">
+					<h1 class="font-medium">
 						{{ contact.firstName + ' ' + contact.lastName }}
 					</h1>
-					<p class="text-grey-color font-bold w-[80%] truncate">
+					<p class="text-black-color font-bold w-[80%] truncate">
 						{{ contact.lastMessage.content || '' }}
 					</p>
 				</div>
