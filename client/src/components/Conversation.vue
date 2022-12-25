@@ -26,7 +26,8 @@
 			created_at: '2022-03-34',
 		},
 		{
-			message: 'naaah bruh wtf?',
+			message:
+				'naaah bruh wtf? How could you do dat?? ffs I know its was going to happen yeaaah... naaah bruh wtf? How could you do dat?? ffs I know its was going to happen ',
 			sender_id: 3,
 			receiver_id: 4,
 			created_at: '2022-03-34',
