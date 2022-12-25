@@ -32,12 +32,12 @@
 			created_at: '2022-03-34',
 		},
 	];
-	// messages = messages.concat(messages)
-	// messages = messages.concat(messages)
+	messages = messages.concat(messages);
+	messages = messages.concat(messages);
 </script>
 <template>
-	<div class="bg-[#ECF0F4] w-[50%] rounded-xl h-[800px]">
-		<MessagesList :messages="messages" class="h-[89%]" />
+	<div class="bg-[#ECF0F4] w-[100%] rounded-xl h-[51rem]">
+		<MessagesList :messages="messages" class="h-[91%] overflow-scroll" />
 		<div>
 			<InputField
 				class="px-6"
