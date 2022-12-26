@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine("postgresql://matcha:password@localhost:5432/matcha", echo=True)
@@ -21,7 +21,7 @@ class User(Base):
 	gender_id = Column(Integer, ForeignKey("genders.id"))
 	last_location = Column(String, nullable=True)
 	age = Column(Integer, nullable=True)
-	last_connection = Column(String, nullable=True)
+	is_email_verified = Column(Boolean)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 	
