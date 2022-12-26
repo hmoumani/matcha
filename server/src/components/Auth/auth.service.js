@@ -1,3 +1,6 @@
+import {query} from "../../db/index.js";
+import bcrypt from "bcryptjs";
+
 const AuthService = {
   /**
    * Login a user and generate token.
