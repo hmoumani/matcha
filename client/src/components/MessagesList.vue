@@ -1,8 +1,13 @@
 <script setup>
+	import { useMessagesStore } from '@/store/messages';
+	import { storeToRefs } from 'pinia';
+
 	defineProps({
 		messages: Array,
 	});
 
+	const messagesStore = useMessagesStore();
+	const { showUserProfile } = storeToRefs(messagesStore);
 	const isCurrentUserMessage = msgID => msgID === 4;
 </script>
 <template>
@@ -14,7 +19,8 @@
 		>
 			<img
 				v-if="!isCurrentUserMessage(message.sender_id)"
-				class="w-10 h-10 rounded-full mt-12"
+				@click="showUserProfile = true"
+				class="w-10 h-10 rounded-full mt-12 cursor-pointer"
 				src="/assets/women.jpg"
 				alt=""
 			/>

@@ -8,10 +8,12 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
+    Avatars2Slider: typeof import('./src/components/avatars2Slider.vue')['default']
     AvatarsSlider: typeof import('./src/components/avatarsSlider.vue')['default']
     Button: typeof import('./src/components/Button.vue')['default']
     ContactsList: typeof import('./src/components/ContactsList.vue')['default']
     Conversation: typeof import('./src/components/Conversation.vue')['default']
+    copy: typeof import('./src/components/avatarsSlider copy.vue')['default']
     EmailSent: typeof import('./src/components/EmailSent.vue')['default']
     Form: typeof import('./src/components/Form.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
@@ -20,6 +22,7 @@ declare module '@vue/runtime-core' {
     'IconAkarIcons:githubFill': typeof import('~icons/akar-icons/github-fill')['default']
     InputField: typeof import('./src/components/InputField.vue')['default']
     MessagesList: typeof import('./src/components/MessagesList.vue')['default']
+    Profile2Card: typeof import('./src/components/Profile2Card.vue')['default']
     ProfileCard: typeof import('./src/components/ProfileCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

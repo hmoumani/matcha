@@ -4,7 +4,7 @@
 			firstName: 'Rebikaa',
 			lastName: 'Zin',
 			lastMessage: {
-				content: 'take it easy, life is hard and I will fuck everyone',
+				content: 'take it easy, life is hard and I will do everyone',
 				created_at: '20223',
 			},
 			avatarUrl:
@@ -14,7 +14,7 @@
 			firstName: 'Zaboo',
 			lastName: 'Diiic',
 			lastMessage: {
-				content: 'take it easy, life is hard and I will fuck everyone',
+				content: 'take it easy, life is hard and I will do everyone',
 				created_at: '20223',
 			},
 		},
@@ -22,7 +22,7 @@
 			firstName: 'Wlaadd',
 			lastName: 'l9haaab',
 			lastMessage: {
-				content: 'take it easy, life is hard and I will fuck everyone',
+				content: 'take it easy, life is hard and I will do everyone',
 				created_at: '20223',
 			},
 		},
