@@ -1,7 +1,7 @@
 import apiClient from '@/modules/apiClient';
 
 const passions = [
-	{ name: 'masturbating', isCommon: false },
+	{ name: 'video games', isCommon: false },
 	{ name: 'football', isCommon: true },
 	{ name: 'Gym', isCommon: false },
 ];

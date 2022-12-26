@@ -19,8 +19,8 @@
 			},
 		},
 		{
-			firstName: 'Wlaadd',
-			lastName: 'l9haaab',
+			firstName: 'John',
+			lastName: 'Doe',
 			lastMessage: {
 				content: 'take it easy, life is hard and I will do everyone',
 				created_at: '20223',
@@ -29,6 +29,7 @@
 	];
 
 	contacts = contacts.concat(contacts);
+	contacts = contacts.concat(contacts);
 	const currentContact = ref(0);
 
 	const updateCurrentContact = (contact, index) => {
@@ -36,10 +37,15 @@
 	};
 </script>
 <template>
-	<div>
+	<div class="mt-8">
+		<div class="flex gap-x-4 mt-2 mb-6 py-2 text-2xl text-[#3C444B] font-medium">
+			<img class="h-8 w-auto" src="/assets/logo.svg" alt="" />
+			Your Matches
+		</div>
+
 		<searchContacts />
-		<h1 class="py-4 text-xl text-[#3C444B] font-medium">Last Chats</h1>
-		<div>
+		<!-- <h1 class="py-4 text-xl text-[#3C444B] font-medium">Last Chats</h1> -->
+		<div class="mt-9 overflow-y-scroll overflow-hidden h-[calc(100vh-16rem)]">
 			<div
 				v-for="(contact, index) of contacts"
 				@click="updateCurrentContact(contact, index)"

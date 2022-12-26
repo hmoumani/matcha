@@ -14,7 +14,7 @@
 	const { likeUser, unLikeUser } = feedStore;
 </script>
 <template>
-	<div class="bg-[#F6F7FF] h-screen overflow-hidden pt-6">
+	<div class="bg-[#F6F7FF] h-screen overflow-hidden pt-6 profile">
 		<div
 			class="w-5/12 bg-white shadow-slate-300 shadow-sm mx-auto rounded-[2rem] h-[47rem] hd-[calc(100hv-100rem)] overflow-y-scroll overflow-x-hidden"
 		>
@@ -24,7 +24,7 @@
 					<div
 						class="font-medium text-[#48496B] text-2xl flex items-center gap-x-3"
 					>
-						{{user.id}}
+						{{ user.id }}
 						{{ user.first_name }} {{ user.last_name }},
 						{{ user.age }}
 						<span class="dot bg-[#4EB3AC] w-3 h-3"></span>

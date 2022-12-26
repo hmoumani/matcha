@@ -15,9 +15,16 @@
 </script>
 <template>
 	<div
-		class="py-2 relative h-[67%] bg-white shadow-sm mx-auto rounded-2xl overflow-y-scroll overflow-x-hidden"
+		class="relative h-[78%] bg-white shadow-sm mx-auto overflow-y-scroll overflow-x-hidden"
 	>
-		<avatars2Slider :avatars="userAvatars" />
+		<!-- <avatars2Slider :avatars="userAvatars" /> -->
+		<div class="w-full h-[20rem] py-3 px-8 rounded-full">
+			<img
+				:src="userAvatars[0]"
+				class=""
+			/>
+		</div>
+
 		<div class="px-8 py-8 flex justify-between">
 			<div>
 				<div
@@ -51,7 +58,7 @@
 				<div class="flex">
 					<div
 						v-for="passion of passions"
-						class="px-3 py-2 mr-3 rounded-md text-base capitalize"
+						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
 							'bg-[#D5F9F7] text-[#4EB3AC]': passion.isCommon,
 							'bg-[#F8F7FF] text-black border-[#F3F3F3] border-2':
@@ -67,13 +74,13 @@
 	<div class="text-2xl bottom-0 left-0 w-[100%] flex">
 		<div
 			@click="unLikeUser"
-			class="border-grey-color border-r-4 cursor-pointer text-xl text-black bg-[#F8F7FF] w-6 flex items-center justify-center flex-1 px-auto"
+			class="border-dark-color border-r-4 cursor-pointer text-xl text-black bg-grey-color w-6 flex items-center justify-center flex-1 px-auto"
 		>
 			Unmatch
 		</div>
 		<div
 			@click="unLikeUser"
-			class="py-4 cursor-pointer text-xl text-black bg-[#F8F7FF] w-6 flex items-center justify-center flex-1 px-auto"
+			class="py-4 cursor-pointer text-xl text-black bg-grey-color w-6 flex items-center justify-center flex-1 px-auto"
 		>
 			Report
 		</div>

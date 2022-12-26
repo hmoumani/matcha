@@ -15,7 +15,7 @@
 	<!-- <transition name="slide"> -->
 	<div v-if="showUserProfile">
 		<div
-			class="flex gap-x-3 border-b-2 border-grey-color pb-4 items-center mb-8"
+			class="flex gap-x-3 border-b-2 border-grey-color py-6 items-center mb-8"
 		>
 			<div
 				class="bg-grey-color p-3 w-12 h-12 rounded-xl cursor-pointer"
@@ -25,7 +25,7 @@
 			</div>
 			<div class="text-2xl">Profile</div>
 		</div>
-		<Profile2Card :user="user" class="!h-[45rem]" />
+		<Profile2Card :user="user" class="profile !h-[45rem]" />
 	</div>
 	<!-- </transition> -->
 </template>

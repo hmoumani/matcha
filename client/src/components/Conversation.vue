@@ -37,8 +37,8 @@
 	messages = messages.concat(messages);
 </script>
 <template>
-	<div class="bg-[#ECF0F4] w-[100%] rounded-xl h-[51rem]">
-		<MessagesList :messages="messages" class="h-[91%] overflow-scroll" />
+	<div class="bg-[#ECF0F4] w-[100%] rounded-xl h-[52rem] h-screen pr-6 pt-4">
+		<MessagesList :messages="messages" class="h-[91%] overflow-y-scroll" />
 		<div>
 			<InputField
 				class="px-6"
