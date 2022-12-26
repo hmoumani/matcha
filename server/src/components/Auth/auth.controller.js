@@ -25,7 +25,7 @@ const AuthController = {
    * @returns {Promise.<ControllerResponse> }
    */
   register: async (req, res) => {
-    const registerData = await AuthService.register(httpRequest.body);
+    const registerData = await AuthService.register(req.body);
     return {
       statusCode: registerData.status_code,
       body: {
