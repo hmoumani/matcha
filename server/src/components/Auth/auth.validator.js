@@ -33,8 +33,8 @@ const validateRegistration = (httpRequest) => {
     email: Joi.string().email().required(),
     username: Joi.string().required().messages({
       'string.pattern.base': 'Provide valid username'
-    }),
-  });
+    })
+});
   return schema.validate(httpRequest.body, options);
 };
 

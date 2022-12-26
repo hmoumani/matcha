@@ -24,12 +24,14 @@ const AuthController = {
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
    */
-  register: async (httpRequest) => {
+  register: async (req, res) => {
     const registerData = await AuthService.register(httpRequest.body);
     return {
-      statusCode: 200,
+      statusCode: registerData.status_code,
       body: {
-        data: registerData
+        data: {
+          "message": registerData.message,
+        }
       }
     };
   }
