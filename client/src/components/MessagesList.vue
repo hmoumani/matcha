@@ -20,7 +20,7 @@
 		<div class="py-6 px-5">
 			<div
 				v-for="message of messages"
-				class="flex items-end gap-x-2"
+				class="flex items-end gap-x-2 mb-3"
 				:class="{
 					'justify-end': isCurrentUserMessage(message.sender_id),
 				}"

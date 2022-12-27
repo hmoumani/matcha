@@ -15,14 +15,11 @@
 </script>
 <template>
 	<div
-		class="relative h-[78%] bg-white shadow-sm mx-auto overflow-y-scroll overflow-x-hidden"
+		class="relative h-[calc(100vh-14rem)] bg-white shadow-sm mx-auto overflow-y-scroll overflow-x-hidden"
 	>
 		<!-- <avatars2Slider :avatars="userAvatars" /> -->
 		<div class="w-full h-[20rem] py-3 px-8 rounded-full">
-			<img
-				:src="userAvatars[0]"
-				class=""
-			/>
+			<img :src="userAvatars[0]" />
 		</div>
 
 		<div class="px-8 py-8 flex justify-between">

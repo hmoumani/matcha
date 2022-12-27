@@ -25,7 +25,7 @@
 			</div>
 			<div class="text-2xl">Profile</div>
 		</div>
-		<Profile2Card :user="user" class="profile !h-[45rem]" />
+		<Profile2Card :user="user" class="profile" />
 	</div>
 	<!-- </transition> -->
 </template>

@@ -37,12 +37,14 @@
 	messages = messages.concat(messages);
 </script>
 <template>
-	<div class="bg-[#ECF0F4] w-[100%] rounded-xl h-[52rem] h-screen pr-6 pt-4">
+	<div
+		class="bg-[#ECF0F4] w-[100%] rounded-xl h-[calc(100vh-2rem)] pr-6 pt-4"
+	>
 		<MessagesList :messages="messages" class="h-[91%] overflow-y-scroll" />
 		<div>
 			<InputField
-				class="px-6"
-				:css="{ '!py-4 !px-6 rounded-lg': true }"
+				class="pt-4 pl-6"
+				:css="{ '!py-3 !px-10 rounded-lg text-xl ': true }"
 				:withLabel="false"
 				type="text"
 				placeholder="Write your message.."
@@ -50,7 +52,7 @@
 			>
 				<FontAwesomeIcon
 					icon="fa-solid fa-paper-plane"
-					class="cursor-pointer h-4 w-4 bg-[#00A489] !text-white p-3 px-4 rounded-lg"
+					class="cursor-pointer h-4 w-4 bg-[#00A489] !text-white p-3 rounded-lg mr-1"
 				/>
 			</InputField>
 		</div>
