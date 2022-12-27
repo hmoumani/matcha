@@ -4,5 +4,11 @@ import { defineStore } from 'pinia';
 export const useMessagesStore = defineStore('messages', {
 	state: () => ({
 		showUserProfile: true,
+		conversations:[]
 	}),
+	actions:{
+		getConversations(){
+			this.conversations = 
+		}
+	}
 });
