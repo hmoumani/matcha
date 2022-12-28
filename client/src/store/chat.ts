@@ -36,9 +36,8 @@ export const useChatStore = defineStore('chat', {
 				receiver_id: 3, // TODO : change
 				created_at: now(),
 			};
-			console.log({ newMessage, t : this.msg });
 			this.currentConversation.messages.push(newMessage);
-			// this.msg = '';
+			this.msg = '';
 		},
 	},
 });

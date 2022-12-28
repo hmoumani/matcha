@@ -1,27 +1,41 @@
 <script setup>
 	import { useChatStore } from '@/store/chat';
+	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
+	import { computed } from '@vue/reactivity';
 
 	defineProps({
 		messages: Array,
 	});
 
 	const chatStore = useChatStore();
+	const userStore = useUserStore();
+	const { currentUserFullName, currentUser } = storeToRefs(userStore);
 	const { showUserProfile, currentConversation } = storeToRefs(chatStore);
 	const { showConversationMessages } = chatStore;
 	// const { messages } = currentConversationMessages;
 	showConversationMessages();
-	const messages = [];
-	console.log({ currentConversation });
-	const isCurrentUserMessage = msgID => msgID === 4;
+	const isCurrentUserMessage = msgID => 4 === msgID;
+
+	const messageSender = message => {
+		if (isCurrentUserMessage(message.sender_id)) {
+			return currentUserFullName.value;
+		}
+		return 'hell';
+	};
+	const fromatTime = time => {
+		return 'TODO';
+		// return new Date(time).formatTime('HH:DD')
+	};
+	// const fromatTime = (time) => moment(TokenExpirationDate).format('DD/MM/YY')
 </script>
 <template>
 	<div class="text-[#3C444B] relative rounded-xl">
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>
-			{{ currentConversation.id }}
 			Rebika Zin
+			{{ currentUser.id }}
 		</div>
 		<div class="py-6 px-5">
 			<div
@@ -39,7 +53,10 @@
 					alt=""
 				/>
 				<div>
-					<div class="pl-3 font-bold"> {{ messageSender }}, 11:30 AM</div>
+					<div class="pl-3 font-bold">
+						{{ messageSender(message) }},
+						{{ fromatTime(message.created_at) }}
+					</div>
 					<div
 						class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
 						:class="

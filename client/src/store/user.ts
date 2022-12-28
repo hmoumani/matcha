@@ -58,4 +58,13 @@ export const useUserStore = defineStore('user', {
 			}
 		},
 	},
+	getters:{
+		currentUserFullName(){
+			if (!this.currentUser){
+				return;
+			}
+			const {first_name, last_name} = this.currentUser;
+			return first_name + '' + last_name
+		}
+	}
 });
