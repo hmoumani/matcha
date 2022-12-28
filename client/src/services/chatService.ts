@@ -6,7 +6,7 @@ const passions = [
 	{ name: 'Gym', isCommon: false },
 ];
 
-const userAvatars = [
+const avatars = [
 	'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1600',
 	'/assets/women.jpg',
 	'https://media.tenor.com/QC6tMp1EHMcAAAAM/maxdemon111-pretty.gif',
@@ -23,7 +23,7 @@ const user = {
 	id: 0,
 	distance: '14 km',
 	bio: 'looking for friends.',
-	userAvatars,
+	avatar: avatars[Math.floor(Math.random() * avatars.length)],
 	passions,
 };
 
@@ -53,9 +53,45 @@ let conversations = [
 conversations = conversations.concat(conversations);
 conversations = conversations.concat(conversations);
 conversations = conversations.concat(conversations);
+
+let messages = [
+	{
+		message: 'wsuuupp ??',
+		sender_id: 4,
+		receiver_id: 4,
+		created_at: '2022-03-34',
+	},
+	{
+		message: 'Good, wt abt you?',
+		sender_id: 3,
+		receiver_id: 4,
+		created_at: '2022-03-34',
+	},
+	{
+		message: 'Nothingg..',
+		sender_id: 4,
+		receiver_id: 4,
+		created_at: '2022-03-34',
+	},
+	{
+		message:
+			'naaah bruh wtf? How could you do dat?? ffs I know its was going to happen yeaaah... naaah bruh wtf? How could you do dat?? ffs I know its was going to happen ',
+		sender_id: 3,
+		receiver_id: 4,
+		created_at: '2022-03-34',
+	},
+];
+messages = messages.concat(messages);
+messages = messages.concat(messages);
 // const fetchConversations = () => apiClient.get('/conversation');
 const fetchConversations = () => conversations;
 
+const fetchConversationMessages = userID => {
+	const conversationMessages = { messages, id: userID };
+	return conversationMessages;
+};
+
 export default {
 	fetchConversations,
+	fetchConversationMessages,
 };

@@ -1,9 +1,9 @@
 <script setup>
 	import { ChevronRightIcon } from '@heroicons/vue/24/solid';
-	import { useMessagesStore } from '@/store/messages';
+	import { useChatStore } from '@/store/chat';
 	import { storeToRefs } from 'pinia';
 
-	const messagesStore = useMessagesStore();
+	const messagesStore = useChatStore();
 
 	const { showUserProfile } = storeToRefs(messagesStore);
 

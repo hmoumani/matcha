@@ -5,36 +5,6 @@
 	const msg = ref('');
 
 	const user_id = 4;
-
-	let messages = [
-		{
-			message: 'wsuuupp ??',
-			sender_id: 4,
-			receiver_id: 4,
-			created_at: '2022-03-34',
-		},
-		{
-			message: 'Good, wt abt you?',
-			sender_id: 3,
-			receiver_id: 4,
-			created_at: '2022-03-34',
-		},
-		{
-			message: 'Nothingg..',
-			sender_id: 4,
-			receiver_id: 4,
-			created_at: '2022-03-34',
-		},
-		{
-			message:
-				'naaah bruh wtf? How could you do dat?? ffs I know its was going to happen yeaaah... naaah bruh wtf? How could you do dat?? ffs I know its was going to happen ',
-			sender_id: 3,
-			receiver_id: 4,
-			created_at: '2022-03-34',
-		},
-	];
-	messages = messages.concat(messages);
-	messages = messages.concat(messages);
 </script>
 <template>
 	<div

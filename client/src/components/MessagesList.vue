@@ -1,13 +1,18 @@
 <script setup>
-	import { useMessagesStore } from '@/store/messages';
+	import { useChatStore } from '@/store/chat';
 	import { storeToRefs } from 'pinia';
 
 	defineProps({
 		messages: Array,
 	});
 
-	const messagesStore = useMessagesStore();
-	const { showUserProfile } = storeToRefs(messagesStore);
+	const chatStore = useChatStore();
+	const { showUserProfile, currentConversation } = storeToRefs(chatStore);
+	const { showConversationMessages } = chatStore;
+	// const { messages } = currentConversationMessages;
+	showConversationMessages();
+	const messages = [];
+	console.log({ currentConversation });
 	const isCurrentUserMessage = msgID => msgID === 4;
 </script>
 <template>
@@ -15,11 +20,12 @@
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>
+			{{ currentConversation.id }}
 			Rebika Zin
 		</div>
 		<div class="py-6 px-5">
 			<div
-				v-for="message of messages"
+				v-for="message of currentConversation.messages"
 				class="flex items-end gap-x-2 mb-3"
 				:class="{
 					'justify-end': isCurrentUserMessage(message.sender_id),
@@ -38,16 +44,28 @@
 						class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
 						:class="
 							isCurrentUserMessage(message.sender_id)
-								? 'bg-black-color'
+								? 'bg-black-color reverse'
 								: 'bg-white'
 						"
 					>
 						<div
-							v-if="!isCurrentUserMessage(message.sender_id)"
 							id="triangle"
 							class="absolute left-[-.6rem] bottom-0"
+							:class="
+								isCurrentUserMessage(message.sender_id)
+									? '!border-b-black-color border-b-[1rem]'
+									: ''
+							"
 						></div>
-						{{ message.message }}
+						<div
+							:class="
+								isCurrentUserMessage(message.sender_id)
+									? 'reverse'
+									: ''
+							"
+						>
+							{{ message.message }}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -61,5 +79,8 @@
 		width: 0;
 		border-bottom: 1rem solid white;
 		border-left: 0.9rem solid transparent;
+	}
+	.reverse {
+		transform: scaleX(-1);
 	}
 </style>
