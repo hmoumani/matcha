@@ -39,7 +39,6 @@
 					'': index !== currentConversation,
 				}"
 			>
-			{{ conversation.user.id }}
 				<img
 					class="w-12 h-12 rounded-full"
 					:src="conversation.user.avatar"

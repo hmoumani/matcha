@@ -1,8 +1,11 @@
 <script setup>
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-	import {} from '@heroicons/vue/24/solid';
+	import { useChatStore } from '@/store/chat';
+	import { storeToRefs } from 'pinia';
 
-	const msg = ref('');
+	const messagesStore = useChatStore();
+	const { sendMessage } = messagesStore;
+	const { msg } = storeToRefs(messagesStore);
 
 	const user_id = 4;
 </script>
@@ -19,8 +22,10 @@
 				type="text"
 				placeholder="Write your message.."
 				v-model="msg"
+				@keydown.enter="sendMessage"
 			>
 				<FontAwesomeIcon
+					@click="sendMessage"
 					icon="fa-solid fa-paper-plane"
 					class="cursor-pointer h-4 w-4 bg-[#00A489] !text-white p-3 rounded-lg mr-1"
 				/>

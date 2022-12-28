@@ -39,7 +39,7 @@
 					alt=""
 				/>
 				<div>
-					<div class="pl-3 font-bold">Evan You, 11:30 AM</div>
+					<div class="pl-3 font-bold"> {{ messageSender }}, 11:30 AM</div>
 					<div
 						class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
 						:class="

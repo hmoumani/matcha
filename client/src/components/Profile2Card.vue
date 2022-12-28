@@ -1,7 +1,5 @@
 <script setup lang="ts">
-	/* import font awesome icon component */
 	import { useUserStore } from '@/store/user';
-	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 	const { user } = defineProps({
 		user: Object,
@@ -11,7 +9,7 @@
 
 	const userStore = useUserStore();
 
-	const { blockUser } = userStore;
+	const { blockUser, reportUser } = userStore;
 </script>
 <template>
 	<div
@@ -76,7 +74,7 @@
 			Block
 		</div>
 		<div
-			@click="unLikeUser"
+			@click="reportUser(user?.id)"
 			class="py-4 cursor-pointer text-xl text-black bg-grey-color w-6 flex items-center justify-center flex-1 px-auto"
 		>
 			Report
