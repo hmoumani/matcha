@@ -34,25 +34,35 @@ for (let i = 0; i < 10; i++) {
 	ppl.push({ ...user, id: i });
 }
 
-let conversations = [
-	{
-		user,
+let id = 0;
+
+const generateUser = () => {
+	return {
+		first_name: 'Rebikaa',
+		last_name: 'Talon',
+		age: 24,
+		id: id++,
+		distance: '14 km',
+		bio: 'looking for friends.',
+		avatar: avatars[Math.floor(Math.random() * avatars.length)],
+		passions,
+	};
+};
+
+const generateConv = () => {
+	return {
+		user: generateUser(),
 		lastMessage: {
 			content: 'take it easy, life is hard and I will do everyone',
 			created_at: '20223',
 		},
-	},
-	{
-		user,
-		lastMessage: {
-			content: 'take it easy, life is hard and I will do everyone',
-			created_at: '20223',
-		},
-	},
-];
-conversations = conversations.concat(conversations);
-conversations = conversations.concat(conversations);
-conversations = conversations.concat(conversations);
+	};
+};
+
+let conversations = [generateConv()];
+conversations = conversations.concat(generateConv());
+conversations = conversations.concat(generateConv());
+conversations = conversations.concat(generateConv());
 
 let messages = [
 	{

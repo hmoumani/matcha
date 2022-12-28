@@ -34,14 +34,20 @@ export const useUserStore = defineStore('user', {
 			this.currentUser = data.data.user;
 			// console.log(data.data.user);
 		},
+		async reportUser(userID) {
+			await userService.reportUser(userID);
+		},
 		async blockUser(userID) {
-			// await userService.blockUser(userID);
+			try {
+				await userService.blockUser(userID);
+			} catch (e) {
+				// return; TODO uncomment this line
+			}
 
 			const messagesStore = useChatStore();
 			const { conversations } = storeToRefs(messagesStore);
-			console.log({ userID });
 			const conversationWithBlockedUser = conversations.value.find(
-				conversation => conversation === userID
+				conversation => getConversationUserID(conversation) === userID
 			);
 			console.log({ conversationWithBlockedUser });
 			if (conversationWithBlockedUser) {
