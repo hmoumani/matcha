@@ -26,16 +26,15 @@ let verifyToken = (req, res, next) => {
         message: "No token provided!",
       });
     }
-  
-    jwt.verify(token, config.secret, (err, decoded) => {
-      if (err) {
-        return res.status(401).send({
-          message: "Unauthorized!",
-        });
-      }
-      req.userId = decoded.id;
+    try{
+      payload = jwt.verify(token, config.secret);
+      req.userId = payload.id;
       next();
-    });
+    } catch (error) {
+      return res.status(401).send({
+        message: "Unauthorized!",
+      });
+    }
 };
 
 
