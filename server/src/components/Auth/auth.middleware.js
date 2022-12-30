@@ -27,7 +27,7 @@ let verifyToken = (req, res, next) => {
       });
     }
     try{
-      payload = jwt.verify(token, config.secret);
+      let payload = jwt.verify(token, config.secret);
       req.userId = payload.id;
       next();
     } catch (error) {
