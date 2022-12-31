@@ -16,7 +16,7 @@ const AuthService = {
       let results = await query("select * from users where username = $1 or email = $1", [requestBody.username]);
       if (results.rowCount <= 0)
         return {status_code: 404, message: "User not found!"};
-      let passwordIsValid = bcrypt.compareSync(requestBody.password, results.rows[0].password);
+      const passwordIsValid = await bcrypt.compare(requestBody.password, results.rows[0].password);
       if (!passwordIsValid)
         return {status_code: 401, message: "Invalid Password!"};
       return {status_code: 200, message: "User logged in successfully!", user: results.rows[0]};
