@@ -26,7 +26,6 @@ const AuthController = {
    * @returns {Promise.<ControllerResponse> }
    */
   register: async (req, res) => {
-    const registerData = await AuthService.register(req.body);
     const mailData = {
       from: process.env.EMAIL,  // sender address
       to: req.body.email,   // list of receivers
@@ -35,13 +34,22 @@ const AuthController = {
       html: '<b>Hey there! </b><br> :v <br/>',
     };
     try{
+      await AuthService.register(req.body);
       await sendMail(mailData);
+      return {
+        statusCode: 200,
+        body: {
+          data: {
+            message: "User registered successfully!",
+          }
+        }
+      };
     } catch (error) {
       return {
         statusCode: 406,
         body: {
           data: {
-            "message": error,
+            message: "Unable to register user",
           }
         }
       };
