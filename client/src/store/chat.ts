@@ -3,6 +3,8 @@ import { defineStore } from 'pinia';
 import { useUserStore } from '@/store/user';
 import { now } from '@vueuse/core';
 
+const getConversationUserID = conversation => conversation.user.id;
+
 export const useChatStore = defineStore('chat', {
 	state: () => ({
 		showUserProfile: true,
@@ -19,8 +21,19 @@ export const useChatStore = defineStore('chat', {
 			this.showConversationMessages(userID);
 		},
 		async showConversationMessages(userID) {
-			this.currentConversation =
-				chatService.fetchConversationMessages(userID);
+			const conversation: Object | undefined = this.conversations.find(
+				conversation => getConversationUserID(conversation) === userID
+			);
+			if (!conversation) {
+				return;
+			}
+			const messages = await chatService.fetchConversationMessages(
+				userID
+			);
+			this.currentConversation = {
+				...messages,
+				...conversation,
+			};
 		},
 		sendMessage() {
 			const { currentUser } = useUserStore();

@@ -14,19 +14,22 @@
 	const { showUserProfile, currentConversation } = storeToRefs(chatStore);
 	const { showConversationMessages } = chatStore;
 	// const { messages } = currentConversationMessages;
-	showConversationMessages();
-	const isCurrentUserMessage = msgID => 4 === msgID;
+	// showConversationMessages();
+	const isCurrentUserMessage = msgID => 4 === msgID; // TODO: remove hardcoded 4
 
 	const messageSender = message => {
 		if (isCurrentUserMessage(message.sender_id)) {
 			return currentUserFullName.value;
 		}
-		return 'hell';
+		return currentConversation?.user?.first_name; // TODO : change.
 	};
+
 	const fromatTime = time => {
 		return 'TODO';
 		// return new Date(time).formatTime('HH:DD')
 	};
+
+	const user = computed(() => currentConversation?.user);
 	// const fromatTime = (time) => moment(TokenExpirationDate).format('DD/MM/YY')
 </script>
 <template>
@@ -34,12 +37,12 @@
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>
-			Rebika Zin
-			{{ currentUser.id }}
+			{{ currentConversation?.user?.first_name }}
+			<!-- {{ currentUser.id }} -->
 		</div>
 		<div class="py-6 px-5">
 			<div
-				v-for="message of currentConversation.messages"
+				v-for="message of currentConversation?.messages"
 				class="flex items-end gap-x-2 mb-3"
 				:class="{
 					'justify-end': isCurrentUserMessage(message.sender_id),
