@@ -3,6 +3,7 @@
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
 	import { computed } from '@vue/reactivity';
+	import moment from 'moment';
 
 	defineProps({
 		messages: Array,
@@ -24,10 +25,7 @@
 		return currentConversation?.user?.first_name; // TODO : change.
 	};
 
-	const fromatTime = time => {
-		return 'TODO';
-		// return new Date(time).formatTime('HH:DD')
-	};
+	const fromatTime = time => moment(time).format('HH:MM');
 
 	const user = computed(() => currentConversation?.user);
 	// const fromatTime = (time) => moment(TokenExpirationDate).format('DD/MM/YY')
