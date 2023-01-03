@@ -15,18 +15,19 @@ export const useChatStore = defineStore('chat', {
 	actions: {
 		async fetchConversations() {
 			this.conversations = await chatService.fetchConversations();
-			const {
-				user: { id: userID },
-			} = this.conversations[0];
-			this.showConversationMessages(userID);
+			// const {
+			// 	user: { id: userID },
+			// } = this.conversations[0];
+			this.showConversationMessages(this.conversations[0]);
 		},
-		async showConversationMessages(userID) {
-			const conversation: Object | undefined = this.conversations.find(
-				conversation => getConversationUserID(conversation) === userID
-			);
-			if (!conversation) {
-				return;
-			}
+		async showConversationMessages(conversation) {
+			// const conversation: Object | undefined = this.conversations.find(
+			// 	conversation => getConversationUserID(conversation) === userID
+			// );
+			// if (!conversation) {
+			// 	return;
+			// }
+			const userID = conversation?.user?.id;
 			const messages = await chatService.fetchConversationMessages(
 				userID
 			);

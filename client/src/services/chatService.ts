@@ -34,7 +34,7 @@ for (let i = 0; i < 10; i++) {
 	ppl.push({ ...user, id: i });
 }
 
-let id = 0;
+let id = 5;
 
 const generateUser = () => {
 	return {
@@ -44,7 +44,7 @@ const generateUser = () => {
 		id: id++,
 		distance: '14 km',
 		bio: 'looking for friends.',
-		avatar: avatars[Math.floor(Math.random() * avatars.length)],
+		avatar: avatars[id % avatars.length],
 		passions,
 	};
 };

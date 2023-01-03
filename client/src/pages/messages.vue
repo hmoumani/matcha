@@ -33,14 +33,14 @@
 </script>
 <template>
 	<!-- <Header /> -->
-	{{ currentConversation.user }}
+	<!-- {{ currentConversation?.user }} -->
 	<div class="flex pl-2 py-7">
 		<Sidebar></Sidebar>
 		<ContactsList class="pl-7 pr-4" />
 		<Conversation />
 		<UserProfile
 			class="w-[30rem] pl-6"
-			:user="currentConversation?.user || user"
+			:user="null || currentConversation?.user"
 		/>
 		<!-- <ProfileCard class="w-[80rem]" :user="user"/> -->
 	</div>

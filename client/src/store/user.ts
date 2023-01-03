@@ -46,25 +46,26 @@ export const useUserStore = defineStore('user', {
 
 			const messagesStore = useChatStore();
 			const { conversations } = storeToRefs(messagesStore);
+			const { showConversationMessages } = messagesStore;
 			const conversationWithBlockedUser = conversations.value.find(
 				conversation => getConversationUserID(conversation) === userID
 			);
-			console.log({ conversationWithBlockedUser });
 			if (conversationWithBlockedUser) {
 				conversations.value = removeItemOnce(
 					conversations.value,
 					conversationWithBlockedUser
 				);
+				showConversationMessages(conversations.value[0]);
 			}
 		},
 	},
-	getters:{
-		currentUserFullName(){
-			if (!this.currentUser){
+	getters: {
+		currentUserFullName() {
+			if (!this.currentUser) {
 				return;
 			}
-			const {first_name, last_name} = this.currentUser;
-			return first_name + '' + last_name
-		}
-	}
+			const { first_name, last_name } = this.currentUser;
+			return first_name + '' + last_name;
+		},
+	},
 });

@@ -22,7 +22,7 @@
 		if (isCurrentUserMessage(message.sender_id)) {
 			return currentUserFullName.value;
 		}
-		console.log(currentConversation)
+		console.log(currentConversation) el.scrollIntoView({behavior: 'smooth'});
 		return currentConversation?.value.user?.first_name; // TODO : change.
 	};
 
@@ -36,6 +36,7 @@
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>
+			{{ currentConversation.id }}
 			{{
 				currentConversation?.user?.first_name +
 				' ' +
@@ -54,7 +55,7 @@
 					v-if="!isCurrentUserMessage(message.sender_id)"
 					@click="showUserProfile = true"
 					class="w-10 h-10 rounded-full mt-12 cursor-pointer"
-					src="/assets/women.jpg"
+					:src="currentConversation?.user.avatar"
 					alt=""
 				/>
 				<div>
