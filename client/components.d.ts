@@ -17,6 +17,7 @@ declare module '@vue/runtime-core' {
     'Icon:bx:bxsMoon': typeof import('~icons/bx/bxs-moon')['default']
     'IconAkarIcons:githubFill': typeof import('~icons/akar-icons/github-fill')['default']
     InputField: typeof import('./src/components/InputField.vue')['default']
+    ProfileCard: typeof import('./src/components/ProfileCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/sidebar.vue')['default']

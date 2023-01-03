@@ -1,5 +1,49 @@
+<script setup>
+	import { useUserStore } from '@/store/user.ts';
+	import { ref } from 'vue';
+	import { storeToRefs } from 'pinia';
+	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+	import {
+		Dialog,
+		DialogPanel,
+		TransitionChild,
+		TransitionRoot,
+	} from '@headlessui/vue';
+	import {
+		ChatBubbleOvalLeftEllipsisIcon,
+		HeartIcon,
+		UserIcon,
+	} from '@heroicons/vue/24/solid';
+	// chat-bubble-oval-left-ellipsis
+
+	const navigation = [
+		{ name: 'Dating', href: '/', icon: HeartIcon },
+		{ name: 'Profile', href: '/profile', icon: UserIcon },
+		{
+			name: 'Messages',
+			href: '/messages',
+			icon: ChatBubbleOvalLeftEllipsisIcon,
+		},
+	];
+
+	const sidebarOpen = ref(false);
+
+	const router = useRouter();
+	console.log(router.currentRoute.value.path);
+	const isCurrentRoute = link => {
+		console.log(link, router.currentRoute.path);
+		return link === router.currentRoute.value.path;
+	};
+
+	const userStore = useUserStore();
+
+	const { currentUser } = storeToRefs(userStore);
+	const { getCurrentUser } = userStore;
+
+	getCurrentUser();
+</script>
 <template>
-	<router-view></router-view>
 	<!--
       This example requires updating your template:
   
@@ -8,7 +52,7 @@
       <body class="h-full">
       ```
     -->
-	<div>
+	<div v-if="currentUser">
 		<TransitionRoot as="template" :show="sidebarOpen">
 			<Dialog
 				as="div"
@@ -151,10 +195,10 @@
 						alt="Your Company"
 					/>
 					<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
-						John Doee
+						{{ currentUser.first_name }} {{ currentUser.last_name }}
 					</h2>
 					<div class="text-xl text-[#B1AFBA] pl-2">
-						New York, City.
+						{{ currentUser.address }} 
 					</div>
 
 					<nav class="mt-12 flex-1 space-y-1 bg-white">
@@ -216,40 +260,3 @@
 		</div>
 	</div>
 </template>
-
-<script setup>
-	import { ref } from 'vue';
-	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-	import {
-		Dialog,
-		DialogPanel,
-		TransitionChild,
-		TransitionRoot,
-	} from '@headlessui/vue';
-	import {
-		ChatBubbleOvalLeftEllipsisIcon,
-		HeartIcon,
-		UserIcon,
-	} from '@heroicons/vue/24/solid';
-	// chat-bubble-oval-left-ellipsis
-
-	const navigation = [
-		{ name: 'Dating', href: '/', icon: HeartIcon },
-		{ name: 'Profile', href: '/profile', icon: UserIcon },
-		{
-			name: 'Messages',
-			href: '/messages',
-			icon: ChatBubbleOvalLeftEllipsisIcon,
-		},
-	];
-
-	const sidebarOpen = ref(false);
-
-	const router = useRouter();
-	console.log(router.currentRoute.value.path);
-	const isCurrentRoute = link => {
-		console.log(link, router.currentRoute.path);
-		return link === router.currentRoute.value.path;
-	};
-</script>

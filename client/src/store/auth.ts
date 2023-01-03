@@ -14,7 +14,6 @@ export const useAuthStore = () => {
 		}),
 		actions: {
 			logIn(username: string, password: string) {
-				console.log(username, password);
 				login(username, password);
 			},
 			async register(newUser) {
