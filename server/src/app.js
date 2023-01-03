@@ -6,10 +6,22 @@ import cors from 'cors';
 
 import dotenv from 'dotenv'
 
+import cookieSession from "cookie-session";
+
 dotenv.config();
 
 // error handler
 import 'express-async-errors';
+
+app.use(
+    cookieSession({
+        name: "matcha-session",
+        secret: process.env.COOKIE_SECRET || 'wanna know my secret?',
+        httpOnly: true,
+        resave: true,
+        saveUninitialized: true,
+    })
+);
 
 app.use(function (req, res, next) {
 
