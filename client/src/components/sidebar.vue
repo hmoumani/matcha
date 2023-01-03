@@ -1,5 +1,5 @@
 <script setup>
-	import { useUserStore } from '@/store/user.ts';
+	import { useUserStore } from '@/store/user';
 	import { ref } from 'vue';
 	import { storeToRefs } from 'pinia';
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

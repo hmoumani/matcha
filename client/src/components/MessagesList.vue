@@ -22,10 +22,11 @@
 		if (isCurrentUserMessage(message.sender_id)) {
 			return currentUserFullName.value;
 		}
-		return currentConversation?.user?.first_name; // TODO : change.
+		console.log(currentConversation)
+		return currentConversation?.value.user?.first_name; // TODO : change.
 	};
 
-	const fromatTime = time => moment(time).format('HH:MM');
+	const fromatTime = time => moment(time).format('LT');
 
 	const user = computed(() => currentConversation?.user);
 	// const fromatTime = (time) => moment(TokenExpirationDate).format('DD/MM/YY')
@@ -35,8 +36,11 @@
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>
-			{{ currentConversation?.user?.first_name }}
-			<!-- {{ currentUser.id }} -->
+			{{
+				currentConversation?.user?.first_name +
+				' ' +
+				currentConversation?.user?.last_name
+			}}
 		</div>
 		<div class="py-6 px-5">
 			<div

@@ -13,7 +13,7 @@
 </script>
 <template>
 	<!-- <transition name="slide"> -->
-	<div v-if="showUserProfile">
+	<div v-if="showUserProfile && user">
 		<div
 			class="flex gap-x-3 border-b-2 border-grey-color py-6 items-center mb-8"
 		>

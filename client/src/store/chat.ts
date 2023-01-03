@@ -7,7 +7,7 @@ const getConversationUserID = conversation => conversation.user.id;
 
 export const useChatStore = defineStore('chat', {
 	state: () => ({
-		showUserProfile: true,
+		showUserProfile: false,
 		conversations: [],
 		currentConversation: null as null | {},
 		msg: '',
