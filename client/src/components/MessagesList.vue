@@ -1,25 +1,50 @@
 <script setup>
-	import { useMessagesStore } from '@/store/messages';
+	import { useChatStore } from '@/store/chat';
+	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
+	import { computed } from '@vue/reactivity';
+	import moment from 'moment';
 
 	defineProps({
 		messages: Array,
 	});
 
-	const messagesStore = useMessagesStore();
-	const { showUserProfile } = storeToRefs(messagesStore);
-	const isCurrentUserMessage = msgID => msgID === 4;
+	const chatStore = useChatStore();
+	const userStore = useUserStore();
+	const { currentUserFullName, currentUser } = storeToRefs(userStore);
+	const { showUserProfile, currentConversation } = storeToRefs(chatStore);
+	const { showConversationMessages } = chatStore;
+	// const { messages } = currentConversationMessages;
+	// showConversationMessages();
+	const isCurrentUserMessage = msgID => 4 === msgID; // TODO: remove hardcoded 4
+
+	const messageSender = message => {
+		if (isCurrentUserMessage(message.sender_id)) {
+			return currentUserFullName.value;
+		}
+		console.log(currentConversation)
+		return currentConversation?.value.user?.first_name; // TODO : change.
+	};
+
+	const fromatTime = time => moment(time).format('LT');
+
+	const user = computed(() => currentConversation?.user);
+	// const fromatTime = (time) => moment(TokenExpirationDate).format('DD/MM/YY')
 </script>
 <template>
 	<div class="text-[#3C444B] relative rounded-xl">
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>
-			Rebika Zin
+			{{
+				currentConversation?.user?.first_name +
+				' ' +
+				currentConversation?.user?.last_name
+			}}
 		</div>
 		<div class="py-6 px-5">
 			<div
-				v-for="message of messages"
+				v-for="message of currentConversation?.messages"
 				class="flex items-end gap-x-2 mb-3"
 				:class="{
 					'justify-end': isCurrentUserMessage(message.sender_id),
@@ -33,21 +58,36 @@
 					alt=""
 				/>
 				<div>
-					<div class="pl-3 font-bold">Evan You, 11:30 AM</div>
+					<div class="pl-3 font-bold">
+						{{ messageSender(message) }},
+						{{ fromatTime(message.created_at) }}
+					</div>
 					<div
 						class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
 						:class="
 							isCurrentUserMessage(message.sender_id)
-								? 'bg-black-color'
+								? 'bg-black-color reverse'
 								: 'bg-white'
 						"
 					>
 						<div
-							v-if="!isCurrentUserMessage(message.sender_id)"
 							id="triangle"
 							class="absolute left-[-.6rem] bottom-0"
+							:class="
+								isCurrentUserMessage(message.sender_id)
+									? '!border-b-black-color border-b-[1rem]'
+									: ''
+							"
 						></div>
-						{{ message.message }}
+						<div
+							:class="
+								isCurrentUserMessage(message.sender_id)
+									? 'reverse'
+									: ''
+							"
+						>
+							{{ message.message }}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -61,5 +101,8 @@
 		width: 0;
 		border-bottom: 1rem solid white;
 		border-left: 0.9rem solid transparent;
+	}
+	.reverse {
+		transform: scaleX(-1);
 	}
 </style>

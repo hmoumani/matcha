@@ -1,7 +1,5 @@
 <script setup lang="ts">
-	/* import font awesome icon component */
-	import { useFeedStore } from '@/store/feed';
-	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+	import { useUserStore } from '@/store/user';
 
 	const { user } = defineProps({
 		user: Object,
@@ -9,9 +7,9 @@
 
 	const { userAvatars, passions } = user;
 
-	const feedStore = useFeedStore();
+	const userStore = useUserStore();
 
-	const { likeUser, unLikeUser } = feedStore;
+	const { blockUser, reportUser } = userStore;
 </script>
 <template>
 	<div
@@ -70,13 +68,13 @@
 	</div>
 	<div class="text-2xl bottom-0 left-0 w-[100%] flex">
 		<div
-			@click="unLikeUser"
+			@click="blockUser(user?.id)"
 			class="border-dark-color border-r-4 cursor-pointer text-xl text-black bg-grey-color w-6 flex items-center justify-center flex-1 px-auto"
 		>
-			Unmatch
+			Block
 		</div>
 		<div
-			@click="unLikeUser"
+			@click="reportUser(user?.id)"
 			class="py-4 cursor-pointer text-xl text-black bg-grey-color w-6 flex items-center justify-center flex-1 px-auto"
 		>
 			Report

@@ -1,4 +1,9 @@
 <script setup>
+	import { useChatStore } from '@/store/chat';
+	import { storeToRefs } from 'pinia';
+
+	const userStore = useChatStore();
+	const { currentConversation } = storeToRefs(userStore);
 	const passions = [
 		{ name: 'video games', isCommon: false },
 		{ name: 'football', isCommon: true },
@@ -28,11 +33,15 @@
 </script>
 <template>
 	<!-- <Header /> -->
+	{{ currentConversation.user }}
 	<div class="flex pl-2 py-7">
 		<Sidebar></Sidebar>
 		<ContactsList class="pl-7 pr-4" />
 		<Conversation />
-		<UserProfile class="w-[30rem] pl-6" :user="user" />
+		<UserProfile
+			class="w-[30rem] pl-6"
+			:user="currentConversation?.user || user"
+		/>
 		<!-- <ProfileCard class="w-[80rem]" :user="user"/> -->
 	</div>
 </template>

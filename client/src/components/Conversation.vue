@@ -1,40 +1,13 @@
 <script setup>
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-	import {} from '@heroicons/vue/24/solid';
+	import { useChatStore } from '@/store/chat';
+	import { storeToRefs } from 'pinia';
 
-	const msg = ref('');
+	const messagesStore = useChatStore();
+	const { sendMessage } = messagesStore;
+	const { msg } = storeToRefs(messagesStore);
 
 	const user_id = 4;
-
-	let messages = [
-		{
-			message: 'wsuuupp ??',
-			sender_id: 4,
-			receiver_id: 4,
-			created_at: '2022-03-34',
-		},
-		{
-			message: 'Good, wt abt you?',
-			sender_id: 3,
-			receiver_id: 4,
-			created_at: '2022-03-34',
-		},
-		{
-			message: 'Nothingg..',
-			sender_id: 4,
-			receiver_id: 4,
-			created_at: '2022-03-34',
-		},
-		{
-			message:
-				'naaah bruh wtf? How could you do dat?? ffs I know its was going to happen yeaaah... naaah bruh wtf? How could you do dat?? ffs I know its was going to happen ',
-			sender_id: 3,
-			receiver_id: 4,
-			created_at: '2022-03-34',
-		},
-	];
-	messages = messages.concat(messages);
-	messages = messages.concat(messages);
 </script>
 <template>
 	<div
@@ -49,8 +22,10 @@
 				type="text"
 				placeholder="Write your message.."
 				v-model="msg"
+				@keydown.enter="sendMessage"
 			>
 				<FontAwesomeIcon
+					@click="sendMessage"
 					icon="fa-solid fa-paper-plane"
 					class="cursor-pointer h-4 w-4 bg-[#00A489] !text-white p-3 rounded-lg mr-1"
 				/>
