@@ -8,13 +8,17 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
+    AvatarsSlider: typeof import('./src/components/avatarsSlider.vue')['default']
     Button: typeof import('./src/components/Button.vue')['default']
+    EmailSent: typeof import('./src/components/EmailSent.vue')['default']
     Form: typeof import('./src/components/Form.vue')['default']
+    Header: typeof import('./src/components/Header.vue')['default']
     'Icon:bx:bxMoon': typeof import('~icons/bx/bx-moon')['default']
     'Icon:bx:bxsMoon': typeof import('~icons/bx/bxs-moon')['default']
     'IconAkarIcons:githubFill': typeof import('~icons/akar-icons/github-fill')['default']
     InputField: typeof import('./src/components/InputField.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Sidebar: typeof import('./src/components/sidebar.vue')['default']
   }
 }

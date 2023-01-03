@@ -1,9 +1,14 @@
 import { defineStore } from 'pinia';
-import { login, registerUser } from '../services/authService';
+import {
+	changePassword,
+	login,
+	registerUser,
+	requestPasswordReset,
+} from '../services/authService';
 
 export const useAuthStore = () => {
 	const router = useRouter();
-	return defineStore('auth', ({
+	return defineStore('auth', {
 		state: () => ({
 			user: null,
 		}),
@@ -12,11 +17,23 @@ export const useAuthStore = () => {
 				console.log(username, password);
 				login(username, password);
 			},
-			async register(newUser){
+			async register(newUser) {
 				// TODO : catch will be removed;
-				await registerUser(newUser).catch(e => {console.log({e})});
-				router.push({ path:'/EmailSent' });
-			}
+				await registerUser(newUser).catch(e => {
+					console.log({ e });
+				});
+				router.push({ path: '/ConfirmationEmailSent' });
+			},
+			async requestPasswordReset(email: string) {
+				await requestPasswordReset(email);
+				router.push({ path: '/ResetEmailSent' });
+			},
+			async changePassword(newPassword, token) {
+				try {
+					await changePassword({ newPassword, token });
+				} catch (e) {}
+				router.push({ path: '/ResetPassword/success' });
+			},
 		},
-	}))()
+	})();
 };
