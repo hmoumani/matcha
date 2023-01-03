@@ -3,8 +3,14 @@ module.exports = {
 	darkMode: 'class', // or 'media' or 'class'
 	theme: {
 		fontFamily: {
-			poppins: ['Poppins', 'sans-serif']
-		}
+			poppins: ['Poppins', 'sans-serif'],
+		},
+		extend: {
+			colors: {
+				'black-color': '#B2B9C5',
+				'grey-color': '#EDF0F4',
+			},
+		},
 	},
 	variants: {
 		extend: {},
@@ -14,5 +20,4 @@ module.exports = {
 		require('@tailwindcss/aspect-ratio'),
 		require('@tailwindcss/typography'),
 	],
-	
 };

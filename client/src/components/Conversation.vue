@@ -1,0 +1,60 @@
+<script setup>
+	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+	import {} from '@heroicons/vue/24/solid';
+
+	const msg = ref('');
+
+	const user_id = 4;
+
+	let messages = [
+		{
+			message: 'wsuuupp ??',
+			sender_id: 4,
+			receiver_id: 4,
+			created_at: '2022-03-34',
+		},
+		{
+			message: 'Good, wt abt you?',
+			sender_id: 3,
+			receiver_id: 4,
+			created_at: '2022-03-34',
+		},
+		{
+			message: 'Nothingg..',
+			sender_id: 4,
+			receiver_id: 4,
+			created_at: '2022-03-34',
+		},
+		{
+			message:
+				'naaah bruh wtf? How could you do dat?? ffs I know its was going to happen yeaaah... naaah bruh wtf? How could you do dat?? ffs I know its was going to happen ',
+			sender_id: 3,
+			receiver_id: 4,
+			created_at: '2022-03-34',
+		},
+	];
+	messages = messages.concat(messages);
+	messages = messages.concat(messages);
+</script>
+<template>
+	<div
+		class="bg-[#ECF0F4] w-[100%] rounded-xl h-[calc(100vh-2rem)] pr-6 pt-4"
+	>
+		<MessagesList :messages="messages" class="h-[91%] overflow-y-scroll" />
+		<div>
+			<InputField
+				class="pt-4 pl-6"
+				:css="{ '!py-3 !px-10 rounded-lg text-xl ': true }"
+				:withLabel="false"
+				type="text"
+				placeholder="Write your message.."
+				v-model="msg"
+			>
+				<FontAwesomeIcon
+					icon="fa-solid fa-paper-plane"
+					class="cursor-pointer h-4 w-4 bg-[#00A489] !text-white p-3 rounded-lg mr-1"
+				/>
+			</InputField>
+		</div>
+	</div>
+</template>
