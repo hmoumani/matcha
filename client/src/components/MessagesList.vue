@@ -4,19 +4,14 @@
 	import { storeToRefs } from 'pinia';
 	import { inject, watch, onUpdated } from 'vue';
 	import { computed } from '@vue/reactivity';
-	import moment from 'moment';
-
-	const props = defineProps({
-		messages: Array,
-	});
+	import { formatTime } from '@/helpers/formatTime';
 
 	const chatStore = useChatStore();
 	const userStore = useUserStore();
 	const { currentUserFullName, currentUser } = storeToRefs(userStore);
 	const { showUserProfile, currentConversation } = storeToRefs(chatStore);
 	const { showConversationMessages } = chatStore;
-	// const { messages } = currentConversationMessages;
-	// showConversationMessages();
+
 	const isCurrentUserMessage = msgID => 4 === msgID; // TODO: remove hardcoded 4
 
 	const messageSender = message => {
@@ -29,8 +24,6 @@
 			currentConversation?.value.user?.last_name
 		); // TODO : change.
 	};
-
-	const fromatTime = time => moment(time).format('LT');
 
 	const user = computed(() => currentConversation?.user);
 
@@ -73,7 +66,7 @@
 				<div>
 					<div class="pl-3 font-bold">
 						{{ messageSender(message) }},
-						{{ fromatTime(message.created_at) }}
+						{{ formatTime(message.created_at) }}
 					</div>
 					<div
 						class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
