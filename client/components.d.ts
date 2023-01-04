@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     'Icon:bx:bxsMoon': typeof import('~icons/bx/bxs-moon')['default']
     'IconAkarIcons:githubFill': typeof import('~icons/akar-icons/github-fill')['default']
     InputField: typeof import('./src/components/Auth/InputField.vue')['default']
+    Message: typeof import('./src/components/Chat/Conversation/Message.vue')['default']
     MessagesList: typeof import('./src/components/Chat/Conversation/MessagesList.vue')['default']
     Profile2Card: typeof import('./src/components/Chat/UserProfile/Profile2Card.vue')['default']
     ProfileCard: typeof import('./src/components/Feed/ProfileCard.vue')['default']
