@@ -2,7 +2,7 @@
 	import { useChatStore } from '@/store/chat';
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
-	import { onUpdated } from 'vue';
+	import { onUpdated, watch } from 'vue';
 	import { computed } from '@vue/reactivity';
 
 	const chatStore = useChatStore();
@@ -28,7 +28,7 @@
 	});
 </script>
 <template>
-	<div class="text-[#3C444B] relative rounded-xl">
+	<div v-if="currentConversation" class="text-[#3C444B] relative rounded-xl">
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>

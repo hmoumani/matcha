@@ -18,7 +18,10 @@ export const useChatStore = defineStore('chat', {
 			// const {
 			// 	user: { id: userID },
 			// } = this.conversations[0];
-			this.showConversationMessages(this.conversations[0]);
+			const firstConversation = this.conversations[0];
+			if (firstConversation) {
+				this.showConversationMessages(firstConversation);
+			}
 		},
 		async showConversationMessages(conversation) {
 			// const conversation: Object | undefined = this.conversations.find(
