@@ -64,7 +64,7 @@ conversations = conversations.concat(generateConv());
 conversations = conversations.concat(generateConv());
 conversations = conversations.concat(generateConv());
 
-let messages = [
+let generateMessages = () => [
 	{
 		message: 'wsuuupp ??',
 		sender_id: 4,
@@ -91,13 +91,17 @@ let messages = [
 		created_at: '20111031',
 	},
 ];
-messages = messages.concat(messages);
-messages = messages.concat(messages);
+let messages = generateMessages();
+messages = messages.concat(generateMessages());
+messages = messages.concat(generateMessages());
 // const fetchConversations = () => apiClient.get('/conversation');
 const fetchConversations = () => conversations;
+const copy = messages => {
+	return [...messages];
+};
 
 const fetchConversationMessages = userID => {
-	const conversationMessages = { messages, id: userID };
+	const conversationMessages = { messages: copy(messages), id: userID };
 	return conversationMessages;
 };
 

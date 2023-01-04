@@ -13,7 +13,7 @@
 	<div
 		class="bg-[#ECF0F4] w-[100%] rounded-xl h-[calc(100vh-2rem)] pr-6 pt-4"
 	>
-		<MessagesList :messages="messages" class="h-[91%] overflow-y-scroll" />
+		<MessagesList class="h-[91%] overflow-y-scroll" />
 		<div>
 			<InputField
 				class="pt-4 pl-6"

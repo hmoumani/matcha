@@ -2,10 +2,11 @@
 	import { useChatStore } from '@/store/chat';
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
+	import { inject, watch, onUpdated } from 'vue';
 	import { computed } from '@vue/reactivity';
 	import moment from 'moment';
 
-	defineProps({
+	const props = defineProps({
 		messages: Array,
 	});
 
@@ -22,28 +23,39 @@
 		if (isCurrentUserMessage(message.sender_id)) {
 			return currentUserFullName.value;
 		}
-		console.log(currentConversation) el.scrollIntoView({behavior: 'smooth'});
-		return currentConversation?.value.user?.first_name; // TODO : change.
+		return (
+			currentConversation?.value.user?.first_name +
+			' ' +
+			currentConversation?.value.user?.last_name
+		); // TODO : change.
 	};
 
 	const fromatTime = time => moment(time).format('LT');
 
 	const user = computed(() => currentConversation?.user);
-	// const fromatTime = (time) => moment(TokenExpirationDate).format('DD/MM/YY')
+
+	const messages = ref(null);
+
+	onUpdated(() => {
+		if (!messages.value) {
+			return;
+		}
+		messages.value.scrollIntoView({ behavior: 'smooth', block: 'end' });
+	});
 </script>
 <template>
 	<div class="text-[#3C444B] relative rounded-xl">
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>
-			{{ currentConversation.id }}
+			{{ currentConversation?.id }}
 			{{
 				currentConversation?.user?.first_name +
 				' ' +
 				currentConversation?.user?.last_name
 			}}
 		</div>
-		<div class="py-6 px-5">
+		<div class="py-6 px-5" ref="messages">
 			<div
 				v-for="message of currentConversation?.messages"
 				class="flex items-end gap-x-2 mb-3"

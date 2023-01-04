@@ -43,14 +43,19 @@ export const useChatStore = defineStore('chat', {
 			}
 
 			const { id } = currentUser;
+			const {
+				user: { id: sender_id },
+				messages,
+			} = this.currentConversation;
 
 			const newMessage = {
 				message: this.msg,
 				sender_id: id,
-				receiver_id: 3, // TODO : change
+				receiver_id: sender_id,
 				created_at: now(),
 			};
-			this.currentConversation.messages.push(newMessage);
+
+			messages.push(newMessage);
 			this.msg = '';
 		},
 	},
