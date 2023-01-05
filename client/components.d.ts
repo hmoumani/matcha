@@ -29,6 +29,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SearchContacts: typeof import('./src/components/Chat/ContactsList/searchContacts.vue')['default']
     Sidebar: typeof import('./src/components/sidebar.vue')['default']
+    TextArea: typeof import('./src/components/Common/TextArea.vue')['default']
     UserProfile: typeof import('./src/components/Chat/UserProfile/UserProfile.vue')['default']
   }
 }

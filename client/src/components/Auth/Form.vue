@@ -7,6 +7,7 @@
 <template>
 	<form>
 		<!-- <div class="flex flex-row"> -->
+			
 			<InputField
 				class="flex-1d"
 				v-for="field of fields"
