@@ -14,7 +14,9 @@ const AuthService = {
       first_name: 'senko',
       last_name: 'von doom',
       age: '567',
-      address: 'CNS shore 14'
+      address: 'CNS shore 14',
+      gender:'male',
+      bio:'aaamzaing bro, :))))))) ||| '
     };
     return { user };
   },

@@ -8,11 +8,13 @@ import Pages from 'vite-plugin-pages';
 import IconsResolver from 'unplugin-icons/resolver';
 import Layouts from 'vite-plugin-vue-layouts';
 import VueRouter from 'unplugin-vue-router/vite';
+import svgLoader from 'vite-svg-loader';
 import { VueRouterExports } from 'unplugin-vue-router';
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
 		vue(),
+		svgLoader(),
 		VueRouter({
 			dts: true,
 			routesFolder: 'src/pages',

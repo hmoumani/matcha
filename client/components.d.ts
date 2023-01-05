@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppHeader: typeof import('./src/components/Common/AppHeader.vue')['default']
+    Avatars: typeof import('./src/components/Profile/Avatars.vue')['default']
     Avatars2Slider: typeof import('./src/components/Chat/UserProfile/avatars2Slider.vue')['default']
     AvatarsSlider: typeof import('./src/components/Feed/avatarsSlider.vue')['default']
     Button: typeof import('./src/components/Auth/Button.vue')['default']
@@ -28,6 +29,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchContacts: typeof import('./src/components/Chat/ContactsList/searchContacts.vue')['default']
+    Select: typeof import('./src/components/Common/Select.vue')['default']
     Sidebar: typeof import('./src/components/sidebar.vue')['default']
     TextArea: typeof import('./src/components/Common/TextArea.vue')['default']
     UserProfile: typeof import('./src/components/Chat/UserProfile/UserProfile.vue')['default']
