@@ -45,7 +45,7 @@
 <template>
 	<div class="flex pl-2 py-7">
 		<Sidebar></Sidebar>
-		<div class="p-5 flex flex-col gap-y-4">
+		<div class="p-5 flex flex-col gap-y-4 overflow-scroll">
 			<!-- <Form :fields="fields" title="Sign In" @submit.prevent="() => {}" /> -->
 			<Avatars />
 			<div>

@@ -2,19 +2,46 @@
 	import { ref } from 'vue';
 
 	const avatars = ref([]);
+	const avatarsInputs = ref([]);
+
+	const uploadAvatar = avatarInputIndex => {
+		console.log(avatarsInputs);
+		const uploadedFiles =
+			avatarsInputs.value[avatarInputIndex - 1 - avatars.value.length]
+				.files;
+		console.log({ uploadedFiles });
+		avatars.value = avatars.value.concat(uploadedFiles);
+		console.log(avatars.value);
+	};
+
+	const getImg = avatar => {
+		let [file] = avatar;
+		if (!file) return;
+		console.log(file);
+		return URL.createObjectURL(file);
+	};
 </script>
 <template>
 	<div>
 		<label class="block text-sm font-medium text-gray-700"
 			>Your Photos</label
 		>
-		<div class="flex flex-wrap gap-x-2 max-w-[50rem] mt-4">
+		<div class="flex flex-wrap gap-6 max-w-[60rem] mt-4">
 			<div
-				v-for="i in 6"
-				class="mt-1 flex-1 min-w-[30%] max-w-full flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
+				v-for="avatarInputIndex in 6"
+				class="mt-1 flex-1 h-[14rem] min-w-[30%] max-w-full flex justify-center items-center rounded-md border-dashed border-gray-300"
+				:class="{ 'border-2': !avatars[avatarInputIndex - 1] }"
 			>
+				<template v-if="avatars[avatarInputIndex - 1]">
+					<img
+						class="w-full h-full"
+						:src="getImg(avatars[avatarInputIndex - 1])"
+					/>
+				</template>
+
 				<label
-					for="file-upload"
+					v-else
+					:for="`file-upload-${avatarInputIndex}`"
 					class="relative cursor-pointer rounded-md bg-white font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2"
 				>
 					<div class="space-y-1 text-center">
@@ -36,10 +63,12 @@
 						<p class="text-xs text-gray-500">
 							<span>Upload a file</span>
 							<input
-								id="file-upload"
-								name="file-upload"
+								ref="avatarsInputs"
+								:id="`file-upload-${avatarInputIndex}`"
+								:name="`file-upload-${avatarInputIndex}`"
 								type="file"
 								class="sr-only"
+								@change="uploadAvatar(avatarInputIndex)"
 							/>
 							<!-- PNG, JPG, GIF up to 10MB -->
 						</p>
