@@ -19,7 +19,7 @@ const AuthService = {
       const passwordIsValid = await bcrypt.compare(requestBody.password, results.rows[0].password);
       if (!passwordIsValid)
         return {status_code: 401, message: "Invalid Password!"};
-      if (results.rows[0].is_email_verified != true)
+      if (results.rows[0].is_email_verified !== true)
         return {status_code: 401, message: "please verifiy your email"};
       return {status_code: 200, message: "User logged in successfully!", user: results.rows[0]};
     } catch (error) {
