@@ -11,6 +11,7 @@ import { checkDuplicateUsernameOrEmail } from './auth.middleware';
  */
 export default ({ router, AuthController, AuthValidator, makeValidatorCallback, responseCallback }) => {
   router.post('/login', makeValidatorCallback(AuthValidator.validateLogin), responseCallback(AuthController.login));
+  router.post('/logout', responseCallback(AuthController.logout));
   router.post('/register', [checkDuplicateUsernameOrEmail], makeValidatorCallback(AuthValidator.validateRegistration), responseCallback(AuthController.register));
   router.post('/verifyEmail', makeValidatorCallback(AuthValidator.validateEmailValidation), responseCallback(AuthController.verifyEmail));
   return router;

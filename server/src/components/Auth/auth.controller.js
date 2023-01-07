@@ -28,6 +28,17 @@ const AuthController = {
       }
     };
   } ,
+  logout: async (req, res) => {
+    req.session = null;
+    return {
+      statusCode: 200,
+      body: {
+        data: {
+          "message": "You've been signed out!"
+        }
+      }
+    };
+  } ,
     /**
    * Handle logging in user.
    * @async
