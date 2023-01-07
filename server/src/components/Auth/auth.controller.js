@@ -1,4 +1,5 @@
 import AuthService from "./auth.service";
+import {sendEmailValidation} from "../../utils/node-mailer";
 import jwt from "jsonwebtoken";
 import config from "./auth.config";
 
@@ -35,12 +36,46 @@ const AuthController = {
    * @returns {Promise.<ControllerResponse> }
    */
   register: async (req, res) => {
-    const registerData = await AuthService.register(req.body);
+    try{
+      const results = await AuthService.register(req.body);
+      await sendEmailValidation(req.body.email, results.registredUserId);
+      return {
+        statusCode: 200,
+        body: {
+          data: {
+            message: "User registered successfully!",
+          }
+        }
+      };
+    } catch (error) {
+      return {
+        statusCode: 406,
+        body: {
+          data: {
+            message: "Unable to register user",
+          }
+        }
+      };
+    }
+  },
+  verifyEmail: async (req, res) => {
+    try{
+      await AuthService.verifyEmail(req.body);
+    } catch (error) {
+      return {
+        statusCode: 406,
+        body: {
+          data: {
+            message: "Unable to verify email",
+          }
+        }
+      };
+    }
     return {
-      statusCode: registerData.status_code,
+      statusCode: 200,
       body: {
         data: {
-          "message": registerData.message,
+          message: "Email verified successfully!",
         }
       }
     };

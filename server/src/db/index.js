@@ -19,9 +19,6 @@ async function query(text, params) {
         throw error;
     }
 };
+ 
 
-function hello_world() {
-    console.log("hello world");
-} 
-
-export { query, hello_world };
+export { query };
