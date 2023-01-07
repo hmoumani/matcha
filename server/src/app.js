@@ -38,6 +38,11 @@ app.use(cors({
 // parse json body  
 app.use(express.json());
 
+import engines from 'consolidate';
+app.set('views', process.cwd() + '/src/views');
+app.engine('html', engines.mustache);
+app.set('view engine', 'html');
+
 // load routes
 import setupRoutes from './loaders/routes';
 

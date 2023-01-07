@@ -1,5 +1,5 @@
 import AuthService from "./auth.service";
-import sendMail from "../../utils/node-mailer";
+import {sendEmailValidation} from "../../utils/node-mailer";
 
 const AuthController = {
   /**
@@ -26,16 +26,9 @@ const AuthController = {
    * @returns {Promise.<ControllerResponse> }
    */
   register: async (req, res) => {
-    const mailData = {
-      from: process.env.EMAIL,  // sender address
-      to: req.body.email,   // list of receivers
-      subject: 'matcha email verification',
-      text: 'That was easy!',
-      html: '<b>Hey there! </b><br> :v <br/>',
-    };
     try{
-      await AuthService.register(req.body);
-      await sendMail(mailData);
+      const results = await AuthService.register(req.body);
+      await sendEmailValidation(req.body.email, results.registredUserId);
       return {
         statusCode: 200,
         body: {
@@ -54,11 +47,25 @@ const AuthController = {
         }
       };
     }
+  },
+  verifyEmail: async (req, res) => {
+    try{
+      await AuthService.verifyEmail(req.body);
+    } catch (error) {
+      return {
+        statusCode: 406,
+        body: {
+          data: {
+            message: "Unable to verify email",
+          }
+        }
+      };
+    }
     return {
-      statusCode: registerData.status_code,
+      statusCode: 200,
       body: {
         data: {
-          "message": registerData.message,
+          message: "Email verified successfully!",
         }
       }
     };

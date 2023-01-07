@@ -38,7 +38,15 @@ const validateRegistration = (httpRequest) => {
   return schema.validate(httpRequest.body, options);
 };
 
+const validateEmailValidation = (httpRequest) => {
+  const schema = Joi.object({
+    token: joi.string().required()
+  });
+  return schema.validate(httpRequest.body, options);
+};
+
 export default {
   validateLogin,
-  validateRegistration
+  validateRegistration,
+  validateEmailValidation
 };
