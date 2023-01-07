@@ -20,6 +20,7 @@ class User(Base):
 	biography = Column(String, nullable=True)
 	gender_id = Column(Integer, ForeignKey("genders.id"))
 	last_location = Column(String, nullable=True)
+	last_connection = Column(String, nullable=True)
 	age = Column(Integer, nullable=True)
 	is_email_verified = Column(Boolean)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
@@ -110,7 +111,15 @@ class Image(Base):
 	id = Column(Integer, primary_key=True)
 	value = Column(String, nullable=False)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
-	
+
+class ValidationToken(Base):
+    __tablename__ = "validation_tokens"
+    id = Column(Integer, primary_key=True)
+    token = Column(String, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    token_type = Column(String, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
 
 Base.metadata.create_all(engine)
 
