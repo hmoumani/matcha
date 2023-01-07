@@ -1,91 +1,113 @@
 <script setup>
-	// let fields = ref([
-	// 	{ name: 'Username', component: 'textarea', value: '' },
-	// 	{ name: 'Password', type: 'password', value: '' },
-	// ]);
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
 	import { ref } from 'vue';
 
 	const userStore = useUserStore();
-	const { currentUser } = storeToRefs(userStore);
+	let { currentUser } = storeToRefs(userStore);
 
-	const defaultOption = {
-		value: 0,
-		label: 'Male',
-	};
+	const bio = ref('');
 
 	const SexualOrientationOptions = ref([
 		{
-			value: 4,
+			value: 'Female',
 			label: 'Female',
 		},
 		{
-			value: 4,
+			value: 'Male',
 			label: 'Male',
 		},
 		{
-			value: 4,
+			value: 'Both',
 			label: 'Both',
 		},
 	]);
 
 	const gendersOptions = ref([
 		{
-			value: 4,
+			value: 'Female',
 			label: 'Female',
 		},
 		{
-			value: 4,
+			value: 'Male',
 			label: 'Male',
 		},
 	]);
 
+	const defaultOption = computed(
+		() =>
+			gendersOptions?.value.find(
+				gender => gender.value === currentUser.value.gender
+			) || gendersOptions.value[0]
+	);
 </script>
 <template>
+	<Header />
 	<div class="flex pl-2 py-7">
 		<Sidebar></Sidebar>
-		<div class="p-5 flex flex-col gap-y-4 overflow-scroll">
-			<!-- <Form :fields="fields" title="Sign In" @submit.prevent="() => {}" /> -->
-			<Avatars />
-			<div>
-				<!-- <textarea rows="2">{{
-					currentUser?.bio
-				}}</textarea> -->
-
-				<TextArea label="About me" :text="currentUser?.bio" />
+		<div
+			class="bg-[#F6F7FF] pbd-20 flex justify-center items-center w-full h-screen"
+		>
+			<div
+				v-if="currentUser"
+				class="bg-white mt-14 rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll h-[calc(100vh-10rem)] w-[37rem] shadow-slate-300 shadow-sm"
+			>
+				<Avatars />
+				<div class="my-2">
+					<!-- <TextArea
+					v-if="currentUser"
+					label="About me"
+					v-model="currentUser.bio"
+				/> -->
+					<label
+						for="comment"
+						class="block text-xl font-medium text-gray-700 my-2"
+					>
+						Bio :
+					</label>
+					<textarea
+						v-if="currentUser"
+						rows="4"
+						cols="30"
+						name="comment"
+						id="comment"
+						v-model="currentUser.bio"
+						class="text-xl h-20 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+					>
+					</textarea>
+				</div>
+				<div>
+					<h2 class="mb-2">Passions :</h2>
+					<passionTags />
+				</div>
+				<div class="flex items-center gap-x-6">
+					<div class="mt-3">I want to see:</div>
+					<Select
+						v-model="defaultOption"
+						@update:modelValue="
+							selectedSexualOrientation => {
+								currentUser.sexualOrientation =
+									selectedSexualOrientation;
+							}
+						"
+						:options="SexualOrientationOptions"
+						class="mb-6 w-32 h-3 mr-28 border-gray-300 text-sm my-4"
+					/>
+				</div>
+				<div class="flex items-center gap-x-8">
+					<div class="mt-3">My Gender :</div>
+					<Select
+						v-model="defaultOption"
+						@update:modelValue="
+							selectedGender => {
+								currentUser.gender = selectedGender;
+							}
+						"
+						:options="gendersOptions"
+						class="mb-6 w-32 h-3 mr-28 border-gray-300 text-sm my-4"
+					/>
+				</div>
 			</div>
-			<div>
-				<h2 class="mb-2">Passions</h2>
-				<div class="w-100 h-20 bg-gray-100"></div>
-			</div>
-			<div>
-				<div>I want to see:</div>
-				<Select
-					v-model="defaultOption"
-					:options="SexualOrientationOptions"
-					class="mb-6 w-full h-3 mr-28 border-gray-300 text-sm my-4"
-				/>
-				<!-- <select name="pets" id="pet-select">
-					<option value="">--Please choose an option--</option>
-					<option value="male">Male</option>
-					<option value="female">Female</option>
-					<option value="both">Both</option>
-				</select> -->
-			</div>
-			<div>
-				My Gender :
-				<Select
-					v-model="defaultOption"
-					:options="gendersOptions"
-					class="mb-6 w-full h-3 mr-28 border-gray-300 text-sm my-4"
-				/>
-			</div>
-			<!-- <select name="pets" id="pet-select">
-				<option value="">--Please choose an option--</option>
-				<option value="male">Male</option>
-				<option value="female">Female</option>
-			</select> -->
 		</div>
 	</div>
 </template>

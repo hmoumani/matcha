@@ -9,14 +9,21 @@ const AuthService = {
    */
 
   find: async (userId) => {
+    const passions = [
+      { name: 'video games', isCommon: false },
+      { name: 'football', isCommon: true },
+      { name: 'Gym', isCommon: false }
+    ];
     let user = {
-      id:4,
+      id: 4,
       first_name: 'senko',
       last_name: 'von doom',
       age: '567',
       address: 'CNS shore 14',
-      gender:'male',
-      bio:'aaamzaing bro, :))))))) ||| '
+      gender: 'Male',
+      bio: 'aaamzaing bro, :))))))) ||| ',
+      sexualOrientation: 'Female',
+      passions
     };
     return { user };
   },

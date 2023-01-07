@@ -29,7 +29,7 @@
 		<div class="flex flex-wrap gap-6 max-w-[60rem] mt-4">
 			<div
 				v-for="avatarInputIndex in 6"
-				class="mt-1 flex-1 h-[14rem] min-w-[30%] max-w-full flex justify-center items-center rounded-md border-dashed border-gray-300"
+				class="mt-1 flex-1 h-[14rem] min-w-[30%] dmax-w-full flex justify-center items-center rounded-md border-dashed border-primary-color"
 				:class="{ 'border-2': !avatars[avatarInputIndex - 1] }"
 			>
 				<template v-if="avatars[avatarInputIndex - 1]">

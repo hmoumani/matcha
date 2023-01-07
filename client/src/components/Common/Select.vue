@@ -105,9 +105,8 @@
 		ListboxOption,
 		ListboxOptions,
 	} from '@headlessui/vue';
-	//   import type { Option } from '@/modules/ExternalUpload/types/Select';
-	// import ArrowDown from '@/assets/svgs/ArrowDown.svg';
-	// import CheckIcon from '@/assets/svgs/Check.svg';
+	import ArrowDown from '../../../public/assets/svgs/ArrowDown.svg';
+	import CheckIcon from '../../../public/assets/svgs/Check.svg';
 	import { computed } from '@vue/reactivity';
 
 	type Option = any;
