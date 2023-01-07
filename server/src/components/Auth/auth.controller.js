@@ -1,5 +1,7 @@
 import AuthService from "./auth.service";
 import {sendEmailValidation} from "../../utils/node-mailer";
+import jwt from "jsonwebtoken";
+import config from "./auth.config";
 
 const AuthController = {
   /**
@@ -9,12 +11,20 @@ const AuthController = {
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
    */
-  login: async (httpRequest) => {
-    const loginData = await AuthService.login(httpRequest.body);
+  login: async (req, res) => {
+    const loginData = await AuthService.login(req.body);
+    if (loginData.status_code === 200) {
+      const token = jwt.sign({id: loginData.user.id}, config.secret, {
+          expiresIn: 86400 // expires in 24 hours
+      });
+      req.session.token = token;
+    }
     return {
-      statusCode: 200,
+      statusCode: loginData.status_code,
       body: {
-        data: loginData
+        data: {
+          "message": loginData.message
+        }
       }
     };
   } ,

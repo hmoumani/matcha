@@ -1,50 +1,41 @@
 <script setup lang="ts">
-	import { useStore } from '@/store';
-	import VitailseLogo from '@/assets/logo.png';
-	useHead({
-		title: 'Vitailse | Opinionated vite starter template',
-	});
+	import { useFeedStore } from '@/store/feed';
+	import { storeToRefs } from 'pinia';
 
-	const store = useStore();
+	const feedStore = useFeedStore();
+
+	const { currentProfile } = storeToRefs(feedStore);
+
+	const { showNextProfile } = feedStore;
+
+	showNextProfile();
 </script>
 
 <template>
-	<div class="grid place-items-center min-h-[80vh]">
-		<div>
-			<img :src="VitailseLogo" width="300" class="mx-auto" />
-			<p class="lg:text-left text-center">
-				<a
-					href="https://tailwindcss.com/"
-					class="text-blue-500 hover:underline"
-					>TailwindCSS</a
-				>
-			</p>
-			<p class="text-center">
-				<a
-					class="text-blue-500 hover:underline"
-					href="https://github.com/zynth17/vitailse"
-					>Github Repo</a
-				>
-			</p>
-			<div class="mt-5 text-center">
-				<button
-					@click="store.$state.count++"
-					class="
-						px-4
-						py-2
-						dark:bg-blue-800
-						bg-blue-500
-						text-white
-						rounded
-					"
-				>
-					Count : {{ store.$state.count }}
-				</button>
-			</div>
-		</div>	
+	<Header />
+	<div class="flex">
+		<Sidebar></Sidebar>
+		<ProfileCard v-if="currentProfile" :user="currentProfile" />
 	</div>
 </template>
 
+<style>
+	.dot {
+		border-radius: 50%;
+		display: inline-block;
+	}
+	.action {
+		@apply cursor-pointer p-4 mx-2 rounded-xl;
+	}
+	.carousel__pagination-button {
+		@apply -mt-8 z-50 relative;
+	}
+	.carousel__next {
+		@apply text-white !w-32 !h-24;
+	}
+</style>
 <route lang="yaml">
 name: home
+meta:
+    layout: sidebar
 </route>

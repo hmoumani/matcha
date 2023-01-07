@@ -4,6 +4,7 @@ import { resolve } from 'path';
 import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Icons from 'unplugin-icons/vite';
+import Pages from 'vite-plugin-pages';
 import IconsResolver from 'unplugin-icons/resolver';
 import Layouts from 'vite-plugin-vue-layouts';
 import VueRouter from 'unplugin-vue-router/vite';
@@ -15,6 +16,9 @@ export default defineConfig({
 		VueRouter({
 			dts: true,
 			routesFolder: 'src/pages',
+		}),
+		Pages({
+			extensions: ['vue', 'md'],
 		}),
 		Components({
 			dts: true,
