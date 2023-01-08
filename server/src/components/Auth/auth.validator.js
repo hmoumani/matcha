@@ -40,7 +40,24 @@ const validateRegistration = (httpRequest) => {
 
 const validateEmailValidation = (httpRequest) => {
   const schema = Joi.object({
-    token: joi.string().required()
+    token: joi.string().required().messages({
+      'string.pattern.base': 'invalid token'
+    })
+  });
+  return schema.validate(httpRequest.body, options);
+};
+
+const validateresetPasswordEmail = (httpRequest) => {
+  const schema = Joi.object({
+    email: joi.string().email().required()
+  });
+  return schema.validate(httpRequest.body, options);
+};
+
+const validateresetPassword = (httpRequest) => {
+  const schema = Joi.object({
+    token: joi.string().required(),
+    password: Joi.string().min(8).max(20).alphanum().required()
   });
   return schema.validate(httpRequest.body, options);
 };
@@ -48,5 +65,7 @@ const validateEmailValidation = (httpRequest) => {
 export default {
   validateLogin,
   validateRegistration,
-  validateEmailValidation
+  validateEmailValidation,
+  validateresetPasswordEmail,
+  validateresetPassword
 };
