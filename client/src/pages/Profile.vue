@@ -1,7 +1,8 @@
 <script setup>
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
-	import { ref } from 'vue';
+	import { ref, watch } from 'vue';
+	import userService from '@/services/userService';
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
@@ -34,15 +35,38 @@
 		},
 	]);
 
-	const defaultOption = computed(
-		() =>
-			gendersOptions?.value.find(
-				gender => gender.value === currentUser.value.gender
-			) || gendersOptions.value[0]
+	const defaultOption = computed(() =>
+		gendersOptions?.value.find(
+			gender => gender.value === currentUser.value.gender
+		)
 	);
+
+	const defaultSexualOrientationOption = computed(() =>
+		SexualOrientationOptions?.value.find(
+			gender => gender.value === currentUser.value.sexualOrientation
+		)
+	);
+	let debouncedUpdate;
+
+	let isFirstChange = true;
+
+	watch(userStore, () => {
+		if (isFirstChange === true) {
+			isFirstChange = false;
+			return;
+		}
+		clearTimeout(debouncedUpdate);
+		debouncedUpdate = setTimeout(() => {
+			const { passions, bio, gender, sexualOrientation } =
+				currentUser.value;
+			const newUser = { passions, bio, gender, sexualOrientation };
+
+			userService.updateUser(newUser);
+		}, 1000);
+	});
 </script>
 <template>
-	<Header />
+	<!-- <Header /> -->
 	<div class="flex pl-2 py-7">
 		<Sidebar></Sidebar>
 		<div
@@ -50,15 +74,10 @@
 		>
 			<div
 				v-if="currentUser"
-				class="bg-white mt-14 rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll h-[calc(100vh-10rem)] w-[37rem] shadow-slate-300 shadow-sm"
+				class="bg-white mt-14 rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll hide-scroll h-[calc(100vh-10rem)] w-[37rem] shadow-slate-300 shadow-sm"
 			>
 				<Avatars />
 				<div class="my-2">
-					<!-- <TextArea
-					v-if="currentUser"
-					label="About me"
-					v-model="currentUser.bio"
-				/> -->
 					<label
 						for="comment"
 						class="block text-xl font-medium text-gray-700 my-2"
@@ -83,7 +102,7 @@
 				<div class="flex items-center gap-x-6">
 					<div class="mt-3">I want to see:</div>
 					<Select
-						v-model="defaultOption"
+						v-model="defaultSexualOrientationOption"
 						@update:modelValue="
 							selectedSexualOrientation => {
 								currentUser.sexualOrientation =

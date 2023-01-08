@@ -30,9 +30,7 @@
 	const sidebarOpen = ref(false);
 
 	const router = useRouter();
-	console.log(router.currentRoute.value.path);
 	const isCurrentRoute = link => {
-		console.log(link, router.currentRoute.path);
 		return link === router.currentRoute.value.path;
 	};
 

@@ -1,28 +1,34 @@
 <script setup>
 	import { ref } from 'vue';
+	import { useUserStore } from '@/store/user';
+	import { storeToRefs } from 'pinia';
 
-	const avatars = ref([]);
+	const userStore = useUserStore();
+	let { currentUser } = storeToRefs(userStore);
+
+	const avatars = ref(currentUser.value.avatars);
 	const avatarsInputs = ref([]);
 
 	const uploadAvatar = avatarInputIndex => {
-		console.log(avatarsInputs);
 		const uploadedFiles =
 			avatarsInputs.value[avatarInputIndex - 1 - avatars.value.length]
 				.files;
-		console.log({ uploadedFiles });
 		avatars.value = avatars.value.concat(uploadedFiles);
-		console.log(avatars.value);
 	};
 
 	const getImg = avatar => {
-		let [file] = avatar;
-		if (!file) return;
-		console.log(file);
-		return URL.createObjectURL(file);
+		if (!avatar.url) {
+			let [file] = avatar;
+			if (file) return URL.createObjectURL(file);
+		} else {
+			const { url } = avatar;
+			if (url) return url;
+		}
 	};
 </script>
 <template>
 	<div>
+		<!-- {{ currentUser?.avatars }} -->
 		<label class="block text-sm font-medium text-gray-700"
 			>Your Photos</label
 		>
@@ -34,7 +40,7 @@
 			>
 				<template v-if="avatars[avatarInputIndex - 1]">
 					<img
-						class="w-full h-full"
+						class="w-full h-full rounded-md"
 						:src="getImg(avatars[avatarInputIndex - 1])"
 					/>
 				</template>
