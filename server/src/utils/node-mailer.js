@@ -5,14 +5,13 @@ import {query} from "../db/index.js"
 
 const sendEmailValidation = async (emailTo, userId) => {
     const token = crypto.randomBytes(64).toString('hex');
-    console.log(token);
     let mailData = {
         from: process.env.EMAIL,  // sender address
         to: emailTo,   // list of receivers
         subject: 'matcha email verification',
         text: 'please validate your email by clicking the flowing link : ' + "link" + '. If you did not request this, then there is no further action you need to take.',
     };
-    app.render('emailtemplate', { email: emailTo, link: "google.com" }, async function (err, html){
+    app.render('emailtemplate', { email: emailTo, link: "google.com", sentence: "verify your address", sentence1: "VERIFY EMAIL" }, async function (err, html){
         mailData.html = html;
         await sendMail(mailData);
     });
