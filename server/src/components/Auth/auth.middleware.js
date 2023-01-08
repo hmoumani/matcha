@@ -31,8 +31,6 @@ const checkEmailexists = async (req, res, next) => {
     return res.status(406).send({
         message: "Unable to validate Username and email!"
     });
-        });      
-    });
   }
 }
 
