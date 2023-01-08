@@ -1,4 +1,4 @@
-import { checkDuplicateUsernameOrEmail } from './auth.middleware';
+import { checkDuplicateUsernameOrEmail, checkEmailexists, verifyToken } from './auth.middleware';
 /**
  *
  * @param {Object} AuthRouter
@@ -14,5 +14,8 @@ export default ({ router, AuthController, AuthValidator, makeValidatorCallback, 
   router.post('/logout', responseCallback(AuthController.logout));
   router.post('/register', [checkDuplicateUsernameOrEmail], makeValidatorCallback(AuthValidator.validateRegistration), responseCallback(AuthController.register));
   router.post('/verifyEmail', makeValidatorCallback(AuthValidator.validateEmailValidation), responseCallback(AuthController.verifyEmail));
+  router.post('/resetPasswordEmail', makeValidatorCallback(AuthValidator.validateresetPasswordEmail), [checkEmailexists], responseCallback(AuthController.resetPasswordEmail));
+  router.post('/resetPassword', makeValidatorCallback(AuthValidator.validateresetPassword), responseCallback(AuthController.resetPassword));
+  router.get('/testAuth', [verifyToken], responseCallback(AuthController.testAuth));
   return router;
 };

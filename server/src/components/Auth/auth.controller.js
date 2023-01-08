@@ -1,5 +1,5 @@
 import AuthService from "./auth.service";
-import {sendEmailValidation} from "../../utils/node-mailer";
+import {sendEmailValidation, sendResetPasswordEmail} from "../../utils/node-mailer";
 import jwt from "jsonwebtoken";
 import config from "./auth.config";
 
@@ -90,6 +90,52 @@ const AuthController = {
         }
       }
     };
+  },
+  resetPasswordEmail: async (req, res) => {
+    try{
+      const userId = await AuthService.getUserIdByEmail(req.body.email);
+      await sendResetPasswordEmail(req.body.email, userId);
+      return {
+        statusCode: 200,
+        body: {
+          data: {
+            message: "Email sent successfully!",
+          }
+        }
+      };
+    } catch (error) {
+      return {
+        statusCode: 406,
+        body: {
+          data: {
+            message: "Unable to send email to reset password",
+          }
+        }
+      };
+    }
+  },
+  resetPassword: async (req, res) => {
+    try{
+      await AuthService.resetPassword(req.body);
+    } catch (error) {
+      return {
+        statusCode: 406,
+        body: {
+          data: {
+            message: "Unable to reset password",
+          }
+        }
+      };
+    }
+    return {
+      statusCode: 200,
+      body: {
+        data: {
+          message: "password updated successfully!",
+        }
+      }
+    };
+  },
   }
 };
 
