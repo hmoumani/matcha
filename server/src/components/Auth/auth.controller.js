@@ -14,21 +14,16 @@ const AuthController = {
    * @returns {Promise.<ControllerResponse> }
    */
   login: async (req, res) => {
-    const loginData = await AuthService.login(req.body);
-    if (loginData.status_code === 200) {
-      const token = jwt.sign({id: loginData.user.id}, config.secret, {
+    try{
+      const userId = await AuthService.login(req.body);
+      const token = jwt.sign({id: userId}, config.secret, {
           expiresIn: 86400 // expires in 24 hours
       });
       req.session.token = token;
+      return helper.ControllerResponse(HttpStatusCode.OK, "User logged in successfully!");
+    } catch (error) {
+      return helper.ControllerResponse(HttpStatusCode.BAD_REQUEST, error.message);
     }
-    return {
-      statusCode: loginData.status_code,
-      body: {
-        data: {
-          "message": loginData.message
-        }
-      }
-    };
   } ,
   logout: async (req, res) => {
     req.session = null;

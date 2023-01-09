@@ -12,19 +12,20 @@ const AuthService = {
    */
 
   login: async (requestBody) => {
-    try {
-      let results = await query("select * from users where username = $1 or email = $1", [requestBody.username]);
-      if (results.rowCount <= 0)
-        return {status_code: 404, message: "User not found!"};
-      const passwordIsValid = await bcrypt.compare(requestBody.password, results.rows[0].password);
-      if (!passwordIsValid)
-        return {status_code: 401, message: "Invalid Password!"};
-      if (results.rows[0].is_email_verified !== true)
-        return {status_code: 401, message: "please verifiy your email"};
-      return {status_code: 200, message: "User logged in successfully!", user: results.rows[0]};
+    let results;
+    try{
+      results = await query("select * from users where username = $1 or email = $1", [requestBody.username]);
     } catch (error) {
-      return {status_code: 409, message: "Unable to login user!"};
+      throw new Error("unable to login");
     }
+    if (results.rowCount <= 0)
+      throw new Error("User not found!");
+    const passwordIsValid = await bcrypt.compare(requestBody.password, results.rows[0].password);
+    if (!passwordIsValid)
+      throw new Error("Invalid Password!");
+    if (results.rows[0].is_email_verified !== true)
+      throw new Error("please verifiy your email");
+    return results.rows[0].id;
   },
   register: async (requestBody) => {
     const password = bcrypt.hashSync(requestBody.password, 8);
