@@ -1,7 +1,9 @@
 import AuthService from "./auth.service";
-import {sendEmailValidation} from "../../utils/node-mailer";
+import {sendEmailValidation, sendResetPasswordEmail} from "../../utils/node-mailer";
 import jwt from "jsonwebtoken";
 import config from "./auth.config";
+import helper from "../../utils/helper";
+import HttpStatusCode from "../../enums/HttpStatusCode";
 
 const AuthController = {
   /**
@@ -12,21 +14,20 @@ const AuthController = {
    * @returns {Promise.<ControllerResponse> }
    */
   login: async (req, res) => {
-    const loginData = await AuthService.login(req.body);
-    if (loginData.status_code === 200) {
-      const token = jwt.sign({id: loginData.user.id}, config.secret, {
+    try{
+      const userId = await AuthService.login(req.body);
+      const token = jwt.sign({id: userId}, config.secret, {
           expiresIn: 86400 // expires in 24 hours
       });
       req.session.token = token;
+      return helper.ControllerResponse(HttpStatusCode.OK, "User logged in successfully!");
+    } catch (error) {
+      return helper.ControllerResponse(HttpStatusCode.BAD_REQUEST, error.message);
     }
-    return {
-      statusCode: loginData.status_code,
-      body: {
-        data: {
-          "message": loginData.message
-        }
-      }
-    };
+  } ,
+  logout: async (req, res) => {
+    req.session = null;
+    return helper.ControllerResponse(HttpStatusCode.OK, "You've been signed out!");
   } ,
     /**
    * Handle logging in user.
@@ -39,47 +40,37 @@ const AuthController = {
     try{
       const results = await AuthService.register(req.body);
       await sendEmailValidation(req.body.email, results.registredUserId);
-      return {
-        statusCode: 200,
-        body: {
-          data: {
-            message: "User registered successfully!",
-          }
-        }
-      };
+      return helper.ControllerResponse(HttpStatusCode.OK, "User registered successfully!");
     } catch (error) {
-      return {
-        statusCode: 406,
-        body: {
-          data: {
-            message: "Unable to register user",
-          }
-        }
-      };
+      return helper.ControllerResponse(HttpStatusCode.BAD_REQUEST, "Unable to register user");
     }
   },
   verifyEmail: async (req, res) => {
     try{
       await AuthService.verifyEmail(req.body);
+      return helper.ControllerResponse(HttpStatusCode.OK, "Email verified successfully!");
     } catch (error) {
-      return {
-        statusCode: 406,
-        body: {
-          data: {
-            message: "Unable to verify email",
-          }
-        }
-      };
+      return helper.ControllerResponse(HttpStatusCode.BAD_REQUEST, "Unable to verify email");
     }
-    return {
-      statusCode: 200,
-      body: {
-        data: {
-          message: "Email verified successfully!",
-        }
-      }
-    };
-  }
+  },
+  resetPasswordEmail: async (req, res) => {
+    try{
+      const userId = await AuthService.getUserIdByEmail(req.body.email);
+      await sendResetPasswordEmail(req.body.email, userId);
+      return helper.ControllerResponse(HttpStatusCode.OK, "Email sent successfully!");
+    } catch (error) {
+      return helper.ControllerResponse(HttpStatusCode.BAD_REQUEST, "Unable to send email to reset password");
+
+    }
+  },
+  resetPassword: async (req, res) => {
+    try{
+      await AuthService.resetPassword(req.body);
+      return helper.ControllerResponse(HttpStatusCode.OK, "password updated successfully!");
+    } catch (error) {
+      return helper.ControllerResponse(HttpStatusCode.BAD_REQUEST, "Unable to reset password");
+    }
+  },
 };
 
 export default AuthController;
