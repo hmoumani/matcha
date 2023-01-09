@@ -1,6 +1,8 @@
 <script setup>
 	import { ref } from 'vue';
 	import { useUserStore } from '@/store/user';
+	import userService from '@/services/userService';
+
 	import { storeToRefs } from 'pinia';
 
 	const userStore = useUserStore();
@@ -14,6 +16,7 @@
 			avatarsInputs.value[avatarInputIndex - 1 - avatars.value.length]
 				.files;
 		avatars.value = avatars.value.concat(uploadedFiles);
+		userService.uploadAvatars(uploadedFiles);
 	};
 
 	const getImg = avatar => {
@@ -28,7 +31,6 @@
 </script>
 <template>
 	<div>
-		<!-- {{ currentUser?.avatars }} -->
 		<label class="block text-sm font-medium text-gray-700"
 			>Your Photos</label
 		>
@@ -76,7 +78,6 @@
 								class="sr-only"
 								@change="uploadAvatar(avatarInputIndex)"
 							/>
-							<!-- PNG, JPG, GIF up to 10MB -->
 						</p>
 					</div>
 				</label>
