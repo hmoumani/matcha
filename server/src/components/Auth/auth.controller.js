@@ -117,6 +117,14 @@ const AuthController = {
   resetPassword: async (req, res) => {
     try{
       await AuthService.resetPassword(req.body);
+      return {
+        statusCode: 200,
+        body: {
+          data: {
+            message: "password updated successfully!",
+          }
+        }
+      };
     } catch (error) {
       return {
         statusCode: 406,
@@ -127,16 +135,7 @@ const AuthController = {
         }
       };
     }
-    return {
-      statusCode: 200,
-      body: {
-        data: {
-          message: "password updated successfully!",
-        }
-      }
-    };
   },
-  }
 };
 
 export default AuthController;
