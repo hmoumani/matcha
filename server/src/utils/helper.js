@@ -6,13 +6,5 @@ function getIdParam(req) {
   throw new TypeError(`Invalid ':id' param: "${id}"`);
 }
 
-const ControllerResponse = (statusCode, message) => {
-  return {
-    statusCode,
-    body: {
-      message: message,
-    },
-  };
-};
 
-export default { getIdParam, ControllerResponse };
+export default { getIdParam };
