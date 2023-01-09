@@ -37,7 +37,6 @@ const AuthService = {
       throw new Error("Invalid token");
     await query("update users set is_email_verified = true where id = $1", [results.rows[0].user_id]);
     await query("delete from validation_tokens where token = $1", [requestBody.token]);
-    return {status_code: 200, message: "Email verified successfully!"};
   },
   resetPassword: async (requestBody) => {
     let results = await query("select * from validation_tokens where token=$1 and token_type=$2", [requestBody.token, "password"]);
