@@ -1,15 +1,3 @@
-// const profilesQueue = ref(shufflePeople());
-
-// const showNextProfile = () => {
-//     profilesQueue.value.shift();
-//     if (profilesQueue.value.length <= 3) {
-//         // get new list
-//         profilesQueue.value = shufflePeople();
-//     }
-// };
-
-// const currentUser = computed(() => profilesQueue.value[0]);
-
 import userService from '@/services/userService';
 import { defineStore, storeToRefs } from 'pinia';
 import { useChatStore } from '@/store/chat';
@@ -32,7 +20,6 @@ export const useUserStore = defineStore('user', {
 		async getCurrentUser() {
 			let { data } = await userService.getUserProfile();
 			this.currentUser = data.data.user;
-			// console.log(data.data.user);
 		},
 		async reportUser(userID) {
 			await userService.reportUser(userID);
@@ -45,26 +32,32 @@ export const useUserStore = defineStore('user', {
 			}
 
 			const messagesStore = useChatStore();
-			const { conversations } = storeToRefs(messagesStore);
+			const { conversations, currentConversation } =
+				storeToRefs(messagesStore);
+			const { showConversationMessages } = messagesStore;
 			const conversationWithBlockedUser = conversations.value.find(
 				conversation => getConversationUserID(conversation) === userID
 			);
-			console.log({ conversationWithBlockedUser });
 			if (conversationWithBlockedUser) {
 				conversations.value = removeItemOnce(
 					conversations.value,
 					conversationWithBlockedUser
 				);
+				if (conversations.value.length) {
+					showConversationMessages(conversations.value[0]);
+				} else {
+					currentConversation.value = null;
+				}
 			}
 		},
 	},
-	getters:{
-		currentUserFullName(){
-			if (!this.currentUser){
+	getters: {
+		currentUserFullName() {
+			if (!this.currentUser) {
 				return;
 			}
-			const {first_name, last_name} = this.currentUser;
-			return first_name + '' + last_name
-		}
-	}
+			const { first_name, last_name } = this.currentUser;
+			return first_name + '' + last_name;
+		},
+	},
 });

@@ -15,18 +15,22 @@ export const useChatStore = defineStore('chat', {
 	actions: {
 		async fetchConversations() {
 			this.conversations = await chatService.fetchConversations();
-			const {
-				user: { id: userID },
-			} = this.conversations[0];
-			this.showConversationMessages(userID);
-		},
-		async showConversationMessages(userID) {
-			const conversation: Object | undefined = this.conversations.find(
-				conversation => getConversationUserID(conversation) === userID
-			);
-			if (!conversation) {
-				return;
+			// const {
+			// 	user: { id: userID },
+			// } = this.conversations[0];
+			const firstConversation = this.conversations[0];
+			if (firstConversation) {
+				this.showConversationMessages(firstConversation);
 			}
+		},
+		async showConversationMessages(conversation) {
+			// const conversation: Object | undefined = this.conversations.find(
+			// 	conversation => getConversationUserID(conversation) === userID
+			// );
+			// if (!conversation) {
+			// 	return;
+			// }
+			const userID = conversation?.user?.id;
 			const messages = await chatService.fetchConversationMessages(
 				userID
 			);
@@ -42,14 +46,19 @@ export const useChatStore = defineStore('chat', {
 			}
 
 			const { id } = currentUser;
+			const {
+				user: { id: sender_id },
+				messages,
+			} = this.currentConversation;
 
 			const newMessage = {
 				message: this.msg,
 				sender_id: id,
-				receiver_id: 3, // TODO : change
+				receiver_id: sender_id,
 				created_at: now(),
 			};
-			this.currentConversation.messages.push(newMessage);
+
+			messages.push(newMessage);
 			this.msg = '';
 		},
 	},

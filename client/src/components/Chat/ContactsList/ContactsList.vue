@@ -3,18 +3,10 @@
 	import { storeToRefs } from 'pinia';
 
 	const messagesStore = useChatStore();
-	const { conversations } = storeToRefs(messagesStore);
+	const { conversations, currentConversation } = storeToRefs(messagesStore);
 	const { fetchConversations, showConversationMessages } = messagesStore;
 
 	fetchConversations();
-
-	const currentConversation = ref(0);
-
-	const updateCurrentConversation = (conversation, index) => {
-		currentConversation.value = index;
-		conversation.user.id = index; // todo : temp line, will be deleted
-		showConversationMessages(conversation.user.id);
-	};
 </script>
 <template>
 	<div class="mt-8">
@@ -32,17 +24,15 @@
 		>
 			<div
 				v-for="(conversation, index) of conversations"
-				@click="updateCurrentConversation(conversation, index)"
+				@click="showConversationMessages(conversation)"
 				class="flex py-6 px-6 rounded-xl cursor-pointer shadow-sm"
 				:class="{
-					'bg-[#EDF0F4]': index == currentConversation,
-					'': index !== currentConversation,
+					'bg-[#EDF0F4]': conversation.user.id == currentConversation?.user?.id,
 				}"
 			>
 				<img
-					class="w-12 h-12 rounded-full"
+					class="w-12 h-12 bg-red-300 rounded-full"
 					:src="conversation.user.avatar"
-					alt=""
 				/>
 				<div class="flex flex-col pl-4">
 					<h1 class="font-medium">

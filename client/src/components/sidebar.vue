@@ -30,9 +30,7 @@
 	const sidebarOpen = ref(false);
 
 	const router = useRouter();
-	console.log(router.currentRoute.value.path);
 	const isCurrentRoute = link => {
-		console.log(link, router.currentRoute.path);
 		return link === router.currentRoute.value.path;
 	};
 
@@ -198,7 +196,7 @@
 						{{ currentUser.first_name }} {{ currentUser.last_name }}
 					</h2>
 					<div class="text-xl text-[#B1AFBA] pl-2">
-						{{ currentUser.address }} 
+						{{ currentUser.address }}
 					</div>
 
 					<nav class="mt-12 flex-1 space-y-1 bg-white">

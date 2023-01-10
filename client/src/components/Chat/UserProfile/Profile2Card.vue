@@ -5,8 +5,6 @@
 		user: Object,
 	});
 
-	const { userAvatars, passions } = user;
-
 	const userStore = useUserStore();
 
 	const { blockUser, reportUser } = userStore;
@@ -16,16 +14,18 @@
 		class="relative h-[calc(100vh-14rem)] bg-white shadow-sm mx-auto overflow-y-scroll overflow-x-hidden"
 	>
 		<!-- <avatars2Slider :avatars="userAvatars" /> -->
-		<div class="w-full h-[20rem] py-3 px-8 rounded-full">
-			<img :src="userAvatars[0]" />
-		</div>
+		<!-- <div class="w-full h-[20rem] py-3 px-8 rounded-full"> -->
+		<img
+			:src="user.avatar"
+			class="w-[80%] h-[20rem] my-3 mx-auto rounded-xl bg-red-400"
+		/>
+		<!-- </div> -->
 
 		<div class="px-8 py-8 flex justify-between">
 			<div>
 				<div
 					class="font-medium text-[#48496B] text-2xl flex items-center gap-x-3"
 				>
-					{{ user.id }}
 					{{ user.first_name }} {{ user.last_name }},
 					{{ user.age }}
 					<span class="rounded-full bg-[#4EB3AC] w-3 h-3"></span>
@@ -52,7 +52,7 @@
 				</div>
 				<div class="flex">
 					<div
-						v-for="passion of passions"
+						v-for="passion of user.passions"
 						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
 							'bg-[#D5F9F7] text-[#4EB3AC]': passion.isCommon,

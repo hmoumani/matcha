@@ -54,7 +54,6 @@
 				/>
 			</div>
 
-			<!-- focus:border-indigo-500 focus:outline-none focus:ring-indigo-500  -->
 		</div>
 	</div>
 </template>
