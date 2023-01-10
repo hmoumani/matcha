@@ -18,8 +18,7 @@ export const useAuthStore = () => {
 			},
 			async register(newUser) {
 				// TODO : catch will be removed;
-				await registerUser(newUser).catch(e => {
-				});
+				await registerUser(newUser).catch(e => {});
 				router.push({ path: '/ConfirmationEmailSent' });
 			},
 			async requestPasswordReset(email: string) {
@@ -28,7 +27,7 @@ export const useAuthStore = () => {
 			},
 			async changePassword(newPassword, token) {
 				try {
-					await changePassword({ newPassword, token });
+					await changePassword({ password: newPassword, token });
 				} catch (e) {}
 				router.push({ path: '/ResetPassword/success' });
 			},

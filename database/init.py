@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine("postgresql://matcha:password@localhost:5432/matcha", echo=True)
+engine = create_engine("postgresql://matcha:password@localhost:7777/matcha", echo=True)
 
 Base = declarative_base()
 
