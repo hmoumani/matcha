@@ -17,8 +17,8 @@ const userAvatars = [
 ];
 
 const user = {
-	first_name: 'Rebikaa',
-	last_name: 'Talon',
+	firstName: 'Rebikaa',
+	lastName: 'Talon',
 	age: 24,
 	id: 0,
 	distance: '14 km',

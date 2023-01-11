@@ -8,9 +8,16 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: matcha
     ports:
-      - 7777:7777
+      - 7777:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+
+ 
+volumes:
+  pgdata:
+ 

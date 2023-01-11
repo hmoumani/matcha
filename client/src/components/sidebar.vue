@@ -193,7 +193,7 @@
 						alt="Your Company"
 					/>
 					<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
-						{{ currentUser.first_name }} {{ currentUser.last_name }}
+						{{ currentUser.firstName }} {{ currentUser.lastName }}
 					</h2>
 					<div class="text-xl text-[#B1AFBA] pl-2">
 						{{ currentUser.address }}
