@@ -15,4 +15,7 @@ export const requestPasswordReset = email =>
 export const changePassword = payload =>
 	apiClient.post('/auth/resetPassword', { ...payload });
 
+export const verifyEmail = payload =>
+	apiClient.post('/auth/verifyEmail', { ...payload });
+
 export const logout = () => apiClient.post('/auth/logout');

@@ -40,6 +40,7 @@ declare module '@vue-router/routes' {
     '/ResetEmailSent': RouteRecordInfo<'/ResetEmailSent', '/ResetEmailSent', Record<never, never>, Record<never, never>>,
     '/ResetPassword/[token]': RouteRecordInfo<'/ResetPassword/[token]', '/ResetPassword/:token', { token: ParamValue<true> }, { token: ParamValue<false> }>,
     '/ResetPassword/success': RouteRecordInfo<'/ResetPassword/success', '/ResetPassword/success', Record<never, never>, Record<never, never>>,
+    '/VerifyEmail/[token]': RouteRecordInfo<'/VerifyEmail/[token]', '/VerifyEmail/:token', { token: ParamValue<true> }, { token: ParamValue<false> }>,
   }
 }
 
