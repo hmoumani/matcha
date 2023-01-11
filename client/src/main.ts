@@ -18,6 +18,7 @@ import {
 	faArrowRight,
 	faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
+import { useUserStore } from './store/user';
 
 /* add icons to the library */
 library.add(faHeart);
@@ -28,6 +29,7 @@ library.add(faFlag);
 library.add(faArrowLeft);
 library.add(faArrowRight);
 library.add(faGear);
+
 
 export const createApp = ViteSSG(
 	App,
