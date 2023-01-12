@@ -5,8 +5,9 @@ import { query } from '../db/index.js';
 
 const sendEmailValidation = async (emailTo, userId) => {
   const token = crypto.randomBytes(64).toString('hex');
+  const { EMAIL, FRONTEND_URL } = process.env;
   let mailData = {
-    from: process.env.EMAIL, // sender address
+    from: EMAIL, // sender address
     to: emailTo, // list of receivers
     subject: 'matcha email verification',
     text:
@@ -14,7 +15,7 @@ const sendEmailValidation = async (emailTo, userId) => {
       'link' +
       '. If you did not request this, then there is no further action you need to take.'
   };
-  const link = 'google.com';
+  const link = `${FRONTEND_URL}/VerifyEmail/${token}`;
   app.render(
     'emailtemplate',
     { email: emailTo, link, sentence: 'verify your address', sentence1: 'VERIFY EMAIL' },
