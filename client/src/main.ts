@@ -19,6 +19,7 @@ import {
 	faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
 import { createApp } from 'vue';
+import setupApp from './setupApp';
 
 /* add icons to the library */
 library.add(faHeart);
@@ -30,4 +31,10 @@ library.add(faArrowLeft);
 library.add(faArrowRight);
 library.add(faGear);
 
-createApp(App).use(createPinia()).use(router).mount('#app');
+const app = createApp(App)
+	.use(createPinia())
+	.use(router)
+
+setupApp().finally(() => {
+	app.mount('#app');
+})

@@ -41,7 +41,6 @@
 	const { getCurrentUser } = userStore;
 
 	let { logout } = useAuthStore();
-	getCurrentUser();
 </script>
 <template>
 	<!--
