@@ -12,7 +12,7 @@ async function query(text, params) {
     console.log('executed query', { text, duration, rows: res.rowCount });
     return res;
   } catch (error) {
-    // console.log('error in query', { error });
+    console.log('error in query', { error });
     throw error;
   }
 }

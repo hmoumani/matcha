@@ -4,7 +4,6 @@ import config from './auth.config';
 
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   try {
-    console.log(req.body);
     const user = await query('select * from users where username = $1 or email = $2', [
       req.body.username,
       req.body.email
