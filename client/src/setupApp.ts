@@ -1,5 +1,4 @@
 import { router } from './router';
-import { useRoute } from 'vue-router';
 import { useUserStore } from './store/user';
 
 const publicRoutes = ['/login', '/register'];
@@ -21,21 +20,18 @@ const setupApp = async () => {
 	// => !protected route?
 	// ==> redirect to Home
 
-	// const router = useRouter();
-	const route = useRoute();
 	const { getCurrentUser } = useUserStore();
 
 	try {
 		getCurrentUser();
 	} catch (e) {
-        console.log(router)
 		router.push('/login');
 		return;
 	}
 
-	const currentRoute = route.path;
+	const currentRoute = window.location.pathname;
 	if (isPublicRoute(currentRoute)) {
-		router.push('/');
+		router.push({ name: 'home' });
 	}
 };
 

@@ -134,7 +134,7 @@
 
 	const emit = defineEmits(['update:modelValue']);
 	const updateValue = (newOption: Option) => {
-		// TODO : option value must be emitted instead of label
+		// TODO : option value  be emitted instead of label
 		// Update option in parent
 		emit('update:modelValue', newOption.value);
 		// Update option in this component
@@ -145,6 +145,7 @@
 		x: 0,
 		y: 0,
 	});
+	
 	const listBoxButtonWidth = ref(0);
 
 	const repositionSelectMenu = (event: MouseEvent) => {

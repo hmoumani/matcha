@@ -23,12 +23,10 @@ export const useAuthStore = () => {
 				router.push({ path: '/' });
 			},
 			async register(newUser) {
-				// TODO : catch will be removed;
 				await registerUser(newUser);
 				router.push({ path: '/ConfirmationEmailSent' });
 			},
 			async logout() {
-				// TODO : catch will be removed;
 				await logout();
 				router.push({ path: '/login' });
 			},

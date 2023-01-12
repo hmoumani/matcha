@@ -110,7 +110,7 @@ And, enjoy :)
 
 ### Development
 
-Just run and visit http://localhost:5000
+Just run and visit http://localhost:3000
 
 ```bash
 pnpm dev

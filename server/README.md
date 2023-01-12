@@ -99,7 +99,7 @@ The environment variables can be found and modified in the `.env` file. They com
 
 ```bash
 # Port number
-PORT=5000
+PORT=3000
 
 # URL of the Mongo DB
 NODE_ENV=development
