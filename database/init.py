@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine("postgresql://matcha:password@localhost:5432/matcha", echo=True)
+engine = create_engine("postgresql://matcha:password@localhost:7777/matcha", echo=True)
 
 Base = declarative_base()
 
@@ -19,7 +19,6 @@ class User(Base):
 	images = relationship("Image", back_populates="user")
 	biography = Column(String, nullable=True)
 	gender_id = Column(Integer, ForeignKey("genders.id"))
-	last_location = Column(String, nullable=True)
 	last_connection = Column(String, nullable=True)
 	age = Column(Integer, nullable=True)
 	is_email_verified = Column(Boolean)
@@ -32,13 +31,22 @@ class Gender(Base):
 	name = Column(String, nullable=False)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 	
-	
+
+class UserSearchSettings(Base):
+	__tablename__ = "user_settings"
+	id = Column(Integer, primary_key=True)
+	user_id = Column(Integer, ForeignKey("users.id"))
+	min_age = Column(Integer,server_default=18)
+	max_age = Column(Integer,server_default=20)
+	fame_rating = Column(Integer,server_default=3)
+	last_location = Column(String, nullable=True)
+	common_tags = Column(String, nullable=True)
+		
 class SexualPreference(Base):
 	__tablename__ = "sexual_preferences"
 	id = Column(Integer, primary_key=True)
 	user_id = Column(Integer, ForeignKey("users.id"))
 	gender_id = Column(Integer, ForeignKey("genders.id"))
-		
 
 class Tag(Base):
 	__tablename__ = "tags"
