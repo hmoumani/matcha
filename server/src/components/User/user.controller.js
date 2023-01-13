@@ -19,6 +19,17 @@ const AuthController = {
   },
 
   /**
+   * Update User Settings
+   * @async
+   * @method
+   * @returns {Promise.<ControllerResponse> }
+   */
+  updateSettings: async (settings) => {
+    const user = await userService.updateSettings(userId);
+    return 
+  },
+
+  /**
    * Handle logging in user.
    * @async
    * @method

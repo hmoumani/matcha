@@ -1,3 +1,5 @@
+import userValidator from './user.validator';
+
 /**
  *
  * @param {Object} AuthRouter
@@ -8,8 +10,9 @@
  * @param {makeValidatorCallback} AuthRouter.makeValidatorCallback
  * @returns {ExpressRouter}
  */
-export default ({ router, UserController, responseCallback }) => {
+export default ({ router, UserController, responseCallback, UserValidator, makeValidatorCallback }) => {
   router.get('/:id', responseCallback(UserController.find));
   router.get('/like/:id', responseCallback(UserController.like));
+  router.put('/settings', makeValidatorCallback(UserValidator.updateSettings));
   return router;
 };
