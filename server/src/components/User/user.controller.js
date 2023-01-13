@@ -28,8 +28,9 @@ const AuthController = {
    */
   updateSettings: async (req) => {
     const settings = req.body;
-    let a = await userService.updateSettings(settings);
-    return ControllerResponse(HttpStatusCode.OK, a);
+    const userID = 6;
+    await userService.updateSettings(userID, settings);
+    return ControllerResponse(HttpStatusCode.OK, 'Setting Updated in successfully!');
   },
 
   /**

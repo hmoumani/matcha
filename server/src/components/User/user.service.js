@@ -52,10 +52,11 @@ const AuthService = {
 
   like: async (userId) => {},
 
-  updateSettings: async (settings) => {
+  updateSettings: async (userID, settings) => {
     const settingsModel = new SettingsModel();
+    const condition = ['user_id', '=', userID];
 
-    return settingsModel.update(settings, 4);
+    settingsModel.update(settings, condition);
   }
 };
 

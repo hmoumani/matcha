@@ -36,9 +36,9 @@ class UserSearchSettings(Base):
 	__tablename__ = "user_settings"
 	id = Column(Integer, primary_key=True)
 	user_id = Column(Integer, ForeignKey("users.id"))
-	min_age = Column(Integer,server_default=18)
-	max_age = Column(Integer,server_default=20)
-	fame_rating = Column(Integer,server_default=3)
+	min_age = Column(Integer,default=18)
+	max_age = Column(Integer,default=20)
+	fame_rating = Column(Integer,default=3)
 	last_location = Column(String, nullable=True)
 	common_tags = Column(String, nullable=True)
 		

@@ -1,36 +1,52 @@
-import { snakeCase } from "snake-case";
+import { snakeCase } from 'snake-case';
+import { query as executeQuery } from '../db/index';
 
 class Model {
   constructor(tableName) {
     this.tableName = tableName;
   }
 
-  update(newData, condition) {
+  async update(newData, condition) {
     let query = '';
     // partial query build:
-    const part1 = `UPDATE ${this.tableName} SET\n`;
+    const part1 = `UPDATE ${this.tableName} SET `;
     let part2 = '';
-    const part3 = '\nWHERE id = ?';
 
     // placeholder for parameters:
     let params = [];
 
     // query builder:
-    for (let key in newData) {
-      part2 += snakeCase(key) + ' = ?, ';
+    let index = 1;
+    for (const key in newData) {
+      part2 += snakeCase(key) + ` = $${index}, `;
+      index++;
       params.push(newData[key]);
     }
-    params.push(condition); // ...and the tuple you want to update
 
     // finished dynamic SQL query:
     query = part1;
     query += part2.substring(0, part2.length - 2); // snip last comma
-    query += part3;
+
+    if (condition) {
+      const [col_id, operation, value] = condition;
+      const part3 = ` WHERE ${col_id} ${operation} $${index}`;
+      query += part3;
+      params.push(value); // ...and the tuple you want to update
+    }
 
     // params to use:
     console.log(query);
     console.log(params);
-    return {query, params}
+    return await executeQuery(query, params);
+  }
+
+  find(condition) {
+    const query = `select * from ${this.tableName} `;
+    const [col_id, operation, value] = condition;
+    query += ` WHERE ${col_id} ${operation} $1`;
+    params = [value];
+    return query
+    // select * from users where username
   }
 }
 
