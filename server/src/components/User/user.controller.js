@@ -1,3 +1,5 @@
+import HttpStatusCode from '../../enums/HttpStatusCode';
+import ControllerResponse from '../../utils/ControllerResponse';
 import userService from './user.service';
 
 const AuthController = {
@@ -24,9 +26,10 @@ const AuthController = {
    * @method
    * @returns {Promise.<ControllerResponse> }
    */
-  updateSettings: async (settings) => {
-    const user = await userService.updateSettings(userId);
-    return 
+  updateSettings: async (req) => {
+    const settings = req.body;
+    let a = await userService.updateSettings(settings);
+    return ControllerResponse(HttpStatusCode.OK, a);
   },
 
   /**
