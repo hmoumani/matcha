@@ -1,3 +1,4 @@
+import { getUserIdFromToken } from '../Auth/auth.middleware';
 import userValidator from './user.validator';
 
 /**
@@ -11,9 +12,14 @@ import userValidator from './user.validator';
  * @returns {ExpressRouter}
  */
 export default ({ router, UserController, responseCallback, UserValidator, makeValidatorCallback }) => {
-  // router.get('/:id', responseCallback(UserController.find));
+  router.get('/settings', getUserIdFromToken, responseCallback(UserController.getSettings));
+  router.get('/:id', responseCallback(UserController.find));
   router.get('/like/:id', responseCallback(UserController.like));
-  router.put('/settings', makeValidatorCallback(UserValidator.updateSettings), responseCallback(UserController.updateSettings));
-  router.get('/settings', responseCallback(UserController.getSettings));
+  router.put(
+    '/settings',
+    getUserIdFromToken,
+    makeValidatorCallback(UserValidator.updateSettings),
+    responseCallback(UserController.updateSettings)
+  );
   return router;
 };

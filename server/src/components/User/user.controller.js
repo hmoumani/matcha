@@ -28,8 +28,8 @@ const AuthController = {
    */
   updateSettings: async (req) => {
     const settings = req.body;
-    const userID = 6;
-    await userService.updateSettings(userID, settings);
+    const userId = req.userId;
+    await userService.updateSettings(userId, settings);
     return ControllerResponse(HttpStatusCode.OK, 'Setting Updated in successfully!');
   },
 
@@ -41,7 +41,7 @@ const AuthController = {
    * @returns {Promise.<ControllerResponse> }
    */
   getSettings: async (req) => {
-    const userId = 6; // TODO Remove
+    const userId = req.userId;
     const settings = await userService.getSettings(userId);
     return ControllerResponse(HttpStatusCode.OK, settings);
   }
