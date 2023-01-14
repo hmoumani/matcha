@@ -11,8 +11,9 @@ import userValidator from './user.validator';
  * @returns {ExpressRouter}
  */
 export default ({ router, UserController, responseCallback, UserValidator, makeValidatorCallback }) => {
-  router.get('/:id', responseCallback(UserController.find));
+  // router.get('/:id', responseCallback(UserController.find));
   router.get('/like/:id', responseCallback(UserController.like));
   router.put('/settings', makeValidatorCallback(UserValidator.updateSettings), responseCallback(UserController.updateSettings));
+  router.get('/settings', responseCallback(UserController.getSettings));
   return router;
 };

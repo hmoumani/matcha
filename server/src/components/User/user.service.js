@@ -57,6 +57,13 @@ const AuthService = {
     const condition = ['user_id', '=', userID];
 
     settingsModel.update(settings, condition);
+  },
+
+  getSettings: async (userID) => {
+    const settingsModel = new SettingsModel();
+    const condition = ['user_id', '=', userID];
+
+    return settingsModel.find(condition);
   }
 };
 

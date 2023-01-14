@@ -40,14 +40,10 @@ const AuthController = {
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
    */
-  like: async (userId) => {
-    const data = await userService.like(userId);
-    return {
-      statusCode: 200,
-      body: {
-        data
-      }
-    };
+  getSettings: async (req) => {
+    const userId = 6; // TODO Remove
+    const settings = await userService.getSettings(userId);
+    return ControllerResponse(HttpStatusCode.OK, settings);
   }
 };
 

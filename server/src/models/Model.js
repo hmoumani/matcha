@@ -40,13 +40,14 @@ class Model {
     return await executeQuery(query, params);
   }
 
-  find(condition) {
-    const query = `select * from ${this.tableName} `;
+  async find(condition) {
+    let query = `select * from ${this.tableName} `;
     const [col_id, operation, value] = condition;
-    query += ` WHERE ${col_id} ${operation} $1`;
-    params = [value];
-    return query
-    // select * from users where username
+    query += `WHERE ${col_id} ${operation} $1`;
+    const params = [value];
+    const { rows } = await executeQuery(query, params);
+
+    return rows;
   }
 }
 
