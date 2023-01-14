@@ -6,7 +6,7 @@ class Model {
     this.tableName = tableName;
   }
 
-  async update(newData, condition) {
+  update(newData, condition) {
     let query = '';
     // partial query build:
     const part1 = `UPDATE ${this.tableName} SET `;
@@ -37,7 +37,7 @@ class Model {
     // params to use:
     console.log(query);
     console.log(params);
-    return await executeQuery(query, params);
+    return executeQuery(query, params);
   }
 
   async find(condition) {
@@ -49,6 +49,30 @@ class Model {
 
     return rows;
   }
+
+  insert(data) {
+    const params = Object.values(data);
+
+    let query = `insert into ${this.tableName} `;
+    const cols = Object.keys(data);
+    query += `(${cols.map((el) => snakeCase(el)).join(', ')}) values `;
+    query += `(${Array(cols.length)
+      .fill(0)
+      .map((el, index) => `$${index + 1}`)
+      .join(', ')})`;
+
+    return executeQuery(query, params);
+  }
 }
+
+// let data = {
+//   minAge: 18,
+//   maxAge: 18,
+//   maxFameRating: 10,
+//   location: 'hell WPOR',
+//   commonTags: '4'
+// };
+
+// new Model('user_settings').insert(data);
 
 export default Model;
