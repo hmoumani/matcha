@@ -38,8 +38,9 @@ class UserSearchSettings(Base):
 	user_id = Column(Integer, ForeignKey("users.id"))
 	min_age = Column(Integer,default=18)
 	max_age = Column(Integer,default=20)
-	fame_rating = Column(Integer,default=3)
-	last_location = Column(String, nullable=True)
+	min_fame_rating = Column(Integer,default=1)
+	max_fame_rating = Column(Integer,default=10)
+	location = Column(String, nullable=True)
 	common_tags = Column(String, nullable=True)
 		
 class SexualPreference(Base):
