@@ -13,9 +13,16 @@
 
 <template>
 	<Header />
-	<div class="flex">
+	<div class="flex bg-[#F6F7FF] h-screen">
 		<Sidebar></Sidebar>
-		<ProfileCard v-if="currentProfile" :user="currentProfile" />
+		<div class="flex mt-4 w-full">
+			<ProfileCard
+				v-if="currentProfile"
+				:user="currentProfile"
+				class="ml-[17rem]"
+			/>
+			<Settings class="ml-[3rem]"/>
+		</div>
 	</div>
 </template>
 

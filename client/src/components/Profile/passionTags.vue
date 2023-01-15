@@ -19,17 +19,17 @@
 		:tags="passions"
 		placeholder="enter some tags"
 		@on-tags-changed="handleChangeTag"
-		class="w-100 border-dark flex gap-x-4"
+		class="w-100 !border-dark flex gap-x-4"
 	/>
 </template>
 <style lang="css">
 	.v3ti-content {
-		@apply flex gap-x-2 items-center p-2;
+		@apply flex gap-x-2 items-center p-2 !border-0;
 	}
 	.v3ti .v3ti-tag {
 		/*border: 1px solid #222222;*/
 		/*border-radius: 0;*/
-		@apply text-white border-2 p-5 rounded-xl bg-primary-color flex justify-between;
+		@apply text-white border-0 p-5 rounded-xl bg-primary-color flex justify-between;
 	}
 
 	.v3ti .v3ti-new-tag {
