@@ -10,7 +10,12 @@ export const registerUser = newUser =>
 	apiClient.post('/auth/register', { ...newUser });
 
 export const requestPasswordReset = email =>
-	apiClient.post('/auth/resetPassword', { email });
+	apiClient.post('/auth/resetPasswordEmail', { email });
 
 export const changePassword = payload =>
-	apiClient.post('/auth/updatePassword', { ...payload });
+	apiClient.post('/auth/resetPassword', { ...payload });
+
+export const verifyEmail = payload =>
+	apiClient.post('/auth/verifyEmail', { ...payload });
+
+export const logout = () => apiClient.post('/auth/logout');

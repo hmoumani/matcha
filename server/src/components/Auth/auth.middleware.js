@@ -13,6 +13,7 @@ const checkDuplicateUsernameOrEmail = async (req, res, next) => {
         message: 'Failed! Username or email is already in use!'
       });
     }
+
     next();
   } catch (error) {
     return res.status(406).send({

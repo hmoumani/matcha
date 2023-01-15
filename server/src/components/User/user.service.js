@@ -29,8 +29,8 @@ const AuthService = {
     ];
     let user = {
       id: 4,
-      first_name: 'senko',
-      last_name: 'von doom',
+      firstName: 'senko',
+      lastName: 'von doom',
       age: '567',
       address: 'CNS shore 14',
       gender: 'Male',

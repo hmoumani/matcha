@@ -35,7 +35,7 @@
 	}
 </style>
 <route lang="yaml">
-name: home
+name: home 
 meta:
     layout: sidebar
 </route>
