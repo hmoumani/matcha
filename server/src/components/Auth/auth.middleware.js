@@ -38,7 +38,7 @@ const checkEmailexists = async (req, res, next) => {
   }
 };
 
-const verifyToken = (req, res, next) => {
+const getUserIdFromToken = (req, res, next) => {
   let token = req.session.token;
 
   if (!token) {
@@ -57,4 +57,4 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-export { checkDuplicateUsernameOrEmail, verifyToken, checkEmailexists };
+export { checkDuplicateUsernameOrEmail, getUserIdFromToken, checkEmailexists };

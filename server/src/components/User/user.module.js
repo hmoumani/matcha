@@ -5,7 +5,7 @@ const router = express.Router();
 import middlewares from '../../middlewares';
 
 // validator
-import AuthValidator from './user.validator';
+import UserValidator from './user.validator';
 
 // service
 import AuthService from './user.service';
@@ -20,7 +20,7 @@ const { makeValidatorCallback, responseCallback } = middlewares;
 export const UserRoutes = setupAuthRoutes({
   router,
   UserController,
-  AuthValidator,
+  UserValidator,
   makeValidatorCallback,
   responseCallback
 });
