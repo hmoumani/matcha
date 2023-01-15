@@ -19,6 +19,7 @@ class User(Base):
 	images = relationship("Image", back_populates="user")
 	biography = Column(String, nullable=True)
 	gender_id = Column(Integer, ForeignKey("genders.id"))
+	last_location = Column(String, nullable=True)
 	last_connection = Column(String, nullable=True)
 	age = Column(Integer, nullable=True)
 	is_email_verified = Column(Boolean)
