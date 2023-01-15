@@ -32,13 +32,23 @@ class Gender(Base):
 	name = Column(String, nullable=False)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 	
-	
+
+class UserSearchSettings(Base):
+	__tablename__ = "user_settings"
+	id = Column(Integer, primary_key=True)
+	user_id = Column(Integer, ForeignKey("users.id"))
+	min_age = Column(Integer,default=18)
+	max_age = Column(Integer,default=20)
+	min_fame_rating = Column(Integer,default=3)
+	max_fame_rating = Column(Integer,default=10)
+	location = Column(String, nullable=True)
+	common_tags = Column(String, nullable=True)
+		
 class SexualPreference(Base):
 	__tablename__ = "sexual_preferences"
 	id = Column(Integer, primary_key=True)
 	user_id = Column(Integer, ForeignKey("users.id"))
 	gender_id = Column(Integer, ForeignKey("genders.id"))
-		
 
 class Tag(Base):
 	__tablename__ = "tags"

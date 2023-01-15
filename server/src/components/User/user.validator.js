@@ -11,16 +11,18 @@ const options = {
   }
 };
 
-const validateLogin = (httpRequest) => {
+const updateSettings = ({ body }) => {
   const schema = Joi.object({
-    username: Joi.string().required().messages({
-      'string.pattern.base': 'Provide valid username'
-    }),
-    password: Joi.string().min(8).max(20).alphanum().required()
+    minAge: Joi.number().min(18).max(100),
+    maxAge: Joi.number().min(18).max(100),
+    minFameRating: Joi.number().min(1).max(10),
+    maxFameRating: Joi.number().min(1).max(10),
+    location: Joi.string(),
+    commonTags: Joi.string()
   });
-  return schema.validate(httpRequest.body, options);
+  return schema.validate(body, options);
 };
 
 export default {
-  validateLogin
+  updateSettings
 };
