@@ -25,7 +25,7 @@
 						class="font-medium text-[#48496B] text-2xl flex items-center gap-x-3"
 					>
 						{{ user.id }}
-						{{ user.first_name }} {{ user.last_name }},
+						{{ user.firstName }} {{ user.lastName }},
 						{{ user.age }}
 						<span class="dot bg-[#4EB3AC] w-3 h-3"></span>
 					</div>

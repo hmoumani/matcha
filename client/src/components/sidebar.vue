@@ -2,6 +2,7 @@
 	import { useUserStore } from '@/store/user';
 	import { ref } from 'vue';
 	import { storeToRefs } from 'pinia';
+	import { useAuthStore } from '../store/auth.ts';
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 	import {
@@ -39,7 +40,7 @@
 	const { currentUser } = storeToRefs(userStore);
 	const { getCurrentUser } = userStore;
 
-	getCurrentUser();
+	let { logout } = useAuthStore();
 </script>
 <template>
 	<!--
@@ -193,7 +194,7 @@
 						alt="Your Company"
 					/>
 					<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
-						{{ currentUser.first_name }} {{ currentUser.last_name }}
+						{{ currentUser.firstName }} {{ currentUser.lastName }}
 					</h2>
 					<div class="text-xl text-[#B1AFBA] pl-2">
 						{{ currentUser.address }}
@@ -238,6 +239,19 @@
 							<p class="ml-3 text-lg font-bold">Settings</p>
 						</div>
 					</router-link>
+					<div
+						to="/settings"
+						class="mt-6 group block w-full flex-shrink-0"
+						@click="logout"
+					>
+						<div class="flex items-center text-[#A5A8B7]">
+							<FontAwesomeIcon
+								icon="fa-solid fa-gear"
+								class="bdg-[#F8F7FF] w-6 h-6 px-2"
+							/>
+							<p class="ml-3 text-lg font-bold">Logout</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -52,7 +52,21 @@ const UserService = {
    * @throws {NotFoundError} When the user is not found.
    */
 
-  like: async (userId) => {}
+  like: async (userId) => {},
+
+  updateSettings: async (userID, settings) => {
+    const settingsModel = new SettingsModel();
+    const condition = ['user_id', '=', userID];
+
+    settingsModel.update(settings, condition);
+  },
+
+  getSettings: async (userID) => {
+    const settingsModel = new SettingsModel();
+    const condition = ['user_id', '=', userID];
+
+    return settingsModel.find(condition);
+  }
 };
 
 export default UserService;

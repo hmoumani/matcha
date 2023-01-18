@@ -38,8 +38,8 @@ const AuthController = {
    */
   register: async (req, res) => {
     try{
-      const results = await AuthService.register(req.body);
-      await sendEmailValidation(req.body.email, results.registredUserId);
+      const registeredUserId = await AuthService.register(req.body);
+      await sendEmailValidation(req.body.email, registeredUserId);
       return ControllerResponse(HttpStatusCode.OK, "User registered successfully!");
     } catch (error) {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, "Unable to register user");

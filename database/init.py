@@ -3,7 +3,7 @@ from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine("postgresql://matcha:password@localhost:5432/matcha", echo=True)
+engine = create_engine("postgresql://matcha:password@localhost:7777/matcha", echo=True)
 
 Base = declarative_base()
 
@@ -25,6 +25,18 @@ class User(Base):
 	age = Column(Integer, nullable=True)
 	is_email_verified = Column(Boolean)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class UserSearchSettings(Base):
+	__tablename__ = "user_settings"
+	id = Column(Integer, primary_key=True)
+	user_id = Column(Integer, ForeignKey("users.id"))
+	min_age = Column(Integer,default=18)
+	max_age = Column(Integer,default=20)
+	min_fame_rating = Column(Integer,default=3)
+	max_fame_rating = Column(Integer,default=10)
+	location = Column(String, nullable=True)
+	common_tags = Column(String, nullable=True)
 
 
 class Tag(Base):
@@ -108,5 +120,3 @@ class ValidationToken(Base):
     token_type = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-
-Base.metadata.create_all(engine)

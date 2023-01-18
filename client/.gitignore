@@ -8,3 +8,5 @@ dist-ssr
 .vercel
 .vite-ssg-temp
 .idea
+pnpm-lock.yaml
+README.md

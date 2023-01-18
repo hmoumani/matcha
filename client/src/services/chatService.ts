@@ -17,8 +17,8 @@ const avatars = [
 ];
 
 const user = {
-	first_name: 'Rebikaa',
-	last_name: 'Talon',
+	firstName: 'Rebikaa',
+	lastName: 'Talon',
 	age: 24,
 	id: 0,
 	distance: '14 km',
@@ -38,8 +38,8 @@ let id = 5;
 
 const generateUser = () => {
 	return {
-		first_name: 'Rebikaa',
-		last_name: 'Talon',
+		firstName: 'Rebikaa',
+		lastName: 'Talon',
 		age: 24,
 		id: id++,
 		distance: '14 km',

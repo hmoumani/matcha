@@ -1,3 +1,5 @@
+import HttpStatusCode from '../../enums/HttpStatusCode';
+import ControllerResponse from '../../utils/ControllerResponse';
 import userService from './user.service';
 import ControllerResponse from '../../utils/ControllerResponse';
 const AuthController = {
@@ -20,20 +22,29 @@ const AuthController = {
   },
 
   /**
+   * Update User Settings
+   * @async
+   * @method
+   * @returns {Promise.<ControllerResponse> }
+   */
+  updateSettings: async (req) => {
+    const settings = req.body;
+    const userId = req.userId;
+    await userService.updateSettings(userId, settings);
+    return ControllerResponse(HttpStatusCode.OK, 'Setting Updated in successfully!');
+  },
+
+  /**
    * Handle logging in user.
    * @async
    * @method
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
    */
-  like: async (userId) => {
-    const data = await userService.like(userId);
-    return {
-      statusCode: 200,
-      body: {
-        data
-      }
-    };
+  getSettings: async (req) => {
+    const userId = req.userId;
+    const settings = await userService.getSettings(userId);
+    return ControllerResponse(HttpStatusCode.OK, settings);
   }
 };
 
