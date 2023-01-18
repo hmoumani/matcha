@@ -18,27 +18,14 @@ class User(Base):
 	last_name = Column(String, nullable=False)
 	images = relationship("Image", back_populates="user")
 	biography = Column(String, nullable=True)
-	gender_id = Column(Integer, ForeignKey("genders.id"))
+	gender = Column(String, nullable=True, default=None)
+	sexual_orientation = Column(String, nullable=True, default="bisexual")
 	last_location = Column(String, nullable=True)
 	last_connection = Column(String, nullable=True)
 	age = Column(Integer, nullable=True)
 	is_email_verified = Column(Boolean)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-	
-class Gender(Base):
-	__tablename__ = "genders"
-	id = Column(Integer, primary_key=True)
-	name = Column(String, nullable=False)
-	created_at = Column(DateTime(timezone=True), server_default=func.now())
-	
-	
-class SexualPreference(Base):
-	__tablename__ = "sexual_preferences"
-	id = Column(Integer, primary_key=True)
-	user_id = Column(Integer, ForeignKey("users.id"))
-	gender_id = Column(Integer, ForeignKey("genders.id"))
-		
 
 class Tag(Base):
 	__tablename__ = "tags"
@@ -109,6 +96,7 @@ class Notification(Base):
 class Image(Base):
 	__tablename__ = "images"
 	id = Column(Integer, primary_key=True)
+	user_id = Column(Integer, ForeignKey("users.id"))
 	value = Column(String, nullable=False)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 
@@ -122,12 +110,3 @@ class ValidationToken(Base):
 
 
 Base.metadata.create_all(engine)
-
-# session = sessionmaker(engine)()
-
-
-# for i in range(100):
-#     image  = Image(value="image")
-#     session.add(image)
-# session.commit()
-	# image.save()
