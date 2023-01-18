@@ -4,7 +4,7 @@
 	>
 		<div>
 			<h2 class="mb-3">Common Tags</h2>
-			<passionTags :passions="currentUser.passions"/>
+			<passionTags :passions="currentUser.passions" @on-tags-changed="handleChangePassions"/>
 		</div>
 		<div>
 			<h2 class="mb-3">Location</h2>
@@ -22,7 +22,7 @@ import { storeToRefs } from 'pinia';
 const userStore = useUserStore();
 let { currentUser } = storeToRefs(userStore);
 
-const handleChangePassions = (passions) {
+const handleChangePassions = (passions) => {
 	currentUser.value.passions = passions;
 }
 </script>
