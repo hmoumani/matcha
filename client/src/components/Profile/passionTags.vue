@@ -1,24 +1,28 @@
 <script setup>
 	import { defineComponent } from 'vue';
 	import Vue3TagsInput from 'vue3-tags-input';
-	import { useUserStore } from '@/store/user';
-	import { storeToRefs } from 'pinia';
 
-	const userStore = useUserStore();
-	let { currentUser } = storeToRefs(userStore);
-
-	const passions = currentUser.value.passions;
-
-	const handleChangeTag = tags => {
-		// passions = tags;
-		currentUser.value.passions = tags;
-	};
+	defineProps({
+		passions: {
+			type: Array,
+			required: true
+		},
+		onTagsChanged: {
+			type: Function,
+			required: true
+		},
+		maxTags: {
+			type: Number,
+			default: 5
+		}
+	})
 </script>
 <template>
 	<vue3-tags-input
 		:tags="passions"
 		placeholder="enter some tags"
-		@on-tags-changed="handleChangeTag"
+		@on-tags-changed="onTagsChanged"
+		:max-tags="5"
 		class="w-100 !border-dark flex gap-x-4"
 	/>
 </template>
