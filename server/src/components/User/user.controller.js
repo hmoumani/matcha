@@ -1,5 +1,5 @@
 import userService from './user.service';
-
+import ControllerResponse from '../../utils/ControllerResponse';
 const AuthController = {
   /**
    * Handle logging in user.
@@ -8,14 +8,15 @@ const AuthController = {
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
    */
-  find: async (userId) => {
-    const user = await userService.find(userId);
-    return {
-      statusCode: 200,
-      body: {
-        data: user
-      }
-    };
+  find: async (req, res) => {
+    try{
+      if (req.userId === 'mine');
+        req.userId = req.userId;
+      const user = await userService.find(req.userId);
+    } catch (err) {
+      return ControllerResponse(400, "Error while retrieving user");
+    }
+    return ControllerResponse(200, user);
   },
 
   /**
