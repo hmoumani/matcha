@@ -15,7 +15,7 @@
 </script>
 <template>
 	<div
-		class="w-4/12 bg-white shadow-slate-300 shadow-sm rounded-[2rem] h-[47rem] hd-[calc(100hv-100rem)] overflow-y-scroll overflow-x-hidden"
+		class="w-4/12 bg-white shadow-slate-300 shadow-sm rounded-[2rem] h-[calc(100vh-7rem)] overflow-y-scroll overflow-x-hidden"
 	>
 		<avatarsSlider :avatars="userAvatars" />
 		<div class="px-8 py-8 flex justify-between">
