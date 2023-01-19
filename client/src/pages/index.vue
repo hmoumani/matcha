@@ -1,7 +1,10 @@
 <script setup lang="ts">
 	import { useFeedStore } from '@/store/feed';
 	import { storeToRefs } from 'pinia';
+	import { useUserStore } from '@/store/user';
 
+	const userStore = useUserStore();
+	let { currentUser } = storeToRefs(userStore);
 	const feedStore = useFeedStore();
 
 	const { currentProfile } = storeToRefs(feedStore);
@@ -15,7 +18,7 @@
 	<Header />
 	<div class="flex bg-[#F6F7FF] h-screen">
 		<Sidebar></Sidebar>
-		<div class="flex mt-4 w-full">
+		<div class="flex mt-4 w-full" v-if="currentUser">
 			<ProfileCard
 				v-if="currentProfile"
 				:user="currentProfile"
