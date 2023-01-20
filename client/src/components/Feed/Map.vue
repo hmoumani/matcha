@@ -5,11 +5,14 @@
 	var map = null;
 	var marker = null;
 
+	const emit = defineEmits(['updateLocation']);
+
 	const changeLocation = () => {
 		const position = marker.getCenter();
 		const lat = position.lat();
 		const lng = position.lng();
-		console.log({ lat }, { lng });
+
+		emit('updateLocation', {lat, lng})
 	};
 
 	function initMap() {
@@ -21,7 +24,6 @@
 			navigationControl: false,
 			streetViewControl: false,
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			// zoomControl: false,
 			mapTypeControl: false,
 		});
 
@@ -43,57 +45,32 @@
 			};
 			map.setCenter(pos);
 
-			console.log(radius);
 
 			marker = new google.maps.Circle({
-				strokeColor: '#5C5EED',
+				strokeColor: 'white',
 				strokeOpacity: 2,
 				strokeWeight: 0,
-				fillColor: '#5C5EED',
+				fillColor: '#60A5FA',
 				fillOpacity: 1,
 				map: map,
 				center: pos,
 				radius: radius, // 3km
 			});
-
-			// marker.setOptions({
-			// 	scale: false,
-			// });
-			// map.setZoom(8);
-
-			// marker = new google.maps.Marker({
-			// 	position: pos,
-			// 	map,
-			// 	title: 'Uluru (Ayers Rock)',
-			// });
-
-			// var circle = new google.maps.Circle({
-			// 	map: map,
-			// 	radius: 1000, // 10km radius
-			// 	fillColor: '#000',
-			// });
-			// circle.bindTo('center', marker, 'position');
-
-			// marker.addListener('click', function () {
-			// 	console.log('clicked');
-			// 	infowindow.open(map, marker);
-			// });
 		});
 
 		let infoWindow = new google.maps.InfoWindow({
 			disableAutoPan: true,
 			content:
-				'<div class="bg-blue-400  h-10 text-white rounded-md flex items-center font-poppins max-w-none">\
+				'<div class="bg-blue-400  h-14 text-white rounded-md flex items-center font-poppins max-w-none">\
 					<div class="w-3/12 border-r-2 p-3">\
 						<svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#fff">\
 							<!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->\
 							<path d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-116.6 0L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L112 320 68.8 377.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L32 256 .5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14l42 0c5 0 9.8 2.4 12.8 6.4L112 192l102.9 0-49-171.6C162.9 10.2 170.6 0 181.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L365.7 192l116.6 0z"/></svg>\
 					</div>\
-					<div class="pl-3 changeLocation hover:bg-blue-600 h-full flex items-center "  @click="changeLocation" $onclick=\'console.log("Hello")\'>\
+					<div class="px-3 changeLocation hover:bg-blue-600 h-full flex items-center"  @click="changeLocation">\
 						Travel to this place\
 					</div>\
 				</div>',
-			// '<button class="bg-red-700" onclick=\'console.log("Hello")\'>Click me</button>',
 		});
 
 		// remove the close button from infoWindow and remove the tooltip container padding
@@ -101,30 +78,18 @@
 			marker.setCenter(event.latLng);
 			infoWindow.setPosition(event.latLng);
 			infoWindow.open(map);
-			// console.log(event);
-			// if (event && event.target && event.target.matches('.changeLocation')) {
-			// 	changeLocation();
-			// }
 			infoWindow.addListener('domready', function () {
 				// Check if the click event target is the "Travel to this place" text
-				// var content = infoWindow.getContent();
 				var content = document.querySelector('.changeLocation');
-				// console.log(content)
 				content.addEventListener('click', function (e) {
-					// if (e.target.matches('.pl-3')) {
+					infoWindow.close();
 					changeLocation();
-					// }
 				});
 			});
 		});
 
 		google.maps.event.addListener(map, 'zoom_changed', function () {
-			// if (!marker) return;
 			const zoom = map.getZoom();
-			// var width = map.getDiv().offsetWidth;
-			// const newRadius = 20000 / zoom;
-			// console.log({ newRadius });
-			// marker.setRadius(newRadius);
 			// Adjust the radius based on the current zoom level
 			let newRadius = radius / Math.pow(2, zoom - 8);
 			marker.setRadius(newRadius);
@@ -175,7 +140,7 @@
 	}
 	.gm-style-iw {
 		padding: 0 !important;
-		@apply bg-blue-400 !overflow-y-auto;
+		@apply !bg-blue-400 !overflow-y-auto;
 		max-width: none !important;
 	}
 	.gm-style-iw-tc::after {
