@@ -9,19 +9,19 @@
 		currentUser.value.passions = passions;
 	};
 
-	const updateLocation = location => {
-		console.log(location);
-		// TODO: save search loacation
-	};
-
 	const showMap = ref(true);
 
 	const settings = ref({
 		minAge: 20,
 		maxAge: 40,
-		minFameRating:3,
-		maxFameRating:10
+		minFameRating: 3,
+		maxFameRating: 10,
+		location: { lat: 33, lng: 1000 },
 	});
+
+	const updateLocation = location => {
+		settings.value.location = location;
+	};
 
 	const UpdateAgeGap = input => {
 		settings.value.minAge = input.minValue;
@@ -35,7 +35,7 @@
 </script>
 <template>
 	<div
-		class="w-3/12 h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-sm flex flex-col gap-y-4"
+		class="w-3/12 h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4"
 	>
 		<div>
 			<h2 class="mb-3">Common Tags</h2>
@@ -46,7 +46,11 @@
 		</div>
 		<div>
 			<h2 class="mb-3">Location</h2>
-			<Map v-if="showMap" class="" @updateLocation="updateLocation" />
+			<Map
+				v-if="showMap"
+				@updateLocation="updateLocation"
+				:center="settings.location"
+			/>
 		</div>
 		<div>
 			<h2 class="mb-3">Age</h2>

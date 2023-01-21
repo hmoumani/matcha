@@ -76,7 +76,9 @@
 		// remove the close button from infoWindow and remove the tooltip container padding
 		google.maps.event.addListener(map, 'click', handleMapClick);
 		google.maps.event.addListener(map, 'zoom_changed', handleZoomChange);
-		autocomplete.addListener('place_changed', handlePlaceChanged);
+		autocomplete.addListener('place_changed', () =>
+			handlePlaceChanged(autocomplete)
+		);
 	};
 
 	const handleMapClick = event => {
@@ -99,7 +101,7 @@
 		marker.setRadius(newRadius);
 	};
 
-	const handlePlaceChanged = () => {
+	const handlePlaceChanged = (autocomplete) => {
 		var place = autocomplete.getPlace();
 		if (!place.geometry) {
 			window.alert(
@@ -123,7 +125,6 @@
 </script>
 <template>
 	<div class="flex flex-col gap-y-2">
-		<!-- <input ref="searchInput" type="text" /> -->
 		<inputField
 			ref="searchInput"
 			type="text"
