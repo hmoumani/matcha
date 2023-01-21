@@ -15,12 +15,14 @@ import {
 	faFlag,
 	faSearch,
 	faArrowLeft,
+	faPlane,
 	faArrowRight,
 	faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
 
 /* add icons to the library */
 library.add(faHeart);
+library.add(faPlane);
 library.add(faSearch);
 library.add(faXmark);
 library.add(faPaperPlane);

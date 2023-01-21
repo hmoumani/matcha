@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     PassionTags: typeof import('./src/components/Profile/passionTags.vue')['default']
     Profile2Card: typeof import('./src/components/Chat/UserProfile/Profile2Card.vue')['default']
     ProfileCard: typeof import('./src/components/Feed/ProfileCard.vue')['default']
+    RangeSlider: typeof import('./src/components/Feed/rangeSlider.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchContacts: typeof import('./src/components/Chat/ContactsList/searchContacts.vue')['default']
