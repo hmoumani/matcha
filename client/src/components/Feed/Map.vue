@@ -5,6 +5,11 @@
 	var map = null;
 	let infoWindow = null;
 	var marker = null;
+	const radius = 7000;
+
+	const { center } = defineProps({
+		center: Object,
+	});
 
 	const emit = defineEmits(['updateLocation']);
 
@@ -16,9 +21,8 @@
 		emit('updateLocation', { lat, lng });
 	};
 
-	const initMap = () => {
-		const center = { lat: 33, lng: 1000 };
-		map = new google.maps.Map(mapWrapper.value, {
+	const createMap = () =>
+		new google.maps.Map(mapWrapper.value, {
 			center,
 			zoom: 8,
 			controls: [],
@@ -29,6 +33,20 @@
 			mapTypeControl: false,
 		});
 
+	const createMarker = () =>
+		new google.maps.Circle({
+			strokeColor: 'white',
+			strokeOpacity: 2,
+			strokeWeight: 2,
+			fillColor: '#60A5FA',
+			fillOpacity: 1,
+			center,
+			radius,
+		});
+
+	const initMap = () => {
+		map = createMap();
+
 		if (!map) {
 			return;
 		}
@@ -36,17 +54,7 @@
 		const autocomplete = new google.maps.places.Autocomplete(
 			searchInput.value
 		);
-		const radius = 7000;
-		marker = new google.maps.Circle({
-			strokeColor: 'white',
-			strokeOpacity: 2,
-			strokeWeight: 0,
-			fillColor: '#60A5FA',
-			fillOpacity: 1,
-			map: map,
-			center,
-			radius: radius, //  3km
-		});
+		marker = createMarker();
 
 		const content =
 			'<div class="bg-blue-400  h-14 text-white rounded-md flex items-center font-poppins max-w-none">\
@@ -72,6 +80,7 @@
 	};
 
 	const handleMapClick = event => {
+		marker.setMap(map);
 		marker.setCenter(event.latLng);
 		infoWindow.setPosition(event.latLng);
 		infoWindow.open(map);
