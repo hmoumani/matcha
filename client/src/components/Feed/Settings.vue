@@ -23,11 +23,15 @@
 		maxFameRating:10
 	});
 
-	const UpdateValues = input => {
+	const UpdateAgeGap = input => {
 		settings.value.minAge = input.minValue;
 		settings.value.maxAge = input.maxValue;
 	};
-	
+
+	const updateFameRate = input => {
+		settings.value.minFameRating = input.minValue;
+		settings.value.maxFameRating = input.maxValue;
+	};
 </script>
 <template>
 	<div
@@ -51,17 +55,17 @@
 				:barMaxValue="settings.maxAge"
 				:min="18"
 				:max="100"
-				@onChange="UpdateValues"
+				@onChange="UpdateAgeGap"
 			/>
 		</div>
 		<div>
 			<h2 class="mb-3">Fame Rate</h2>
 			<RangeSlider
-				:barMaxValue="settings.minFameRating"
-				:barMinValue="settings.maxFameRating"
+				:barMinValue="settings.minFameRating"
+				:barMaxValue="settings.maxFameRating"
 				:min="1"
 				:max="10"
-				@onChange="UpdateValues"
+				@onChange="updateFameRate"
 			/>
 		</div>
 	</div>
