@@ -120,3 +120,4 @@ class ValidationToken(Base):
     token_type = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+Base.metadata.create_all(engine)
