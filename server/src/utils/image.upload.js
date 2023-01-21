@@ -32,12 +32,15 @@ const upload = multer({
 
 const uploadImage = (req, res, next) => {
     upload.single('avatar')(req, res, function (err) {
-        if (err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE') {
-            res.status(413).send('File size too large');
-        } else if (err instanceof multer.MulterError && err.code === 'LIMIT_UNEXPECTED_FILE') {
-            res.status(400).send('Too many files');
-        } else if (err) {
-            res.status(400).send(err);
+        if (err || err instanceof multer.MulterError){
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                res.status(413).send({message: 'File size too large'});
+            } else if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+                res.status(400).send({message: 'Too many files'});
+            } else {
+                res.status(400).send(err);
+            }
+            return ;
         }
         next();
     })
