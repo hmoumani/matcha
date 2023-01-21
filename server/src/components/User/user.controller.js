@@ -1,7 +1,8 @@
 import HttpStatusCode from '../../enums/HttpStatusCode';
 import ControllerResponse from '../../utils/ControllerResponse';
 import userService from './user.service';
-import ControllerResponse from '../../utils/ControllerResponse';
+import {query} from '../../db/index';
+
 const AuthController = {
   /**
    * Handle logging in user.
@@ -16,9 +17,9 @@ const AuthController = {
         req.userId = req.userId;
       const user = await userService.find(req.userId);
     } catch (err) {
-      return ControllerResponse(400, "Error while retrieving user");
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, "Error while retrieving user");
     }
-    return ControllerResponse(200, user);
+    return ControllerResponse(HttpStatusCode.OK, user);
   },
 
   /**
@@ -40,12 +41,19 @@ const AuthController = {
    * @method
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
-   */
-  getSettings: async (req) => {
-    const userId = req.userId;
-    const settings = await userService.getSettings(userId);
-    return ControllerResponse(HttpStatusCode.OK, settings);
-  }
+  */
+ getSettings: async (req) => {
+   const userId = req.userId;
+   const settings = await userService.getSettings(userId);
+   return ControllerResponse(HttpStatusCode.OK, settings);
+  },
+
+  uploadAvatar: async (req) => {
+    if (!req.file)
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'No file uploaded');
+    await query('insert into images (user_id, value) values ($1, $2)', [req.userId, req.file.filename]);
+    return ControllerResponse(HttpStatusCode.OK, req.file);
+  },
 };
 
 export default AuthController;
