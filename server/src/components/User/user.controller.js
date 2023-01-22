@@ -54,6 +54,15 @@ const AuthController = {
     await query('insert into images (user_id, value) values ($1, $2)', [req.userId, req.file.filename]);
     return ControllerResponse(HttpStatusCode.OK, req.file);
   },
+  updateUserInfo: async (req) => {
+    try{
+      const userId = req.userId;
+      await userService.updateUser(req.body, userId);
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'could not update user infos');
+    }
+    return ControllerResponse(HttpStatusCode.OK, 'user infos updated successfully!');
+  },
 };
 
 export default AuthController;

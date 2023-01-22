@@ -1,4 +1,7 @@
 import { query } from "../../db/index";
+import UserModel from "../../models/UserModel";
+import TagModel from "../../models/TagModel";
+import UserTagModel from "../../models/UserTagModel";
 const UserService = {
   getUserPassions: async (userId) => {
     const { rows } = await query("SELECT \
@@ -25,7 +28,7 @@ const UserService = {
       users.first_name, \
       users.last_name, \
       users.age, \
-      users.last_location, \
+      users.location, \
       users.biography as bio, \
       users.sexual_orientation\
       FROM users\
@@ -66,6 +69,19 @@ const UserService = {
     const condition = ['user_id', '=', userID];
 
     return settingsModel.find(condition);
+  },
+  updateUser: async (requestBody, userId) => {
+    const passions = requestBody.passions;
+    delete requestBody.passions;
+    const userModel = new UserModel();
+    const tagModel = new TagModel();
+    const userTagModel = new UserTagModel();
+    const condition = ['id', '=', userId];
+    if (passions && passions.length > 0) {
+      const tagsIds = await tagModel.insert(passions);
+      await userTagModel.insert(userId, tagsIds);
+    }
+    userModel.update(requestBody, condition);
   }
 };
 
