@@ -10,6 +10,9 @@ import cookieSession from 'cookie-session';
 
 dotenv.config();
 
+
+app.use('/public', express.static('static_files/'));
+
 // error handler
 import 'express-async-errors';
 
