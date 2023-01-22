@@ -5,11 +5,9 @@ async function getCurrentUserPosition() {
 			enableHighAccuracy: true,
 			timeout: 10000,
 		});
-		console.log('b', { location });
 	} catch (error) {
 		console.log(error);
 		location = await getLocationFromIP();
-		console.log('s', { location });
 	}
 	return location;
 }

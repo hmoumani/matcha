@@ -42,7 +42,7 @@
 			>
 				<template v-if="avatars[avatarInputIndex - 1]">
 					<img
-						class="w-full h-full rounded-md"
+						class="w-full h-full rounded-md object-cover"
 						:src="getImg(avatars[avatarInputIndex - 1])"
 					/>
 				</template>
