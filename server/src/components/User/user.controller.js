@@ -13,13 +13,13 @@ const AuthController = {
    */
   find: async (req, res) => {
     try{
-      if (req.userId === 'mine');
-        req.userId = req.userId;
-      const user = await userService.find(req.userId);
+      if (req.params.id === 'mine')
+        req.params.id = req.userId;
+      const user = await userService.find(req.params.id);
+      return ControllerResponse(HttpStatusCode.OK, user);
     } catch (err) {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, "Error while retrieving user");
     }
-    return ControllerResponse(HttpStatusCode.OK, user);
   },
 
   /**
