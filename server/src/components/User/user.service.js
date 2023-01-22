@@ -76,6 +76,7 @@ const UserService = {
     const userModel = new UserModel();
     const tagModel = new TagModel();
     const userTagModel = new UserTagModel();
+    userTagModel.delete(['user_id', '=', userId]);
     const condition = ['id', '=', userId];
     if (passions && passions.length > 0) {
       const tagsIds = await tagModel.insert(passions);

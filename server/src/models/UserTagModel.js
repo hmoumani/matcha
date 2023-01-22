@@ -19,9 +19,7 @@ class UserTagModel extends Model {
         .map((el, index) => `($1, $${index + 2})`)
         .join(', ')} `;
     query += `on conflict (user_id, tag_id) do NOTHING`;
-    console.log(query);
     const { rows } = await executeQuery(query, [userId, ...tags.map((el) => el.id)]);
-    console.log(tags.map((el) => el.id));
   }
 }
 
