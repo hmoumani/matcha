@@ -6,9 +6,13 @@
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
 
-	getCurrentUserPosition();
-	onMounted(() => {
-		console.log(currentUser.value.address)//.value.isAutoLocatorEnabled);
+	onMounted(async () => {
+		let currentUserRef = currentUser?.value;
+		// console.log(currentUser.value); //.value.isAutoLocatorEnabled);
+		if (currentUserRef?.isAutoLocatorEnabled) {
+			const UserLocation = await getCurrentUserPosition();
+			currentUserRef.location = UserLocation;
+		}
 	});
 </script>
 <template>

@@ -38,6 +38,7 @@
 						viewBox="0 0 24 24"
 						fill="#B7B5BF"
 					>
+<<<<<<< HEAD
 						<path
 							d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"
 						/>
@@ -49,6 +50,13 @@
 					Passions
 				</div>
 				<div class="flex">
+=======
+						{{ user.id }}
+						{{ user.firstName }} {{ user.lastName }},
+						{{ user.age }}
+						<span class="dot bg-[#4EB3AC] w-3 h-3"></span>
+					</div>
+>>>>>>> 3f938e94743936fa89a137db7a9719d08a0a5a93
 					<div
 						v-for="passion of passions"
 						class="px-3 py-2 mr-3 rounded-md text-base capitalize"

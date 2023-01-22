@@ -27,7 +27,8 @@
 				@click="showConversationMessages(conversation)"
 				class="flex py-6 px-6 rounded-xl cursor-pointer shadow-sm"
 				:class="{
-					'bg-[#EDF0F4]': conversation.user.id == currentConversation?.user?.id,
+					'bg-[#EDF0F4]':
+						conversation.user.id == currentConversation?.user?.id,
 				}"
 			>
 				<img
@@ -37,9 +38,9 @@
 				<div class="flex flex-col pl-4">
 					<h1 class="font-medium">
 						{{
-							conversation.user.first_name +
+							conversation.user.firstName +
 							' ' +
-							conversation.user.last_name
+							conversation.user.lastName
 						}}
 					</h1>
 					<p class="text-black-color font-bold w-[80%] truncate">

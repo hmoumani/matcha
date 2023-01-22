@@ -1,23 +1,23 @@
 <script setup>
 	import { useAuthStore } from '../store/auth.ts';
 	let fields = ref([
-		{ name: 'Username', type: 'text', key: 'username', value: 'd' },
+		{ name: 'Username', type: 'text', key: 'username', value: '' },
 		{
 			name: 'First Name',
 			type: 'text',
-			key: 'first_name',
-			value: 'd',
+			key: 'firstName',
+			value: '',
 			width: 'half',
 		},
 		{
 			name: 'Last Name',
 			type: 'text',
-			key: 'last_name',
-			value: 'd',
+			key: 'lastName',
+			value: '',
 			width: 'half',
 		},
-		{ name: 'Email', type: 'email', key: 'email', value: 'd@d.c' },
-		{ name: 'Password', type: 'password', key: 'password', value: 'd' },
+		{ name: 'Email', type: 'email', key: 'email', value: '' },
+		{ name: 'Password', type: 'password', key: 'password', value: '' },
 	]);
 	let { register } = useAuthStore();
 

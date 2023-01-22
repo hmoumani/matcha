@@ -33,7 +33,7 @@ const AuthService = {
       last_name: 'von doom',
       location: { lat: 32.663052437366076, lng: -79.68139648437499 },
       age: '567',
-      isAutoLocatorEnabled:false,
+      isAutoLocatorEnabled:true,
       address: 'CNS shore 14',
       gender: 'Male',
       bio: 'aaamzaing bro, :))))))) ||| ',
