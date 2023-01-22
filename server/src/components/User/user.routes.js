@@ -14,7 +14,7 @@ import imageUpload from '../../utils/image.upload';
  */
 export default ({ router, UserController, responseCallback, UserValidator, makeValidatorCallback }) => {
   router.get('/settings', getUserIdFromToken, responseCallback(UserController.getSettings));
-  router.get('/:id', responseCallback(UserController.find));
+  router.get('/:id', getUserIdFromToken, responseCallback(UserController.find));
   router.get('/like/:id', responseCallback(UserController.like));
   router.put(
     '/settings',
@@ -23,5 +23,6 @@ export default ({ router, UserController, responseCallback, UserValidator, makeV
     responseCallback(UserController.updateSettings)
     );
     router.put('/avatar', [getUserIdFromToken, avatarLimit], imageUpload, responseCallback(UserController.uploadAvatar));
+    router.put('/', getUserIdFromToken, makeValidatorCallback(UserValidator.updateUserInfo), responseCallback(UserController.updateUserInfo));
   return router;
 };
