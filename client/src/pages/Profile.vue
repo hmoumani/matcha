@@ -46,24 +46,6 @@
 			gender => gender.value === currentUser.value.sexualOrientation
 		)
 	);
-	let debouncedUpdate;
-
-	let isFirstChange = true;
-
-	watch(userStore, () => {
-		if (isFirstChange === true) {
-			isFirstChange = false;
-			return;
-		}
-		clearTimeout(debouncedUpdate);
-		debouncedUpdate = setTimeout(() => {
-			const { passions, bio, gender, sexualOrientation } =
-				currentUser.value;
-			const newUser = { passions, bio, gender, sexualOrientation };
-
-			userService.updateUser(newUser);
-		}, 1000);
-	});
 
 	const handleChangePassions = passions => {
 		currentUser.value.passions = passions;

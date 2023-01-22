@@ -9,12 +9,16 @@
 
 	const updateLocation = location => {
 		// console.log({ currentUser });
-		currentUser.value.location = location
+		currentUser.value.location = location;
 	};
 </script>
 <template>
 	<div>
 		<h2 class="mb-3">Location</h2>
+		{{ currentUser.isAutoLocatorEnabled }}
+		<Toggle
+			v-model="currentUser.isAutoLocatorEnabled"
+		/>
 		<Map
 			v-if="showMap"
 			:center="location"
