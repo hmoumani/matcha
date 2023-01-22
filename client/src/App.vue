@@ -9,11 +9,11 @@
 
 	onMounted(async () => {
 		let currentUserRef = currentUser?.value;
-		if (currentUserRef?.isAutoLocatorEnabled) {
-			const UserLocation = await getCurrentUserPosition();
-			currentUserRef.location = UserLocation;
-			console.log(currentUserRef.location)
+		if (!currentUserRef?.isAutoLocatorEnabled) {
+			return;
 		}
+		const UserLocation = await getCurrentUserPosition();
+		currentUserRef.location = UserLocation;
 	});
 
 	let debouncedUpdate = null;
@@ -21,14 +21,22 @@
 	watch(userStore, () => {
 		clearTimeout(debouncedUpdate);
 		debouncedUpdate = setTimeout(() => {
-			const { passions, bio, gender, sexualOrientation, location } =
-				currentUser.value;
+			const {
+				passions,
+				bio,
+				gender,
+				sexualOrientation,
+				location,
+				isAutoLocatorEnabled,
+			} = currentUser.value;
+
 			const newUser = {
 				passions,
 				bio,
 				gender,
 				sexualOrientation,
 				location,
+				isAutoLocatorEnabled,
 			};
 
 			userService.updateUser(newUser);

@@ -4,24 +4,30 @@
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
-	const location = { lat: 33, lng: 1000 };
-	const showMap = ref(true);
 
 	const updateLocation = location => {
-		// console.log({ currentUser });
 		currentUser.value.location = location;
+		currentUser.value.isAutoLocatorEnabled = false;
 	};
+	
+	const showMap = ref(!currentUser.isAutoLocatorEnabled);
+	const updateAutoLocater = (newValue) => {
+		if (newValue === true){
+			currentUser.value.isAutoLocatorEnabled = true;
+		}
+		showMap.value = newValue
+	}
 </script>
 <template>
 	<div>
-		<h2 class="mb-3">Location</h2>
-		{{ currentUser.isAutoLocatorEnabled }}
-		<Toggle
-			v-model="currentUser.isAutoLocatorEnabled"
-		/>
+		<div class="flex gap-x-2 justify-between">
+			<h2 class="mb-3">Enable Auto Locater :</h2>
+			<Toggle v-model="showMap" @update:modelValue="updateAutoLocater" />
+		</div>
 		<Map
-			v-if="showMap"
-			:center="location"
+			v-if="!showMap"
+			:center="currentUser.location"
+			:zoom="11"
 			@updateLocation="updateLocation"
 		/>
 	</div>
