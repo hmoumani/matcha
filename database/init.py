@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean, UniqueConstraint
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine("postgresql://matcha:password@localhost:7777/matcha", echo=True)
@@ -20,11 +20,12 @@ class User(Base):
 	biography = Column(String, nullable=True)
 	gender = Column(String, nullable=True, default=None)
 	sexual_orientation = Column(String, nullable=True, default="bisexual")
-	last_location = Column(String, nullable=True)
+	location = Column(String, nullable=True)
 	last_connection = Column(String, nullable=True)
 	age = Column(Integer, nullable=True)
 	is_email_verified = Column(Boolean)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
+	is_auto_locator_enabled = Column(Boolean, default=False)
 
 
 class UserSearchSettings(Base):
@@ -42,7 +43,7 @@ class UserSearchSettings(Base):
 class Tag(Base):
 	__tablename__ = "tags"
 	id = Column(Integer, primary_key=True)
-	value = Column(String, nullable=False)
+	value = Column(String, nullable=False, unique=True)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 	
 
@@ -52,6 +53,8 @@ class UserTag(Base):
 	tag_id = Column(Integer, ForeignKey("tags.id"))
 	user_id = Column(Integer, ForeignKey("users.id"))
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
+	__table_args__ = (UniqueConstraint('user_id', 'tag_id', name='user_tags_user_id_tag_id'),
+			)
 	
 
 class UserView(Base):
