@@ -1,6 +1,7 @@
 <script setup>
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
+	import searchSettingsService from '@/services/searchSettingsService'
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
@@ -32,6 +33,11 @@
 		settings.value.minFameRating = input.minValue;
 		settings.value.maxFameRating = input.maxValue;
 	};
+
+	onMounted(async () => {
+		const {data} = await searchSettingsService.getSearchSettings();
+		console.log(data)
+	})
 </script>
 <template>
 	<div

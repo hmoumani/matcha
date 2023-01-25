@@ -56,8 +56,8 @@ export const useUserStore = defineStore('user', {
 			if (!this.currentUser) {
 				return;
 			}
-			const { first_name, last_name } = this.currentUser;
-			return first_name + '' + last_name;
+			const { firstName, lastName } = this.currentUser;
+			return firstName + '' + lastName;
 		},
 	},
 });

@@ -13,7 +13,7 @@
 
 	const userFullName = computed(() => {
 		const { user } = currentConversation?.value;
-		return `${user?.first_name} ${user?.last_name}`;
+		return `${user?.firstName} ${user?.lastName}`;
 	});
 
 	const user = computed(() => currentConversation?.user);
