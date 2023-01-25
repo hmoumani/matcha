@@ -64,6 +64,10 @@
 			userService.updateUser(newUser);
 		}, 1000);
 	});
+
+	const handleChangePassions = (passions) => {
+		currentUser.value.passions = passions;
+	}
 </script>
 <template>
 	<!-- <Header /> -->
@@ -97,7 +101,7 @@
 				</div>
 				<div>
 					<h2 class="mb-2">Passions :</h2>
-					<passionTags />
+					<passionTags :passions="currentUser.passions" @onTagsChanged="handleChangePassions"/>
 				</div>
 				<div class="flex items-center gap-x-6">
 					<div class="mt-3">I want to see:</div>
