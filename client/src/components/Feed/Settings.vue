@@ -1,7 +1,7 @@
 <script setup>
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
-	import searchSettingsService from '@/services/searchSettingsService'
+	import searchSettingsService from '@/services/searchSettingsService';
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
@@ -35,9 +35,11 @@
 	};
 
 	onMounted(async () => {
-		const {data} = await searchSettingsService.getSearchSettings();
-		console.log(data)
-	})
+		const {
+			data: { message: searchSettings },
+		} = await searchSettingsService.getSearchSettings();
+		settings.value = searchSettings;
+	});
 </script>
 <template>
 	<div
