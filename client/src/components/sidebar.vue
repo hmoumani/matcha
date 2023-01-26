@@ -229,20 +229,7 @@
 					</nav>
 				</div>
 				<div class="border-t border-gray-200 px-4 py-8">
-					<router-link
-						to="/settings"
-						class="group block w-full flex-shrink-0"
-					>
-						<div class="flex items-center text-[#A5A8B7]">
-							<FontAwesomeIcon
-								icon="fa-solid fa-gear"
-								class="bdg-[#F8F7FF] w-6 h-6 px-2"
-							/>
-							<p class="ml-3 text-lg font-bold">Settings</p>
-						</div>
-					</router-link>
 					<div
-						to="/settings"
 						class="mt-6 group block w-full flex-shrink-0"
 						@click="logout"
 					>

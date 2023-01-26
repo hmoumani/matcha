@@ -36,6 +36,8 @@ declare module '@vue/runtime-core' {
     Settings: typeof import('./src/components/Feed/Settings.vue')['default']
     Sidebar: typeof import('./src/components/sidebar.vue')['default']
     TextArea: typeof import('./src/components/Common/TextArea.vue')['default']
+    Toggle: typeof import('./src/components/Common/Toggle.vue')['default']
+    UserLocation: typeof import('./src/components/Profile/userLocation.vue')['default']
     UserProfile: typeof import('./src/components/Chat/UserProfile/UserProfile.vue')['default']
   }
 }

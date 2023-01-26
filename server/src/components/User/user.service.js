@@ -29,9 +29,11 @@ const AuthService = {
     ];
     let user = {
       id: 4,
-      firstName: 'senko',
-      lastName: 'von doom',
+      first_name: 'senko',
+      last_name: 'von doom',
+      location: { lat: 33.599207, lng: -7.6025396 },
       age: '567',
+      isAutoLocatorEnabled: true,
       address: 'CNS shore 14',
       gender: 'Male',
       bio: 'aaamzaing bro, :))))))) ||| ',

@@ -35,60 +35,52 @@
 			>Your Photos</label
 		>
 		<div class="flex flex-wrap gap-6 max-w-[60rem] mt-4">
-			<template v-for="avatarInputIndex in 6">
-				<div
-					class="mt-1 flex-1 h-[14rem] min-w-[30%] dmax-w-full flex justify-center items-center rounded-md border-dashed border-primary-color"
-					:class="{
-						'border-2': !avatars[avatarInputIndex - 1],
-						'!border-transparent': avatarInputIndex === 6,
-					}"
-				>
-					<template v-if="avatars[avatarInputIndex - 1]">
-						<img
-							class="w-full h-full rounded-md"
-							:src="getImg(avatars[avatarInputIndex - 1])"
-						/>
-					</template>
+			<div
+				v-for="avatarInputIndex in 6"
+				class="relative mt-1 flex-1 h-[14rem] min-w-[30%] flex justify-center items-center rounded-md border-dashed border-slate-300 bg-[#EAEDF6]"
+				:class="{ 'border-2': !avatars[avatarInputIndex - 1] }"
+			>
+				<template v-if="avatars[avatarInputIndex - 1]">
+					<img
+						class="w-full h-full rounded-md object-cover"
+						:src="getImg(avatars[avatarInputIndex - 1])"
+					/>
+				</template>
 
-					<label
-						v-else
-						:for="`file-upload-${avatarInputIndex}`"
-						class="relative cursor-pointer rounded-md bg-white font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2"
-					>
+				<label
+					v-else
+					class="cursor-pointer rounded-md font-medium focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2"
+				>
+					<div class="space-y-1 text-center">
 						<div
-							class="space-y-1 text-center"
-							v-show="avatarInputIndex != 6"
+							class="bg-primary-color rounded-full w-8 h-8 flex justify-center items-center absolute -bottom-2 -right-4"
 						>
 							<svg
 								for="file-upload"
-								class="mx-auto h-12 w-12 text-gray-400"
-								stroke="currentColor"
-								fill="none"
-								viewBox="0 0 48 48"
-								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 448 512"
+								fill="#fff"
+								class="w-6 h-6"
 							>
+								<!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
 								<path
-									d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
 								/>
 							</svg>
-							<p class="text-xs text-gray-500">
-								<span>Upload a file</span>
-								<input
-									ref="avatarsInputs"
-									:id="`file-upload-${avatarInputIndex}`"
-									:name="`file-upload-${avatarInputIndex}`"
-									type="file"
-									class="sr-only"
-									@change="uploadAvatar(avatarInputIndex)"
-								/>
-							</p>
 						</div>
-					</label>
-				</div>
-			</template>
+						<p class="text-xs text-gray-500">
+							<input
+								ref="avatarsInputs"
+								:id="`file-upload-${avatarInputIndex}`"
+								:name="`file-upload-${avatarInputIndex}`"
+								type="file"
+								class="sr-only"
+								@change="uploadAvatar(avatarInputIndex)"
+							/>
+						</p>
+					</div>
+				</label>
+			</div>
 		</div>
 	</div>
 </template>
