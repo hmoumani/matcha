@@ -1,6 +1,6 @@
 import { query } from '../../db/index';
 
-const avatarLimit = async (req, res, next) => {
+const checkAvatarLimit = async (req, res, next) => {
   const userId = req.userId;
   const count = await query(`SELECT count(*) FROM images WHERE user_id = $1`, [userId]);
   if (count.rows[0].count >= 5)
@@ -8,4 +8,4 @@ const avatarLimit = async (req, res, next) => {
   next();
 };
 
-export { avatarLimit };
+export { checkAvatarLimit };

@@ -28,7 +28,7 @@ const updateUserInfo = ({ body }) => {
     passions: Joi.array().items(Joi.string()),
     biography: Joi.string(),
     gender: Joi.string().valid('male', 'female').insensitive(),
-    sexualOrientation: Joi.string().valid('heterosexual', 'bisexual').insensitive(),
+    sexualOrientation: Joi.string().valid('male', 'female', 'both').insensitive(),
     isAutoLocatorEnabled: Joi.boolean(),
     location: Joi.object(
       {

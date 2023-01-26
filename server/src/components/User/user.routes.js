@@ -1,5 +1,5 @@
 import { getUserIdFromToken } from '../Auth/auth.middleware';
-import { avatarLimit } from '../User/user.middleware';
+import { checkAvatarLimit } from '../User/user.middleware';
 import imageUpload from '../../utils/image.upload';
 
 /**
@@ -22,7 +22,7 @@ export default ({ router, UserController, responseCallback, UserValidator, makeV
     makeValidatorCallback(UserValidator.updateSettings),
     responseCallback(UserController.updateSettings)
     );
-    router.put('/avatar', [getUserIdFromToken, avatarLimit], imageUpload, responseCallback(UserController.uploadAvatar));
+    router.put('/avatar', [getUserIdFromToken, checkAvatarLimit], imageUpload, responseCallback(UserController.uploadAvatar));
     router.put('/', getUserIdFromToken, makeValidatorCallback(UserValidator.updateUserInfo), responseCallback(UserController.updateUserInfo));
   return router;
 };

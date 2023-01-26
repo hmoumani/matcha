@@ -51,8 +51,12 @@ const AuthController = {
   uploadAvatar: async (req) => {
     if (!req.file)
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'No file uploaded');
-    await query('insert into images (user_id, value) values ($1, $2)', [req.userId, req.file.filename]);
-    return ControllerResponse(HttpStatusCode.OK, req.file);
+    try{  
+      userService.uploadAvatar({ userId: req.userId, value: req.file.filename })
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'could not upload avatar');
+    }
+    return ControllerResponse(HttpStatusCode.OK, 'avatar uploaded successfully!');
   },
   updateUserInfo: async (req) => {
     try{

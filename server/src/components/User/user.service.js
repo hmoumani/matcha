@@ -2,6 +2,8 @@ import { query } from "../../db/index";
 import UserModel from "../../models/UserModel";
 import TagModel from "../../models/TagModel";
 import UserTagModel from "../../models/UserTagModel";
+import ImageModel from "../../models/ImageModel";
+
 const UserService = {
   getUserPassions: async (userId) => {
     const { rows } = await query("SELECT \
@@ -83,6 +85,10 @@ const UserService = {
       await userTagModel.insert(userId, tagsIds);
     }
     userModel.update(requestBody, condition);
+  },
+  uploadAvatar: async (imageObj) => {
+    const imageModel = new ImageModel();
+    imageModel.insert(imageObj);
   }
 };
 
