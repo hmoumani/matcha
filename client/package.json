@@ -20,7 +20,7 @@
 	},
 	"homepage": "https://github.com/zynth17/vitailse#readme",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite --port=8080",
 		"build": "vite-ssg build",
 		"serve": "vite preview",
 		"https-preview": "serve dist"
@@ -44,6 +44,7 @@
 		"autoprefixer": "^10.4.7",
 		"axios": "^1.2.1",
 		"moment": "^2.29.4",
+		"multi-range-slider-vue": "^1.1.4",
 		"pinia": "^2.0.16",
 		"postcss": "^8.4.14",
 		"tailwindcss": "^3.1.6",

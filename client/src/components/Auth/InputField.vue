@@ -23,6 +23,9 @@
 	const updateValue = event => {
 		emit('update:modelValue', event.target.value);
 	};
+	const inputRef = ref('');
+
+	expose(inputRef);
 </script>
 <template>
 	<div>
@@ -34,6 +37,7 @@
 		>
 		<div class="mt-1 mb-2 relative">
 			<input
+				ref="inputRef"
 				id="email"
 				name="email"
 				:placeholder="placeholder"
@@ -49,11 +53,8 @@
 			<div
 				class="pointer-cursor absolute inset-y-0 right-0 flex items-center pr-3"
 			>
-				<slot
-					aria-hidden="true"
-				/>
+				<slot aria-hidden="true" />
 			</div>
-
 		</div>
 	</div>
 </template>
