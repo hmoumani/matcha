@@ -63,7 +63,7 @@ const AuthService = {
     const settingsModel = new SettingsModel();
     const condition = ['user_id', '=', userID];
 
-    return settingsModel.find(condition);
+    return settingsModel.findOne(condition);
   }
 };
 
