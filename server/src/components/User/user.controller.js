@@ -1,6 +1,17 @@
 import HttpStatusCode from '../../enums/HttpStatusCode';
 import ControllerResponse from '../../utils/ControllerResponse';
 import userService from './user.service';
+import _ from 'lodash';
+
+const toCamelCase = (obj) =>
+  _.reduce(
+    obj,
+    (result, value, key) => {
+      result[_.camelCase(key)] = value;
+      return result;
+    },
+    {}
+  );
 
 const AuthController = {
   /**
@@ -43,7 +54,15 @@ const AuthController = {
   getSettings: async (req) => {
     const userId = req.userId;
     const settings = await userService.getSettings(userId);
-    return ControllerResponse(HttpStatusCode.OK, settings);
+    console.log(settings.common_tags);
+    const parsedTags = JSON.parse(settings.common_tags);
+    const formattedSettings = toCamelCase({
+      ...settings,
+      id: undefined,
+      userId: undefined,
+      commonTags: parsedTags
+    });
+    return ControllerResponse(HttpStatusCode.OK, formattedSettings);
   }
 };
 
