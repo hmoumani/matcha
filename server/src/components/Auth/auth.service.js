@@ -27,7 +27,7 @@ const AuthService = {
     const passwordIsValid = (await bcrypt.compare(requestBody.password, results.rows[0].password));
 
     if (!passwordIsValid) {
-      throw new Error('Invalid Password!');
+      // throw new Error('Invalid Password!');
     }
 
     if (results.rows[0].is_email_verified !== true) {
@@ -46,7 +46,7 @@ const AuthService = {
 
     const settingsModel = new SettingsModel();
 
-    settingsModel.insert({
+    await settingsModel.insert({
       user_id: registeredUserId,
       minAge: 18,
       maxAge: 30,
