@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean, UniqueConstraint
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine("postgresql://matcha:password@localhost:7777/matcha", echo=True)
@@ -18,20 +18,15 @@ class User(Base):
 	last_name = Column(String, nullable=False)
 	images = relationship("Image", back_populates="user")
 	biography = Column(String, nullable=True)
-	gender_id = Column(Integer, ForeignKey("genders.id"))
-	last_location = Column(String, nullable=True)
+	gender = Column(String, nullable=True, default=None)
+	sexual_orientation = Column(String, nullable=True, default="bisexual")
+	location = Column(String, nullable=True)
 	last_connection = Column(String, nullable=True)
 	age = Column(Integer, nullable=True)
 	is_email_verified = Column(Boolean)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
+	is_auto_locator_enabled = Column(Boolean, default=False)
 
-	
-class Gender(Base):
-	__tablename__ = "genders"
-	id = Column(Integer, primary_key=True)
-	name = Column(String, nullable=False)
-	created_at = Column(DateTime(timezone=True), server_default=func.now())
-	
 
 class UserSearchSettings(Base):
 	__tablename__ = "user_settings"
@@ -43,17 +38,12 @@ class UserSearchSettings(Base):
 	max_fame_rating = Column(Integer,default=10)
 	location = Column(String, nullable=True)
 	common_tags = Column(String, nullable=True)
-		
-class SexualPreference(Base):
-	__tablename__ = "sexual_preferences"
-	id = Column(Integer, primary_key=True)
-	user_id = Column(Integer, ForeignKey("users.id"))
-	gender_id = Column(Integer, ForeignKey("genders.id"))
+
 
 class Tag(Base):
 	__tablename__ = "tags"
 	id = Column(Integer, primary_key=True)
-	value = Column(String, nullable=False)
+	value = Column(String, nullable=False, unique=True)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 	
 
@@ -63,6 +53,8 @@ class UserTag(Base):
 	tag_id = Column(Integer, ForeignKey("tags.id"))
 	user_id = Column(Integer, ForeignKey("users.id"))
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
+	__table_args__ = (UniqueConstraint('user_id', 'tag_id', name='user_tags_user_id_tag_id'),
+			)
 	
 
 class UserView(Base):
@@ -119,6 +111,7 @@ class Notification(Base):
 class Image(Base):
 	__tablename__ = "images"
 	id = Column(Integer, primary_key=True)
+	user_id = Column(Integer, ForeignKey("users.id"))
 	value = Column(String, nullable=False)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 
@@ -130,14 +123,4 @@ class ValidationToken(Base):
     token_type = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-
 Base.metadata.create_all(engine)
-
-# session = sessionmaker(engine)()
-
-
-# for i in range(100):
-#     image  = Image(value="image")
-#     session.add(image)
-# session.commit()
-	# image.save()

@@ -18,8 +18,10 @@ export const useUserStore = defineStore('user', {
 	}),
 	actions: {
 		async getCurrentUser() {
-			let { data } = await userService.getUserProfile();
-			this.currentUser = data.data.user;
+			let {
+				data: { message },
+			} = await userService.getUserProfile();
+			this.currentUser = message;
 		},
 		async reportUser(userID) {
 			await userService.reportUser(userID);

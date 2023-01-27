@@ -23,6 +23,24 @@ const updateSettings = ({ body }) => {
   return schema.validate(body, options);
 };
 
+const updateUserInfo = ({ body }) => {
+  const schema = Joi.object({
+    passions: Joi.array().items(Joi.string()),
+    biography: Joi.string(),
+    gender: Joi.string().valid('male', 'female').insensitive(),
+    sexualOrientation: Joi.string().valid('male', 'female', 'both').insensitive(),
+    isAutoLocatorEnabled: Joi.boolean(),
+    location: Joi.object(
+      {
+        lat: Joi.number(),
+        lng: Joi.number()
+      }
+    )
+  });
+  return schema.validate(body, options);
+};
+
 export default {
-  updateSettings
+  updateSettings,
+  updateUserInfo
 };

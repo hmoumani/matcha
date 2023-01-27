@@ -46,28 +46,10 @@
 			gender => gender.value === currentUser.value.sexualOrientation
 		)
 	);
-	let debouncedUpdate;
 
-	let isFirstChange = true;
-
-	watch(userStore, () => {
-		if (isFirstChange === true) {
-			isFirstChange = false;
-			return;
-		}
-		clearTimeout(debouncedUpdate);
-		debouncedUpdate = setTimeout(() => {
-			const { passions, bio, gender, sexualOrientation } =
-				currentUser.value;
-			const newUser = { passions, bio, gender, sexualOrientation };
-
-			userService.updateUser(newUser);
-		}, 1000);
-	});
-
-	const handleChangePassions = (passions) => {
+	const handleChangePassions = passions => {
 		currentUser.value.passions = passions;
-	}
+	};
 </script>
 <template>
 	<!-- <Header /> -->
@@ -99,9 +81,13 @@
 					>
 					</textarea>
 				</div>
+				<UserLocation />
 				<div>
 					<h2 class="mb-2">Passions :</h2>
-					<passionTags :passions="currentUser.passions" @onTagsChanged="handleChangePassions"/>
+					<passionTags
+						:passions="currentUser.passions"
+						@onTagsChanged="handleChangePassions"
+					/>
 				</div>
 				<div class="flex items-center gap-x-6">
 					<div class="mt-3">I want to see:</div>

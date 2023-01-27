@@ -5,10 +5,14 @@
 	var map = null;
 	let infoWindow = null;
 	var marker = null;
-	const radius = 7000;
+	const radius = 1000;
 
-	const { center } = defineProps({
+	const { center, zoom } = defineProps({
 		center: Object,
+		zoom: {
+			type: Number,
+			default: 8,
+		},
 	});
 
 	const emit = defineEmits(['updateLocation']);
@@ -24,7 +28,7 @@
 	const createMap = () =>
 		new google.maps.Map(mapWrapper.value, {
 			center,
-			zoom: 8,
+			zoom,
 			controls: [],
 			scrollwheel: true,
 			navigationControl: false,
@@ -101,7 +105,7 @@
 		marker.setRadius(newRadius);
 	};
 
-	const handlePlaceChanged = (autocomplete) => {
+	const handlePlaceChanged = autocomplete => {
 		var place = autocomplete.getPlace();
 		if (!place.geometry) {
 			window.alert(

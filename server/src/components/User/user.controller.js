@@ -12,6 +12,7 @@ const toCamelCase = (obj) =>
     },
     {}
   );
+  
 
 const AuthController = {
   /**
@@ -21,14 +22,15 @@ const AuthController = {
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
    */
-  find: async (userId) => {
-    const user = await userService.find(userId);
-    return {
-      statusCode: 200,
-      body: {
-        data: user
-      }
-    };
+  find: async (req, res) => {
+    try{
+      if (req.params.id === 'mine')
+        req.params.id = req.userId;
+      const user = await userService.find(req.params.id);
+      return ControllerResponse(HttpStatusCode.OK, user);
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, "Error while retrieving user");
+    }
   },
 
   /**
@@ -40,7 +42,7 @@ const AuthController = {
   updateSettings: async (req) => {
     const settings = req.body;
     const userId = req.userId;
-    await userService.updateSettings(userId, settings);
+    // await userService.updateSettings(userId, settings);
     return ControllerResponse(HttpStatusCode.OK, 'Setting Updated in successfully!');
   },
 
@@ -50,7 +52,7 @@ const AuthController = {
    * @method
    * @param {ExpressRequest} httpRequest
    * @returns {Promise.<ControllerResponse> }
-   */
+  */
   getSettings: async (req) => {
     const userId = req.userId;
     const settings = await userService.getSettings(userId);
@@ -63,7 +65,27 @@ const AuthController = {
       commonTags: parsedTags
     });
     return ControllerResponse(HttpStatusCode.OK, formattedSettings);
-  }
+  },
+
+  uploadAvatar: async (req) => {
+    if (!req.file)
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'No file uploaded');
+    try{  
+      userService.uploadAvatar({ userId: req.userId, value: req.file.filename })
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'could not upload avatar');
+    }
+    return ControllerResponse(HttpStatusCode.OK, 'avatar uploaded successfully!');
+  },
+  updateUserInfo: async (req) => {
+    try{
+      const userId = req.userId;
+      await userService.updateUser(req.body, userId);
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'could not update user infos');
+    }
+    return ControllerResponse(HttpStatusCode.OK, 'user infos updated successfully!');
+  },
 };
 
 export default AuthController;

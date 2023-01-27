@@ -68,6 +68,14 @@ class Model {
 
     return executeQuery(query, params);
   }
+
+  delete(condition) {
+    let query = `delete from ${this.tableName} `;
+    const [col_id, operation, value] = condition;
+    query += `WHERE ${col_id} ${operation} $1`;
+    const params = [value];
+    return executeQuery(query, params);
+  }
 }
 
 // let data = {

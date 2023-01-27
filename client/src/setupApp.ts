@@ -23,7 +23,7 @@ const setupApp = async () => {
 	const { getCurrentUser } = useUserStore();
 
 	try {
-		getCurrentUser();
+		await getCurrentUser();
 	} catch (e) {
 		router.push('/login');
 		return;
