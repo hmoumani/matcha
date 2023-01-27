@@ -72,7 +72,14 @@ const UserService = {
     const settingsModel = new SettingsModel();
     const condition = ['user_id', '=', userID];
 
-    settingsModel.update(settings, condition);
+    const currentSettings = await settingsModel.findOne(condition);
+
+    const { maxFameRating, minFameRating } = currentSettings;
+    if (maxFameRating < minFameRating) {
+      throw 'maxFameRating should be greater than minFameRating';
+    }
+
+    await settingsModel.update(settings, condition);
   },
 
   getSettings: async (userID) => {
