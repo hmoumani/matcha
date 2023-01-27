@@ -37,8 +37,12 @@
 	onMounted(async () => {
 		const {
 			data: { message: searchSettings },
-		} = await searchSettingsService.getSearchSettings();
+		} = await searchSettingsService.get();
 		settings.value = searchSettings;
+	});
+
+	watch(settings, async () => {
+		await searchSettingsService.update(settings);
 	});
 </script>
 <template>
@@ -48,7 +52,7 @@
 		<div>
 			<h2 class="mb-3">Common Tags</h2>
 			<passionTags
-				:passions="currentUser.passions"
+				:passions="settings.commonTags"
 				@on-tags-changed="handleChangePassions"
 			/>
 		</div>
