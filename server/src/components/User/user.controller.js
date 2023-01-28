@@ -40,8 +40,7 @@ const AuthController = {
   updateSettings: async (req) => {
     const settings = req.body;
     const userId = req.userId;
-    console.log({settings})
-    // await userService.updateSettings(userId, settings);
+    await userService.updateSettings(userId, settings);
     return ControllerResponse(HttpStatusCode.OK, 'Setting Updated in successfully!');
   },
 

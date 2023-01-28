@@ -48,6 +48,20 @@
 		class="w-3/12 h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4"
 	>
 		<div>
+			<h2 class="mb-3">Sort by</h2>
+			<Select
+				v-model="defaultSexualOrientationOption"
+				@update:modelValue="
+					selectedSexualOrientation => {
+						currentUser.sexualOrientation =
+							selectedSexualOrientation;
+					}
+				"
+				:options="SexualOrientationOptions"
+				class="mb-6 w-32 h-3 mr-28 border-gray-300 text-sm my-4"
+			/>
+		</div>
+		<div>
 			<h2 class="mb-3">Common Tags</h2>
 			<passionTags
 				:passions="settings.commonTags"

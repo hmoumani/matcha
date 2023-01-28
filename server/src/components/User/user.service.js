@@ -75,9 +75,14 @@ const UserService = {
     const currentSettings = await settingsModel.findOne(condition);
 
     const { maxFameRating, minFameRating } = currentSettings;
+    const { location, commonTags } = settings;
+
     if (maxFameRating < minFameRating) {
       throw 'maxFameRating should be greater than minFameRating';
     }
+
+    settings.location = JSON.stringify(location);
+    settings.commonTags = JSON.stringify(commonTags);
 
     await settingsModel.update(settings, condition);
   },
