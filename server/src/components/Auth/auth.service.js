@@ -52,8 +52,8 @@ const AuthService = {
       maxAge: 30,
       minFameRating: 5,
       maxFameRating: 10,
-      commonTags: '[]',
-      location: { lat: 33, lng: 100 }
+      commonTags: [],
+      location: { "lat": 33, "lng": 100 }
     });
 
     return registeredUserId;

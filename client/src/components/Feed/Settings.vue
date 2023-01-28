@@ -1,37 +1,37 @@
 <script setup>
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
+	import { ref, watch } from 'vue';
 	import searchSettingsService from '@/services/searchSettingsService';
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
 
 	const handleChangePassions = passions => {
-		currentUser.value.passions = passions;
+		updateSetting('commonTags', passions);
 	};
 
 	const showMap = ref(true);
 
-	const settings = ref({
-		minAge: 20,
-		maxAge: 40,
-		minFameRating: 3,
-		maxFameRating: 10,
-		location: { lat: 33, lng: 1000 },
-	});
+	const settings = ref(null);
 
 	const updateLocation = location => {
-		settings.value.location = location;
+		updateSetting('location', location);
 	};
 
 	const UpdateAgeGap = input => {
-		settings.value.minAge = input.minValue;
-		settings.value.maxAge = input.maxValue;
+		updateSetting('minAge', input.minValue);
+		updateSetting('maxAge', input.maxValue);
 	};
 
 	const updateFameRate = input => {
-		settings.value.minFameRating = input.minValue;
-		settings.value.maxFameRating = input.maxValue;
+		updateSetting('minFameRating', input.minValue);
+		updateSetting('maxFameRating', input.maxValue);
+	};
+
+	const updateSetting = (prop, value) => {
+		settings.value[prop] = value;
+		searchSettingsService.update(settings.value);
 	};
 
 	onMounted(async () => {
@@ -40,20 +40,18 @@
 		} = await searchSettingsService.get();
 		settings.value = searchSettings;
 	});
-
-	watch(settings, async () => {
-		await searchSettingsService.update(settings);
-	});
 </script>
+
 <template>
 	<div
+		v-if="settings"
 		class="w-3/12 h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4"
 	>
 		<div>
 			<h2 class="mb-3">Common Tags</h2>
 			<passionTags
 				:passions="settings.commonTags"
-				@on-tags-changed="handleChangePassions"
+				@onTagsChanged="handleChangePassions"
 			/>
 		</div>
 		<div>

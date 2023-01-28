@@ -39,7 +39,7 @@
 				isAutoLocatorEnabled,
 			};
 
-			userService.updateUser(newUser);
+			// userService.updateUser(newUser);
 		}, 1000);
 	});
 </script>
