@@ -22,7 +22,7 @@ const user = {
 	age: 24,
 	id: 0,
 	distance: '14 km',
-	bio: 'looking for friends.',
+	biography: 'looking for friends.',
 	avatar: avatars[Math.floor(Math.random() * avatars.length)],
 	passions,
 };
@@ -43,7 +43,7 @@ const generateUser = () => {
 		age: 24,
 		id: id++,
 		distance: '14 km',
-		bio: 'looking for friends.',
+		biography: 'looking for friends.',
 		avatar: avatars[id % avatars.length],
 		passions,
 	};

@@ -23,7 +23,7 @@
 		debouncedUpdate = setTimeout(() => {
 			const {
 				passions,
-				bio,
+				biography,
 				gender,
 				sexualOrientation,
 				location,
@@ -32,7 +32,7 @@
 
 			const newUser = {
 				passions,
-				bio,
+				biography,
 				gender,
 				sexualOrientation,
 				location,

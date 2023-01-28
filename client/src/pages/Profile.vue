@@ -11,26 +11,26 @@
 
 	const SexualOrientationOptions = ref([
 		{
-			value: 'Female',
+			value: 'female',
 			label: 'Female',
 		},
 		{
-			value: 'Male',
+			value: 'male',
 			label: 'Male',
 		},
 		{
-			value: 'Both',
+			value: 'both',
 			label: 'Both',
 		},
 	]);
 
 	const gendersOptions = ref([
 		{
-			value: 'Female',
+			value: 'female',
 			label: 'Female',
 		},
 		{
-			value: 'Male',
+			value: 'male',
 			label: 'Male',
 		},
 	]);
@@ -76,7 +76,7 @@
 						cols="30"
 						name="comment"
 						id="comment"
-						v-model="currentUser.bio"
+						v-model="currentUser.biography"
 						class="text-xl h-20 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
 					>
 					</textarea>
@@ -91,7 +91,7 @@
 				</div>
 				<div class="flex items-center gap-x-6">
 					<div class="mt-3">I want to see:</div>
-					<!-- <Select
+					<Select
 						v-model="defaultSexualOrientationOption"
 						@update:modelValue="
 							selectedSexualOrientation => {
@@ -101,11 +101,11 @@
 						"
 						:options="SexualOrientationOptions"
 						class="mb-6 w-32 h-3 mr-28 border-gray-300 text-sm my-4"
-					/> -->
+					/>
 				</div>
 				<div class="flex items-center gap-x-8">
 					<div class="mt-3">My Gender :</div>
-					<!-- <Select
+					<Select
 						v-model="defaultOption"
 						@update:modelValue="
 							selectedGender => {
@@ -114,7 +114,7 @@
 						"
 						:options="gendersOptions"
 						class="mb-6 w-32 h-3 mr-28 border-gray-300 text-sm my-4"
-					/> -->
+					/>
 				</div>
 			</div>
 		</div>

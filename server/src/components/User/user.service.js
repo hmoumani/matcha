@@ -39,7 +39,8 @@ const UserService = {
       users.last_name, \
       users.age, \
       users.location, \
-      users.biography as bio, \
+      users.is_auto_locator_enabled, \
+      users.biography, \
       users.sexual_orientation\
       FROM users\
     WHERE users.id = $1',
@@ -49,12 +50,24 @@ const UserService = {
     user = user.rows[0];
     const passions = await UserService.getUserPassions(userId);
     const avatars = await UserService.getUserAvatars(userId);
+
+    const genderToOrientationMap = {
+      male: 'male',
+      female: 'female',
+      null: 'both'
+    };
+
     user = {
       ...user,
-      sexual_orientation: user.sexual_orientation || 'Male',
+      gender: user.gender || 'male', // Todo REMOVE
+      is_auto_locator_enabled: user.is_auto_locator_enabled === null || true,
       passions,
       avatars
     };
+
+    if (!user.sexual_orientation) {
+      user.sexual_orientation = genderToOrientationMap[user.gender] || 'both';
+    }
     return user;
   },
   /**
