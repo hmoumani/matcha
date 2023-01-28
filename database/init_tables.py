@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean, UniqueConstraint
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean, UniqueConstraint, ARRAY
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine("postgresql://matcha:password@localhost:7777/matcha", echo=True)
@@ -45,7 +45,7 @@ class UserSearchSettings(Base):
 	min_fame_rating = Column(Integer,default=3)
 	max_fame_rating = Column(Integer,default=10)
 	location = Column(String, nullable=True)
-	common_tags = Column(String, nullable=True)
+	common_tags = Column(ARRAY(String), nullable=True)
 
 
 class Tag(Base):
