@@ -73,7 +73,8 @@ const sendMail = async (mailData) => {
   try {
     await transporter.sendMail(mailData);
   } catch (error) {
-    throw error;
+    console.log("Error while sending email");
   }
 };
+
 export { sendMail, sendEmailValidation, sendResetPasswordEmail };

@@ -2,7 +2,7 @@ const ControllerResponse = (statusCode, message) => {
     return {
         statusCode,
         body: {
-        message: message,
+    		message: message,
         },
     };
 };

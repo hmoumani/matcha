@@ -182,10 +182,12 @@
 		</TransitionRoot>
 
 		<!-- Static sidebar for desktop -->
-		<div class="hidden md:inset-y-0 md:flex md:w-[23rem] md:flex-col mt-2">
+		<div
+			class="hidden md:inset-y-0 md:flex md:w-[23rem] md:flex-col mt-2 h-[calc(100vh-4rem)] bg-white"
+		>
 			<!-- Sidebar component, swap this element with another sidebar if you like -->
 			<div
-				class="flex min-h-0 flex-1 flex-col justify-end border-r border-gray-200 bg-white px-8"
+				class="flex min-h-0 flex-1 flex-col justify-end border-r border-gray-200 px-8"
 			>
 				<div class="flex flex-1 flex-col overflow-y-auto pt-9 pb-4">
 					<img
@@ -227,20 +229,7 @@
 					</nav>
 				</div>
 				<div class="border-t border-gray-200 px-4 py-8">
-					<router-link
-						to="/settings"
-						class="group block w-full flex-shrink-0"
-					>
-						<div class="flex items-center text-[#A5A8B7]">
-							<FontAwesomeIcon
-								icon="fa-solid fa-gear"
-								class="bdg-[#F8F7FF] w-6 h-6 px-2"
-							/>
-							<p class="ml-3 text-lg font-bold">Settings</p>
-						</div>
-					</router-link>
 					<div
-						to="/settings"
 						class="mt-6 group block w-full flex-shrink-0"
 						@click="logout"
 					>

@@ -11,9 +11,7 @@ import { useUserStore } from './user';
 export const useAuthStore = () => {
 	const router = useRouter();
 	return defineStore('auth', {
-		state: () => ({
-			user: null,
-		}),
+		state: () => ({}),
 		actions: {
 			async logIn(username: string, password: string) {
 				await login(username, password);
