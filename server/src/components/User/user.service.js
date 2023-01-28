@@ -78,7 +78,7 @@ const UserService = {
     const { location, commonTags } = settings;
 
     if (maxFameRating < minFameRating) {
-      throw 'maxFameRating should be greater than minFameRating';
+      throw new Error('maxFameRating should be greater than minFameRating');
     }
 
     settings.location = JSON.stringify(location);
