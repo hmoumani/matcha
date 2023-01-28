@@ -17,7 +17,9 @@ const UserService = {
       where users.id = $1',
       [userId]
     );
-    return rows;
+
+    const passions = rows.map(row => row.tag)
+    return passions;
   },
 
   getUserAvatars: async (userId) => {
