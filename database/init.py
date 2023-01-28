@@ -38,7 +38,8 @@ class UserSearchSettings(Base):
 	max_fame_rating = Column(Integer,default=10)
 	location = Column(String, nullable=True)
 	common_tags = Column(String, nullable=True)
-
+	sort_by = Column(String, nullable=True)
+	
 
 class Tag(Base):
 	__tablename__ = "tags"

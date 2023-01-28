@@ -134,7 +134,6 @@
 
 	const emit = defineEmits(['update:modelValue']);
 	const updateValue = (newOption: Option) => {
-		// TODO : option value  be emitted instead of label
 		// Update option in parent
 		emit('update:modelValue', newOption.value);
 		// Update option in this component

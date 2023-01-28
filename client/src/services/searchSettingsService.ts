@@ -1,7 +1,9 @@
 import apiClient from '@/modules/apiClient';
 
-const getSearchSettings = () => apiClient.get(`/user/settings`);
+const get = () => apiClient.get(`/user/settings`);
+const update = (payload) => apiClient.put(`/user/settings`, payload);
 
 export default {
-	getSearchSettings
+	update,
+	get
 };

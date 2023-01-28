@@ -1,31 +1,39 @@
-import { query } from "../../db/index";
-import UserModel from "../../models/UserModel";
-import TagModel from "../../models/TagModel";
-import UserTagModel from "../../models/UserTagModel";
-import ImageModel from "../../models/ImageModel";
+import { query } from '../../db/index';
+import UserModel from '../../models/UserModel';
+import TagModel from '../../models/TagModel';
+import UserTagModel from '../../models/UserTagModel';
+import ImageModel from '../../models/ImageModel';
+import SettingsModel from '../../models/SettingsModel';
 
 const UserService = {
   getUserPassions: async (userId) => {
-    const { rows } = await query("SELECT \
+    const { rows } = await query(
+      'SELECT \
       tags.value as tag, \
       user_tags.id as user_tags_id \
       FROM users \
       JOIN user_tags ON users.id = user_tags.user_id \
       JOIN tags ON tags.id = user_tags.tag_id \
-      where users.id = $1", [userId]);
+      where users.id = $1',
+      [userId]
+    );
     return rows;
   },
 
   getUserAvatars: async (userId) => {
-    const { rows } = await query("SELECT \
+    const { rows } = await query(
+      'SELECT \
       id, value, created_at \
       FROM images \
-      where images.user_id = $1", [userId]);
+      where images.user_id = $1',
+      [userId]
+    );
     return rows;
-  },  
+  },
 
   find: async (userId) => {
-    let user = await query('SELECT \
+    let user = await query(
+      'SELECT \
       users.id, \
       users.first_name, \
       users.last_name, \
@@ -34,9 +42,10 @@ const UserService = {
       users.biography as bio, \
       users.sexual_orientation\
       FROM users\
-    WHERE users.id = $1', [userId]);
-    if (user.rows.length === 0)
-      throw new Error('User not found');
+    WHERE users.id = $1',
+      [userId]
+    );
+    if (user.rows.length === 0) throw new Error('User not found');
     user = user.rows[0];
     const passions = await UserService.getUserPassions(userId);
     const avatars = await UserService.getUserAvatars(userId);
@@ -63,15 +72,28 @@ const UserService = {
     const settingsModel = new SettingsModel();
     const condition = ['user_id', '=', userID];
 
-    settingsModel.update(settings, condition);
+    const currentSettings = await settingsModel.findOne(condition);
+
+    const { maxFameRating, minFameRating } = currentSettings;
+    const { location, commonTags } = settings;
+
+    if (maxFameRating < minFameRating) {
+      throw new Error('maxFameRating should be greater than minFameRating');
+    }
+
+    settings.location = JSON.stringify(location);
+    settings.commonTags = JSON.stringify(commonTags);
+
+    await settingsModel.update(settings, condition);
   },
 
   getSettings: async (userID) => {
     const settingsModel = new SettingsModel();
     const condition = ['user_id', '=', userID];
 
-    return settingsModel.find(condition);
+    return settingsModel.findOne(condition);
   },
+
   updateUser: async (requestBody, userId) => {
     const passions = requestBody.passions;
     delete requestBody.passions;
@@ -86,6 +108,7 @@ const UserService = {
     }
     userModel.update(requestBody, condition);
   },
+
   uploadAvatar: async (imageObj) => {
     const imageModel = new ImageModel();
     imageModel.insert(imageObj);

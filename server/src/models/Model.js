@@ -50,6 +50,11 @@ class Model {
     return rows;
   }
 
+  async findOne(condition){
+    const rows = await this.find(condition);
+    return rows[0];
+  }
+
   insert(data) {
     const params = Object.values(data);
 
