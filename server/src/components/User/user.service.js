@@ -41,7 +41,8 @@ const UserService = {
       users.location, \
       users.is_auto_locator_enabled, \
       users.biography, \
-      users.sexual_orientation\
+      users.sexual_orientation,\
+      users.gender\
       FROM users\
     WHERE users.id = $1',
       [userId]
@@ -60,9 +61,10 @@ const UserService = {
     user = {
       ...user,
       gender: user.gender || 'male', // Todo REMOVE
-      is_auto_locator_enabled: user.is_auto_locator_enabled === null || true,
+      is_auto_locator_enabled: user.is_auto_locator_enabled !== null ? user.is_auto_locator_enabled : true,
       passions,
-      avatars
+      avatars,
+      location: JSON.parse(user.location)
     };
 
     if (!user.sexual_orientation) {
