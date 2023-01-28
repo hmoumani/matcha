@@ -6,7 +6,6 @@ async function getCurrentUserPosition() {
 			timeout: 10000,
 		});
 	} catch (error) {
-		console.log(error);
 		location = await getLocationFromIP();
 	}
 	return location;

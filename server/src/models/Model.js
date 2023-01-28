@@ -34,9 +34,6 @@ class Model {
       params.push(value); // ...and the tuple you want to update
     }
 
-    // params to use:
-    console.log(query);
-    console.log(params);
     return executeQuery(query, params);
   }
 
