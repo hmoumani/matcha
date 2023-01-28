@@ -10,3 +10,4 @@ logs
 !.vscode/launch.json
 !.vscode/extensions.json
 .env
+static_files/avatars

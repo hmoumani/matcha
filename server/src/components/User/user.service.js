@@ -51,7 +51,7 @@ const UserService = {
     const avatars = await UserService.getUserAvatars(userId);
     user = {
       ...user,
-      sexual_orientation: user.sexual_orientation ? user.sexual_orientation : 'heterosexual',
+      sexual_orientation: user.sexual_orientation || 'Male',
       passions,
       avatars
     };

@@ -9,7 +9,7 @@ const uploadAvatars = avatars => {
 	const formData = new FormData();
 
 	for (let i = 0; i < avatars.length; i++) {
-		formData.append('file', avatars[i]);
+		formData.append('avatar', avatars[i]);
 	}
 
 	const config = {
