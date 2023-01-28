@@ -34,6 +34,32 @@
 		searchSettingsService.update(settings.value);
 	};
 
+	let sortUsersByOptions = [
+		{
+			label: 'Age',
+			value: 'age',
+		},
+		{
+			label: 'Fame Rating',
+			value: 'fameRating',
+		},
+		{
+			label: 'Location',
+			value: 'location',
+		},
+		{
+			label: 'Tags',
+			value: 'tags',
+		},
+	];
+
+	const defaultSortOption = computed(() => {
+		if (!settings?.sortBy) {
+			return sortUsersByOptions[0];
+		}
+		sortUsersByOptions.find(option => option.value === settings?.sortBy);
+	});
+
 	onMounted(async () => {
 		const {
 			data: { message: searchSettings },
@@ -50,14 +76,11 @@
 		<div>
 			<h2 class="mb-3">Sort by</h2>
 			<Select
-				v-model="defaultSexualOrientationOption"
+				v-model="defaultSortOption"
+				:options="sortUsersByOptions"
 				@update:modelValue="
-					selectedSexualOrientation => {
-						currentUser.sexualOrientation =
-							selectedSexualOrientation;
-					}
+					userByOption => updateSetting('sortBy', userByOption)
 				"
-				:options="SexualOrientationOptions"
 				class="mb-6 w-32 h-3 mr-28 border-gray-300 text-sm my-4"
 			/>
 		</div>
