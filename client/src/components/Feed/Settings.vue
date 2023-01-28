@@ -54,10 +54,10 @@
 	];
 
 	const defaultSortOption = computed(() => {
-		if (!settings?.sortBy) {
+		if (!settings.value?.sortBy) {
 			return sortUsersByOptions[0];
 		}
-		sortUsersByOptions.find(option => option.value === settings?.sortBy);
+		return sortUsersByOptions.find(option => option.value === settings.value?.sortBy);
 	});
 
 	onMounted(async () => {
@@ -81,7 +81,7 @@
 				@update:modelValue="
 					userByOption => updateSetting('sortBy', userByOption)
 				"
-				class="mb-6 w-32 h-3 mr-28 border-gray-300 text-sm my-4"
+				class="mb-6 w-60 h-3 mr-28 border-gray-300 text-sm my-4"
 			/>
 		</div>
 		<div>
