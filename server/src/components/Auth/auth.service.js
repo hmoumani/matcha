@@ -27,7 +27,7 @@ const AuthService = {
     const passwordIsValid = (await bcrypt.compare(requestBody.password, results.rows[0].password));
 
     if (!passwordIsValid) {
-      // throw new Error('Invalid Password!');
+      // throw new Error('Invalid Password!'); // TODO remove
     }
 
     if (results.rows[0].is_email_verified !== true) {
