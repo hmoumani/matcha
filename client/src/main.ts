@@ -38,3 +38,5 @@ const app = createApp(App).use(createPinia()).use(router);
 setupApp(app).finally(() => {
 	app.mount('#app');
 });
+
+export default app;

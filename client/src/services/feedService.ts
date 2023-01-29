@@ -1,4 +1,5 @@
 import apiClient from '@/modules/apiClient';
+import app from '@/main';
 
 const passions = [
 	{ name: 'video games', isCommon: false },
@@ -41,10 +42,12 @@ const getNewProfiles = () => {
 	return shufflePeople();
 };
 
-const likeUser = userId =>
-	apiClient.post('/like', {
-		userId,
-	});
+const likeUser = likedUserId => {
+	const socket = app.config.globalProperties.$socket;
+	socket.emit('userLike', likedUserId);
+	console.log(socket)
+	// emit('userLike', likedUserId);
+};
 
 const unLikeUser = userId =>
 	apiClient.post('/unlike', {
