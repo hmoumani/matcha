@@ -59,11 +59,16 @@ const getUserIdFromToken = (req, res, next) => {
 
 const getUserFromSocket = async (socket, next) => {
   const userToken = socket.handshake.query.token;
-  let user = jwt.verify(userToken, config.secret);
-  if (!user) {
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(userToken, config.secret);
+  } catch (e) {
     return next(new Error('Unauthorized'));
   }
-  socket.user = user;
+  if (!decodedToken) {
+    return next(new Error('Unauthorized'));
+  }
+  socket.userId = decodedToken.id;
   next();
 };
 

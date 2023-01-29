@@ -3,7 +3,6 @@
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
 	import userService from './services/userService';
-	import { setupUserGateway } from './notifications/userGateway';
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);

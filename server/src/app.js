@@ -54,10 +54,6 @@ app.use(
   })
 );
 
-// Make sure to exclude the "/socket.io" route from any middleware that might be blocking it
-app.use('/socket.io', (req, res, next) => {
-  next();
-});
 // parse json body
 app.use(express.json());
 

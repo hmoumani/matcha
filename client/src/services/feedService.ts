@@ -32,7 +32,7 @@ const ppl: any = [];
 
 for (let i = 0; i < 10; i++) {
 	// user.id = i;
-	ppl.push({ ...user, id: i });
+	ppl.push({ ...user, id: 2 });
 }
 
 const shufflePeople = () => ppl.sort((a, b) => 0.5 - Math.random());
