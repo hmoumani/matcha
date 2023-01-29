@@ -23,6 +23,9 @@ app.set('port', port);
 
 const server = createServer(app);
 
+import setupUserSocket from './components/User/user.gateway';
+
+setupUserSocket(server);
 /**
  * Listen on provided port, on all network interfaces.
  */

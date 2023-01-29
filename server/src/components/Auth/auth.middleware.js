@@ -57,4 +57,14 @@ const getUserIdFromToken = (req, res, next) => {
   }
 };
 
-export { checkDuplicateUsernameOrEmail, getUserIdFromToken, checkEmailexists };
+const getUserFromSocket = async (socket, next) => {
+  const userToken = socket.handshake.query.token;
+  let user = jwt.verify(userToken, config.secret);
+  if (!user) {
+    return next(new Error('Unauthorized'));
+  }
+  socket.user = user;
+  next();
+};
+
+export { checkDuplicateUsernameOrEmail, getUserIdFromToken, checkEmailexists, getUserFromSocket };

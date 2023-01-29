@@ -8,6 +8,10 @@ import dotenv from 'dotenv';
 
 import cookieSession from 'cookie-session';
 
+// setup user gateway
+// setupUserSocket(app);
+// const io = require('socket.io')(http);
+
 dotenv.config();
 
 app.use('/public', express.static('static_files/'));
@@ -50,6 +54,10 @@ app.use(
   })
 );
 
+// Make sure to exclude the "/socket.io" route from any middleware that might be blocking it
+app.use('/socket.io', (req, res, next) => {
+  next();
+});
 // parse json body
 app.use(express.json());
 
@@ -60,11 +68,7 @@ app.set('view engine', 'html');
 
 // load routes
 import setupRoutes from './loaders/routes';
-import setupUserSocket from './components/User/user.gateway';
 
 setupRoutes(app);
-
-// setup user gateway
-setupUserSocket(app);
 
 export default app;
