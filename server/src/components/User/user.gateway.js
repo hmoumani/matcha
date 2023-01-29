@@ -12,9 +12,10 @@ const onConnection = async (socket) => {
   }
   connectedUsers.get(userId).push(socket.id);
   console.table(connectedUsers);
+  socket.on('disconnect', () => onDisconnect(socket));
 };
 
-const onDisconnect = async () => {
+const onDisconnect = async (socket) => {
   console.log('user disconnected');
   for (const [userId, sockets] of connectedUsers) {
     const index = sockets.indexOf(socket.id);
@@ -49,8 +50,6 @@ export default (server) => {
     }
   };
   userGatewaySocket = new Server(server, options);
-  console.log(userGatewaySocket);
   userGatewaySocket.use(getUserFromSocket);
   userGatewaySocket.on('connection', onConnection);
-  userGatewaySocket.on('disconnect', onDisconnect);
 };

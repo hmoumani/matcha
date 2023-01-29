@@ -18,7 +18,7 @@ const UserService = {
       [userId]
     );
 
-    const passions = rows.map(row => row.tag)
+    const passions = rows.map((row) => row.tag);
     return passions;
   },
 
