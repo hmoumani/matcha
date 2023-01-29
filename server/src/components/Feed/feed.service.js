@@ -8,6 +8,13 @@ const feedService = {
         likerId,
         likedId,
     })
+  },
+  unlike: async (likerId, likedId) => {
+    const userLikesModel = new UserLikesModel();
+    await userLikesModel.delete([
+      ['user_id', '=', userId],
+      ['user_id', '=', userId]
+    ])
   }
 };
 

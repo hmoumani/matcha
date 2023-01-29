@@ -47,7 +47,7 @@ class Model {
     return rows;
   }
 
-  async findOne(condition){
+  async findOne(condition) {
     const rows = await this.find(condition);
     return rows[0];
   }
@@ -66,11 +66,19 @@ class Model {
     return executeQuery(query, params);
   }
 
-  delete(condition) {
+  delete(conditions) {
     let query = `delete from ${this.tableName} `;
-    const [col_id, operation, value] = condition;
-    query += `WHERE ${col_id} ${operation} $1`;
-    const params = [value];
+    if (conditions.length > 0) {
+      query += 'WHERE ';
+      conditions.forEach((condition, index) => {
+        const [col_id, operation, value] = condition;
+        query += `${col_id} ${operation} $${index + 1}`;
+        if (index < conditions.length - 1) {
+          query += ' AND ';
+        }
+      });
+    }
+    const params = conditions.map((condition) => condition[2]);
     return executeQuery(query, params);
   }
 }
