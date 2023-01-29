@@ -9,7 +9,6 @@
 	let { currentUser } = storeToRefs(userStore);
 
 	onMounted(async () => {
-		setupUserGateway();
 		let currentUserRef = currentUser?.value;
 		if (!currentUserRef?.isAutoLocatorEnabled) {
 			return;

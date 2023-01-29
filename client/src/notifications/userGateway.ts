@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 export const setupUserGateway = async () => {
 	const response = await apiClient.get('/auth/getUserToken');
 	const token = response.data.message.token;
-	const socket = io(`http://localhost:3000?token=${token}`);
+	const socket = io(`http://localhost:3000`)//?token=${token}`);
 	socket.on('connect', () => {
 		console.log('Connected to the socket');
 	});
