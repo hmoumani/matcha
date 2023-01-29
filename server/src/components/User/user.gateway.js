@@ -33,6 +33,20 @@ const onDisconnect = async () => {
   }
 };
 
+const isClientOnline = (userId) => {
+  return connectedUsers.has(userId);
+};
+
+const emitToUser = (userId, event, data) => {
+  const sockets = connectedUsers.get(userId);
+  if (!sockets) {
+    return;
+  }
+  sockets.forEach((socketId) => {
+    socket.to(socketId).emit(event, data);
+  });
+};
+
 const socket = io(server);
 socket.use(authenticate);
 socket.on('connection', onConnection);
