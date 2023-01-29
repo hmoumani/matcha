@@ -1,4 +1,8 @@
+import { Server } from 'socket.io';
+import { createServer } from 'http';
+
 const connectedUsers = new Map();
+let userGatewaySocket = null;
 
 const authenticate = async (socket, next) => {
   const userToken = socket.handshake.headers.cookie.split('userToken=')[1];
@@ -33,22 +37,24 @@ const onDisconnect = async () => {
   }
 };
 
-const isClientOnline = (userId) => {
+export const isClientOnline = (userId) => {
   return connectedUsers.has(userId);
 };
 
-const emitToUser = (userId, event, data) => {
+export const emitToUser = (userId, event, data) => {
   const sockets = connectedUsers.get(userId);
   if (!sockets) {
     return;
   }
   sockets.forEach((socketId) => {
-    socket.to(socketId).emit(event, data);
+    userGatewaySocket.to(socketId).emit(event, data);
   });
 };
 
-const socket = io(server);
-socket.use(authenticate);
-socket.on('connection', onConnection);
-socket.on('disconnect', onDisconnect);
-socket.on('chat message', onChatMessage);
+export default (app) => {
+  const server = createServer(app);
+  userGatewaySocket = new Server(server);
+  userGatewaySocket.use(authenticate);
+  userGatewaySocket.on('connection', onConnection);
+  userGatewaySocket.on('disconnect', onDisconnect);
+};

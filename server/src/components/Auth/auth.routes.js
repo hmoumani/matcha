@@ -16,5 +16,6 @@ export default ({ router, AuthController, AuthValidator, makeValidatorCallback, 
   router.post('/verifyEmail', makeValidatorCallback(AuthValidator.validateEmailValidation), responseCallback(AuthController.verifyEmail));
   router.post('/resetPasswordEmail', makeValidatorCallback(AuthValidator.validateresetPasswordEmail), [checkEmailexists], responseCallback(AuthController.resetPasswordEmail));
   router.post('/resetPassword', makeValidatorCallback(AuthValidator.validateresetPassword), responseCallback(AuthController.resetPassword));
+  router.get('/getUserToken', responseCallback(AuthController.getUserToken));
   return router;
 };

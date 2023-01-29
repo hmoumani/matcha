@@ -10,7 +10,6 @@ import cookieSession from 'cookie-session';
 
 dotenv.config();
 
-
 app.use('/public', express.static('static_files/'));
 
 // error handler
@@ -61,7 +60,11 @@ app.set('view engine', 'html');
 
 // load routes
 import setupRoutes from './loaders/routes';
+import setupUserSocket from './components/User/user.gateway';
 
 setupRoutes(app);
+
+// setup user gateway
+setupUserSocket(app);
 
 export default app;
