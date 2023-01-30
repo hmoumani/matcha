@@ -41,6 +41,7 @@ const UserService = {
       users.last_name, \
       users.age, \
       users.location, \
+      users.fame_rate,\
       users.is_auto_locator_enabled, \
       users.biography, \
       users.sexual_orientation,\

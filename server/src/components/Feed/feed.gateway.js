@@ -21,5 +21,5 @@ const onUserDisLikeCallback = async (socket, disLikedUserId) => {
 
 export default (userGatewaySocket) => {
   userGatewaySocket.on(USER_LIKE_EVENT, (likedUserId) => onUserLikeCallback(userGatewaySocket, likedUserId));
-  userGatewaySocket.on(USER_disLike_EVENT, (disLikedUserId) => onUserDisLikeCallback(userGatewaySocket, disLikedUserId));
+  userGatewaySocket.on(USER_DIS_LIKE_EVENT, (disLikedUserId) => onUserDisLikeCallback(userGatewaySocket, disLikedUserId));
 };
