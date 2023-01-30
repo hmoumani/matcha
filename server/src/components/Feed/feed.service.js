@@ -15,7 +15,7 @@ const feedService = {
 
     userModel.update(
       {
-        fame_rate: Number(fame_rate) + incrementValue
+        fame_rate: fame_rate + incrementValue
       },
       ['id', '=', user.id]
     );
