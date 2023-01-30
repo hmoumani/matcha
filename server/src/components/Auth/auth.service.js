@@ -39,8 +39,8 @@ const AuthService = {
   register: async (requestBody) => {
     const password = bcrypt.hashSync(requestBody.password, 8);
     let results = await query(
-      'insert into users (first_name, last_name, username, email, password) values ($1, $2, $3, $4, $5) RETURNING id',
-      [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, password]
+      'insert into users (first_name, last_name, username, email, password, fame_rate) values ($1, $2, $3, $4, $5) RETURNING id',
+      [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, password, 5]
     );
     const registeredUserId = results.rows[0].id;
 

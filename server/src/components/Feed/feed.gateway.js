@@ -3,6 +3,7 @@ import UserService from '../User/user.service';
 import feedService from './feed.service';
 
 const USER_LIKE_EVENT = 'userLike';
+const USER_DIS_LIKE_EVENT = 'userUnMatch';
 
 const onUserLikeCallback = async (socket, likedUserId) => {
   const liker = await UserService.find(socket.userId);
@@ -11,15 +12,14 @@ const onUserLikeCallback = async (socket, likedUserId) => {
   emitToUser(likedUserId, USER_LIKE_EVENT, { liker, msg });
 };
 
-const onUserUnLikeCallback = async (socket, unLikedUserId) => {
-  const unLiker = await UserService.find(socket.userId);
-  await feedService.unLike(unLiker.id, unLikedUserId);
-  const msg = `${unLiker?.first_name} ${unLiker?.last_name} unLiked your profile`;
-  emitToUser(unLikedUserId, USER_LIKE_EVENT, { liker, msg });
-  console.log(msg)
+const onUserDisLikeCallback = async (socket, disLikedUserId) => {
+  const disLiker = await UserService.find(socket.userId);
+  await feedService.disLike(disLiker.id, disLikedUserId);
+  const msg = `${disLiker?.first_name} ${disLiker?.last_name} disLiked your profile`;
+  emitToUser(disLikedUserId, USER_DIS_LIKE_EVENT, { disLiker, msg });
 };
 
 export default (userGatewaySocket) => {
   userGatewaySocket.on(USER_LIKE_EVENT, (likedUserId) => onUserLikeCallback(userGatewaySocket, likedUserId));
-  userGatewaySocket.on(USER_LIKE_EVENT, (unlikedUserId) => onUserUnLikeCallback(userGatewaySocket, unlikedUserId));
+  userGatewaySocket.on(USER_disLike_EVENT, (disLikedUserId) => onUserDisLikeCallback(userGatewaySocket, disLikedUserId));
 };
