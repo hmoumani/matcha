@@ -20,12 +20,16 @@
 	};
 
 	const getImg = avatar => {
-		if (!avatar.url) {
+		if (!avatar.value) {
 			let [file] = avatar;
 			if (file) return URL.createObjectURL(file);
 		} else {
-			const { url } = avatar;
-			if (url) return url;
+			let { value } = avatar;
+			let fileName = value;
+
+			const { VITE_AVATARS_URL: avatarsUrl } = import.meta.env;
+			let filePath = `${avatarsUrl}${fileName}`;
+			return filePath;
 		}
 	};
 </script>

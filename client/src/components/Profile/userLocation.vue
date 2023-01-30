@@ -10,7 +10,7 @@
 		currentUser.value.isAutoLocatorEnabled = false;
 	};
 	
-	const showMap = ref(!currentUser.isAutoLocatorEnabled);
+	const showMap = ref(currentUser.isAutoLocatorEnabled);
 	const updateAutoLocater = (newValue) => {
 		if (newValue === true){
 			currentUser.value.isAutoLocatorEnabled = true;

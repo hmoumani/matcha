@@ -34,9 +34,6 @@ class Model {
       params.push(value); // ...and the tuple you want to update
     }
 
-    // params to use:
-    console.log(query);
-    console.log(params);
     return executeQuery(query, params);
   }
 
@@ -48,6 +45,11 @@ class Model {
     const { rows } = await executeQuery(query, params);
 
     return rows;
+  }
+
+  async findOne(condition){
+    const rows = await this.find(condition);
+    return rows[0];
   }
 
   insert(data) {

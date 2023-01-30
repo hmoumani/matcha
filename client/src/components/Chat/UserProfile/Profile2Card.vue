@@ -46,7 +46,7 @@
 					</svg>
 					{{ user.distance }} from you
 				</div>
-				<div class="text-lg mt-5">{{ user.bio }}</div>
+				<div class="text-lg mt-5">{{ user.biography }}</div>
 				<div class="my-5 text-2xl font-semibold text-[#646688]">
 					Passions
 				</div>

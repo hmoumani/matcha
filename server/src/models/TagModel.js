@@ -2,8 +2,6 @@ import Model from './Model.js';
 import { query as executeQuery } from '../db/index';
 
 class UserModel extends Model {
-  //   tableName = 'user_settings';
-
   constructor() {
     super('tags');
   }
@@ -18,11 +16,11 @@ class UserModel extends Model {
       .map((el, index) => `value`)
       .join(', ')}) values `;
     query += `${Array(params.length)
-        .fill(0)
-        .map((el, index) => `($${index + 1})`)
-        .join(', ')} `;
+      .fill(0)
+      .map((el, index) => `($${index + 1})`)
+      .join(', ')} `;
     query += `on conflict (value) do update set value=EXCLUDED.value RETURNING id`;
-    const result = await executeQuery(query, params)
+    const result = await executeQuery(query, params);
     return result.rows;
   }
 }

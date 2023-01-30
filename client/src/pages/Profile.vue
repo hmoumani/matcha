@@ -11,26 +11,26 @@
 
 	const SexualOrientationOptions = ref([
 		{
-			value: 'Female',
+			value: 'female',
 			label: 'Female',
 		},
 		{
-			value: 'Male',
+			value: 'male',
 			label: 'Male',
 		},
 		{
-			value: 'Both',
+			value: 'both',
 			label: 'Both',
 		},
 	]);
 
 	const gendersOptions = ref([
 		{
-			value: 'Female',
+			value: 'female',
 			label: 'Female',
 		},
 		{
-			value: 'Male',
+			value: 'male',
 			label: 'Male',
 		},
 	]);
@@ -56,11 +56,11 @@
 	<div class="flex pl-2 py-7">
 		<Sidebar></Sidebar>
 		<div
-			class="bg-[#F6F7FF] pbd-20 flex justify-center items-center w-full h-screen"
+			class="bg-[#F6F7FF] flex justify-center w-full h-screen"
 		>
 			<div
 				v-if="currentUser"
-				class="bg-white mt-14 rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll hide-scroll h-[calc(100vh-10rem)] w-[37rem] shadow-slate-300 shadow-sm"
+				class="mt-10 bg-white rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll hide-scroll h-[calc(100vh-10rem)] w-[37rem] shadow-slate-300 shadow-sm"
 			>
 				<Avatars />
 				<div class="my-2">
@@ -76,7 +76,7 @@
 						cols="30"
 						name="comment"
 						id="comment"
-						v-model="currentUser.bio"
+						v-model="currentUser.biography"
 						class="text-xl h-20 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
 					>
 					</textarea>

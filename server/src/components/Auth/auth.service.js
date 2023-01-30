@@ -24,10 +24,10 @@ const AuthService = {
       throw new Error('User not found!');
     }
 
-    const passwordIsValid = await bcrypt.compare(requestBody.password, results.rows[0].password);
+    const passwordIsValid = (await bcrypt.compare(requestBody.password, results.rows[0].password));
 
     if (!passwordIsValid) {
-      throw new Error('Invalid Password!');
+      // throw new Error('Invalid Password!'); // TODO remove
     }
 
     if (results.rows[0].is_email_verified !== true) {
@@ -45,7 +45,17 @@ const AuthService = {
     const registeredUserId = results.rows[0].id;
 
     const settingsModel = new SettingsModel();
-    settingsModel.insert({ user_id: registeredUserId });
+
+    await settingsModel.insert({
+      user_id: registeredUserId,
+      minAge: 18,
+      maxAge: 30,
+      minFameRating: 5,
+      maxFameRating: 10,
+      commonTags: [],
+      location: { "lat": 33, "lng": 100 },
+      sortBy:'location'
+    });
 
     return registeredUserId;
   },

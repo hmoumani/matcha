@@ -1,5 +1,6 @@
 import joi from '@hapi/joi';
 import hapi from '@hapi/joi-date';
+import { locationRule } from '../../utils/joyRules';
 
 const Joi = joi.extend(hapi);
 
@@ -17,8 +18,9 @@ const updateSettings = ({ body }) => {
     maxAge: Joi.number().min(18).max(100),
     minFameRating: Joi.number().min(1).max(10),
     maxFameRating: Joi.number().min(1).max(10),
-    location: Joi.string(),
-    commonTags: Joi.string()
+    location: locationRule,
+    commonTags: Joi.array().items(Joi.string()),
+    sortBy: Joi.string().valid('age', 'location', 'fameRating', 'tags')
   });
   return schema.validate(body, options);
 };
@@ -30,12 +32,7 @@ const updateUserInfo = ({ body }) => {
     gender: Joi.string().valid('male', 'female').insensitive(),
     sexualOrientation: Joi.string().valid('male', 'female', 'both').insensitive(),
     isAutoLocatorEnabled: Joi.boolean(),
-    location: Joi.object(
-      {
-        lat: Joi.number(),
-        lng: Joi.number()
-      }
-    )
+    location: locationRule
   });
   return schema.validate(body, options);
 };
