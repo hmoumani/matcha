@@ -37,23 +37,23 @@ for i in range(742):
         "email": emails[-1],
         "biography": fake.text(max_nb_chars=200),
         "gender": ['male', 'female'][fake.random_int(min=0, max=1)],
-        "sexual_orientation": ['bisexual', 'heterosexual'][fake.random_int(min=0, max=1)],
+        "sexual_orientation": ['male', 'female', 'both'][fake.random_int(min=0, max=2)],
         "username": nicknames[-1],
         "location": '{}',
         "last_connection": fake.date_time(),
         "is_email_verified": True,
         "is_auto_locator_enabled": True,
         'password': '123456',
-        # 'ip_address': fake.ipv4(),
+        'location': f'{{"lat": {random_cor[i]["lng"]}, "lng": {random_cor[i]["lat"]}}}',
     }
     users.append(user)
     settings.append({
         'user_id': i + 1,
         'min_age': 18,
         'max_age': fake.random_int(min=18, max=40),
-        'min_fame_rating': fake.random_int(min=0, max=5),
+        'min_fame_rating': fake.random_int(min=1, max=5),
         'max_fame_rating': fake.random_int(min=5, max=10),
-        'location': f'{{"lat": {random_cor[i]["lat"]}, "lng": {random_cor[i]["lng"]}}}',
+        'location': f'{{"lat": {random_cor[i]["lng"]}, "lng": {random_cor[i]["lat"]}}}',
     })
     tags_backup = []
     for j in range(fake.random_int(min=2, max=5)):
