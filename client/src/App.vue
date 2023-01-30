@@ -23,7 +23,7 @@
 		debouncedUpdate = setTimeout(() => {
 			const {
 				passions,
-				bio,
+				biography,
 				gender,
 				sexualOrientation,
 				location,
@@ -32,14 +32,14 @@
 
 			const newUser = {
 				passions,
-				bio,
+				biography,
 				gender,
 				sexualOrientation,
 				location,
 				isAutoLocatorEnabled,
 			};
 
-			// userService.updateUser(newUser);
+			userService.updateUser(newUser);
 		}, 1000);
 	});
 </script>

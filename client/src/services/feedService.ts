@@ -22,7 +22,7 @@ const user = {
 	age: 24,
 	id: 0,
 	distance: '14 km',
-	bio: 'looking for friends.',
+	biography: 'looking for friends.',
 	userAvatars,
 	passions,
 };

@@ -17,7 +17,9 @@ const UserService = {
       where users.id = $1',
       [userId]
     );
-    return rows;
+
+    const passions = rows.map(row => row.tag)
+    return passions;
   },
 
   getUserAvatars: async (userId) => {
@@ -39,8 +41,10 @@ const UserService = {
       users.last_name, \
       users.age, \
       users.location, \
-      users.biography as bio, \
-      users.sexual_orientation\
+      users.is_auto_locator_enabled, \
+      users.biography, \
+      users.sexual_orientation,\
+      users.gender\
       FROM users\
     WHERE users.id = $1',
       [userId]
@@ -49,12 +53,25 @@ const UserService = {
     user = user.rows[0];
     const passions = await UserService.getUserPassions(userId);
     const avatars = await UserService.getUserAvatars(userId);
+
+    const genderToOrientationMap = {
+      male: 'male',
+      female: 'female',
+      null: 'both'
+    };
+
     user = {
       ...user,
-      sexual_orientation: user.sexual_orientation ? user.sexual_orientation : 'heterosexual',
+      gender: user.gender || 'male', // Todo REMOVE
+      is_auto_locator_enabled: user.is_auto_locator_enabled !== null ? user.is_auto_locator_enabled : true,
       passions,
-      avatars
+      avatars,
+      location: JSON.parse(user.location)
     };
+
+    if (!user.sexual_orientation) {
+      user.sexual_orientation = genderToOrientationMap[user.gender] || 'both';
+    }
     return user;
   },
   /**

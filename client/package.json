@@ -43,6 +43,7 @@
 		"@vueuse/head": "^0.7.6",
 		"autoprefixer": "^10.4.7",
 		"axios": "^1.2.1",
+		"dotenv": "^16.0.3",
 		"moment": "^2.29.4",
 		"multi-range-slider-vue": "^1.1.4",
 		"pinia": "^2.0.16",
