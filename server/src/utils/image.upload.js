@@ -35,7 +35,7 @@ const uploadImage = (req, res, next) => {
         if (err || err instanceof multer.MulterError){
             if (err.code === 'LIMIT_FILE_SIZE') {
                 res.status(413).send({message: 'File size too large'});
-            } else if (err.code === 'LIMIT_UNEXPECTED_FILE`1Q') {
+            } else if (err.code === 'LIMIT_UNEXPECTED_FILE') {
                 res.status(400).send({message: 'Too many files'});
             } else {
                 res.status(400).send(err);

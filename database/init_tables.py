@@ -1,15 +1,14 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean, UniqueConstraint
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean, UniqueConstraint, ARRAY
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine("postgresql://matcha:password@localhost:7777/matcha", echo=True)
-
+session = sessionmaker(bind=engine)()
 Base = declarative_base()
 
 class User(Base):
 	__tablename__ = "users"
-
 	id = Column(Integer, primary_key=True)
 	username = Column(String, unique=True, nullable=False, index=True)
 	email = Column(String, unique=True, nullable=False, index=True)
@@ -27,6 +26,14 @@ class User(Base):
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 	is_auto_locator_enabled = Column(Boolean, default=False)
 	fame_rate = Column(Integer, default=5)
+	
+class Image(Base):
+	__tablename__ = "images"
+	id = Column(Integer, primary_key=True)
+	user_id = Column(Integer, ForeignKey("users.id"))
+	value = Column(String, nullable=False)
+	created_at = Column(DateTime(timezone=True), server_default=func.now())
+	user = relationship("User", back_populates="images")
 
 
 class UserSearchSettings(Base):
@@ -108,14 +115,6 @@ class Notification(Base):
 	type = Column(Integer, nullable=False)
 	content = Column(String, nullable=False)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
-	
-	
-class Image(Base):
-	__tablename__ = "images"
-	id = Column(Integer, primary_key=True)
-	user_id = Column(Integer, ForeignKey("users.id"))
-	value = Column(String, nullable=False)
-	created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 class ValidationToken(Base):
     __tablename__ = "validation_tokens"
@@ -125,4 +124,5 @@ class ValidationToken(Base):
     token_type = Column(String, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-Base.metadata.create_all(engine)
+if __name__ == "__main__":
+	Base.metadata.create_all(engine)
