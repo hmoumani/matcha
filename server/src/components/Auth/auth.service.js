@@ -24,7 +24,7 @@ const AuthService = {
       throw new Error('User not found!');
     }
 
-    const passwordIsValid = (await bcrypt.compare(requestBody.password, results.rows[0].password));
+    const passwordIsValid = await bcrypt.compare(requestBody.password, results.rows[0].password);
 
     if (!passwordIsValid) {
       // throw new Error('Invalid Password!'); // TODO remove
@@ -52,9 +52,9 @@ const AuthService = {
       maxAge: 30,
       minFameRating: 5,
       maxFameRating: 10,
-      commonTags: [],
-      location: { "lat": 33, "lng": 100 },
-      sortBy:'location'
+      commonTags: '[]',
+      location: { lat: 33, lng: 100 },
+      sortBy: 'location'
     });
 
     return registeredUserId;

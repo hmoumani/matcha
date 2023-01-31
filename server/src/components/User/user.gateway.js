@@ -48,6 +48,7 @@ export const emitToUser = (userId, event, data) => {
   if (!sockets) {
     return;
   }
+  console.log({data})
   sockets.forEach((socketId) => {
     userGatewaySocket.to(socketId).emit(event, data);
   });

@@ -19,6 +19,12 @@ app.use('/public', express.static('static_files/'));
 // error handler
 import 'express-async-errors';
 
+// Middleware to catch all errors
+app.use(function (err, req, res, next) {
+  // console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 app.use(
   cookieSession({
     name: 'matcha-session',

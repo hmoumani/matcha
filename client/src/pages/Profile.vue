@@ -68,16 +68,16 @@
 						for="comment"
 						class="block text-xl font-medium text-gray-700 my-2"
 					>
-						Bio :
+						Biography :
 					</label>
 					<textarea
 						v-if="currentUser"
-						rows="4"
+						rows="7"
 						cols="30"
 						name="comment"
 						id="comment"
 						v-model="currentUser.biography"
-						class="text-xl h-20 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+						class="text-xl h-40 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
 					>
 					</textarea>
 				</div>

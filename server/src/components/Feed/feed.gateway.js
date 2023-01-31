@@ -12,6 +12,7 @@ const userLikeMessage = (user) => `${user?.first_name} ${user?.last_name} liked 
 const onUserLikeCallback = async (socket, likedUserId) => {
   const currentUserId = socket.userId;
   if (feedService.isUserLikedBy(currentUserId, likedUserId)) {
+    console.log('wtf bro');
     return;
   }
   const currentUser = await UserService.find(currentUserId);

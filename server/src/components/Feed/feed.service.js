@@ -22,11 +22,16 @@ const feedService = {
   },
   async like(likerId, likedId) {
     const userLikesModel = new UserLikesModel();
-    await userLikesModel.insert({
-      likerId,
-      likedId
-    });
+    await userLikesModel.insert([likerId, likedId]);
     this.updateFameRate(likedId, 0.2);
+  },
+  async isUserLikedBy(firstUserId, secondUserId) {
+    const userLikesModel = new UserLikesModel();
+    const rows = await userLikesModel.find([
+      ['likerId', firstUserId],
+      ['likedId', secondUserId]
+    ]);
+    return rows.length !== 0;
   },
   async dislike(dislikerId, dislikedId) {
     // const userLikesModel = new UserLikesModel();

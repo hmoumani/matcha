@@ -12,7 +12,7 @@ async function query(text, params) {
     return res;
   } catch (error) {
     console.log('error in query', { error });
-    throw error;
+    // throw error;
   }
 }
 
