@@ -4,6 +4,7 @@ import TagModel from '../../models/TagModel';
 import UserTagModel from '../../models/UserTagModel';
 import ImageModel from '../../models/ImageModel';
 import SettingsModel from '../../models/SettingsModel';
+import ReportedUsersModel from '../../models/reportedUsersModel';
 
 const UserService = {
   getUserPassions: async (userId) => {
@@ -120,6 +121,22 @@ const UserService = {
   uploadAvatar: async (imageObj) => {
     const imageModel = new ImageModel();
     imageModel.insert(imageObj);
+  },
+
+  reportUser: async (reporterId, reportedId) => {
+    const reportedUsersModel = new ReportedUsersModel();
+    await reportedUsersModel.insert({
+      reporterId,
+      reportedId
+    })
+  },
+
+  reportUser: async (reporterId, reportedId) => {
+    const reportedUsersModel = new UsersModel();
+    await reportedUsersModel.insert({
+      reporterId,
+      reportedId
+    })
   }
 };
 

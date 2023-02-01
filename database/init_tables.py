@@ -85,8 +85,8 @@ class UserLike(Base):
 class ReportedUser(Base):
 	__tablename__ = "reported_users"
 	id = Column(Integer, primary_key=True)
-	user_id = Column(Integer, ForeignKey("users.id"))
-	receiver_id = Column(Integer, ForeignKey("users.id"))
+	reported_id = Column(Integer, ForeignKey("users.id"))
+	reporter_id = Column(Integer, ForeignKey("users.id"))
 	reason = Column(String, nullable=False)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 
