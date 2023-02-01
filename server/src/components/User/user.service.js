@@ -25,14 +25,17 @@ const UserService = {
   },
 
   getUserAvatars: async (userId) => {
-    const { rows } = await query(
+    const { rows: avatars } = await query(
       'SELECT \
       id, value, created_at \
       FROM images \
       where images.user_id = $1',
       [userId]
     );
-    return rows;
+    return avatars.map((avatar) => {
+      avatar.value = `http://localhost:3000/public/avatars/${avatar.value}`;
+      return avatar;
+    });
   },
 
   find: async (userId) => {
@@ -54,6 +57,12 @@ const UserService = {
     );
     if (user.rows.length === 0) throw new Error('User not found');
     user = user.rows[0];
+    user = await UserService.addShit(user);
+    return user;
+  },
+
+  async addShit(user) {
+    const userId = user.id;
     const passions = await UserService.getUserPassions(userId);
     const avatars = await UserService.getUserAvatars(userId);
 
@@ -129,7 +138,7 @@ const UserService = {
     await reportedUsersModel.insert({
       reporterId,
       reportedId,
-      reason:"Fake account"
+      reason: 'Fake account'
     });
   },
 
@@ -152,6 +161,20 @@ const UserService = {
       ['blockedId', secondUserId]
     ]);
     return blockRow !== null && blockRow !== undefined;
+  },
+
+  async getUsersSuggestions(userId) {
+    const user = await UserService.find(userId);
+    const { sexual_orientation } = user;
+    console.log({ sexual_orientation });
+    const conditions = [['gender', sexual_orientation]];
+    const userModel = new UserModel();
+    let users = await userModel.find(conditions, 10, 'RANDOM()');
+    // return await users.map(async (user) => await UserService.addShit(user));
+    for (let i = 0; i < users.length; i++) {
+      users[i] = await UserService.addShit(users[i]);
+    }
+    return users;
   }
 };
 

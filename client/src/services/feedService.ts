@@ -40,11 +40,7 @@ for (let i = 0; i < 10; i++) {
 
 const shufflePeople = () => ppl.sort((a, b) => 0.5 - Math.random());
 
-const getNewProfiles = () => {
-	// apiClient.get('/feed/profiles');
-	return shufflePeople();
-};
-
+const getNewProfiles = () => apiClient.get('user/feed/profiles');
 const likeUser = likedUserId => {
 	const socket = app.config.globalProperties.$socket;
 	socket.emit(USER_LIKE_EVENT, likedUserId);

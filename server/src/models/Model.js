@@ -42,8 +42,10 @@ class Model {
     if (!conditions) return '';
     query += 'WHERE ';
     conditions.forEach((condition, index) => {
+      if (condition.length === 2) {
+        condition.splice(1, 0, '=');
+      }
       const [colName, operation] = condition;
-      console.log(colName)
       query += `${snakeCase(colName)} ${operation} $${index + 1}`;
       if (index < conditions.length - 1) {
         query += ' AND ';
@@ -52,14 +54,21 @@ class Model {
     return query;
   }
 
-  async find(arg) {
+  addLimit(limit) {
+    if (!limit) return '';
+    return ` LIMIT ${limit}`;
+  }
+
+  orderBy(orderOption) {
+    if (!orderOption) return '';
+    return `ORDER BY ${orderOption}`;
+  }
+
+  async find(arg, limit, orderCol) {
     // move this to a decorator
     let conditions = [];
     if (Array.isArray(arg[0])) {
       arg.map((condition) => {
-        if (condition.length === 2) {
-          condition.splice(1, 0, '=');
-        }
         conditions.push(condition);
       });
     } else {
@@ -68,6 +77,8 @@ class Model {
 
     let query = `select * from ${this.tableName} `;
     query += this.buildConditionsQuery(conditions);
+    query += this.orderBy(orderCol);
+    query += this.addLimit(limit);
 
     const params = conditions.map((condition) => condition[2]);
     console.log({ query, params });
@@ -78,8 +89,8 @@ class Model {
     return rows;
   }
 
-  async findOne(condition) {
-    const rows = await this.find(condition);
+  async findOne(...args) {
+    const rows = await this.find(args);
     return rows ? rows[0] : null;
   }
 

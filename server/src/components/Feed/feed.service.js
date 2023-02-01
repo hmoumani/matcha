@@ -36,13 +36,21 @@ const feedService = {
     return LikeRow !== null && LikeRow !== undefined;
   },
   async disLike(dislikerId, dislikedId) {
-    // const userLikesModel = new UserLikesModel();
-    // await userLikesModel.delete([
-    //   ['liker_id', '=', likerId],
-    //   ['liked_id', '=', likedId]
-    // ])
     // TODO: decrease fame rate
     this.updateFameRate(dislikerId, -0.2);
+  },
+  async getUsersSuggestions(userId) {
+    const user = await UserService.find(userId);
+    const { sexual_orientation } = user;
+    console.log({ sexual_orientation });
+    const conditions = [['gender', sexual_orientation]];
+    const userModel = new UserModel();
+    let users = await userModel.find(conditions, 10, 'RANDOM()');
+    // return await users.map(async (user) => await UserService.addShit(user));
+    for (let i = 0; i < users.length; i++) {
+      users[i] = await UserService.addShit(users[i]);
+    }
+    return users;
   }
 };
 

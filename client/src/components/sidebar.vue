@@ -43,10 +43,7 @@
 	let { logout } = useAuthStore();
 
 	const userAvatar = computed(() => {
-		let { value: fileName } = currentUser.value.avatars?.[0];
-		if (!fileName) return;
-		const { VITE_AVATARS_URL: avatarsUrl } = import.meta.env;
-		let filePath = `${avatarsUrl}${fileName}`;
+		let { value: filePath } = currentUser.value.avatars?.[0];
 		return filePath;
 	});
 </script>
