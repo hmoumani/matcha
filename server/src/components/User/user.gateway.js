@@ -48,18 +48,11 @@ export const emitToUser = (userId, event, data) => {
   if (!sockets) {
     return;
   }
-  console.log({data})
+  console.log({ msg: data.msg });
   sockets.forEach((socketId) => {
     userGatewaySocket.to(socketId).emit(event, data);
   });
 };
-
-const waitForConnection = (socket) =>
-  new Promise((resolve, reject) => {
-    socket.on('connection', (socket) => {
-      resolve(socket);
-    });
-  });
 
 export const setupUserSocket = async (server, addEventsCallback) => {
   const options = {

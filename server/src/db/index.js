@@ -8,10 +8,10 @@ async function query(text, params) {
   try {
     const res = await pool.query(text, params);
     // time elapsed since invocation to execution
-    const duration = Date.now() - start;
+    // const duration = Date.now() - start;
     return res;
   } catch (error) {
-    console.log('error in query', { error });
+    console.log('error in query', { error, text, params });
     // throw error;
   }
 }

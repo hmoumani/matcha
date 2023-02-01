@@ -42,8 +42,9 @@ class Model {
     if (!conditions) return '';
     query += 'WHERE ';
     conditions.forEach((condition, index) => {
-      const [col_id, operation] = condition;
-      query += `${col_id}${operation}$${index + 1}`;
+      const [colName, operation] = condition;
+      console.log(colName)
+      query += `${snakeCase(colName)} ${operation} $${index + 1}`;
       if (index < conditions.length - 1) {
         query += ' AND ';
       }
@@ -55,7 +56,12 @@ class Model {
     // move this to a decorator
     let conditions = [];
     if (Array.isArray(arg[0])) {
-      conditions = arg;
+      arg.map((condition) => {
+        if (condition.length === 2) {
+          condition.splice(1, 0, '=');
+        }
+        conditions.push(condition);
+      });
     } else {
       conditions = [arg];
     }
@@ -64,17 +70,17 @@ class Model {
     query += this.buildConditionsQuery(conditions);
 
     const params = conditions.map((condition) => condition[2]);
-    console.log({ query, conditions });
-    console.log({ params });
+    console.log({ query, params });
+    // console.log({ params });
     const { rows } = await executeQuery(query, params);
-    console.log({ rows });
+    // console.log({ rows });
 
     return rows;
   }
 
   async findOne(condition) {
     const rows = await this.find(condition);
-    return rows[0];
+    return rows ? rows[0] : null;
   }
 
   insert(data) {

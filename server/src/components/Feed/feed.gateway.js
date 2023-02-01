@@ -11,16 +11,15 @@ const userLikeMessage = (user) => `${user?.first_name} ${user?.last_name} liked 
 
 const onUserLikeCallback = async (socket, likedUserId) => {
   const currentUserId = socket.userId;
-  if (feedService.isUserLikedBy(currentUserId, likedUserId)) {
-    console.log('wtf bro');
+  if (await feedService.isLikedBy(currentUserId, likedUserId)) {
     return;
   }
   const currentUser = await UserService.find(currentUserId);
 
-  await feedService.like(currentUserId, currentUserId);
+  await feedService.like(currentUserId, likedUserId);
 
   // if the likerUser isn't already liked by the use he wanna like
-  if (!feedService.isUserLikedBy(likedUserId, currentUserId)) {
+  if (!(await feedService.isLikedBy(likedUserId, currentUserId))) {
     emitToUser(likedUserId, USER_LIKE_EVENT, { currentUser, msg: userLikeMessage(currentUser) });
     return;
   }
@@ -31,8 +30,8 @@ const onUserLikeCallback = async (socket, likedUserId) => {
   const msg = matchedMessage(currentUser);
   emitToUser(likedUserId, USER_MATCH_EVENT, { currentUser, msg });
   // acknowledge the current user
-  const likedUser = await UserService.find(socket.userId);
-  emitToUser(likerUser, USER_MATCH_EVENT, { likedUser, msg: matchedMessage(likedUser) });
+  const likedUser = await UserService.find(likedUserId);
+  emitToUser(currentUserId, USER_MATCH_EVENT, { likedUser, msg: matchedMessage(likedUser) });
 };
 
 const onUserDisLikeCallback = async (socket, disLikedUserId) => {
