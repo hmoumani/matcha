@@ -128,14 +128,15 @@ const UserService = {
     const reportedUsersModel = new ReportedUsersModel();
     await reportedUsersModel.insert({
       reporterId,
-      reportedId
+      reportedId,
+      reason:"Fake account"
     });
   },
 
   blockUser: async (blockerId, blockedId) => {
     const isAlreadyBlocked = await UserService.isBlockedBy(blockerId, blockedId);
     if (isAlreadyBlocked) {
-      throw "already blocked";
+      throw 'already blocked';
     }
     const blockedUsersModel = new BlockedUsersModel();
     await blockedUsersModel.insert({
@@ -143,6 +144,7 @@ const UserService = {
       blockedId
     });
   },
+
   async isBlockedBy(firstUserId, secondUserId) {
     const blockedUsersModel = new BlockedUsersModel();
     const blockRow = await blockedUsersModel.findOne([
