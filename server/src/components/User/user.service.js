@@ -131,11 +131,11 @@ const UserService = {
     })
   },
 
-  reportUser: async (reporterId, reportedId) => {
-    const reportedUsersModel = new UsersModel();
-    await reportedUsersModel.insert({
-      reporterId,
-      reportedId
+  blockUser: async (blockerId, blockedId) => {
+    const blockedUsersModel = new BlockedUsersModel();
+    await blockedUsersModel.insert({
+      blockerId,
+      blockedId
     })
   }
 };
