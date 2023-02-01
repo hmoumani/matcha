@@ -18,7 +18,7 @@
 		class="w-4/12 bg-white shadow-slate-300 shadow-sm rounded-[2rem] h-[calc(100vh-7rem)] overflow-y-scroll overflow-x-hidden"
 	>
 		<avatarsSlider :avatars="userAvatars" />
-		<div class="px-4 py-8 flex justify-between">
+		<div class="px-8 py-8 flex justify-between">
 			<div>
 				<div
 					class="font-medium text-[#48496B] text-2xl flex items-center gap-x-3"
@@ -62,7 +62,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="text-xl">
+			<div class="text-xl flex gap-x-3">
 				<FontAwesomeIcon
 					icon="fa-solid fa-flag"
 					class="text-[#E11653] bg-[#f4a8bf] action"
