@@ -91,7 +91,16 @@ const AuthController = {
     try {
       await UserService.blockUser(blockerId, blockedId);
     } catch (err) {
-      throw err;
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'blocking action failed');
+    }
+    return ControllerResponse(HttpStatusCode.OK, 'User blocked successfully');
+  },
+
+  reportUser: async (req) => {
+    const { blockerId, blockedId } = req.body;
+    try {
+      await UserService.blockUser(blockerId, blockedId);
+    } catch (err) {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'blocking action failed');
     }
     return ControllerResponse(HttpStatusCode.OK, 'User blocked successfully');

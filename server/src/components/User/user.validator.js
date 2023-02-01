@@ -46,8 +46,10 @@ const reportUser = ({ userId, body }) => {
   return schema.validate(body, options);
 };
 
-const blockUser = ({ body, userId }) => {
-  body.blockerId = userId;
+const blockUser = (req) => {
+  const { body, userId } = req;
+  req.body.blockerId = userId;
+  console.log(req);
   const schema = Joi.object({
     blockerId: Joi.number(),
     blockedId: Joi.number().required().not(Joi.ref('blockerId'))

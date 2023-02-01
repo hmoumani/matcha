@@ -133,20 +133,24 @@ const UserService = {
   },
 
   blockUser: async (blockerId, blockedId) => {
+    const isAlreadyBlocked = await UserService.isBlockedBy(blockerId, blockedId);
+    if (isAlreadyBlocked) {
+      throw "already blocked";
+    }
     const blockedUsersModel = new BlockedUsersModel();
     await blockedUsersModel.insert({
       blockerId,
       blockedId
     });
   },
-  async isLikedBy(firstUserId, secondUserId) {
-    const userLikesModel = new UserLikesModel();
-    const LikeRow = await userLikesModel.findOne([
-      ['likerId', firstUserId],
-      ['likedId', secondUserId]
+  async isBlockedBy(firstUserId, secondUserId) {
+    const blockedUsersModel = new BlockedUsersModel();
+    const blockRow = await blockedUsersModel.findOne([
+      ['blockerId', firstUserId],
+      ['blockedId', secondUserId]
     ]);
-    return LikeRow !== null && LikeRow !== undefined;
-  },
+    return blockRow !== null && blockRow !== undefined;
+  }
 };
 
 export default UserService;

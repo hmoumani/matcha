@@ -1,7 +1,7 @@
 import apiClient from '@/modules/apiClient';
 
 const getUserProfile = (id = 'mine') => apiClient.get(`/user/${id}`);
-const blockUser = userId => apiClient.post(`/user/block`, { userId });
+const blockUser = blockedId => apiClient.post(`/user/block`, { blockedId });
 const reportUser = id => apiClient.post(`/user/report/${id}`);
 const updateUser = user => apiClient.put('/user', user);
 
