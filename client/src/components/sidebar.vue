@@ -41,6 +41,14 @@
 	const { getCurrentUser } = userStore;
 
 	let { logout } = useAuthStore();
+
+	const userAvatar = computed(() => {
+		let { value: fileName } = currentUser.value.avatars?.[0];
+		if (!fileName) return;
+		const { VITE_AVATARS_URL: avatarsUrl } = import.meta.env;
+		let filePath = `${avatarsUrl}${fileName}`;
+		return filePath;
+	});
 </script>
 <template>
 	<!--
@@ -153,7 +161,7 @@
 										<div>
 											<img
 												class="inline-block h-10 w-10 rounded-full"
-												src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+												:src="userAvatar"
 												alt=""
 											/>
 										</div>
@@ -192,7 +200,7 @@
 				<div class="flex flex-1 flex-col overflow-y-auto pt-9 pb-4">
 					<img
 						class="w-full rounded-3xl mb-2"
-						src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1600"
+						:src="userAvatar"
 						alt="Your Company"
 					/>
 					<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
