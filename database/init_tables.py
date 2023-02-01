@@ -25,7 +25,7 @@ class User(Base):
 	is_email_verified = Column(Boolean)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 	is_auto_locator_enabled = Column(Boolean, default=False)
-	fame_rate = Column(Integer, default=5)
+	fame_rate = Column(Float, default=5)
 	
 class Image(Base):
 	__tablename__ = "images"

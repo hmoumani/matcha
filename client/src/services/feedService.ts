@@ -1,5 +1,8 @@
 import apiClient from '@/modules/apiClient';
 import app from '@/main';
+import EVENTS from '../../../common/enums/events';
+
+const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT, USER_MATCH_EVENT } = EVENTS;
 
 const passions = [
 	{ name: 'video games', isCommon: false },
@@ -44,13 +47,13 @@ const getNewProfiles = () => {
 
 const likeUser = likedUserId => {
 	const socket = app.config.globalProperties.$socket;
-	socket.emit('userLike', likedUserId);
+	socket.emit(USER_LIKE_EVENT, likedUserId);
 };
 
-const unLikeUser = userId =>
-	apiClient.post('/unlike', {
-		userId,
-	});
+const unLikeUser = userId => {
+	const socket = app.config.globalProperties.$socket;
+	socket.emit(USER_DIS_LIKE_EVENT, userId);
+};
 
 export default {
 	likeUser,

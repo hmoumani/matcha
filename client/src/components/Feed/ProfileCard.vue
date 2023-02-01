@@ -66,7 +66,7 @@
 				<FontAwesomeIcon
 					icon="fa-solid fa-flag"
 					class="text-[#E11653] bg-[#f4a8bf] action"
-					@click="reportUser"
+					@click="reportUser(user?.id)"
 				/>
 				<FontAwesomeIcon
 					@click="unLikeUser"

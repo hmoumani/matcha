@@ -18,8 +18,6 @@ const handleUserMatchesEvent = data => {
 export const listenForEvents = () => {
 	const socket = app.config.globalProperties.$socket;
 
-	console.log(socket);
-
 	if (!socket) {
 		return;
 	}

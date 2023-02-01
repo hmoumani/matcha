@@ -43,6 +43,7 @@ const onUserDisLikeCallback = async (socket, disLikedUserId) => {
   await feedService.disLike(disLiker.id, disLikedUserId);
   const msg = `${disLiker?.first_name} ${disLiker?.last_name} disLiked your profile`;
   emitToUser(disLikedUserId, USER_DIS_LIKE_EVENT, { disLiker, msg });
+  console.log(msg);
 };
 
 export default (userGatewaySocket) => {

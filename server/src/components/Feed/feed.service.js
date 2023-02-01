@@ -35,14 +35,14 @@ const feedService = {
     ]);
     return LikeRow !== null && LikeRow !== undefined;
   },
-  async dislike(dislikerId, dislikedId) {
+  async disLike(dislikerId, dislikedId) {
     // const userLikesModel = new UserLikesModel();
     // await userLikesModel.delete([
     //   ['liker_id', '=', likerId],
     //   ['liked_id', '=', likedId]
     // ])
     // TODO: decrease fame rate
-    this.updateFameRate(likedId, -0.2);
+    this.updateFameRate(dislikerId, -0.2);
   }
 };
 
