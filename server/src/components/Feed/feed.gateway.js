@@ -2,6 +2,10 @@ import { emitToUser } from '../User/user.gateway';
 import UserService from '../User/user.service';
 import feedService from './feed.service';
 
+// import EVENTS from '../../../../common/enums/events';
+
+// const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT, USER_MATCH_EVENT } = EVENTS;
+
 const USER_LIKE_EVENT = 'userLike';
 const USER_DIS_LIKE_EVENT = 'userUnMatch';
 const USER_MATCH_EVENT = 'userMatch';

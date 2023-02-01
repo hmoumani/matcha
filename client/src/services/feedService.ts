@@ -45,8 +45,6 @@ const getNewProfiles = () => {
 const likeUser = likedUserId => {
 	const socket = app.config.globalProperties.$socket;
 	socket.emit('userLike', likedUserId);
-	console.log(socket)
-	// emit('userLike', likedUserId);
 };
 
 const unLikeUser = userId =>

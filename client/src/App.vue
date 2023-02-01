@@ -3,11 +3,13 @@
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
 	import userService from './services/userService';
+	import {listenForEvents} from '@/notifications'
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
 
 	onMounted(async () => {
+		listenForEvents();
 		let currentUserRef = currentUser?.value;
 		if (!currentUserRef?.isAutoLocatorEnabled) {
 			return;
