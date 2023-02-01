@@ -11,7 +11,7 @@
 
 	const feedStore = useFeedStore();
 
-	const { likeUser, unLikeUser } = feedStore;
+	const { likeUser, unLikeUser, reportUser } = feedStore;
 </script>
 <template>
 	<div
@@ -64,6 +64,11 @@
 			</div>
 			<div class="text-2xl">
 				<FontAwesomeIcon
+					icon="fa-solid fa-flag"
+					class="text-[#E11653] bg-[#f4a8bf] action"
+					@click="reportUser"
+				/>
+				<FontAwesomeIcon
 					@click="unLikeUser"
 					icon="fa-solid fa-xmark"
 					class="text-black bg-[#F8F7FF] action px-10"
@@ -73,10 +78,6 @@
 					icon="fa-solid fa-heart"
 					class="text-[#4EB3AC] bg-[#D5F9F7] action"
 				/>
-				<!-- <FontAwesomeIcon
-						icon="fa-solid fa-flag"
-						class="text-[#E11653] bg-[#f4a8bf] action"
-					/> -->
 			</div>
 		</div>
 	</div>

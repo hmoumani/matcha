@@ -97,13 +97,13 @@ const AuthController = {
   },
 
   reportUser: async (req) => {
-    const { blockerId, blockedId } = req.body;
+    const { reportedId, reporterId } = req.body;
     try {
-      await UserService.blockUser(blockerId, blockedId);
+      await UserService.reportUser(reporterId, reportedId);
     } catch (err) {
-      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'blocking action failed');
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
     }
-    return ControllerResponse(HttpStatusCode.OK, 'User blocked successfully');
+    return ControllerResponse(HttpStatusCode.OK, 'User reported successfully');
   }
 };
 

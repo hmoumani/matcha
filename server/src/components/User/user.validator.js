@@ -37,7 +37,8 @@ const updateUserInfo = ({ body }) => {
   return schema.validate(body, options);
 };
 
-const reportUser = ({ userId, body }) => {
+const reportUser = (req) => {
+  const { body, userId } = req;
   req.body.reporterId = userId;
   const schema = Joi.object({
     reportedId: Joi.number().required(),

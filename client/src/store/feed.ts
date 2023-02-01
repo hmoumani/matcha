@@ -15,6 +15,7 @@ import feedService, {
 	likeUser,
 	unLikeUser,
 } from '@/services/feedService';
+import userService from '@/services/userService';
 import { defineStore } from 'pinia';
 
 export const useFeedStore = defineStore('feed', {
@@ -42,5 +43,8 @@ export const useFeedStore = defineStore('feed', {
 			const { id } = this.currentProfile;
 			feedService.unLikeUser(id);
 		},
+		async reportUser(userId){
+			userService.reportUser(userId);
+		}
 	},
 });
