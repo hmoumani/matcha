@@ -5,6 +5,7 @@ import UserTagModel from '../../models/UserTagModel';
 import ImageModel from '../../models/ImageModel';
 import SettingsModel from '../../models/SettingsModel';
 import ReportedUsersModel from '../../models/reportedUsersModel';
+import BlockedUsersModel from '../../models/BlockedUsersModel';
 
 const UserService = {
   getUserPassions: async (userId) => {
@@ -128,7 +129,7 @@ const UserService = {
     await reportedUsersModel.insert({
       reporterId,
       reportedId
-    })
+    });
   },
 
   blockUser: async (blockerId, blockedId) => {
@@ -136,8 +137,16 @@ const UserService = {
     await blockedUsersModel.insert({
       blockerId,
       blockedId
-    })
-  }
+    });
+  },
+  async isLikedBy(firstUserId, secondUserId) {
+    const userLikesModel = new UserLikesModel();
+    const LikeRow = await userLikesModel.findOne([
+      ['likerId', firstUserId],
+      ['likedId', secondUserId]
+    ]);
+    return LikeRow !== null && LikeRow !== undefined;
+  },
 };
 
 export default UserService;
