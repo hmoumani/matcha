@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import { snakeCase } from 'snake-case';
+import { toCamelCase } from '../utils/transformers';
 import { query as executeQuery } from '../db/index';
 
 class Model {
@@ -85,12 +87,12 @@ class Model {
     // console.log({ params });
     const { rows } = await executeQuery(query, params);
     // console.log({ rows });
-
     return rows;
+    return rows.map((row) => toCamelCase(row));
   }
 
   async findOne(...args) {
-    const rows = await this.find(args);
+    const rows = await this.find(...args);
     return rows ? rows[0] : null;
   }
 

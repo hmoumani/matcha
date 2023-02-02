@@ -6,6 +6,7 @@ import ImageModel from '../../models/ImageModel';
 import SettingsModel from '../../models/SettingsModel';
 import ReportedUsersModel from '../../models/reportedUsersModel';
 import BlockedUsersModel from '../../models/BlockedUsersModel';
+import { getAddressFromLocation, getDistanceBetweenTwoLocations } from '../../utils/calculateDistance';
 
 const UserService = {
   getUserPassions: async (userId) => {
@@ -33,7 +34,7 @@ const UserService = {
       [userId]
     );
     return avatars.map((avatar) => {
-      avatar.value = `http://localhost:3000/public/avatars/${avatar.value}`;
+      avatar.value = `http://localhost:3000/public/avatars/${avatar.value}`; // TODO
       return avatar;
     });
   },
@@ -72,6 +73,7 @@ const UserService = {
       null: 'both'
     };
 
+    console.log(user.location)
     user = {
       ...user,
       gender: user.gender || 'male', // Todo REMOVE
@@ -173,6 +175,8 @@ const UserService = {
     // return await users.map(async (user) => await UserService.addShit(user));
     for (let i = 0; i < users.length; i++) {
       users[i] = await UserService.addShit(users[i]);
+      users[i].distance = getDistanceBetweenTwoLocations(users[i].location, user.location);
+      users[i].address = getAddressFromLocation(users[i].location);
     }
     return users;
   }
