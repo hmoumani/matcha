@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     Conversation: typeof import('./src/components/Chat/Conversation/Conversation.vue')['default']
     copy: typeof import('./src/components/avatarsSlider copy.vue')['default']
     EmailSent: typeof import('./src/components/Auth/EmailSent.vue')['default']
+    FameRate: typeof import('./src/components/Common/FameRate.vue')['default']
     Form: typeof import('./src/components/Auth/Form.vue')['default']
     Header: typeof import('./src/components/Common/Header.vue')['default']
     'Icon:bx:bxMoon': typeof import('~icons/bx/bx-moon')['default']

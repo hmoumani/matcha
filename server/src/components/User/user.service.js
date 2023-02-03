@@ -176,7 +176,8 @@ const UserService = {
     for (let i = 0; i < users.length; i++) {
       users[i] = await UserService.addShit(users[i]);
       users[i].distance = getDistanceBetweenTwoLocations(users[i].location, user.location);
-      users[i].address = getAddressFromLocation(users[i].location);
+      users[i].address = await getAddressFromLocation(users[i].location);
+      console.log(users[i].address)
     }
     return users;
   }

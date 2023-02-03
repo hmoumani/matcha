@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const getDistanceBetweenTwoLocations = (loc1, loc2) => {
   const radius = 6371; // Earth's radius in km
   const lat1 = loc1.lat * (Math.PI / 180);
@@ -21,8 +23,7 @@ export async function getAddressFromLocation(loc) {
   const URL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`;
 
   try {
-    const response = await fetch(URL);
-    const data = await response.json();
+    const { data } = await axios.get(URL);
     if (data.status === 'OK') {
       for (let i = 0; i < data.results.length; i++) {
         const result = data.results[i];

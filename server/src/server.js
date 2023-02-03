@@ -83,5 +83,4 @@ process.on('SIGTERM', async () => {
   await gracefulShutdown(stoppable(server));
 });
 
-
 export default server;

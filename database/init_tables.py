@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey, create_engine, DateTime, Boolean, UniqueConstraint, ARRAY
+from sqlalchemy import Column, Float,Integer, String, ForeignKey, create_engine, DateTime, Boolean, UniqueConstraint, ARRAY
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine("postgresql://matcha:password@localhost:7777/matcha", echo=True)
