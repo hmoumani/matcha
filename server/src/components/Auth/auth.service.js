@@ -1,6 +1,6 @@
 import { query } from '../../db/index.js';
 import SettingsModel from '../../models/SettingsModel';
-import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 const AuthService = {
   /**
@@ -24,9 +24,7 @@ const AuthService = {
       throw new Error('User not found!');
     }
 
-    const passwordIsValid = (await bcrypt.compare(requestBody.password, results.rows[0].password));
-
-    if (!passwordIsValid) {
+    if (crypto.createHash('sha1').update(requestBody.password).digest('hex').toUpperCase() !== results.rows[0].password) {
       // throw new Error('Invalid Password!'); // TODO remove
     }
 
@@ -37,10 +35,9 @@ const AuthService = {
     return results.rows[0].id;
   },
   register: async (requestBody) => {
-    const password = bcrypt.hashSync(requestBody.password, 8);
     let results = await query(
       'insert into users (first_name, last_name, username, email, password) values ($1, $2, $3, $4, $5) RETURNING id',
-      [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, password]
+      [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, requestBody.password]
     );
     const registeredUserId = results.rows[0].id;
 
@@ -77,11 +74,10 @@ const AuthService = {
       requestBody.token,
       'password'
     ]);
-    const password = bcrypt.hashSync(requestBody.password, 8);
     if (results.rowCount <= 0) {
       throw new Error('Invalid token');
     }
-    await query('update users set password = $1 where id = $2', [password, results.rows[0].user_id]);
+    await query('update users set password = $1 where id = $2', [requestBody.password, results.rows[0].user_id]);
     await query('delete from validation_tokens where token = $1', [requestBody.token]);
   },
   getUserIdByEmail: async (email) => {
