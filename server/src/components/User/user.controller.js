@@ -16,7 +16,7 @@ const AuthController = {
     try {
       if (req.params.id === 'mine') req.params.id = req.userId;
       const user = await userService.find(req.params.id);
-      return ControllerResponse(HttpStatusCode.OK, user);
+      return ControllerResponse(HttpStatusCode.OK, toCamelCase(user));
     } catch (err) {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'Error while retrieving user');
     }
