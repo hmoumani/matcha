@@ -35,6 +35,7 @@ for i in range(742):
         "first_name": fake.first_name(),
         "last_name": fake.last_name(),
         "age": fake.random_int(min=18, max=40),
+        "fame_rate": fake.random_int(min=5, max=10),
         "email": emails[-1],
         "biography": pickupLinesList.arr[i % len(pickupLinesList.arr)],
         "gender": ['male', 'female'][fake.random_int(min=0, max=1)],

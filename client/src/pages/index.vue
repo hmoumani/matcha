@@ -15,17 +15,13 @@
 </script>
 
 <template>
-	<Header />
-	<div class="flex bg-[#F6F7FF] h-screen">
-		<Sidebar></Sidebar>
-		<div class="flex mt-4 w-full" v-if="currentUser">
-			<ProfileCard
-				v-if="currentProfile"
-				:user="currentProfile"
-				class="ml-[17rem]"
-			/>
-			<Settings class="ml-[3rem]"/>
-		</div>
+	<div class="flex mt-4 w-full" v-if="currentUser">
+		<ProfileCard
+			v-if="currentProfile"
+			:user="currentProfile"
+			class="ml-[17rem] profile"
+		/>
+		<Settings class="ml-[3rem]" />
 	</div>
 </template>
 
@@ -45,7 +41,7 @@
 	}
 </style>
 <route lang="yaml">
-name: home 
+name: home
 meta:
-    layout: sidebar
+    layout: pageWithSidebar
 </route>

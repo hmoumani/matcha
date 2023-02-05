@@ -34,7 +34,7 @@ const UserService = {
       [userId]
     );
     return avatars.map((avatar) => {
-      avatar.value = `http://localhost:3000/public/avatars/${avatar.value}`; // TODO
+      avatar.value = `http://localhost:5555/public/avatars/${avatar.value}`; // TODO
       return avatar;
     });
   },
@@ -73,7 +73,7 @@ const UserService = {
       null: 'both'
     };
 
-    console.log(user.location)
+    console.log(user.location);
     user = {
       ...user,
       gender: user.gender || 'male', // Todo REMOVE
@@ -172,12 +172,12 @@ const UserService = {
     const conditions = [['gender', sexual_orientation]];
     const userModel = new UserModel();
     let users = await userModel.find(conditions, 10, 'RANDOM()');
-    // return await users.map(async (user) => await UserService.addShit(user));
     for (let i = 0; i < users.length; i++) {
       users[i] = await UserService.addShit(users[i]);
       users[i].distance = getDistanceBetweenTwoLocations(users[i].location, user.location);
-      users[i].address = await getAddressFromLocation(users[i].location);
-      console.log(users[i].address)
+      // users[i].address = await getAddressFromLocation(users[i].location);
+      // users[i].address = 'Casa, Morocco' // TODO
+      // console.log(users[i].address)
     }
     return users;
   }

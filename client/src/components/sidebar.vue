@@ -196,7 +196,7 @@
 			>
 				<div class="flex flex-1 flex-col overflow-y-auto pt-9 pb-4">
 					<img
-						class="w-full rounded-3xl mb-2"
+						class="w-full rounded-3xl mb-2 h-[15rem] object-cover"
 						:src="userAvatar"
 						alt="Your Company"
 					/>

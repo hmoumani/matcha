@@ -27,7 +27,7 @@
 			let { value } = avatar;
 			let fileName = value;
 
-			return filePath;
+			return fileName;
 		}
 	};
 </script>
