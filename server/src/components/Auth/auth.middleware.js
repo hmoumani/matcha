@@ -67,8 +67,9 @@ const HashPasswordAndCheckCommunWord = async (req, res, next) => {
   try {
     const response = await axios.get(`https://api.pwnedpasswords.com/range/${hash_prefix}`)
     const pwnedPasswords = response.data.split("\r\n")
-    if (pwnedPasswords.find(p => p.split(':')[0] === hash_suffix))
+    if (pwnedPasswords.find(p => p.split(':')[0] === hash_suffix)) {
       return res.status(400).json({ errors: [{ msg: 'This password is a common word, please choose a different one.' }] });
+    }
     req.body.password = password;
     next()
   } catch (error) {
