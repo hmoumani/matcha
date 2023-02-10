@@ -60,21 +60,20 @@ const getUserIdFromToken = (req, res, next) => {
 };
 
 const HashPasswordAndCheckCommunWord = async (req, res, next) => {
+  let { password } = req.body;
+  password = crypto.createHash('sha1').update(password).digest('hex').toUpperCase();
+  const hash_prefix = password.substring(0,5)
+  const hash_suffix = password.substring(5)
   try {
-    let { password } = req.body;
-    password = crypto.createHash('sha1').update(password).digest('hex').toUpperCase();
-    const hash_prefix = password.substring(0,5)
-    const hash_suffix = password.substring(5)
     const response = await axios.get(`https://api.pwnedpasswords.com/range/${hash_prefix}`)
     const pwnedPasswords = response.data.split("\r\n")
-    const found = pwnedPasswords.find(p => p.split(':')[0] === hash_suffix)
     if (pwnedPasswords.find(p => p.split(':')[0] === hash_suffix))
       return res.status(400).json({ errors: [{ msg: 'This password is a common word, please choose a different one.' }] });
     req.body.password = password;
     next()
   } catch (error) {
     return res.status(406).send({
-      message: 'Unable to validate password!' + error
+      message: 'Unable to validate password!'
     });
   }
 };
