@@ -1,5 +1,7 @@
 import { query } from '../../db/index.js';
 import SettingsModel from '../../models/SettingsModel';
+import UserModel from '../../models/UserModel';
+import ValidationTokenModel from '../../models/ValidationTokenModel';
 import crypto from 'crypto';
 
 const AuthService = {
@@ -77,8 +79,9 @@ const AuthService = {
     if (results.rowCount <= 0) {
       throw new Error('Invalid token');
     }
-    await query('update users set password = $1 where id = $2', [requestBody.password, results.rows[0].user_id]);
-    await query('delete from validation_tokens where token = $1', [requestBody.token]);
+    await new UserModel().update({password: requestBody.password},
+        ['id', '=', results.rows[0].user_id]);
+    await new ValidationTokenModel().delete(['token', '=', requestBody.token]);
   },
   getUserIdByEmail: async (email) => {
     let results = await query('select id from users where email=$1', [email]);
