@@ -79,9 +79,10 @@ const AuthService = {
     if (results.rowCount <= 0) {
       throw new Error('Invalid token');
     }
-    await new UserModel().update({password: requestBody.password},
-        ['id', '=', results.rows[0].user_id]);
-    await new ValidationTokenModel().delete(['token', '=', requestBody.token]);
+    const userModel = new UserModel(); 
+    const validationTokenModel = new ValidationTokenModel();
+    await userModel.update({password: requestBody.password}, ['id', '=', results.rows[0].user_id]);
+    await validationTokenModel.delete(['token', '=', requestBody.token]);
   },
   getUserIdByEmail: async (email) => {
     let results = await query('select id from users where email=$1', [email]);
