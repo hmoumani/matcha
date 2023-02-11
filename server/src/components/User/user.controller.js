@@ -95,17 +95,6 @@ const AuthController = {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
     }
     return ControllerResponse(HttpStatusCode.OK, 'User reported successfully');
-  },
-
-  getUsers: async ({ userId }) => {
-    let users;
-    try {
-      users = await UserService.getUsersSuggestions(userId);
-    } catch (err) {
-      throw err;
-      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
-    }
-    return ControllerResponse(HttpStatusCode.OK, users);
   }
 };
 

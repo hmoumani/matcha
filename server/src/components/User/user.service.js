@@ -163,23 +163,6 @@ const UserService = {
       ['blockedId', secondUserId]
     ]);
     return blockRow !== null && blockRow !== undefined;
-  },
-
-  async getUsersSuggestions(userId) {
-    const user = await UserService.find(userId);
-    const { sexual_orientation } = user;
-    console.log({ sexual_orientation });
-    const conditions = [['gender', sexual_orientation]];
-    const userModel = new UserModel();
-    let users = await userModel.find(conditions, 10, 'RANDOM()');
-    for (let i = 0; i < users.length; i++) {
-      users[i] = await UserService.addShit(users[i]);
-      users[i].distance = getDistanceBetweenTwoLocations(users[i].location, user.location);
-      // users[i].address = await getAddressFromLocation(users[i].location);
-      // users[i].address = 'Casa, Morocco' // TODO
-      // console.log(users[i].address)
-    }
-    return users;
   }
 };
 
