@@ -31,9 +31,9 @@ class UserModel extends Model {
       array_agg(DISTINCT tags.value) AS passions,
       array_agg(DISTINCT images.value) AS avatars
       from ${this.tableName} 
-      JOIN user_tags ON users.id = user_tags.user_id \
-      JOIN tags ON tags.id = user_tags.tag_id \
-      JOIN images ON images.user_id = users.id \
+      LEFT JOIN user_tags ON users.id = user_tags.user_id \
+      LEFT JOIN tags ON tags.id = user_tags.tag_id \
+      LEFT JOIN images ON images.user_id = users.id \
       where ${this.tableName}.id != $1
       and age >= $2
       and age <= $3
