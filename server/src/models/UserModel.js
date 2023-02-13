@@ -42,13 +42,12 @@ class UserModel extends Model {
         and fame_rate >= $4
         and fame_rate <= $5
         GROUP BY users.id 
-        HAVING array_agg(tags.value) && $8
         )
-        SELECT passions,
+        SELECT *,
         (
           SELECT count(*) from (
-          SELECT unnest(passions) intersect 
-          SELECT unnest($8)) as foo
+          SELECT unnest(CAST(passions as character varying[])) intersect 
+          SELECT unnest(CAST($8 as character varying[]))) as foo
         ) as common_passions_count
       FROM results
       order by common_passions_count desc
