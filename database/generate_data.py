@@ -1,5 +1,6 @@
 import init_tables
 from faker import Faker
+import pickupLinesList
 from utils import random_cor, tags
 # generate users profile
 
@@ -34,12 +35,12 @@ for i in range(742):
         "first_name": fake.first_name(),
         "last_name": fake.last_name(),
         "age": fake.random_int(min=18, max=40),
+        "fame_rate": fake.random_int(min=5, max=10),
         "email": emails[-1],
-        "biography": fake.text(max_nb_chars=200),
+        "biography": pickupLinesList.arr[i % len(pickupLinesList.arr)],
         "gender": ['male', 'female'][fake.random_int(min=0, max=1)],
         "sexual_orientation": ['male', 'female', 'both'][fake.random_int(min=0, max=2)],
         "username": nicknames[-1],
-        "location": '{}',
         "last_connection": fake.date_time(),
         "is_email_verified": True,
         "is_auto_locator_enabled": True,

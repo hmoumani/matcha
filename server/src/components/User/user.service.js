@@ -6,6 +6,7 @@ import ImageModel from '../../models/ImageModel';
 import SettingsModel from '../../models/SettingsModel';
 import ReportedUsersModel from '../../models/reportedUsersModel';
 import BlockedUsersModel from '../../models/BlockedUsersModel';
+import { getAddressFromLocation, getDistanceBetweenTwoLocations } from '../../utils/calculateDistance';
 
 const UserService = {
   getUserPassions: async (userId) => {
@@ -25,14 +26,17 @@ const UserService = {
   },
 
   getUserAvatars: async (userId) => {
-    const { rows } = await query(
+    const { rows: avatars } = await query(
       'SELECT \
       id, value, created_at \
       FROM images \
       where images.user_id = $1',
       [userId]
     );
-    return rows;
+    return avatars.map((avatar) => {
+      avatar.value = `http://localhost:1574/public/avatars/${avatar.value}`; // TODO
+      return avatar;
+    });
   },
 
   find: async (userId) => {
@@ -54,6 +58,12 @@ const UserService = {
     );
     if (user.rows.length === 0) throw new Error('User not found');
     user = user.rows[0];
+    user = await UserService.addShit(user);
+    return user;
+  },
+
+  async addShit(user) {
+    const userId = user.id;
     const passions = await UserService.getUserPassions(userId);
     const avatars = await UserService.getUserAvatars(userId);
 
@@ -63,6 +73,7 @@ const UserService = {
       null: 'both'
     };
 
+    console.log(user.location);
     user = {
       ...user,
       gender: user.gender || 'male', // Todo REMOVE
@@ -129,7 +140,7 @@ const UserService = {
     await reportedUsersModel.insert({
       reporterId,
       reportedId,
-      reason:"Fake account"
+      reason: 'Fake account'
     });
   },
 
@@ -152,6 +163,23 @@ const UserService = {
       ['blockedId', secondUserId]
     ]);
     return blockRow !== null && blockRow !== undefined;
+  },
+
+  async getUsersSuggestions(userId) {
+    const user = await UserService.find(userId);
+    const { sexual_orientation } = user;
+    console.log({ sexual_orientation });
+    const conditions = [['gender', sexual_orientation]];
+    const userModel = new UserModel();
+    let users = await userModel.find(conditions, 10, 'RANDOM()');
+    for (let i = 0; i < users.length; i++) {
+      users[i] = await UserService.addShit(users[i]);
+      users[i].distance = getDistanceBetweenTwoLocations(users[i].location, user.location);
+      // users[i].address = await getAddressFromLocation(users[i].location);
+      // users[i].address = 'Casa, Morocco' // TODO
+      // console.log(users[i].address)
+    }
+    return users;
   }
 };
 

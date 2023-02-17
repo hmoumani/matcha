@@ -7,8 +7,6 @@
 		user: Object,
 	});
 
-	const { userAvatars, passions } = user;
-
 	const feedStore = useFeedStore();
 
 	const { likeUser, unLikeUser, reportUser } = feedStore;
@@ -17,17 +15,17 @@
 	<div
 		class="w-4/12 bg-white shadow-slate-300 shadow-sm rounded-[2rem] h-[calc(100vh-7rem)] overflow-y-scroll overflow-x-hidden"
 	>
-		<avatarsSlider :avatars="userAvatars" />
+		<avatarsSlider :avatars="user.avatars" />
 		<div class="px-8 py-8 flex justify-between">
 			<div>
 				<div
 					class="font-medium text-[#48496B] text-2xl flex items-center gap-x-3"
 				>
-					{{ user.id }}
-					{{ user.firstName }} {{ user.lastName }},
+					{{ user.first_name }} {{ user.last_name }},
 					{{ user.age }}
 					<span class="dot bg-[#4EB3AC] w-3 h-3"></span>
 				</div>
+				<FameRate :rating="user.fame_rate / 2" />
 				<div
 					class="text-md text-[#B7B5BF] font-bold flex items-center gap-x-1"
 				>
@@ -44,21 +42,22 @@
 					</svg>
 					{{ user.distance }} from you
 				</div>
+				<div class="text-sm text-[#48496B]">{{ user.address }}</div>
 				<div class="text-lg mt-5">{{ user.biography }}</div>
 				<div class="my-5 text-2xl font-semibold text-[#7a7a7d]">
 					Passions
 				</div>
 				<div class="flex">
 					<div
-						v-for="passion of passions"
-						class="px-3 py-2 mr-3 rounded-md text-base capitalize"
+						v-for="passion of user.passions"
+						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
-							'bg-[#D5F9F7] text-[#4EB3AC]': passion.isCommon,
+							'bg-[#D5F9F7] text-[#4EB3AC] ': passion.isCommon,
 							'bg-[#F8F7FF] text-black border-[#F3F3F3] border-2':
 								!passion.isCommon,
 						}"
 					>
-						# {{ passion.name }}
+						# {{ passion }}
 					</div>
 				</div>
 			</div>

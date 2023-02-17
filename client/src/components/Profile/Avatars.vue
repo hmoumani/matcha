@@ -27,9 +27,7 @@
 			let { value } = avatar;
 			let fileName = value;
 
-			const { VITE_AVATARS_URL: avatarsUrl } = import.meta.env;
-			let filePath = `${avatarsUrl}${fileName}`;
-			return filePath;
+			return fileName;
 		}
 	};
 </script>

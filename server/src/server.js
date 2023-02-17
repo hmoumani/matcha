@@ -13,7 +13,7 @@ import gracefulShutdown from './utils/graceful-shutdown';
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '1574');
 
 app.set('port', port);
 
@@ -82,6 +82,5 @@ process.on('SIGTERM', async () => {
   console.log('Got SIGTERM (docker container stop).Graceful shutdown', new Date().toISOString());
   await gracefulShutdown(stoppable(server));
 });
-
 
 export default server;

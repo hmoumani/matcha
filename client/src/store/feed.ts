@@ -24,7 +24,8 @@ export const useFeedStore = defineStore('feed', {
 			this.profilesQueue.shift();
 			if (this.profilesQueue.length <= 3) {
 				// get new list
-				let newPeople = await feedService.getNewProfiles(); //.catch(e => {});
+				let { data:{message: newPeople} } = await feedService.getNewProfiles(); //.catch(e => {});
+				console.log(newPeople)
 				this.profilesQueue = this.profilesQueue.concat(newPeople);
 			}
 			this.currentProfile = this.profilesQueue[0];

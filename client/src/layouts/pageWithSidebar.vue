@@ -1,5 +1,9 @@
 <template>
-	<router-view></router-view>
+	<Header />
+	<div class="flex bg-[#F6F7FF] h-screen">
+		<Sidebar></Sidebar>
+		<router-view></router-view>
+	</div>
 </template>
 
 <script setup>

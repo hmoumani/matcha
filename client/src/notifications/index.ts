@@ -26,4 +26,3 @@ export const listenForEvents = () => {
 	socket.on(USER_LIKE_EVENT, handleUserDisLikeEvent);
 	socket.on(USER_MATCH_EVENT, handleUserMatchesEvent);
 };
-2

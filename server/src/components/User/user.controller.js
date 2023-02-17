@@ -1,18 +1,8 @@
 import HttpStatusCode from '../../enums/HttpStatusCode';
 import ControllerResponse from '../../utils/ControllerResponse';
 import userService from './user.service';
-import _ from 'lodash';
 import UserService from './user.service';
-
-const toCamelCase = (obj) =>
-  _.reduce(
-    obj,
-    (result, value, key) => {
-      result[_.camelCase(key)] = value;
-      return result;
-    },
-    {}
-  );
+import { toCamelCase } from '../../utils/transformers';
 
 const AuthController = {
   /**
@@ -55,6 +45,7 @@ const AuthController = {
   getSettings: async (req) => {
     const userId = req.userId;
     const settings = await userService.getSettings(userId);
+    console.log(settings.location.lat);
     const parsedTags = JSON.parse(settings.common_tags);
     const parsedLocation = JSON.parse(settings.location);
     const formattedSettings = toCamelCase({
@@ -104,6 +95,16 @@ const AuthController = {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
     }
     return ControllerResponse(HttpStatusCode.OK, 'User reported successfully');
+  },
+
+  getUsers: async ({ userId }) => {
+    let users;
+    try {
+      users = await UserService.getUsersSuggestions(userId);
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
+    }
+    return ControllerResponse(HttpStatusCode.OK, users);
   }
 };
 

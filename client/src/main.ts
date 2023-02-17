@@ -21,6 +21,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { createApp } from 'vue';
 import setupApp from './setupApp';
+import Vue3StarRatings from 'vue3-star-ratings';
 
 /* add icons to the library */
 library.add(faHeart);
@@ -34,6 +35,8 @@ library.add(faArrowRight);
 library.add(faGear);
 
 const app = createApp(App).use(createPinia()).use(router);
+
+app.component('vue3-star-ratings', Vue3StarRatings);
 
 setupApp(app).finally(() => {
 	app.mount('#app');
