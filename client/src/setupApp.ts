@@ -40,7 +40,7 @@ const setupApp = async app => {
 	app.use(socketIO, {
 		connection: `${
 			process.env.NODE_ENV == 'development'
-				? 'ws://localhost:5555' // TODO change
+				? 'ws://localhost:1574' // TODO change
 				: 'htt5Bop://PROD'
 		}?token=${await userToken()}`,
 	});

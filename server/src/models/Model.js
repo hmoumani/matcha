@@ -127,14 +127,4 @@ class Model {
   }
 }
 
-// let data = {
-//   minAge: 18,
-//   maxAge: 18,
-//   maxFameRating: 10,
-//   location: 'hell WPOR',
-//   commonTags: '4'
-// };
-
-// new Model('user_settings').insert(data);
-
 export default Model;
