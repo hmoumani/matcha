@@ -1,7 +1,7 @@
-import Config from "./config";
-import Routes from "./routes";
+import Routes from './routes';
+import Gateways from './gateways';
 
-module.exports = {
-  Config,
-  Routes
+export default {
+  Routes,
+  Gateways
 };

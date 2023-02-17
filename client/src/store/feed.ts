@@ -10,11 +10,8 @@
 
 // const currentUser = computed(() => profilesQueue.value[0]);
 
-import feedService, {
-	getNewProfiles,
-	likeUser,
-	unLikeUser,
-} from '@/services/feedService';
+import feedService from '@/services/feedService';
+import userService from '@/services/userService';
 import { defineStore } from 'pinia';
 
 export const useFeedStore = defineStore('feed', {
@@ -41,6 +38,9 @@ export const useFeedStore = defineStore('feed', {
 			this.showNextProfile();
 			const { id } = this.currentProfile;
 			feedService.unLikeUser(id);
+		},
+		async reportUser(userId) {
+			userService.reportUser(userId);
 		},
 	},
 });

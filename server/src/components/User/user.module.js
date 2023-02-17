@@ -4,6 +4,7 @@ const router = express.Router();
 
 import middlewares from '../../middlewares';
 
+
 // validator
 import UserValidator from './user.validator';
 

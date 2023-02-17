@@ -2,6 +2,7 @@ import HttpStatusCode from '../../enums/HttpStatusCode';
 import ControllerResponse from '../../utils/ControllerResponse';
 import userService from './user.service';
 import _ from 'lodash';
+import UserService from './user.service';
 
 const toCamelCase = (obj) =>
   _.reduce(
@@ -83,6 +84,26 @@ const AuthController = {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'could not update user infos');
     }
     return ControllerResponse(HttpStatusCode.OK, 'user infos updated successfully!');
+  },
+
+  blockUser: async (req) => {
+    const { blockerId, blockedId } = req.body;
+    try {
+      await UserService.blockUser(blockerId, blockedId);
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'blocking action failed');
+    }
+    return ControllerResponse(HttpStatusCode.OK, 'User blocked successfully');
+  },
+
+  reportUser: async (req) => {
+    const { reportedId, reporterId } = req.body;
+    try {
+      await UserService.reportUser(reporterId, reportedId);
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
+    }
+    return ControllerResponse(HttpStatusCode.OK, 'User reported successfully');
   }
 };
 

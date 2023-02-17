@@ -1,3 +1,5 @@
+import userToken from './helpers/userToken';
+import socketIO from './plugins/socketIO';
 import { router } from './router';
 import { useUserStore } from './store/user';
 
@@ -9,7 +11,7 @@ const inSentitiveComparaison = (str1, str2) =>
 const isPublicRoute = routePath =>
 	publicRoutes.some(route => inSentitiveComparaison(route, routePath));
 
-const setupApp = async () => {
+const setupApp = async app => {
 	// Get user profile
 
 	//failed?
@@ -33,6 +35,15 @@ const setupApp = async () => {
 	if (isPublicRoute(currentRoute)) {
 		router.push({ name: 'home' });
 	}
+
+	// SETUP GATEWAY
+	app.use(socketIO, {
+		connection: `${
+			process.env.NODE_ENV == 'development'
+				? 'ws://localhost:3000'
+				: 'htt5Bop://PROD'
+		}?token=${await userToken()}`,
+	});
 };
 
 export default setupApp;

@@ -33,10 +33,10 @@ library.add(faArrowLeft);
 library.add(faArrowRight);
 library.add(faGear);
 
-const app = createApp(App)
-	.use(createPinia())
-	.use(router)
+const app = createApp(App).use(createPinia()).use(router);
 
-setupApp().finally(() => {
+setupApp(app).finally(() => {
 	app.mount('#app');
-})
+});
+
+export default app;

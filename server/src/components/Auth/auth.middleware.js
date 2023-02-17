@@ -59,19 +59,36 @@ const getUserIdFromToken = (req, res, next) => {
   }
 };
 
+const getUserFromSocket = async (socket, next) => {
+  const userToken = socket.handshake.query.token;
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(userToken, config.secret);
+  } catch (e) {
+    return next(new Error('Unauthorized'));
+  }
+  if (!decodedToken) {
+    return next(new Error('Unauthorized'));
+  }
+  socket.userId = decodedToken.id;
+  next();
+};
+
 const HashPasswordAndCheckCommunWord = async (req, res, next) => {
   let { password } = req.body;
   password = crypto.createHash('sha1').update(password).digest('hex').toUpperCase();
-  const hash_prefix = password.substring(0,5)
-  const hash_suffix = password.substring(5)
+  const hash_prefix = password.substring(0, 5);
+  const hash_suffix = password.substring(5);
   try {
-    const response = await axios.get(`https://api.pwnedpasswords.com/range/${hash_prefix}`)
-    const pwnedPasswords = response.data.split("\r\n")
-    if (pwnedPasswords.find(p => p.split(':')[0] === hash_suffix)) {
-      return res.status(400).json({ errors: [{ msg: 'This password is a common word, please choose a different one.' }] });
+    const response = await axios.get(`https://api.pwnedpasswords.com/range/${hash_prefix}`);
+    const pwnedPasswords = response.data.split('\r\n');
+    if (pwnedPasswords.find((p) => p.split(':')[0] === hash_suffix)) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: 'This password is a common word, please choose a different one.' }] });
     }
     req.body.password = password;
-    next()
+    next();
   } catch (error) {
     return res.status(406).send({
       message: 'Unable to validate password!'
@@ -79,4 +96,10 @@ const HashPasswordAndCheckCommunWord = async (req, res, next) => {
   }
 };
 
-export { checkDuplicateUsernameOrEmail, getUserIdFromToken, checkEmailexists, HashPasswordAndCheckCommunWord };
+export {
+  checkDuplicateUsernameOrEmail,
+  getUserIdFromToken,
+  checkEmailexists,
+  HashPasswordAndCheckCommunWord,
+  getUserFromSocket
+};

@@ -37,19 +37,50 @@ class Model {
     return executeQuery(query, params);
   }
 
-  async find(condition) {
+  buildConditionsQuery(conditions) {
+    let query = '';
+    if (!conditions) return '';
+    query += 'WHERE ';
+    conditions.forEach((condition, index) => {
+      const [colName, operation] = condition;
+      console.log(colName)
+      query += `${snakeCase(colName)} ${operation} $${index + 1}`;
+      if (index < conditions.length - 1) {
+        query += ' AND ';
+      }
+    });
+    return query;
+  }
+
+  async find(arg) {
+    // move this to a decorator
+    let conditions = [];
+    if (Array.isArray(arg[0])) {
+      arg.map((condition) => {
+        if (condition.length === 2) {
+          condition.splice(1, 0, '=');
+        }
+        conditions.push(condition);
+      });
+    } else {
+      conditions = [arg];
+    }
+
     let query = `select * from ${this.tableName} `;
-    const [col_id, operation, value] = condition;
-    query += `WHERE ${col_id} ${operation} $1`;
-    const params = [value];
+    query += this.buildConditionsQuery(conditions);
+
+    const params = conditions.map((condition) => condition[2]);
+    console.log({ query, params });
+    // console.log({ params });
     const { rows } = await executeQuery(query, params);
+    // console.log({ rows });
 
     return rows;
   }
 
-  async findOne(condition){
+  async findOne(condition) {
     const rows = await this.find(condition);
-    return rows[0];
+    return rows ? rows[0] : null;
   }
 
   insert(data) {
@@ -66,11 +97,19 @@ class Model {
     return executeQuery(query, params);
   }
 
-  delete(condition) {
+  delete(conditions) {
     let query = `delete from ${this.tableName} `;
-    const [col_id, operation, value] = condition;
-    query += `WHERE ${col_id} ${operation} $1`;
-    const params = [value];
+    if (conditions.length > 0) {
+      query += 'WHERE ';
+      conditions.forEach((condition, index) => {
+        const [col_id, operation] = condition;
+        query += `${col_id} ${operation} $${index + 1}`;
+        if (index < conditions.length - 1) {
+          query += ' AND ';
+        }
+      });
+    }
+    const params = conditions.map((condition) => condition[2]);
     return executeQuery(query, params);
   }
 }

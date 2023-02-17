@@ -22,12 +22,15 @@ app.set('port', port);
  */
 
 const server = createServer(app);
-
 /**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
+
+import loadGateways from './loaders/gateways';
+
+loadGateways(server);
 
 /**
  * Event listener for HTTP server "error" event.
@@ -79,3 +82,6 @@ process.on('SIGTERM', async () => {
   console.log('Got SIGTERM (docker container stop).Graceful shutdown', new Date().toISOString());
   await gracefulShutdown(stoppable(server));
 });
+
+
+export default server;

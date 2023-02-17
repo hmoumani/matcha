@@ -12,9 +12,29 @@ import { checkDuplicateUsernameOrEmail, checkEmailexists, HashPasswordAndCheckCo
 export default ({ router, AuthController, AuthValidator, makeValidatorCallback, responseCallback }) => {
   router.post('/login', makeValidatorCallback(AuthValidator.validateLogin), responseCallback(AuthController.login));
   router.post('/logout', responseCallback(AuthController.logout));
-  router.post('/register', makeValidatorCallback(AuthValidator.validateRegistration), [checkDuplicateUsernameOrEmail, HashPasswordAndCheckCommunWord], responseCallback(AuthController.register));
-  router.post('/verifyEmail', makeValidatorCallback(AuthValidator.validateEmailValidation), responseCallback(AuthController.verifyEmail));
-  router.post('/resetPasswordEmail', makeValidatorCallback(AuthValidator.validateresetPasswordEmail), [checkEmailexists], responseCallback(AuthController.resetPasswordEmail));
-  router.post('/resetPassword', makeValidatorCallback(AuthValidator.validateresetPassword), [HashPasswordAndCheckCommunWord], responseCallback(AuthController.resetPassword));
+  router.post(
+    '/register',
+    makeValidatorCallback(AuthValidator.validateRegistration),
+    [checkDuplicateUsernameOrEmail, HashPasswordAndCheckCommunWord],
+    responseCallback(AuthController.register)
+  );
+  router.post(
+    '/verifyEmail',
+    makeValidatorCallback(AuthValidator.validateEmailValidation),
+    responseCallback(AuthController.verifyEmail)
+  );
+  router.post(
+    '/resetPasswordEmail',
+    makeValidatorCallback(AuthValidator.validateresetPasswordEmail),
+    [checkEmailexists],
+    responseCallback(AuthController.resetPasswordEmail)
+  );
+  router.post(
+    '/resetPassword',
+    makeValidatorCallback(AuthValidator.validateresetPassword),
+    [HashPasswordAndCheckCommunWord],
+    responseCallback(AuthController.resetPassword)
+  );
+  router.get('/getUserToken', responseCallback(AuthController.getUserToken));
   return router;
 };

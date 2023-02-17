@@ -23,6 +23,8 @@ export default ({ router, UserController, responseCallback, UserValidator, makeV
   );
   router.put('/avatar', [getUserIdFromToken, checkAvatarLimit], imageUpload, responseCallback(UserController.uploadAvatar));
   router.put('/', getUserIdFromToken, makeValidatorCallback(UserValidator.updateUserInfo), responseCallback(UserController.updateUserInfo));
+  router.post('/block', getUserIdFromToken, makeValidatorCallback(UserValidator.blockUser), responseCallback(UserController.blockUser));
+  router.post('/report', getUserIdFromToken, makeValidatorCallback(UserValidator.reportUser), responseCallback(UserController.reportUser));
   router.get('/:id', getUserIdFromToken, responseCallback(UserController.find));
   return router;
 };

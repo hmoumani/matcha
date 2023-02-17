@@ -4,6 +4,8 @@ import TagModel from '../../models/TagModel';
 import UserTagModel from '../../models/UserTagModel';
 import ImageModel from '../../models/ImageModel';
 import SettingsModel from '../../models/SettingsModel';
+import ReportedUsersModel from '../../models/reportedUsersModel';
+import BlockedUsersModel from '../../models/BlockedUsersModel';
 
 const UserService = {
   getUserPassions: async (userId) => {
@@ -18,7 +20,7 @@ const UserService = {
       [userId]
     );
 
-    const passions = rows.map(row => row.tag)
+    const passions = rows.map((row) => row.tag);
     return passions;
   },
 
@@ -41,6 +43,7 @@ const UserService = {
       users.last_name, \
       users.age, \
       users.location, \
+      users.fame_rate,\
       users.is_auto_locator_enabled, \
       users.biography, \
       users.sexual_orientation,\
@@ -74,16 +77,6 @@ const UserService = {
     }
     return user;
   },
-  /**
-   * Login a user and generate token.
-   * @async
-   * @method
-   * @param {UserDto} requestBody - Request Body
-   * @returns {Context} Context object
-   * @throws {NotFoundError} When the user is not found.
-   */
-
-  like: async (userId) => {},
 
   updateSettings: async (userID, settings) => {
     const settingsModel = new SettingsModel();
@@ -117,7 +110,7 @@ const UserService = {
     const userModel = new UserModel();
     const tagModel = new TagModel();
     const userTagModel = new UserTagModel();
-    userTagModel.delete(['user_id', '=', userId]);
+    userTagModel.delete([['user_id', '=', userId]]);
     const condition = ['id', '=', userId];
     if (passions && passions.length > 0) {
       const tagsIds = await tagModel.insert(passions);
@@ -129,6 +122,36 @@ const UserService = {
   uploadAvatar: async (imageObj) => {
     const imageModel = new ImageModel();
     imageModel.insert(imageObj);
+  },
+
+  reportUser: async (reporterId, reportedId) => {
+    const reportedUsersModel = new ReportedUsersModel();
+    await reportedUsersModel.insert({
+      reporterId,
+      reportedId,
+      reason:"Fake account"
+    });
+  },
+
+  blockUser: async (blockerId, blockedId) => {
+    const isAlreadyBlocked = await UserService.isBlockedBy(blockerId, blockedId);
+    if (isAlreadyBlocked) {
+      throw 'already blocked';
+    }
+    const blockedUsersModel = new BlockedUsersModel();
+    await blockedUsersModel.insert({
+      blockerId,
+      blockedId
+    });
+  },
+
+  async isBlockedBy(firstUserId, secondUserId) {
+    const blockedUsersModel = new BlockedUsersModel();
+    const blockRow = await blockedUsersModel.findOne([
+      ['blockerId', firstUserId],
+      ['blockedId', secondUserId]
+    ]);
+    return blockRow !== null && blockRow !== undefined;
   }
 };
 

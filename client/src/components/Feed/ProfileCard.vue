@@ -11,7 +11,7 @@
 
 	const feedStore = useFeedStore();
 
-	const { likeUser, unLikeUser } = feedStore;
+	const { likeUser, unLikeUser, reportUser } = feedStore;
 </script>
 <template>
 	<div
@@ -45,7 +45,7 @@
 					{{ user.distance }} from you
 				</div>
 				<div class="text-lg mt-5">{{ user.biography }}</div>
-				<div class="my-5 text-2xl font-semibold text-[#646688]">
+				<div class="my-5 text-2xl font-semibold text-[#7a7a7d]">
 					Passions
 				</div>
 				<div class="flex">
@@ -62,7 +62,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="text-2xl">
+			<div class="text-xl flex gap-x-3">
+				<FontAwesomeIcon
+					icon="fa-solid fa-flag"
+					class="text-[#E11653] bg-[#f4a8bf] action"
+					@click="reportUser(user?.id)"
+				/>
 				<FontAwesomeIcon
 					@click="unLikeUser"
 					icon="fa-solid fa-xmark"
@@ -73,10 +78,6 @@
 					icon="fa-solid fa-heart"
 					class="text-[#4EB3AC] bg-[#D5F9F7] action"
 				/>
-				<!-- <FontAwesomeIcon
-						icon="fa-solid fa-flag"
-						class="text-[#E11653] bg-[#f4a8bf] action"
-					/> -->
 			</div>
 		</div>
 	</div>

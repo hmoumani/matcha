@@ -35,7 +35,7 @@
 		display: inline-block;
 	}
 	.action {
-		@apply cursor-pointer p-4 mx-2 rounded-xl;
+		@apply cursor-pointer p-3  rounded-xl;
 	}
 	.carousel__pagination-button {
 		@apply -mt-8 z-50 relative;

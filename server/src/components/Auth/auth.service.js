@@ -38,8 +38,8 @@ const AuthService = {
   },
   register: async (requestBody) => {
     let results = await query(
-      'insert into users (first_name, last_name, username, email, password) values ($1, $2, $3, $4, $5) RETURNING id',
-      [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, requestBody.password]
+      'insert into users (first_name, last_name, username, email, password) values ($1, $2, $3, $4, $5, $6) RETURNING id',
+      [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, requestBody.password, 5]
     );
     const registeredUserId = results.rows[0].id;
 
@@ -51,9 +51,8 @@ const AuthService = {
       maxAge: 30,
       minFameRating: 5,
       maxFameRating: 10,
-      commonTags: [],
-      location: { "lat": 33, "lng": 100 },
-      sortBy:'location'
+      commonTags: '[]',
+      sortBy: 'location'
     });
 
     return registeredUserId;

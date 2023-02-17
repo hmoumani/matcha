@@ -37,7 +37,30 @@ const updateUserInfo = ({ body }) => {
   return schema.validate(body, options);
 };
 
+const reportUser = (req) => {
+  const { body, userId } = req;
+  req.body.reporterId = userId;
+  const schema = Joi.object({
+    reportedId: Joi.number().required(),
+    reporterId: Joi.number().required().not(Joi.ref('reportedId'))
+  });
+  return schema.validate(body, options);
+};
+
+const blockUser = (req) => {
+  const { body, userId } = req;
+  req.body.blockerId = userId;
+  console.log(req);
+  const schema = Joi.object({
+    blockerId: Joi.number(),
+    blockedId: Joi.number().required().not(Joi.ref('blockerId'))
+  });
+  return schema.validate(body, options);
+};
+
 export default {
   updateSettings,
-  updateUserInfo
+  updateUserInfo,
+  reportUser,
+  blockUser
 };

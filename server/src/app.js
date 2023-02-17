@@ -8,13 +8,22 @@ import dotenv from 'dotenv';
 
 import cookieSession from 'cookie-session';
 
-dotenv.config();
+// setup user gateway
+// setupUserSocket(app);
+// const io = require('socket.io')(http);
 
+dotenv.config();
 
 app.use('/public', express.static('static_files/'));
 
 // error handler
 import 'express-async-errors';
+
+// Middleware to catch all errors
+app.use(function (err, req, res, next) {
+  // console.error(err.stack);
+  res.status(HttpStatusCode.BAD_REQUEST).send('Something broke!');
+});
 
 app.use(
   cookieSession({
@@ -61,6 +70,7 @@ app.set('view engine', 'html');
 
 // load routes
 import setupRoutes from './loaders/routes';
+import HttpStatusCode from './enums/HttpStatusCode';
 
 setupRoutes(app);
 
