@@ -20,7 +20,7 @@ const updateSettings = ({ body }) => {
     maxFameRating: Joi.number().min(1).max(10),
     location: locationRule,
     commonTags: Joi.array().items(Joi.string()),
-    sortBy: Joi.string().valid('age', 'location', 'fameRating', 'tags')
+    sortBy: Joi.string().valid('age', 'distance', 'fame_rate', 'common_passions_count')
   });
   return schema.validate(body, options);
 };
