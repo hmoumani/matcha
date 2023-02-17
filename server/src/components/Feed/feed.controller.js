@@ -8,7 +8,7 @@ const FeedController = {
     try {
       users = await feedService.getUsersSuggestions(userId);
     } catch (err) {
-      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'failed to retrieve users');
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'failed to retrieve users' + err);
     }
     return ControllerResponse(HttpStatusCode.OK, users);
   }

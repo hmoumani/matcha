@@ -54,7 +54,7 @@ const AuthService = {
       maxFameRating: 10,
       commonTags: '[]',
       location: { lat: 33, lng: 100 },
-      sortBy: 'location'
+      sortBy: 'distance'
     });
 
     return registeredUserId;

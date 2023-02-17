@@ -7,21 +7,31 @@ class UserModel extends Model {
     super('users');
   }
 
+  async userDesiredGenderQuery(id) {
+    const query = `select sexual_orientation from ${this.tableName} where id = $1`;
+    const user = await executeQuery(query, [id]);
+    if (user.rows.length === 0) {
+      return '';
+    }
+    const { sexual_orientation } = user.rows[0];
+    return `${!sexual_orientation || sexual_orientation === 'both' ? '' : ` and gender = '${sexual_orientation}'`}`;
+  }
+
   async getSuggestedUsers(id) {
     const usetSettingsModel = new SettingsModel();
     const userSetting = await usetSettingsModel.findOne([['user_id', id]]);
     const location = JSON.parse(userSetting.location);
-    const query = `
+    let query = `
     WITH results AS (
       select users.username,
-        users.first_name,
-        users.last_name,
-        users.age,
-        users.fame_rate,
-        users.biography,
-        users.sexual_orientation,
+        first_name,
+        last_name,
+        age,
+        fame_rate,
+        biography,
+        sexual_orientation,
         users.id,
-        users.gender,
+        gender,
         CAST(users.location AS JSON),
         (
           6371 * acos(
@@ -37,10 +47,13 @@ class UserModel extends Model {
         LEFT JOIN tags ON tags.id = user_tags.tag_id \
         LEFT JOIN images ON images.user_id = users.id \
         where users.id != $1
+        ${await this.userDesiredGenderQuery(id)}
         and age >= $2
         and age <= $3
         and fame_rate >= $4
         and fame_rate <= $5
+        and (select count(*) from user_likes where liker_id = $1 and liked_id = users.id) = 0
+        and (select count(*) from blocked_users where (blocker_id = $1 and blocked_id = users.id) or (blocked_id = $1 and blocker_id = users.id)) = 0
         GROUP BY users.id 
         )
         SELECT *,
@@ -50,20 +63,25 @@ class UserModel extends Model {
           SELECT unnest(CAST($8 as character varying[]))) as foo
         ) as common_passions_count
       FROM results
-      order by common_passions_count desc
     `;
+    query += this.orderBy(userSetting.sort_by);
     const params = [id, userSetting.min_age, userSetting.max_age,
       userSetting.min_fame_rating, userSetting.max_fame_rating, location.lat,
       location.lng, JSON.parse(userSetting.common_tags)];
-
     return executeQuery(query, params);
   }
+
+  orderBy(orderOption) {
+    if (!orderOption) {
+      return ` ORDER BY 1 * ($3 - age) + 1 * (1 - (distance / 100000)) + 1 * fame_rate + 1 * (
+          SELECT count(*) from (
+          SELECT unnest(CAST(passions as character varying[])) intersect 
+          SELECT unnest(CAST($8 as character varying[]))) as foo
+        ) DESC`;
+    } else if (['common_passions_count', 'fame_rate'].includes(orderOption)) {
+      return ` ORDER BY ${orderOption} DESC`;
+    }
+    return ` ORDER BY ${orderOption} ASC`;
+  }
 }
-
 export default UserModel;
-
-
-// WITH array1 AS (SELECT CAST('{A,B,C}' AS character varying[]) AS arr),
-//      array2 AS (SELECT CAST('{B,C,D}' AS character varying[]) AS arr)
-// SELECT array1.arr as first, array2.arr as second FROM array1 JOIN array2
-// ON array1.arr && array2.arr
