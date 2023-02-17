@@ -22,7 +22,7 @@ import 'express-async-errors';
 // Middleware to catch all errors
 app.use(function (err, req, res, next) {
   // console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(HttpStatusCode.BAD_REQUEST).send('Something broke!');
 });
 
 app.use(
@@ -70,6 +70,7 @@ app.set('view engine', 'html');
 
 // load routes
 import setupRoutes from './loaders/routes';
+import HttpStatusCode from './enums/HttpStatusCode';
 
 setupRoutes(app);
 
