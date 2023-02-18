@@ -38,7 +38,7 @@ const AuthService = {
   },
   register: async (requestBody) => {
     let results = await query(
-      'insert into users (first_name, last_name, username, email, password) values ($1, $2, $3, $4, $5, $6) RETURNING id',
+      'insert into users (first_name, last_name, username, email, password,  fame_rate) values ($1, $2, $3, $4, $5, $6) RETURNING id',
       [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, requestBody.password, 5]
     );
     const registeredUserId = results.rows[0].id;

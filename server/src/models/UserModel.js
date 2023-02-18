@@ -41,7 +41,7 @@ class UserModel extends Model {
           )
         ) AS distance,
         array_agg(DISTINCT tags.value) AS passions,
-        array_agg(DISTINCT images.value) AS avatars
+        array_agg(DISTINCT concat('http://localhost:1574/public/avatars/', images.value)) AS avatars
         from ${this.tableName} 
         LEFT JOIN user_tags ON users.id = user_tags.user_id \
         LEFT JOIN tags ON tags.id = user_tags.tag_id \
@@ -63,7 +63,7 @@ class UserModel extends Model {
           SELECT unnest(CAST($8 as character varying[]))) as foo
         ) as common_passions_count
       FROM results
-    `;
+    `; // TODO : image url should be dynamic
     query += this.orderBy(userSetting.sort_by);
     const params = [id, userSetting.min_age, userSetting.max_age,
       userSetting.min_fame_rating, userSetting.max_fame_rating, location.lat,

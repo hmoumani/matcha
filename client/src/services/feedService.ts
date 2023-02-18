@@ -4,7 +4,7 @@ import EVENTS from '../../../common/enums/events';
 
 const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT } = EVENTS;
 
-const getNewProfiles = () => apiClient.get('user/feed/profiles');
+const getNewProfiles = () => apiClient.get('feed/profiles');
 const likeUser = likedUserId => {
 	const socket = app.config.globalProperties.$socket;
 	socket.emit(USER_LIKE_EVENT, likedUserId);

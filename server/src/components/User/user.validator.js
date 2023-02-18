@@ -28,7 +28,7 @@ const updateSettings = ({ body }) => {
 const updateUserInfo = ({ body }) => {
   const schema = Joi.object({
     passions: Joi.array().items(Joi.string()),
-    biography: Joi.string(),
+    biography: Joi.string().optional().allow(null).allow('').max(500),
     gender: Joi.string().valid('male', 'female').insensitive(),
     sexualOrientation: Joi.string().valid('male', 'female', 'both').insensitive(),
     isAutoLocatorEnabled: Joi.boolean(),

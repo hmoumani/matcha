@@ -22,8 +22,8 @@ async function getLocationFromIP() {
 		}
 		const data = await response.json();
 		location = {
-			latitude: data.lat,
-			longitude: data.lon,
+			lat: data.lat,
+			lng: data.lon,
 		};
 	} catch (error) {
 		console.log(error);

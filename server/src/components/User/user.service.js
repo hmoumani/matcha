@@ -34,7 +34,7 @@ const UserService = {
       [userId]
     );
     return avatars.map((avatar) => {
-      avatar.value = `http://localhost:5555/public/avatars/${avatar.value}`; // TODO
+      avatar.value = `http://localhost:1574/public/avatars/${avatar.value}`; // TODO
       return avatar;
     });
   },

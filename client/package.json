@@ -20,7 +20,7 @@
 	},
 	"homepage": "https://github.com/zynth17/vitailse#readme",
 	"scripts": {
-		"dev": "vite --port=8080",
+		"dev": "vite --port=8890",
 		"build": "vite-ssg build",
 		"serve": "vite preview",
 		"https-preview": "serve dist"
