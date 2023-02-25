@@ -52,7 +52,6 @@ const AuthService = {
       minFameRating: 5,
       maxFameRating: 10,
       commonTags: '[]',
-      location: { lat: 33, lng: 100 },
       sortBy: 'distance'
     });
 
