@@ -33,7 +33,7 @@ class UserModel extends Model {
         users.id,
         gender,
         CAST(users.location AS JSON),
-        ROUND(
+        (
           6371 * acos(
             cos(radians(CAST(CAST(location AS JSON)->>'lat' AS double precision))) * cos(radians($6)) *
             cos(radians(CAST(CAST(location AS JSON)->>'lng' AS double precision)) - radians($7)) +
