@@ -18,7 +18,8 @@ class UserModel extends Model {
     const usetSettingsModel = new SettingsModel();
     const userSetting = await usetSettingsModel.findOne([['user_id', id]]);
     const location = JSON.parse(userSetting.location);
-    const common_tags = JSON.parse(userSetting.common_tags ?? user.common_tags);
+    const tags = userSetting.common_tags ?? user.common_tags;
+    const common_tags = JSON.parse(tags ?? '[]');
     let query = `
     WITH results AS (
       select users.username,
