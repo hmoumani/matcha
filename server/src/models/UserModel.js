@@ -7,20 +7,18 @@ class UserModel extends Model {
     super('users');
   }
 
-  async userDesiredGenderQuery(id) {
-    const query = `select sexual_orientation from ${this.tableName} where id = $1`;
-    const user = await executeQuery(query, [id]);
-    if (user.rows.length === 0) {
-      return '';
-    }
-    const { sexual_orientation } = user.rows[0];
+  async userDesiredGenderQuery(sexual_orientation) {
     return `${!sexual_orientation || sexual_orientation === 'both' ? '' : ` and gender = '${sexual_orientation}'`}`;
   }
 
   async getSuggestedUsers(id) {
+    const userModel = new UserModel();
+    const user = await userModel.findOne(['id', '=', id]);
+    
     const usetSettingsModel = new SettingsModel();
     const userSetting = await usetSettingsModel.findOne([['user_id', id]]);
     const location = JSON.parse(userSetting.location);
+    const common_tags = JSON.parse(userSetting.common_tags ?? user.common_tags);
     let query = `
     WITH results AS (
       select users.username,
@@ -47,7 +45,7 @@ class UserModel extends Model {
         LEFT JOIN tags ON tags.id = user_tags.tag_id \
         LEFT JOIN images ON images.user_id = users.id \
         where users.id != $1
-        ${await this.userDesiredGenderQuery(id)}
+        ${await this.userDesiredGenderQuery(user.sexual_orientation)}
         and age >= $2
         and age <= $3
         and fame_rate >= $4
@@ -63,15 +61,15 @@ class UserModel extends Model {
           SELECT unnest(CAST($8 as character varying[]))) as foo
         ) as common_passions_count
       FROM results
-    `; // TODO : image url should be dynamic
-    query += this.orderBy(userSetting.sort_by);
+    `;
+    query += this.orderUsersBy(userSetting.sort_by);
     const params = [id, userSetting.min_age, userSetting.max_age,
       userSetting.min_fame_rating, userSetting.max_fame_rating, location.lat,
-      location.lng, JSON.parse(userSetting.common_tags)];
+      location.lng, common_tags];
     return executeQuery(query, params);
   }
 
-  orderBy(orderOption) {
+  orderUsersBy(orderOption) {
     if (!orderOption) {
       return ` ORDER BY 1 * ($3 - age) + 1 * (1 - (distance / 100000)) + 1 * fame_rate + 1 * (
           SELECT count(*) from (

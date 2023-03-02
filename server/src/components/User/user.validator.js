@@ -50,7 +50,6 @@ const reportUser = (req) => {
 const blockUser = (req) => {
   const { body, userId } = req;
   req.body.blockerId = userId;
-  console.log(req);
   const schema = Joi.object({
     blockerId: Joi.number(),
     blockedId: Joi.number().required().not(Joi.ref('blockerId'))

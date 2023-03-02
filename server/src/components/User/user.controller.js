@@ -45,8 +45,7 @@ const AuthController = {
   getSettings: async (req) => {
     const userId = req.userId;
     const settings = await userService.getSettings(userId);
-    console.log(settings.location.lat);
-    const parsedTags = JSON.parse(settings.common_tags);
+    const parsedTags = JSON.parse(settings.common_tags ?? '[]');
     const parsedLocation = JSON.parse(settings.location);
     const formattedSettings = toCamelCase({
       ...settings,

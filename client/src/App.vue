@@ -4,6 +4,11 @@
 	import { storeToRefs } from 'pinia';
 	import userService from './services/userService';
 	import {listenForEvents} from '@/notifications'
+	import { useFeedStore } from '@/store/feed';
+
+	const feedStore = useFeedStore();
+
+	const { showNextProfile } = feedStore;
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
@@ -22,7 +27,7 @@
 
 	watch(userStore, () => {
 		clearTimeout(debouncedUpdate);
-		debouncedUpdate = setTimeout(() => {
+		debouncedUpdate = setTimeout(async () => {
 			const {
 				passions,
 				biography,
@@ -41,9 +46,13 @@
 				isAutoLocatorEnabled,
 			};
 
-			userService.updateUser(newUser);
-		}, 1000);
+			await userService.updateUser(newUser);
+
+			showNextProfile();
+
+		}, 50);
 	});
+
 </script>
 <template>
 	<router-view class="font-poppins" />

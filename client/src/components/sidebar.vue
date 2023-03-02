@@ -43,8 +43,8 @@
 	let { logout } = useAuthStore();
 
 	const userAvatar = computed(() => {
-		let { value: filePath } = currentUser.value.avatars?.[0];
-		return filePath;
+		let value = currentUser.value.avatars?.[0];
+		return value?.filePath;
 	});
 </script>
 <template>

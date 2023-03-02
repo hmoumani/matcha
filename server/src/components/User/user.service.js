@@ -73,7 +73,6 @@ const UserService = {
       null: 'both'
     };
 
-    console.log(user.location);
     user = {
       ...user,
       gender: user.gender || 'male', // Todo REMOVE
@@ -128,6 +127,14 @@ const UserService = {
       await userTagModel.insert(userId, tagsIds);
     }
     userModel.update(requestBody, condition);
+    const settingsModel = new SettingsModel();
+    const settings = await settingsModel.findOne([['user_id', '=', userId]]);
+    if (!settings.location) {
+      const { location } = requestBody;
+      if (location) {
+        await settingsModel.update({ location: location }, ['user_id', '=', userId]);
+      }
+    }
   },
 
   uploadAvatar: async (imageObj) => {

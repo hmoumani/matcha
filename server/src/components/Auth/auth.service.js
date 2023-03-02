@@ -51,7 +51,6 @@ const AuthService = {
       maxAge: 30,
       minFameRating: 5,
       maxFameRating: 10,
-      commonTags: '[]',
       sortBy: 'distance'
     });
 
