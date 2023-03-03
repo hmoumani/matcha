@@ -31,7 +31,6 @@ for i in range(742):
         continue
     emails.append(email)
     user = {
-        "id": i + 1,
         "first_name": fake.first_name(),
         "last_name": fake.last_name(),
         "age": fake.random_int(min=18, max=40),

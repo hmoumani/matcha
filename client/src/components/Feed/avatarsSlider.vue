@@ -2,7 +2,7 @@
 	<carousel :items-to-show="1" v-model="currentSlide" class="relative">
 		<slide v-for="avatarUrl in avatars" :key="avatar">
 			<img
-				:src="avatarUrl.value"
+				:src="avatarUrl"
 				class="min-w-full h-[34rem] rounded-t-[2rem] object-cover"
 			/>
 		</slide>

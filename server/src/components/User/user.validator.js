@@ -20,7 +20,7 @@ const updateSettings = ({ body }) => {
     maxFameRating: Joi.number().min(1).max(10),
     location: locationRule,
     commonTags: Joi.array().items(Joi.string()),
-    sortBy: Joi.string().valid('age', 'location', 'fameRating', 'tags')
+    sortBy: Joi.string().valid('age', 'distance', 'fame_rate', 'common_passions_count')
   });
   return schema.validate(body, options);
 };
@@ -28,7 +28,7 @@ const updateSettings = ({ body }) => {
 const updateUserInfo = ({ body }) => {
   const schema = Joi.object({
     passions: Joi.array().items(Joi.string()),
-    biography: Joi.string(),
+    biography: Joi.string().optional().allow(null).allow('').max(500),
     gender: Joi.string().valid('male', 'female').insensitive(),
     sexualOrientation: Joi.string().valid('male', 'female', 'both').insensitive(),
     isAutoLocatorEnabled: Joi.boolean(),
@@ -50,7 +50,6 @@ const reportUser = (req) => {
 const blockUser = (req) => {
   const { body, userId } = req;
   req.body.blockerId = userId;
-  console.log(req);
   const schema = Joi.object({
     blockerId: Joi.number(),
     blockedId: Joi.number().required().not(Joi.ref('blockerId'))

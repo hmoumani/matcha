@@ -14,7 +14,7 @@
 <template>
 	<div class="h-screen">
 		<section class="absolute w-full h-full bg-gray-50">
-			<div class="absolute top-0 w-full h-full bg-gray-50 bg">
+			<div class="absolute top-0 w-full h-full bg-gray-50 bg bg-cover">
 				<div class="absolute inset-0 bg-gray-700 opacity-75"></div>
 			</div>
 			<div class="container mx-auto px-4 h-full">

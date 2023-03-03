@@ -63,7 +63,7 @@ class Model {
 
   orderBy(orderOption) {
     if (!orderOption) return '';
-    return `ORDER BY ${orderOption}`;
+    return ` ORDER BY ${orderOption}`;
   }
 
   async find(arg, limit, orderCol) {

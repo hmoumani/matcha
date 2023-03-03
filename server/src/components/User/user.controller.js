@@ -45,8 +45,7 @@ const AuthController = {
   getSettings: async (req) => {
     const userId = req.userId;
     const settings = await userService.getSettings(userId);
-    console.log(settings.location.lat);
-    const parsedTags = JSON.parse(settings.common_tags);
+    const parsedTags = JSON.parse(settings.common_tags ?? '[]');
     const parsedLocation = JSON.parse(settings.location);
     const formattedSettings = toCamelCase({
       ...settings,
@@ -95,16 +94,6 @@ const AuthController = {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
     }
     return ControllerResponse(HttpStatusCode.OK, 'User reported successfully');
-  },
-
-  getUsers: async ({ userId }) => {
-    let users;
-    try {
-      users = await UserService.getUsersSuggestions(userId);
-    } catch (err) {
-      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
-    }
-    return ControllerResponse(HttpStatusCode.OK, users);
   }
 };
 

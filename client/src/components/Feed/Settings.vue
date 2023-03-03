@@ -41,15 +41,15 @@
 		},
 		{
 			label: 'Fame Rating',
-			value: 'fameRating',
+			value: 'fame_rate',
 		},
 		{
 			label: 'Location',
-			value: 'location',
+			value: 'distance',
 		},
 		{
 			label: 'Tags',
-			value: 'tags',
+			value: 'common_passions_count',
 		},
 	];
 

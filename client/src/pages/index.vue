@@ -11,7 +11,12 @@
 
 	const { showNextProfile } = feedStore;
 
-	showNextProfile();
+	onMounted(async () => {
+		if (currentUser.value?.location) {
+			showNextProfile();
+		}
+		console.log('foo', currentUser.value);
+	});
 </script>
 
 <template>
