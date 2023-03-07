@@ -1,7 +1,7 @@
 import UserModel from '../../models/UserModel';
 import UserService from '../User/user.service';
 import UserLikesModel from '../../models/UserLikesModel';
-
+import NotificationModel from '../../models/NotificationModel';
 const feedService = {
   async updateFameRate(userId, incrementValue) {
     const user = await UserService.find(userId);
@@ -43,6 +43,14 @@ const feedService = {
     const userModel = new UserModel();
     const users = await userModel.getSuggestedUsers(userId);
     return users.rows;
+  },
+  getUsersNotifications(userId) {
+    const notificationModel = new NotificationModel();
+    return notificationModel.find(['receiver_id', '=', userId], null, 'notifications.created_at');
+  },
+  markAsSeen(userId) {
+    const notificationModel = new NotificationModel();
+    return notificationModel.update({ seen: true }, ['receiver_id', '=', userId]);
   }
 };
 
