@@ -8,7 +8,7 @@ const feedService = {
     const userModel = new UserModel();
     let { fame_rate } = user;
 
-    if (fame_rate <= 1 || fame_rate >= 10) {
+    if (fame_rate + incrementValue <= 1 || fame_rate + incrementValue >= 10) {
       return;
     }
 
@@ -37,7 +37,7 @@ const feedService = {
   },
   async disLike(dislikerId, dislikedId) {
     // TODO: decrease fame rate
-    this.updateFameRate(dislikerId, -0.2);
+    this.updateFameRate(dislikedId, -0.2);
   },
   async getUsersSuggestions(userId) {
     const userModel = new UserModel();
