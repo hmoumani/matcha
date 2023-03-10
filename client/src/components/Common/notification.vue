@@ -8,7 +8,8 @@
           class="flex items-center justify-center rounded-lg px-1 py-1 text-center text-white dark:text-gray-200">
           <div
             v-if="notificationList.some(elem => elem.seen === false)"
-            class="absolute top-1/4 right-1/3  bottom-auto z-10 inline-block translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 rounded-full bg-red-500 p-1.5 text-xs">
+            class="absolute flex justify-center items-center top-1/4 right-1/3  bottom-auto z-10 translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 rounded-full bg-red-500 w-4 h-4 text-[9px]">
+            <p class="">{{notificationList.filter(elem => elem.seen === false).length}}</p>
           </div>
             <img src="https://cdn-icons-png.flaticon.com/512/3239/3239952.png" class="h-7 w-6" />
 
