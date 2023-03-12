@@ -26,6 +26,7 @@ declare module '@vue/runtime-core' {
     Map: typeof import('./src/components/Feed/Map.vue')['default']
     Message: typeof import('./src/components/Chat/Conversation/Message.vue')['default']
     MessagesList: typeof import('./src/components/Chat/Conversation/MessagesList.vue')['default']
+    Notification: typeof import('./src/components/Common/notification.vue')['default']
     PassionTags: typeof import('./src/components/Profile/passionTags.vue')['default']
     Profile2Card: typeof import('./src/components/Chat/UserProfile/Profile2Card.vue')['default']
     ProfileCard: typeof import('./src/components/Feed/ProfileCard.vue')['default']

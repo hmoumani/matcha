@@ -55,7 +55,7 @@ for i in range(742):
         'max_fame_rating': fake.random_int(min=5, max=10),
         'location': f'{{"lat": {random_cor[i]["lng"]}, "lng": {random_cor[i]["lat"]}}}',
         'common_tags':"[]",
-        'sort_by':'location'
+        'sort_by':'distance'
     })
     tags_backup = []
     for j in range(fake.random_int(min=2, max=5)):

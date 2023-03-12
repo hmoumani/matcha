@@ -109,10 +109,10 @@ class Message(Base):
 class Notification(Base):
 	__tablename__ = "notifications"
 	id = Column(Integer, primary_key=True)
-	seen = Column(Integer, nullable=False)
+	seen = Column(Boolean)
 	sender_id = Column(Integer, ForeignKey("users.id"))
 	receiver_id = Column(Integer, ForeignKey("users.id"))
-	type = Column(Integer, nullable=False)
+	type = Column(String, nullable=False)
 	content = Column(String, nullable=False)
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 

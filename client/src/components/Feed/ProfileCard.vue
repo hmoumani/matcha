@@ -49,7 +49,7 @@
 				</div>
 				<div class="flex">
 					<div
-						v-for="passion of user.passions"
+						v-for="passion of user.passions" v-if="passion"
 						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
 							'bg-[#D5F9F7] text-[#4EB3AC] ': passion.isCommon,

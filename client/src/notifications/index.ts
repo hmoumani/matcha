@@ -1,28 +1,57 @@
 import app from '@/main';
 import EVENTS from '../../../common/enums/events';
+import { useNotificationStore } from '@/store/notification'
+import { storeToRefs } from 'pinia';
+import apiClient from '../modules/apiClient';
+
+const getNotifications = async () => {
+	const { data : { message: data } } = await apiClient.get('/feed/notifications');
+	return data;
+};
 
 const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT, USER_MATCH_EVENT } = EVENTS;
 
+const pushToNotificationsList = data => {
+	const {notificationList} = storeToRefs(useNotificationStore());
+	notificationList.value.unshift({
+		name: data.title,
+		description: data.msg,
+		href: '##',
+		icon: data.avatar,
+		seen: data.seen
+	});
+};
+
 const handleUserLikeEvent = data => {
-	console.log({ data });
+	pushToNotificationsList({...data, seen: false});
 };
 
 const handleUserDisLikeEvent = data => {
-	console.log({ data });
+	pushToNotificationsList({...data, seen: false});
 };
 
 const handleUserMatchesEvent = data => {
-	console.log({ data });
+	pushToNotificationsList({...data, seen: false});
 };
 
-export const listenForEvents = () => {
+export const listenForEvents = async () => {
 	const socket = app.config.globalProperties.$socket;
-
 	if (!socket) {
 		return;
 	}
 
-	socket.on(USER_DIS_LIKE_EVENT, handleUserLikeEvent);
-	socket.on(USER_LIKE_EVENT, handleUserDisLikeEvent);
+
+	const notifications = await getNotifications();
+	notifications.forEach(element => pushToNotificationsList(
+		{
+			title: element.type,
+			msg: element.content,
+			avatar: element.avatar,
+			seen: element.seen
+		}
+	));
+
+	socket.on(USER_LIKE_EVENT, handleUserLikeEvent);
+	socket.on(USER_DIS_LIKE_EVENT, handleUserDisLikeEvent);
 	socket.on(USER_MATCH_EVENT, handleUserMatchesEvent);
 };
