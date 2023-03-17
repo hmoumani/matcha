@@ -13,8 +13,8 @@ const onSendMessageCallback = async (socket, message) => {
     if (!(await feedService.isLikedBy(message.receiver_id, currentUserId))
       || !(await feedService.isLikedBy(currentUserId, message.receiver_id))
       || !message.message
-      || !(await UserService.isBlockedBy(message.receiver_id, currentUserId))
-      || !(await UserService.isBlockedBy(currentUserId, message.receiver_id))) {
+      || (await UserService.isBlockedBy(message.receiver_id, currentUserId))
+      || (await UserService.isBlockedBy(currentUserId, message.receiver_id))) {
       return;
     }
     const messagModel = new MessageModel();
@@ -24,6 +24,7 @@ const onSendMessageCallback = async (socket, message) => {
         created_at: new Date(),
     });
     emitToUser(message.receiver_id, RECEIVE_MESSAGE_EVENT, message);
+    emitToUser(currentUserId, RECEIVE_MESSAGE_EVENT, message);
     console.log('message sent', message);
   }
   catch (err) {

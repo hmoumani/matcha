@@ -64,8 +64,6 @@ export const useChatStore = defineStore('chat', {
 			};
 
 			socket.emit('sendMessage', newMessage);
-
-			messages.push(newMessage);
 			this.msg = '';
 		},
 		listenForChats() {
@@ -76,8 +74,9 @@ export const useChatStore = defineStore('chat', {
 
 			socket.on('receiveMessage', data => {
 				const { user } = this.currentConversation;
-				if (data.sender_id === user.id) {
+				if (data.sender_id === user.id || data.receiver_id === user.id) {
 					this.currentConversation.messages.push(data);
+					console.log('hola', data);
 				}
 			});
 		},
