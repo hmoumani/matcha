@@ -3,6 +3,7 @@ const API_PREFIX = '/api/v1';
 import { AuthRoutes } from '../components/Auth/auth.module';
 import { UserRoutes } from '../components/User/user.module';
 import { FeedRoutes } from '../components/Feed/feed.module';
+import { ChatRoutes } from '../components/Chat/chat.module';
 
 const routes = [
   {
@@ -16,6 +17,10 @@ const routes = [
   {
     path: '/feed',
     route: FeedRoutes
+  },
+  {
+    path: '/chat',
+    route: ChatRoutes
   }
 ];
 

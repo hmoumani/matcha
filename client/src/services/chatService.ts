@@ -1,5 +1,11 @@
 import apiClient from '@/modules/apiClient';
 
+const fetchConversations = async () => {
+	const results = await apiClient.get('chat/getUserChats');
+	console.log('results', results.data.message);
+	return results.data.message;
+};
+
 const passions = [
 	{ name: 'video games', isCommon: false },
 	{ name: 'football', isCommon: true },
@@ -95,15 +101,21 @@ let messages = generateMessages();
 messages = messages.concat(generateMessages());
 messages = messages.concat(generateMessages());
 // const fetchConversations = () => apiClient.get('/conversation');
-const fetchConversations = () => conversations;
+// const fetchConversations = () => conversations;
 const copy = messages => {
 	return [...messages];
 };
 
-const fetchConversationMessages = userID => {
-	const conversationMessages = { messages: copy(messages), id: userID };
+const fetchConversationMessages = async userID => {
+	const response = await apiClient.get(`chat/getChatMessages/${userID}`);
+	const { message } = response.data;
+	console.log('message', message);
+	console.log('userID', userID);
+	const conversationMessages = { messages: copy(message), id: userID };
 	return conversationMessages;
 };
+
+// const fetchConversationMessages = userID => apiClient.get(`chat/getChatMessages/${userID}`);
 
 export default {
 	fetchConversations,

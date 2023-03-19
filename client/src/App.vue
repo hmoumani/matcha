@@ -3,8 +3,9 @@
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
 	import userService from './services/userService';
-	import {listenForEvents} from '@/notifications'
+	import { listenForEvents } from '@/notifications'
 	import { useFeedStore } from '@/store/feed';
+	import { useChatStore } from '@/store/chat'
 
 	const feedStore = useFeedStore();
 
@@ -14,7 +15,13 @@
 	let { currentUser } = storeToRefs(userStore);
 
 	onMounted(async () => {
+		
+		const messagesStore = useChatStore();
+		const { listenForChats } = messagesStore;
+		const { msg } = storeToRefs(messagesStore);
+
 		listenForEvents();
+		listenForChats();
 		let currentUserRef = currentUser?.value;
 		if (!currentUserRef?.isAutoLocatorEnabled) {
 			return;

@@ -44,7 +44,7 @@
 						}}
 					</h1>
 					<p class="text-black-color font-bold w-[80%] truncate">
-						{{ conversation.lastMessage.content || '' }}
+						{{ conversation.lastmessage.content || '' }}
 					</p>
 				</div>
 			</div>

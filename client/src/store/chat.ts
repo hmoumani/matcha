@@ -2,6 +2,7 @@ import chatService from '@/services/chatService';
 import { defineStore } from 'pinia';
 import { useUserStore } from '@/store/user';
 import { now } from '@vueuse/core';
+import app from '@/main';
 
 const getConversationUserID = conversation => conversation.user.id;
 
@@ -40,6 +41,10 @@ export const useChatStore = defineStore('chat', {
 			};
 		},
 		sendMessage() {
+			const socket = app.config.globalProperties.$socket;
+			if (!socket || !this.msg) {
+				return;
+			}
 			const { currentUser } = useUserStore();
 			if (!this.currentConversation || !currentUser) {
 				return;
@@ -58,8 +63,22 @@ export const useChatStore = defineStore('chat', {
 				created_at: now(),
 			};
 
-			messages.push(newMessage);
+			socket.emit('sendMessage', newMessage);
 			this.msg = '';
+		},
+		listenForChats() {
+			const socket = app.config.globalProperties.$socket;
+			if (!socket) {
+				return;
+			}
+
+			socket.on('receiveMessage', data => {
+				const { user } = this.currentConversation;
+				if (data.sender_id === user.id || data.receiver_id === user.id) {
+					this.currentConversation.messages.push(data);
+					console.log('hola', data);
+				}
+			});
 		},
 	},
 });

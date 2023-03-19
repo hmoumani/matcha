@@ -82,5 +82,69 @@ class UserModel extends Model {
     }
     return ` ORDER BY ${orderOption} ASC`;
   }
+
+  async getUserChats(userId) {
+    const current_user = await this.findOne(['id', '=', userId]);
+    const location = JSON.parse(current_user.location);
+    let cte_query = `(SELECT i.user_id, i.value, i.created_at
+      FROM images i
+      JOIN (
+          SELECT user_id, MIN(created_at) AS oldest_image_date
+          FROM images
+          GROUP BY user_id
+        ) oldest_dates
+        ON i.user_id = oldest_dates.user_id AND i.created_at = oldest_dates.oldest_image_date AND i.id = (
+          SELECT MIN(id) FROM images
+          WHERE user_id = oldest_dates.user_id AND created_at = oldest_dates.oldest_image_date
+        )
+      order by i.user_id DESC) as old_image_per_user`;
+    return executeQuery(`SELECT 
+        json_build_object(
+          'firstName', u.first_name,
+          'lastName', u.last_name,
+          'age', u.age,
+          'id', u.id,
+          'distance', (
+              6371 * acos(
+                  cos(radians(CAST(CAST(location AS JSON)->>'lat' AS double precision))) * cos(radians($2)) *
+                  cos(radians(CAST(CAST(location AS JSON)->>'lng' AS double precision)) - radians($3)) +
+                  sin(radians(CAST(CAST(location AS JSON)->>'lat' AS double precision))) * sin(radians($2))
+              )
+          ),
+          'biography', u.biography,
+          'avatar', concat('http://localhost:1574/public/avatars/', old_image_per_user.value),
+          'passions', array_agg(DISTINCT tags.value)
+      ) AS user,
+      json_build_object(
+          'message', c.message,
+          'created_at', c.created_at
+      ) AS lastMessage
+      FROM users u
+      LEFT JOIN user_tags ON u.id = user_tags.user_id \
+      LEFT JOIN tags ON tags.id = user_tags.tag_id
+      INNER JOIN user_likes l1 ON l1.liked_id = u.id AND l1.liker_id = $1
+      INNER JOIN user_likes l2 ON l2.liker_id = u.id AND l2.liked_id = $1
+      LEFT JOIN LATERAL (
+        SELECT id as chat_id, sender_id, receiver_id, created_at, message
+        FROM messages
+        WHERE (sender_id = $1 AND receiver_id = u.id) OR (sender_id = u.id AND receiver_id = $1)
+        ORDER BY created_at DESC
+        LIMIT 1
+      ) c ON (c.sender_id = $1 AND c.receiver_id = u.id) OR (c.sender_id = u.id AND c.receiver_id = $1)
+      LEFT JOIN ${cte_query} ON old_image_per_user.user_id = u.id
+      where (select count(1) from blocked_users where (blocker_id = $1 and blocked_id = u.id) or (blocked_id = $1 and blocker_id = u.id)) = 0
+      GROUP BY u.id, c.chat_id, c.created_at, c.message, old_image_per_user.value
+      order by c.created_at ASC
+      `, [userId, location.lat, location.lng]);    
+  }
+  async getChatMessages(currentUserId, chatUserId) {
+    const query = `
+      select sender_id, receiver_id, message, created_at
+      from messages
+      where (sender_id = $1 AND receiver_id = $2) OR (sender_id = $2 AND receiver_id = $1)
+      order by created_at ASC
+    `
+    return executeQuery(query, [currentUserId, chatUserId]);
+  }
 }
 export default UserModel;
