@@ -9,7 +9,7 @@ const getNotifications = async () => {
 	return data;
 };
 
-const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT, USER_MATCH_EVENT, USER_MESSAGE_NOTIFICATION_EVENT } = EVENTS;
+const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT, USER_MATCH_EVENT, USER_MESSAGE_NOTIFICATION_EVENT, USER_VISIT_EVENT } = EVENTS;
 
 const pushToNotificationsList = data => {
 	const {notificationList} = storeToRefs(useNotificationStore());
@@ -38,6 +38,11 @@ const handleMessageNotificationEvent = data => {
 	pushToNotificationsList({...data, seen: false});
 };
 
+const handleUserVisitsnEvent = data => {
+	console.log("gegwegeg");
+	pushToNotificationsList({...data, seen: false});
+};
+
 export const listenForEvents = async () => {
 	const socket = app.config.globalProperties.$socket;
 	if (!socket) {
@@ -59,4 +64,5 @@ export const listenForEvents = async () => {
 	socket.on(USER_DIS_LIKE_EVENT, handleUserDisLikeEvent);
 	socket.on(USER_MATCH_EVENT, handleUserMatchesEvent);
 	socket.on(USER_MESSAGE_NOTIFICATION_EVENT, handleMessageNotificationEvent);
+	socket.on(USER_VISIT_EVENT, handleUserVisitsnEvent);
 };

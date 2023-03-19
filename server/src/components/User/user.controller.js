@@ -3,6 +3,10 @@ import ControllerResponse from '../../utils/ControllerResponse';
 import userService from './user.service';
 import UserService from './user.service';
 import { toCamelCase } from '../../utils/transformers';
+import { emitToUser } from '../User/user.gateway';
+import NotificationModel from '../../models/NotificationModel';
+
+const USER_VISIT_EVENT = 'userVisit';
 
 const AuthController = {
   /**
@@ -16,6 +20,23 @@ const AuthController = {
     try {
       if (req.params.id === 'mine') req.params.id = req.userId;
       const user = await userService.find(req.params.id);
+      if (req.params.id !== req.userId) 
+      {
+        const notificationModel = new NotificationModel();
+        const currentUser = await userService.find(req.params.id);
+        emitToUser(parseInt(req.params.id), USER_VISIT_EVENT, {
+          msg:`${currentUser.first_name} ${currentUser.last_name} just visited your profile.`,
+          avatar: currentUser.avatars?.[0]?.value,
+          title: 'user visit'
+        });
+        notificationModel.insert({
+          seen: false,
+          sender_id: req.userId,
+          receiver_id: parseInt(req.params.id),
+          type: 'user visit',
+          content: `${currentUser.first_name} ${currentUser.last_name} just visited your profile.`
+        });
+      }
       return ControllerResponse(HttpStatusCode.OK, toCamelCase(user));
     } catch (err) {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'Error while retrieving user');
