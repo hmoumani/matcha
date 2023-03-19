@@ -1,5 +1,5 @@
 import { getUserIdFromToken } from '../Auth/auth.middleware';
-import { checkAvatarLimit } from '../User/user.middleware';
+import { checkAvatarLimit, checkIsBlockedRelation } from '../User/user.middleware';
 import imageUpload from '../../utils/image.upload';
 
 /**
@@ -25,6 +25,6 @@ export default ({ router, UserController, responseCallback, UserValidator, makeV
   router.put('/', getUserIdFromToken, makeValidatorCallback(UserValidator.updateUserInfo), responseCallback(UserController.updateUserInfo));
   router.post('/block', getUserIdFromToken, makeValidatorCallback(UserValidator.blockUser), responseCallback(UserController.blockUser));
   router.post('/report', getUserIdFromToken, makeValidatorCallback(UserValidator.reportUser), responseCallback(UserController.reportUser));
-  router.get('/:id', getUserIdFromToken, responseCallback(UserController.find));
+  router.get('/:id', [getUserIdFromToken, checkIsBlockedRelation], responseCallback(UserController.find));
   return router;
 };
