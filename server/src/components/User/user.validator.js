@@ -64,10 +64,18 @@ const blockUser = (req) => {
   return schema.validate(body, options);
 };
 
+const searchUserValidator = (req) => {
+  const schema = Joi.object({
+    keyword: Joi.string().not('')
+  });
+  return schema.validate(req.params, options);
+};
+
 export default {
   getUserValidator,
   updateSettings,
   updateUserInfo,
   reportUser,
-  blockUser
+  blockUser,
+  searchUserValidator
 };

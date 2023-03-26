@@ -170,6 +170,12 @@ const UserService = {
       ['blockedId', secondUserId]
     ]);
     return blockRow !== null && blockRow !== undefined;
+  },
+
+  async searchUser(keyword, userId) {
+    const userModel = new UserModel();
+    const users = await userModel.searchUsers(keyword, userId);
+    return users.rows;
   }
 };
 

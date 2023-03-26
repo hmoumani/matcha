@@ -115,6 +115,18 @@ const AuthController = {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'reporting user failed');
     }
     return ControllerResponse(HttpStatusCode.OK, 'User reported successfully');
+  },
+  searchUser: async (req) => {
+    const { keyword } = req.params;
+    const { userId } = req;
+    let restuls;
+    try {
+      if (keyword.length < 3) return ControllerResponse(HttpStatusCode.OK, []);
+      restuls = await userService.searchUser(keyword, userId);
+    } catch (err) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'searching a user failed' + err);
+    }
+    return ControllerResponse(HttpStatusCode.OK,  restuls);
   }
 };
 

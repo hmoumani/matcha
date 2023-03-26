@@ -25,6 +25,7 @@ export default ({ router, UserController, responseCallback, UserValidator, makeV
   router.put('/', getUserIdFromToken, makeValidatorCallback(UserValidator.updateUserInfo), responseCallback(UserController.updateUserInfo));
   router.post('/block', getUserIdFromToken, makeValidatorCallback(UserValidator.blockUser), responseCallback(UserController.blockUser));
   router.post('/report', getUserIdFromToken, makeValidatorCallback(UserValidator.reportUser), responseCallback(UserController.reportUser));
-  router.get('/:id', makeValidatorCallback(UserValidator.getUserValidator), [getUserIdFromToken, checkIsBlockedRelation], responseCallback(UserController.find));
+  router.get('/search/user/:keyword', makeValidatorCallback(UserValidator.searchUserValidator), [getUserIdFromToken], responseCallback(UserController.searchUser));
+  router.get('/:id', makeValidatorCallback(UserValidator.getUserValidator), [getUserIdFromToken, checkIsBlockedRelation], responseCallback(UserController.searchUser));
   return router;
 };
