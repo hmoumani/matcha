@@ -2,7 +2,6 @@ import apiClient from '@/modules/apiClient';
 
 const fetchConversations = async () => {
 	const results = await apiClient.get('chat/getUserChats');
-	console.log('results', results.data.message);
 	return results.data.message;
 };
 
@@ -109,8 +108,6 @@ const copy = messages => {
 const fetchConversationMessages = async userID => {
 	const response = await apiClient.get(`chat/getChatMessages/${userID}`);
 	const { message } = response.data;
-	console.log('message', message);
-	console.log('userID', userID);
 	const conversationMessages = { messages: copy(message), id: userID };
 	return conversationMessages;
 };

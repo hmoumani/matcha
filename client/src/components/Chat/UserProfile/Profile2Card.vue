@@ -55,12 +55,12 @@
 						v-for="passion of user.passions"
 						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
-							'bg-[#D5F9F7] text-[#4EB3AC]': passion.isCommon,
+							'bg-[#D5F9F7] text-[#4EB3AC]': passion?.isCommon,
 							'bg-[#F8F7FF] text-black border-[#F3F3F3] border-2':
-								!passion.isCommon,
+								!passion?.isCommon,
 						}"
 					>
-						# {{ passion.name }}
+						# {{ passion }}
 					</div>
 				</div>
 			</div>
