@@ -28,8 +28,13 @@ const onSendMessageCallback = async (socket, message) => {
     emitToUser(message.receiver_id, RECEIVE_MESSAGE_EVENT, message);
     emitToUser(currentUserId, RECEIVE_MESSAGE_EVENT, message);
     const receiverUser = await UserService.find(message.receiver_id);
-    emitToUser(message.receiver_id, USER_MESSAGE_NOTIFICATION_EVENT, { avatar: receiverUser.avatars?.[0]?.value , 
-      msg: `You have received a message from ${receiverUser.first_name} ${receiverUser.last_name}`, title: 'new message' });
+    const currentUser = await UserService.find(currentUserId);
+    emitToUser(message.receiver_id, USER_MESSAGE_NOTIFICATION_EVENT, {
+      avatar: currentUser.avatars?.[0]?.value , 
+      msg: `You have received a message from ${receiverUser.first_name} ${receiverUser.last_name}`,
+      title: 'new message',
+      userId: currentUserId
+    });
     const notificationModel = new NotificationModel();
     notificationModel.insert({
       seen: false,

@@ -28,7 +28,7 @@ class NotificationModel extends Model {
           WHERE user_id = oldest_dates.user_id AND created_at = oldest_dates.oldest_image_date
         )
       order by i.user_id DESC) as old_image_per_user`;
-      let query = `select notifications.id, type, content, seen,
+      let query = `select notifications.sender_id as "userId", notifications.id, type, content, seen,
       concat('http://localhost:1574/public/avatars/', old_image_per_user.value) as avatar,
       notifications.created_at
       from ${this.tableName} 
