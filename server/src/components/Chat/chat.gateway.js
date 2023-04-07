@@ -43,7 +43,6 @@ const onSendMessageCallback = async (socket, message) => {
       type: 'new message',
       content: `You have received a message from ${receiverUser.first_name} ${receiverUser.last_name}`
     });
-    console.log('message sent', message);
   }
   catch (err) {
     console.log('message not sent');

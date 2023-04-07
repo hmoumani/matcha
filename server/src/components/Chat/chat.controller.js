@@ -11,7 +11,11 @@ const ChatController = {
         }
     },
     getChatMessages: async (req, res) => {
-        return ControllerResponse(HttpStatusCode.OK, await chatService.getChatMessages(req.userId, req.params.userId));
+        try{
+            return ControllerResponse(HttpStatusCode.OK, await chatService.getChatMessages(req.userId, req.params.userId));
+        } catch (err) {
+            return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'failed to retrieve chat messages' + err);
+        }
     }
 };
 

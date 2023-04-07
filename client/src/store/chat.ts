@@ -76,7 +76,6 @@ export const useChatStore = defineStore('chat', {
 				const { user } = this.currentConversation;
 				if (data.sender_id === user.id || data.receiver_id === user.id) {
 					this.currentConversation.messages.push(data);
-					console.log('hola', data);
 				}
 			});
 		},
