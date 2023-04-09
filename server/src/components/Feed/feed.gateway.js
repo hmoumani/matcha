@@ -22,7 +22,12 @@ const onUserLikeCallback = async (socket, likedUserId) => {
 
   // if the likerUser isn't already liked by the use he wanna like
   if (!(await feedService.isLikedBy(likedUserId, currentUserId))) {
-    emitToUser(likedUserId, USER_LIKE_EVENT, { avatar: currentUser.avatars?.[0]?.value , msg: userLikeMessage(currentUser), title: 'New Like' });
+    emitToUser(likedUserId, USER_LIKE_EVENT,
+      { avatar: currentUser.avatars?.[0]?.value,
+        msg: userLikeMessage(currentUser),
+        title: 'New Like',
+        userId: currentUserId
+      });
     notificationModel.insert({
       seen: false,
       sender_id: currentUserId,
@@ -36,11 +41,23 @@ const onUserLikeCallback = async (socket, likedUserId) => {
   // otherwise
   // acknowledge both of them that they are matched
   // acknowledge the liked user
-  emitToUser(likedUserId, USER_MATCH_EVENT, { avatar: currentUser.avatars?.[0]?.value , msg: matchedMessage(currentUser), title: 'Matched' });
+  emitToUser(likedUserId, USER_MATCH_EVENT, 
+    {
+      avatar: currentUser.avatars?.[0]?.value,
+      msg: matchedMessage(currentUser),
+      title: 'Matched',
+      userId: currentUserId
+  });
   
   // acknowledge the current user
   const likedUser = await UserService.find(likedUserId);
-  emitToUser(currentUserId, USER_MATCH_EVENT, { avatar: likedUser.avatars?.[0]?.value , msg: matchedMessage(likedUser), title: 'Matched' });
+  emitToUser(currentUserId, USER_MATCH_EVENT, 
+    {
+      avatar: likedUser.avatars?.[0]?.value,
+      msg: matchedMessage(likedUser),
+      title: 'Matched',
+      userId: likedUserId
+    });
   notificationModel.insert({
     seen: false,
     sender_id: currentUserId,
@@ -65,7 +82,9 @@ const onUserDisLikeCallback = async (socket, disLikedUserId) => {
   const msg = `${disLiker?.first_name} ${disLiker?.last_name} disLiked your profile`;
   emitToUser(disLikedUserId, USER_DIS_LIKE_EVENT, { avatar: disLiker.avatars?.[0]?.value,
     msg: msg,
-    title: 'dislike'
+    title: 'dislike',
+    userId: disLiker.id,
+    userId: socket.userId
   });
 
   notificationModel.insert({

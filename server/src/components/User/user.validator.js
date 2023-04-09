@@ -12,6 +12,13 @@ const options = {
   }
 };
 
+const getUserValidator = (req) => {
+  const schema = Joi.object({
+    id: Joi.number().allow('mine'),
+  });
+  return schema.validate(req.params, options);
+};
+
 const updateSettings = ({ body }) => {
   const schema = Joi.object({
     minAge: Joi.number().min(18).max(100),
@@ -57,9 +64,18 @@ const blockUser = (req) => {
   return schema.validate(body, options);
 };
 
+const searchUserValidator = (req) => {
+  const schema = Joi.object({
+    keyword: Joi.string().not('')
+  });
+  return schema.validate(req.params, options);
+};
+
 export default {
+  getUserValidator,
   updateSettings,
   updateUserInfo,
   reportUser,
-  blockUser
+  blockUser,
+  searchUserValidator
 };

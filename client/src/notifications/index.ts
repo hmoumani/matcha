@@ -9,14 +9,14 @@ const getNotifications = async () => {
 	return data;
 };
 
-const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT, USER_MATCH_EVENT, USER_MESSAGE_NOTIFICATION_EVENT } = EVENTS;
+const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT, USER_MATCH_EVENT, USER_MESSAGE_NOTIFICATION_EVENT, USER_VISIT_EVENT } = EVENTS;
 
 const pushToNotificationsList = data => {
 	const {notificationList} = storeToRefs(useNotificationStore());
 	notificationList.value.unshift({
 		name: data.title,
 		description: data.msg,
-		href: '##',
+		userId: data.userId,
 		icon: data.avatar,
 		seen: data.seen
 	});
@@ -38,6 +38,10 @@ const handleMessageNotificationEvent = data => {
 	pushToNotificationsList({...data, seen: false});
 };
 
+const handleUserVisitsEvent = data => {
+	pushToNotificationsList({...data, seen: false});
+};
+
 export const listenForEvents = async () => {
 	const socket = app.config.globalProperties.$socket;
 	if (!socket) {
@@ -51,7 +55,8 @@ export const listenForEvents = async () => {
 			title: element.type,
 			msg: element.content,
 			avatar: element.avatar,
-			seen: element.seen
+			seen: element.seen,
+			userId: element.userId
 		}
 	));
 
@@ -59,4 +64,5 @@ export const listenForEvents = async () => {
 	socket.on(USER_DIS_LIKE_EVENT, handleUserDisLikeEvent);
 	socket.on(USER_MATCH_EVENT, handleUserMatchesEvent);
 	socket.on(USER_MESSAGE_NOTIFICATION_EVENT, handleMessageNotificationEvent);
+	socket.on(USER_VISIT_EVENT, handleUserVisitsEvent);
 };

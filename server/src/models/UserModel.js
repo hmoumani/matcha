@@ -146,5 +146,37 @@ class UserModel extends Model {
     `
     return executeQuery(query, [currentUserId, chatUserId]);
   }
+  async searchUsers(keyword, userId) {
+    let cte_query = `(SELECT i.user_id, i.value, i.created_at
+      FROM images i
+      JOIN (
+          SELECT user_id, MIN(created_at) AS oldest_image_date
+          FROM images
+          GROUP BY user_id
+        ) oldest_dates
+        ON i.user_id = oldest_dates.user_id AND i.created_at = oldest_dates.oldest_image_date AND i.id = (
+          SELECT MIN(id) FROM images
+          WHERE user_id = oldest_dates.user_id AND created_at = oldest_dates.oldest_image_date
+        )
+      order by i.user_id DESC) as old_image_per_user`;
+
+    const query_string = `SELECT \
+      users.id, \
+      users.first_name, \
+      users.last_name, \
+      concat('http://localhost:1574/public/avatars/', old_image_per_user.value) as avatar
+      FROM users \
+      LEFT JOIN ${cte_query} ON old_image_per_user.user_id = users.id
+      WHERE (users.first_name ILIKE $1 OR users.last_name ILIKE $1 \
+      OR users.first_name || ' ' || users.last_name ILIKE $1 \
+      OR users.last_name || ' ' || users.first_name ILIKE $1 \
+      OR users.username ILIKE $1)
+      AND (select count(1) from blocked_users where (blocker_id = $2 and blocked_id = users.id) or (blocked_id = $2 and blocker_id = users.id)) = 0
+      AND users.id != $2
+      LIMIT 10
+      `;
+    const sanitized_keyword = `%${keyword.replaceAll('_', '\\_').replaceAll('%', '\\%')}%`; // Sanitize and escape the keyword
+    return executeQuery(query_string, [sanitized_keyword, userId]);
+  }
 }
 export default UserModel;
