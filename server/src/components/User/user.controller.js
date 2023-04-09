@@ -121,7 +121,7 @@ const AuthController = {
     const { userId } = req;
     let restuls;
     try {
-      if (keyword.length < 3) return ControllerResponse(HttpStatusCode.OK, []);
+      if (keyword.length < 1) return ControllerResponse(HttpStatusCode.OK, []);
       restuls = await userService.searchUser(keyword, userId);
     } catch (err) {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'searching a user failed' + err);
