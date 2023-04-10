@@ -1,7 +1,7 @@
 <template>
   <div class="fixed top-16 w-full max-w-sm px-4">
     <Popover v-slot="{ open }" class="relative">
-      <PopoverButton :class="open ? '' : 'text-opacity-90'" @click="open ? notificationList.forEach(elem => elem.seen = true) : apiClient.post('feed/markAsSeen')"
+      <PopoverButton :class="open ? '' : 'text-opacity-90'" @click="clickHandler(open)"
         class="group inline-flex items-center rounded-md text-base font-medium text-white hover:text-opacity-100 focus:outline-none">
         <div class="relative inline-flex w-fit left-24">
           <div
@@ -67,4 +67,20 @@ import { useNotificationStore } from '@/store/notification'
 import { storeToRefs } from 'pinia'
 import apiClient from '../../modules/apiClient';
 const { notificationList } = storeToRefs(useNotificationStore());
+let isOpen = ref(false);
+onMounted(() => {
+  window.addEventListener('click', (e) => {
+    console.log('isOpen.value', isOpen.value);
+    if (isOpen.value) {
+      notificationList.value.forEach(elem => elem.seen = true);
+      isOpen.value = false;
+    }
+  })
+})
+
+const clickHandler = (open) => {
+  isOpen.value = true;
+  console.log('open', open);
+  return open ? notificationList.forEach(elem => elem.seen = true) : apiClient.post('feed/markAsSeen')
+}
 </script>
