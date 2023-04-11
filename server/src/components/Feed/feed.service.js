@@ -2,6 +2,8 @@ import UserModel from '../../models/UserModel';
 import UserService from '../User/user.service';
 import UserLikesModel from '../../models/UserLikesModel';
 import NotificationModel from '../../models/NotificationModel';
+import { isClientOnline } from '../User/user.gateway';
+
 const feedService = {
   async updateFameRate(userId, incrementValue) {
     const user = await UserService.find(userId);
@@ -42,6 +44,9 @@ const feedService = {
   async getUsersSuggestions(userId) {
     const userModel = new UserModel();
     const users = await userModel.getSuggestedUsers(userId);
+    users.rows.forEach(async user => {
+      user.isOnline = isClientOnline(user.id)
+    });
     return users.rows;
   },
   getUsersNotifications(userId) {

@@ -7,6 +7,7 @@ import SettingsModel from '../../models/SettingsModel';
 import ReportedUsersModel from '../../models/reportedUsersModel';
 import BlockedUsersModel from '../../models/BlockedUsersModel';
 import { getAddressFromLocation, getDistanceBetweenTwoLocations } from '../../utils/calculateDistance';
+import { isClientOnline } from './user.gateway';
 
 const UserService = {
   getUserPassions: async (userId) => {
@@ -59,6 +60,7 @@ const UserService = {
     if (user.rows.length === 0) throw new Error('User not found');
     user = user.rows[0];
     user = await UserService.addShit(user);
+    user.isOnline = isClientOnline(user.id);
     return user;
   },
 
