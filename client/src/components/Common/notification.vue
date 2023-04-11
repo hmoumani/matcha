@@ -67,20 +67,18 @@ import { useNotificationStore } from '@/store/notification'
 import { storeToRefs } from 'pinia'
 import apiClient from '../../modules/apiClient';
 const { notificationList } = storeToRefs(useNotificationStore());
-let isOpen = ref(false);
+let isOpen = false;
 onMounted(() => {
   window.addEventListener('click', (e) => {
-    console.log('isOpen.value', isOpen.value);
-    if (isOpen.value) {
+    if (isOpen) {
       notificationList.value.forEach(elem => elem.seen = true);
-      isOpen.value = false;
+      isOpen = false;
     }
   })
 })
 
 const clickHandler = (open) => {
-  isOpen.value = true;
-  console.log('open', open);
+  isOpen = true;
   return open ? notificationList.forEach(elem => elem.seen = true) : apiClient.post('feed/markAsSeen')
 }
 </script>
