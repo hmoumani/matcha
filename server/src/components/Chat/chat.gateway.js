@@ -31,7 +31,7 @@ const onSendMessageCallback = async (socket, message) => {
     const currentUser = await UserService.find(currentUserId);
     emitToUser(message.receiver_id, USER_MESSAGE_NOTIFICATION_EVENT, {
       avatar: currentUser.avatars?.[0]?.value , 
-      msg: `You have received a message from ${receiverUser.first_name} ${receiverUser.last_name}`,
+      msg: `You have received a message from ${currentUser.first_name} ${currentUser.last_name}`,
       title: 'new message',
       userId: currentUserId
     });
@@ -41,7 +41,7 @@ const onSendMessageCallback = async (socket, message) => {
       sender_id: currentUserId,
       receiver_id: message.receiver_id,
       type: 'new message',
-      content: `You have received a message from ${receiverUser.first_name} ${receiverUser.last_name}`
+      content: `You have received a message from ${currentUser.first_name} ${currentUser.last_name}`
     });
   }
   catch (err) {
