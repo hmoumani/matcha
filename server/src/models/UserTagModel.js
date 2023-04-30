@@ -7,6 +7,9 @@ class UserTagModel extends Model {
   }
 
   async insert(userId, tags) {
+    if (tags.length <= 0) {
+      return [];
+    }
     let query = `insert into ${this.tableName} `;
     query += `(${Array(1)
       .fill(0)

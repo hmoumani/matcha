@@ -7,6 +7,9 @@ class UserModel extends Model {
   }
 
   async insert(tags) {
+    if (tags.length <= 0) {
+      return [];
+    }
     tags = tags.map((el) => el.toLowerCase());
     tags = new Set(tags);
     const params = [...tags];
