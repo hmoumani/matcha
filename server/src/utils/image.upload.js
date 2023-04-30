@@ -38,7 +38,7 @@ const uploadImage = (req, res, next) => {
             } else if (err.code === 'LIMIT_UNEXPECTED_FILE') {
                 res.status(400).send({message: 'Too many files'});
             } else {
-                res.status(400).send(err);
+                res.status(400).send({message: err});
             }
             return ;
         }
