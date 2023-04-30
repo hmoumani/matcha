@@ -85,7 +85,7 @@ const HashPasswordAndCheckCommunWord = async (req, res, next) => {
     if (pwnedPasswords.find((p) => p.split(':')[0] === hash_suffix)) {
       return res
         .status(400)
-        .json({ errors: [{ msg: 'This password is a common word, please choose a different one.' }] });
+        .send({'message': 'This password is a common word, please choose a different one.'});
     }
     req.body.password = password;
     next();
