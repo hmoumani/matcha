@@ -179,7 +179,7 @@ class UserModel extends Model {
     return executeQuery(query_string, [sanitized_keyword, userId]);
   }
   async isInfoCompleted(userId) {
-    const query = `select gender, sexual_orientation, age, biography, age
+    const query = `select gender, sexual_orientation, age
       from ${this.tableName} where id = $1`;
     const results = await executeQuery(query, [userId]);
     return !Object.values(results.rows[0]).some((value) => value === null);
