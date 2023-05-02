@@ -44,7 +44,7 @@
 
 	const userAvatar = computed(() => {
 		let value = currentUser.value.avatars?.[0];
-		return value?.filePath;
+		return value?.value;
 	});
 </script>
 <template>

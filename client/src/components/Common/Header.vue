@@ -24,7 +24,7 @@
 							<span class="sr-only">Open user menu</span>
 							<img
 							class="h-8 w-8 rounded-full"
-							src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1600"
+							:src="userAvatar"
 							alt=""
 							/>
 						</MenuButton>
@@ -46,6 +46,10 @@
 </template>
 
 <script setup>
+	import { useUserStore } from '@/store/user';
+	import { storeToRefs } from 'pinia';
+	import { useAuthStore } from '@/store/auth';
+
 	const navigation = [
 		{ name: 'Solutions', href: '#' },
 		{ name: 'Pricing', href: '#' },
@@ -83,6 +87,17 @@
 	];
 
 	const sidebarOpen = ref(false);
+	const userStore = useUserStore();
+
+	const { currentUser } = storeToRefs(userStore);
+
+	let { logout } = useAuthStore();
+
+	const userAvatar = computed(() => {
+		let value = currentUser.value.avatars?.[0];
+		return value?.value;
+	});
+
 </script>
 
 
