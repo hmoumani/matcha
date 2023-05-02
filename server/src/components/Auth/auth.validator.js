@@ -62,10 +62,22 @@ const validateresetPassword = (httpRequest) => {
   return schema.validate(httpRequest.body, options);
 };
 
+const validateFirstLogin = (httpRequest) => {
+  const schema = Joi.object({
+    gender: Joi.string().required().valid('male', 'female').insensitive(),
+    sexualOrientation: Joi.string().required().valid('male', 'female', 'both').insensitive(),
+    biography: Joi.string().required().allow('').max(500),
+    passions: Joi.array().required().items(Joi.string()),
+    age: Joi.number().required().min(18).max(100),
+  });
+  return schema.validate(httpRequest.body, options);
+};
+
 export default {
   validateLogin,
   validateRegistration,
   validateEmailValidation,
   validateresetPasswordEmail,
-  validateresetPassword
+  validateresetPassword,
+  validateFirstLogin
 };

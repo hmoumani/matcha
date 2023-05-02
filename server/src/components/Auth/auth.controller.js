@@ -70,7 +70,16 @@ const AuthController = {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'Unable to reset password');
     }
   },
-  getUserToken: (req) => ControllerResponse(HttpStatusCode.OK, { token: req?.session?.token })
+  getUserToken: (req) => ControllerResponse(HttpStatusCode.OK, { token: req?.session?.token }),
+  firstLogin: async (req, res) => {
+    try {
+      const UserId = req.userId;
+      await AuthService.firstLogin(req.body, UserId);
+      return ControllerResponse(HttpStatusCode.OK, 'profile updated successfully!');
+    } catch (error) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'unable to perform action');
+    }
+  }
 };
 
 export default AuthController;

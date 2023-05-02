@@ -178,5 +178,11 @@ class UserModel extends Model {
     const sanitized_keyword = `%${keyword.replaceAll('_', '\\_').replaceAll('%', '\\%')}%`; // Sanitize and escape the keyword
     return executeQuery(query_string, [sanitized_keyword, userId]);
   }
+  async isInfoCompleted(userId) {
+    const query = `select gender, sexual_orientation, age
+      from ${this.tableName} where id = $1`;
+    const results = await executeQuery(query, [userId]);
+    return !Object.values(results.rows[0]).some((value) => value === null);
+  }
 }
 export default UserModel;
