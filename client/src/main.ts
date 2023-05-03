@@ -4,6 +4,15 @@ import '@/styles/index.css';
 import { createPinia } from 'pinia';
 import { router } from '@/router';
 
+import Toast from "vue-toastification";
+// Import the CSS or use your own!
+import "vue-toastification/dist/index.css";
+
+const options = {
+    position: "bottom-right",
+};
+
+
 /* import the fontawesome core */
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -36,6 +45,7 @@ library.add(faGear);
 
 const app = createApp(App).use(createPinia()).use(router);
 
+app.use(Toast, options);
 app.component('vue3-star-ratings', Vue3StarRatings);
 
 setupApp(app).finally(() => {
