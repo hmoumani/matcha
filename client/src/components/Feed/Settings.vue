@@ -36,9 +36,9 @@
 		updateSetting('maxFameRating', input.maxValue);
 	};
 
-	const updateSetting = (prop, value) => {
+	const updateSetting = async (prop, value) => {
 		settings.value[prop] = value;
-		searchSettingsService.update(settings.value);
+		await searchSettingsService.update(settings.value);
 		updateSuggestions();
 	};
 	const feedStore = useFeedStore();
