@@ -20,7 +20,7 @@ const AuthController = {
     try {
       if (req.params.id === 'mine') req.params.id = req.userId;
       const user = await userService.find(req.params.id, req.userId);
-      if (req.params.id !== req.userId) 
+      if (req.params.id != req.userId) 
       {
         const notificationModel = new NotificationModel();
         emitToUser(parseInt(req.params.id), USER_VISIT_EVENT, {
