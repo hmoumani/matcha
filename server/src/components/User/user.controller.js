@@ -19,14 +19,13 @@ const AuthController = {
   find: async (req, res) => {
     try {
       if (req.params.id === 'mine') req.params.id = req.userId;
-      const user = await userService.find(req.params.id);
+      const user = await userService.find(req.params.id, req.userId);
       if (req.params.id !== req.userId) 
       {
         const notificationModel = new NotificationModel();
-        const currentUser = await userService.find(req.params.id);
         emitToUser(parseInt(req.params.id), USER_VISIT_EVENT, {
-          msg:`${currentUser.first_name} ${currentUser.last_name} just visited your profile.`,
-          avatar: currentUser.avatars?.[0]?.value,
+          msg:`${user.first_name} ${user.last_name} just visited your profile.`,
+          avatar: user.avatars?.[0]?.value,
           title: 'user visit'
         });
         notificationModel.insert({
@@ -34,12 +33,12 @@ const AuthController = {
           sender_id: req.userId,
           receiver_id: parseInt(req.params.id),
           type: 'user visit',
-          content: `${currentUser.first_name} ${currentUser.last_name} just visited your profile.`
+          content: `${user.first_name} ${user.last_name} just visited your profile.`
         });
       }
       return ControllerResponse(HttpStatusCode.OK, toCamelCase(user));
     } catch (err) {
-      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'Error while retrieving user');
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, 'Error while retrieving user' + err);
     }
   },
 

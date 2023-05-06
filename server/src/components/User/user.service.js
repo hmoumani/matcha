@@ -40,7 +40,7 @@ const UserService = {
     });
   },
 
-  find: async (userId) => {
+  find: async (userId, currentUserId) => {
     let user = await query(
       'SELECT \
       users.id, \
@@ -61,6 +61,20 @@ const UserService = {
     user = user.rows[0];
     user = await UserService.addShit(user);
     user.isOnline = isClientOnline(user.id);
+    let distance_query = `select (
+      6371 * acos(
+        cos(radians(CAST(CAST(location AS JSON)->>'lat' AS double precision))) * cos(radians($1)) *
+        cos(radians(CAST(CAST(location AS JSON)->>'lng' AS double precision)) - radians($2)) +
+        sin(radians(CAST(CAST(location AS JSON)->>'lat' AS double precision))) * sin(radians($3))
+      )
+    ) AS distance
+    from users
+    where id = $4`;
+    if (userId != currentUserId) {
+      let distance = await query(distance_query, [user.location.lat, user.location.lng, user.location.lat, currentUserId]);
+      distance = distance.rows[0].distance;
+      user.distance = distance;
+    }
     return user;
   },
 
