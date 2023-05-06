@@ -30,21 +30,6 @@
 	</div>
 </template>
 
-<style>
-	.dot {
-		border-radius: 50%;
-		display: inline-block;
-	}
-	.action {
-		@apply cursor-pointer p-3  rounded-xl;
-	}
-	.carousel__pagination-button {
-		@apply -mt-8 z-50 relative;
-	}
-	.carousel__next {
-		@apply text-white !w-32 !h-24;
-	}
-</style>
 <route lang="yaml">
 name: home
 meta:

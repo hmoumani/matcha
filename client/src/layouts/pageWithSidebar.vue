@@ -2,7 +2,7 @@
 	<Header />
 	<div class="flex bg-[#F6F7FF] h-screen">
 		<Sidebar></Sidebar>
-		
+
 		<router-view></router-view>
 	</div>
 </template>
@@ -34,6 +34,6 @@
 		{ name: 'Documents', href: '#', icon: InboxIcon, current: false },
 		{ name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
 	];
-	
+
 	const sidebarOpen = ref(false);
 </script>

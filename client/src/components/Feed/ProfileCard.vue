@@ -23,7 +23,11 @@
 				>
 					{{ user.first_name }} {{ user.last_name }},
 					{{ user.age }}
-					<span class="dot bg-[#4EB3AC] w-3 h-3"></span>
+					<span
+						v-if="user?.isOnline"
+						class="dot bg-[#4EB3AC] w-3 h-3"
+					></span>
+					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
 				<div
@@ -49,12 +53,12 @@
 				</div>
 				<div class="flex">
 					<div
-						v-for="passion of user.passions" v-if="passion"
+						v-for="passion of user.passions"
 						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
-							'bg-[#D5F9F7] text-[#4EB3AC] ': passion.isCommon,
+							'bg-[#D5F9F7] text-[#4EB3AC] ': passion?.isCommon,
 							'bg-[#F8F7FF] text-black border-[#F3F3F3] border-2':
-								!passion.isCommon,
+								!passion?.isCommon,
 						}"
 					>
 						# {{ passion }}
