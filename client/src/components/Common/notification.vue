@@ -1,9 +1,9 @@
 <template>
-  <div class="fixed top-16 w-full max-w-sm px-4">
+  <div class="fixedd top-e16 w-full max-dw-sm dpx-4">
     <Popover v-slot="{ open }" class="relative">
       <PopoverButton :class="open ? '' : 'text-opacity-90'" @click="clickHandler(open)"
         class="group inline-flex items-center rounded-md text-base font-medium text-white hover:text-opacity-100 focus:outline-none">
-        <div class="relative inline-flex w-fit left-24">
+        <div class="relative inline-flex w-fit left-24d">
           <div
           class="flex items-center justify-center rounded-lg px-1 py-1 text-center text-white dark:text-gray-200">
           <div

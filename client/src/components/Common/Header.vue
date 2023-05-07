@@ -87,9 +87,9 @@
 
 
 <style lang="scss">
-	.nofitication-button {
-		position: absolute;
-		right: -125px;
-		top: 11px;
-	}
+	// .nofitication-button {
+	// 	position: absolute;
+	// 	right: -125px;
+	// 	top: 11px;
+	// }
 </style>

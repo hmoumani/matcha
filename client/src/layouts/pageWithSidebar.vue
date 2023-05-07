@@ -1,15 +1,16 @@
 <template>
-	<Header />
-	<div class="flex bg-[#F6F7FF] h-screen">
-		<Sidebar></Sidebar>
-
+	<!-- <Header /> -->
+	<div class="fldex bg-[#F6F7FF] h-screen">
+	<Sidebar>
 		<router-view></router-view>
+	</Sidebar>
+
 	</div>
 </template>
 
 <script setup>
 	import { ref } from 'vue';
-	import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+	import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 	import {
 		Dialog,
 		DialogPanel,

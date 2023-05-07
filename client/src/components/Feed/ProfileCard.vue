@@ -29,6 +29,7 @@
 					></span>
 					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
 				</div>
+				{{ user?.fame_rate  }}
 				<FameRate :rating="user.fame_rate / 2" />
 				<div
 					class="text-md text-[#B7B5BF] font-bold flex items-center gap-x-1"
