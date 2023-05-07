@@ -405,7 +405,7 @@
 								]"
 							>
 
-								<div class="flex items-center text-[#A5A8B7]">
+							thanks					<div class="flex items-center text-[#A5A8B7]">
 									<FontAwesomeIcon
 										icon="fa-solid fa-gear"
 										class="bdg-[#F8F7FF] w-6 h-6 px-2"

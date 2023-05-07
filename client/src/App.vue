@@ -9,7 +9,7 @@
 
 	const feedStore = useFeedStore();
 
-	const { showNextProfile } = feedStore;
+	const { getNewProfiles } = feedStore;
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
@@ -55,7 +55,7 @@
 
 			await userService.updateUser(newUser);
 
-			showNextProfile();
+			getNewProfiles();
 
 		}, 50);
 	});
