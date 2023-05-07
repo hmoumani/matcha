@@ -441,7 +441,7 @@
 				<div
 					class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 justify-end"
 				>
-					<!-- <form class="relative flex flex-1" action="#" method="GET">
+					<form class="relative flex flex-1" action="#" method="GET">
 						<label for="search-field" class="sr-only">Search</label>
 						<MagnifyingGlassIcon
 							class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
@@ -454,7 +454,7 @@
 							type="search"
 							name="search"
 						/>
-					</form> -->
+					</form>
 					<div class="flex items-center gap-x-4 lg:gap-x-6">
 						<!-- <button
 							type="button"
@@ -463,16 +463,16 @@
 							<span class="sr-only">View notifications</span>
 							<BellIcon class="h-6 w-6" aria-hidden="true" />
 						</button> -->
-						<notification class="nofitication-button" />
+						<notification class="nofitication-button mr-6" />
 
 						<!-- Separator -->
-						<div
+						<!-- <div
 							class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"
 							aria-hidden="true"
-						/>
+						/> -->
 
 						<!-- Profile dropdown -->
-						<Menu as="div" class="relative">
+						<!-- <Menu as="div" class="relative">
 							<MenuButton class="-m-1.5 flex items-center p-1.5">
 								<span class="sr-only">Open user menu</span>
 								<img
@@ -520,7 +520,7 @@
 									</MenuItem>
 								</MenuItems>
 							</transition>
-						</Menu>
+						</Menu> -->
 					</div>
 				</div>
 			</div>

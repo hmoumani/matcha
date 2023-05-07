@@ -1,46 +1,37 @@
-<script setup>
-	import apiClient from '@/modules/apiClient';
-	const userProfile = ref(null);
+<script setup lang="ts">
+	import { useFeedStore } from '@/store/feed';
+	import { storeToRefs } from 'pinia';
+	import { useUserStore } from '@/store/user';
 
-	function transformJSON(jsonObj) {
-		const transformedObj = {
-			id: jsonObj.id,
-			first_name: jsonObj.firstName,
-			last_name: jsonObj.lastName,
-			age: jsonObj.age,
-			fame_rate: jsonObj.fameRate,
-			biography: jsonObj.biography,
-			sexual_orientation: jsonObj.sexualOrientation,
-			gender: jsonObj.gender,
-			location: jsonObj.location,
-			passions: jsonObj.passions,
-			avatars: jsonObj.avatars.map(avatar => avatar.value),
-			isOnline: jsonObj.isOnline,
-		};
-		// delete transformedObj.isAutoLocatorEnabled;
-		return transformedObj;
-	}
+	const userStore = useUserStore();
+	let { currentUser } = storeToRefs(userStore);
+	const feedStore = useFeedStore();
+
+	const { currentProfile } = storeToRefs(feedStore);
+
+	const { showNextProfile } = feedStore;
 
 	onMounted(async () => {
-		const route = useRoute();
-		let { token } = route.params;
-		const {
-			data: { message: user },
-		} = await apiClient.get('/user/2');
-		userProfile.value = transformJSON(user);
+		if (currentUser.value?.location) {
+			showNextProfile();
+		}
+		console.log('foo', currentUser.value);
 	});
 </script>
+
 <template>
-	<div class="flex mt-4 w-full">
+	<div class="flex mt-4 w-full" v-if="currentUser">
 		<ProfileCard
-			v-if="userProfile"
-			:user="userProfile"
+			v-if="currentProfile"
+			:user="currentProfile"
 			class="ml-[17rem] profile"
 		/>
+		<Settings class="ml-[3rem]" />
 	</div>
 </template>
+
 <route lang="yaml">
-# name: UserProfile
+name: homes
 meta:
     layout: pageWithSidebar
 </route>
