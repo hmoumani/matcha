@@ -20,13 +20,13 @@
 </script>
 
 <template>
-	<div class="flex mt-4 w-full" v-if="currentUser">
+	<div class="flex mt-4 w-full items-center justify-center" v-if="currentUser">
 		<ProfileCard
 			v-if="currentProfile"
 			:user="currentProfile"
-			class="ml-[17rem] profile"
+			class="ml-[6rem] profile"
 		/>
-		<Settings class="ml-[3rem]" />
+		<Settings class="ml-[3rem] hidden 2xl:block w-4/12 " />
 	</div>
 </template>
 

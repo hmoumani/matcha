@@ -87,7 +87,7 @@
 								<div class="flex h-16 shrink-0 items-center">
 									<img
 										class="h-8 w-auto"
-										src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+										src="/assets/logo.svg"
 										alt="Your Company"
 									/>
 								</div>
@@ -248,7 +248,7 @@
 														class="bdg-[#F8F7FF] w-6 h-6 px-2"
 													/>
 													<p
-														class="ml-3 text-lg font-bold"
+														class="ml-3 text-md font-bold"
 													>
 														Logout
 													</p>
@@ -275,7 +275,7 @@
 				<div class="flex h-16 shrink-0 items-center">
 					<img
 						class="h-8 w-auto"
-						src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+						src="/assets/logo.svg"
 						alt="Your Company"
 					/>
 				</div>
@@ -413,6 +413,23 @@
 									<p class="ml-3 text-lg font-bold">Logout</p>
 								</div>
 							</router-link> -->
+							<button
+								@click="logout"
+								:class="[
+									false
+										? 'bg-gray-50 text-indigo-600'
+										: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+									'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+								]"
+							>
+								<div class="flex items-center text-[#A5A8B7]">
+									<FontAwesomeIcon
+										icon="fa-solid fa-gear"
+										class="bdg-[#F8F7FF] w-6 h-6 px-2"
+									/>
+									<p class="ml-3 text-md font-bold">Logout</p>
+								</div>
+							</button>
 						</li>
 					</ul>
 				</nav>

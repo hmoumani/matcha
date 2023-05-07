@@ -30,14 +30,17 @@
 		userProfile.value = transformJSON(user);
 	});
 </script>
+
 <template>
-	<div class="flex mt-4 w-full">
+	dsa
+	<!-- {{ userProfile }} -->
+	<!-- <div class="flex dmt-4 w-full">
 		<ProfileCard
 			v-if="userProfile"
 			:user="userProfile"
 			class="ml-[17rem] profile"
 		/>
-	</div>
+	</div> -->
 </template>
 
 <route lang="yaml">
