@@ -15,7 +15,7 @@
 	let { currentUser } = storeToRefs(userStore);
 
 	onMounted(async () => {
-		
+
 		const messagesStore = useChatStore();
 		const { listenForChats } = messagesStore;
 		const { msg } = storeToRefs(messagesStore);
@@ -66,6 +66,6 @@
 </template>
 <style>
 	body {
-		@apply h-screen overflow-hidden;
+		@apply h-screen overflow-scroll;
 	}
 </style>

@@ -34,6 +34,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchContacts: typeof import('./src/components/Chat/ContactsList/searchContacts.vue')['default']
+    SearchSettings: typeof import('./src/components/Feed/searchSettings.vue')['default']
     Select: typeof import('./src/components/Common/Select.vue')['default']
     Settings: typeof import('./src/components/Feed/Settings.vue')['default']
     Sidebar: typeof import('./src/components/sidebar.vue')['default']

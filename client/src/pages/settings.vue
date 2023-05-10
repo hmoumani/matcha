@@ -21,17 +21,12 @@
 
 <template>
 	<div class="flex mt-4 w-full items-center justify-center" v-if="currentUser">
-		<ProfileCard
-			v-if="currentProfile"
-			:user="currentProfile"
-			class="ml-[6rem] profile"
-		/>
-		<searchSettings class="ml-[3rem] hidden 2xl:block w-4/12 " />
+		<searchSettings class="ml:0 sm:ml-[3rem] w-12/12 lg:w-8/12 xl:w-5/12 " />
 	</div>
 </template>
 
 <route lang="yaml">
-name: home
+name: Settings
 meta:
     layout: pageWithSidebar
 </route>

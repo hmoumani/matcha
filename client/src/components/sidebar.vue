@@ -588,6 +588,7 @@
 		ChatBubbleOvalLeftEllipsisIcon,
 		HeartIcon,
 		UserIcon,
+		CogIcon
 	} from '@heroicons/vue/24/solid';
 	// chat-bubble-oval-left-ellipsis
 
@@ -599,6 +600,8 @@
 			href: '/messages',
 			icon: ChatBubbleOvalLeftEllipsisIcon,
 		},
+		{ name: 'Settings', href: '/settings', icon: CogIcon },
+
 	];
 
 	const sidebarOpen = ref(false);

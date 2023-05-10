@@ -84,7 +84,7 @@
 <template>
 	<div
 		v-if="settings"
-		class="h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4"
+		class="h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4 pb-10"
 	>
 		<div>
 			<h2 class="mb-3">Sort by</h2>
