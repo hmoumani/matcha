@@ -55,7 +55,7 @@
 	<div class="bg-[#F6F7FF] flex justify-center w-full h-screen">
 		<div
 			v-if="currentUser"
-			class="mt-4 bg-white rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll hide-scroll h-[88%] w-[37rem] shadow-slate-300 shadow-sm"
+			class="mb-4 mt-10 bg-white rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll hide-scroll h-auto h-d[88%] w-[37rem] shadow-slate-300 shadow-sm"
 		>
 			<Avatars />
 			<div class="my-2">
@@ -84,7 +84,7 @@
 					@onTagsChanged="handleChangePassions"
 				/>
 			</div>
-			<div class="flex items-center gap-x-6">
+			<div class="flex items-center gap-x-6 flex-wrap">
 				<div class="mt-3">I want to see:</div>
 				<Select
 					v-model="defaultSexualOrientationOption"
@@ -98,7 +98,7 @@
 					class="mb-6 w-32 h-3 mr-28 border-gray-300 text-sm my-4"
 				/>
 			</div>
-			<div class="flex items-center gap-x-8">
+			<div class="flex items-center gap-x-8 flex-wrap">
 				<div class="mt-3">My Gender :</div>
 				<Select
 					v-model="defaultOption"

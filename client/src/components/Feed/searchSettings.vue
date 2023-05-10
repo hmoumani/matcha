@@ -84,21 +84,21 @@
 <template>
 	<div
 		v-if="settings"
-		class="h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4 pb-10"
+		class="sm:h-auto max-h-[calc(d100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4 pb-10"
 	>
 		<div>
-			<h2 class="mb-3">Sort by</h2>
+			<h2 class="mb-1">Sort by</h2>
 			<Select
 				v-model="defaultSortOption"
 				:options="sortUsersByOptions"
 				@update:modelValue="
 					userByOption => updateSetting('sortBy', userByOption)
 				"
-				class="mb-6 w-60 h-3 mr-28 border-gray-300 text-sm my-4"
+				class="mb-4 w-60 h-3 mr-28 border-gray-300 text-sm my-4"
 			/>
 		</div>
 		<div>
-			<h2 class="mb-3">Common Tags</h2>
+			<h2 class="mb-3 mt-10">Common Tags</h2>
 			<passionTags
 				:passions="settings.commonTags"
 				@onTagsChanged="handleChangePassions"
