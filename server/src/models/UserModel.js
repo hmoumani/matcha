@@ -164,6 +164,7 @@ class UserModel extends Model {
       users.id, \
       users.first_name, \
       users.last_name, \
+      users.gender, \
       concat('http://localhost:1574/public/avatars/', old_image_per_user.value) as avatar
       FROM users \
       LEFT JOIN ${cte_query} ON old_image_per_user.user_id = users.id
