@@ -70,13 +70,13 @@ const UserService = {
     ) AS distance
     from users
     where id = $4`;
-    if (userId != currentUserId) {
+    if (currentUserId && userId != currentUserId) {
       let distance = await query(distance_query, [
-        user.location.lat,
-        user.location.lng,
-        user.location.lat,
-        currentUserId
-      ]);
+          user.location.lat,
+          user.location.lng,
+          user.location.lat,
+          currentUserId
+        ]);
       distance = distance.rows[0].distance;
       user.distance = distance;
     }
