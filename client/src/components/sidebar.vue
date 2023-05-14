@@ -325,9 +325,9 @@
 				<div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true" />
 
 				<div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 justify-end">
-					<form class="flex flex-1 w-full" action="#" method="GET">
+					<form class="flex flex-1 w-full" action="#" v-on:submit.prevent>
 						<label for="search-field" class="sr-only">Search</label>
-						<div className="flex w-[90%] sm:w-[25%]">
+						<div className="flex w-[90%] sm:w-[50%] md:w-[50%] lg:w-[35%] xl:w-[24%]">
 							<div className="relative w-full">								
 								<MagnifyingGlassIcon class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
 									aria-hidden="true" />
@@ -339,6 +339,7 @@
 									v-if="search_users.length > 0">
 									<div className="cursor-pointer hover:bg-black hover:bg-opacity-10 p-2"
 										v-for="user in search_users">
+										<router-link :to="{path: `/user/${user.id}`}">
 										<div className="flex items-center gap-x-4">
 											<div className="flex-shrink-0">
 												<img className="h-7 w-7 rounded-full" :src="user.avatar" alt="" />
@@ -352,6 +353,7 @@
 												</p>
 											</div>
 										</div>
+									</router-link>
 									</div>
 								</div>
 								
