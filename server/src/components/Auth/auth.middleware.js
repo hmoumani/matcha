@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import config from './auth.config';
 import crypto from 'crypto';
 import axios from 'axios';
+import UserModel from '../../models/UserModel';
 
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   try {
@@ -40,7 +41,7 @@ const checkEmailexists = async (req, res, next) => {
   }
 };
 
-const getUserIdFromToken = (req, res, next) => {
+const getUserIdFromToken = async (req, res, next) => {
   let token = req.session.token;
 
   if (!token) {
@@ -51,6 +52,12 @@ const getUserIdFromToken = (req, res, next) => {
   try {
     let payload = jwt.verify(token, config.secret);
     req.userId = payload.id;
+    const userModel = new UserModel();
+    // if (!await userModel.isInfoCompleted(req.userId) && req.route.path !== '/firstLogin') {
+    //   return res.status(403).send({
+    //     message: 'Please complete your profile!'
+    //   });
+    // }
     next();
   } catch (error) {
     return res.status(401).send({
@@ -85,7 +92,7 @@ const HashPasswordAndCheckCommunWord = async (req, res, next) => {
     if (pwnedPasswords.find((p) => p.split(':')[0] === hash_suffix)) {
       return res
         .status(400)
-        .json({ errors: [{ msg: 'This password is a common word, please choose a different one.' }] });
+        .send({'message': 'This password is a common word, please choose a different one.'});
     }
     req.body.password = password;
     next();

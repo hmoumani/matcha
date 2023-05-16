@@ -3,6 +3,8 @@ import SettingsModel from '../../models/SettingsModel';
 import UserModel from '../../models/UserModel';
 import ValidationTokenModel from '../../models/ValidationTokenModel';
 import crypto from 'crypto';
+import TagModel from '../../models/TagModel.js';
+import UserTagModel from '../../models/UserTagModel.js';
 
 const AuthService = {
   /**
@@ -88,6 +90,16 @@ const AuthService = {
       throw new Error('Invalid email');
     }
     return results.rows[0].id;
+  },
+  firstLogin: async (requestBody, userId) => {
+    const userModel = new UserModel();
+    const passions = requestBody.passions;
+    delete requestBody.passions;
+    userModel.update(requestBody, ['id', '=', userId]);
+    const tagModel = new TagModel();
+    const tags_ids = await tagModel.insert(passions);
+    const userTagModel = new UserTagModel();
+    await userTagModel.insert(userId, tags_ids);
   }
 };
 

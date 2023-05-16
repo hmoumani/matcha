@@ -1,4 +1,4 @@
-import { checkDuplicateUsernameOrEmail, checkEmailexists, HashPasswordAndCheckCommunWord } from './auth.middleware';
+import { checkDuplicateUsernameOrEmail, checkEmailexists, HashPasswordAndCheckCommunWord, getUserIdFromToken } from './auth.middleware';
 /**
  *
  * @param {Object} AuthRouter
@@ -34,6 +34,12 @@ export default ({ router, AuthController, AuthValidator, makeValidatorCallback, 
     makeValidatorCallback(AuthValidator.validateresetPassword),
     [HashPasswordAndCheckCommunWord],
     responseCallback(AuthController.resetPassword)
+  );
+  router.post(
+    '/firstLogin',
+    makeValidatorCallback(AuthValidator.validateFirstLogin),
+    [getUserIdFromToken],
+    responseCallback(AuthController.firstLogin)
   );
   router.get('/getUserToken', responseCallback(AuthController.getUserToken));
   return router;
