@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
+import { router } from '../router';
 
 const { VITE_API_URL: baseURL } = import.meta.env;
 
@@ -15,6 +16,9 @@ apiClient.interceptors.response.use(
 		// Do something with response data
 		return response;
 	  }, function (error) {
+		if (error.response.status === 418) {
+			router.push('/firstAuth');
+		}
 		const toast = useToast();
 		toast.error(error.response.data.message);
 		return Promise.reject(error);

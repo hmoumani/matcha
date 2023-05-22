@@ -32,6 +32,7 @@ declare module '@vue-router/routes' {
     'home': RouteRecordInfo<'home', '/', Record<never, never>, Record<never, never>>,
     '/[...all]': RouteRecordInfo<'/[...all]', '/:all(.*)', { all: ParamValue<true> }, { all: ParamValue<false> }>,
     '/ConfirmationEmailSent': RouteRecordInfo<'/ConfirmationEmailSent', '/ConfirmationEmailSent', Record<never, never>, Record<never, never>>,
+    '/FirstAuth': RouteRecordInfo<'/FirstAuth', '/FirstAuth', Record<never, never>, Record<never, never>>,
     '/Login': RouteRecordInfo<'/Login', '/Login', Record<never, never>, Record<never, never>>,
     'messages': RouteRecordInfo<'messages', '/messages', Record<never, never>, Record<never, never>>,
     'profile': RouteRecordInfo<'profile', '/Profile', Record<never, never>, Record<never, never>>,
