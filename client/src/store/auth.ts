@@ -5,6 +5,7 @@ import {
 	logout,
 	registerUser,
 	requestPasswordReset,
+	firstAuth
 } from '../services/authService';
 import { useUserStore } from './user';
 
@@ -38,6 +39,12 @@ export const useAuthStore = () => {
 				} catch (e) {}
 				router.push({ path: '/ResetPassword/success' });
 			},
+			async FirstAuth(user: object){
+				const { getCurrentUser } = useUserStore();
+				await firstAuth(user);
+				await getCurrentUser();
+				router.push({ path: '/' });
+			}
 		},
 	})();
 };
