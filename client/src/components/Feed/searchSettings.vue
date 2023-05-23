@@ -3,6 +3,7 @@
 	import { storeToRefs } from 'pinia';
 	import { ref, watch } from 'vue';
 	import searchSettingsService from '@/services/searchSettingsService';
+	import { useFeedStore } from '@/store/feed';
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
@@ -14,6 +15,12 @@
 	const showMap = ref(true);
 
 	const settings = ref(null);
+
+	const updateSuggestions = () => {
+		if (currentUser.value?.location) {
+			getNewProfiles();
+		}
+	};
 
 	const updateLocation = location => {
 		updateSetting('location', location);
@@ -29,10 +36,16 @@
 		updateSetting('maxFameRating', input.maxValue);
 	};
 
-	const updateSetting = (prop, value) => {
+	const updateSetting = async (prop, value) => {
 		settings.value[prop] = value;
-		searchSettingsService.update(settings.value);
+		await searchSettingsService.update(settings.value);
+		updateSuggestions();
 	};
+	const feedStore = useFeedStore();
+
+	const { currentProfile } = storeToRefs(feedStore);
+
+	const { getNewProfiles } = feedStore;
 
 	let sortUsersByOptions = [
 		{
@@ -71,7 +84,7 @@
 <template>
 	<div
 		v-if="settings"
-		class="w-3/12 h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4"
+		class="h-[calc(100vh-6rem)] bg-white p-6 rounded-lg shadow-md flex flex-col gap-y-4 pb-10"
 	>
 		<div>
 			<h2 class="mb-3">Sort by</h2>

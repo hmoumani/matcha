@@ -55,7 +55,7 @@
 	<div class="bg-[#F6F7FF] flex justify-center w-full h-screen">
 		<div
 			v-if="currentUser"
-			class="mt-10 bg-white rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll hide-scroll h-[88%] w-[37rem] shadow-slate-300 shadow-sm"
+			class="mt-4 bg-white rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll hide-scroll h-[88%] w-[37rem] shadow-slate-300 shadow-sm"
 		>
 			<Avatars />
 			<div class="my-2">

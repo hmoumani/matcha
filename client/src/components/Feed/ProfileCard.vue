@@ -13,7 +13,7 @@
 </script>
 <template>
 	<div
-		class="w-4/12 bg-white shadow-slate-300 shadow-sm rounded-[2rem] h-[calc(100vh-7rem)] overflow-y-scroll overflow-x-hidden"
+		class="w-12/12 lg:w-8/12 xl:w-5/12 bg-white shadow-slate-300 shadow-sm rounded-[2rem] h-[calc(100vh-7rem)] overflow-y-scroll overflow-x-hidden"
 	>
 		<avatarsSlider :avatars="user.avatars" />
 		<div class="px-8 py-8 flex justify-between">
@@ -23,7 +23,11 @@
 				>
 					{{ user.first_name }} {{ user.last_name }},
 					{{ user.age }}
-					<span class="dot bg-[#4EB3AC] w-3 h-3"></span>
+					<span
+						v-if="user?.isOnline"
+						class="dot bg-[#4EB3AC] w-3 h-3"
+					></span>
+					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
 				<div
@@ -47,14 +51,14 @@
 				<div class="my-5 text-2xl font-semibold text-[#7a7a7d]">
 					Passions
 				</div>
-				<div class="flex">
+				<div class="flex flex-wrap gap-4">
 					<div
-						v-for="passion of user.passions" v-if="passion"
-						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
+						v-for="passion of user.passions"
+						class="px-3 py-2 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
-							'bg-[#D5F9F7] text-[#4EB3AC] ': passion.isCommon,
+							'bg-[#D5F9F7] text-[#4EB3AC] ': passion?.isCommon,
 							'bg-[#F8F7FF] text-black border-[#F3F3F3] border-2':
-								!passion.isCommon,
+								!passion?.isCommon,
 						}"
 					>
 						# {{ passion }}

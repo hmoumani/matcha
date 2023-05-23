@@ -1,268 +1,544 @@
-<script setup>
-	import { useUserStore } from '@/store/user';
-	import { ref } from 'vue';
-	import { storeToRefs } from 'pinia';
-	import { useAuthStore } from '../store/auth.ts';
-	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+<!--
+  This example requires some changes to your config:
 
-	import {
-		Dialog,
-		DialogPanel,
-		TransitionChild,
-		TransitionRoot,
-	} from '@headlessui/vue';
-	import {
-		ChatBubbleOvalLeftEllipsisIcon,
-		HeartIcon,
-		UserIcon,
-	} from '@heroicons/vue/24/solid';
-	// chat-bubble-oval-left-ellipsis
-
-	const navigation = [
-		{ name: 'Dating', href: '/', icon: HeartIcon },
-		{ name: 'Profile', href: '/profile', icon: UserIcon },
-		{
-			name: 'Messages',
-			href: '/messages',
-			icon: ChatBubbleOvalLeftEllipsisIcon,
-		},
-	];
-
-	const sidebarOpen = ref(false);
-
-	const router = useRouter();
-	const isCurrentRoute = link => {
-		return link === router.currentRoute.value.path;
-	};
-
-	const userStore = useUserStore();
-
-	const { currentUser } = storeToRefs(userStore);
-	const { getCurrentUser } = userStore;
-
-	let { logout } = useAuthStore();
-
-	const userAvatar = computed(() => {
-		let value = currentUser.value.avatars?.[0];
-		return value?.filePath;
-	});
-</script>
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
 <template>
 	<!--
-      This example requires updating your template:
-  
-      ```
-      <html class="h-full bg-gray-100">
-      <body class="h-full">
-      ```
-    -->
-	<div v-if="currentUser">
+	  This example requires updating your template:
+
+	  ```
+	  <html class="h-full bg-white">
+	  <body class="h-full">
+	  ```
+	-->
+	<div>
 		<TransitionRoot as="template" :show="sidebarOpen">
-			<Dialog
-				as="div"
-				class="relative z-40 md:hidden"
-				@close="sidebarOpen = false"
-			>
-				<TransitionChild
-					as="template"
-					enter="transition-opacity ease-linear duration-300"
-					enter-from="opacity-0"
-					enter-to="opacity-100"
-					leave="transition-opacity ease-linear duration-300"
-					leave-from="opacity-100"
-					leave-to="opacity-0"
-				>
-					<div class="fixed inset-0 bg-gray-600 bg-opacity-75" />
+			<Dialog as="div" class="relative z-50 lg:hidden" @close="sidebarOpen = false">
+				<TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0"
+					enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100"
+					leave-to="opacity-0">
+					<div class="fixed inset-0 bg-gray-900/80" />
 				</TransitionChild>
 
-				<div class="fixed inset-0 z-40 flex">
-					<TransitionChild
-						as="template"
-						enter="transition ease-in-out duration-300 transform"
-						enter-from="-translate-x-full"
-						enter-to="translate-x-0"
-						leave="transition ease-in-out duration-300 transform"
-						leave-from="translate-x-0"
-						leave-to="-translate-x-full"
-					>
-						<DialogPanel
-							class="relative flex w-full max-w-xs flex-1 flex-col bg-white"
-						>
-							<TransitionChild
-								as="template"
-								enter="ease-in-out duration-300"
-								enter-from="opacity-0"
-								enter-to="opacity-100"
-								leave="ease-in-out duration-300"
-								leave-from="opacity-100"
-								leave-to="opacity-0"
-							>
-								<div class="absolute top-0 right-0 -mr-12">
-									<button
-										type="button"
-										class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-										@click="sidebarOpen = false"
-									>
-										<span class="sr-only"
-											>Close sidebar</span
-										>
-										<XMarkIcon
-											class="h-6 w-6 text-white"
-											aria-hidden="true"
-										/>
+				<div class="fixed inset-0 flex">
+					<TransitionChild as="template" enter="transition ease-in-out duration-300 transform"
+						enter-from="-translate-x-full" enter-to="translate-x-0"
+						leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0"
+						leave-to="-translate-x-full">
+						<DialogPanel class="relative mr-16 flex w-full max-w-xs flex-1">
+							<TransitionChild as="template" enter="ease-in-out duration-300" enter-from="opacity-0"
+								enter-to="opacity-100" leave="ease-in-out duration-300" leave-from="opacity-100"
+								leave-to="opacity-0">
+								<div class="absolute left-full top-0 flex w-16 justify-center pt-5">
+									<button type="button" class="-m-2.5 p-2.5" @click="sidebarOpen = false">
+										<span class="sr-only">Close sidebar</span>
+										<XMarkIcon class="h-6 w-6 text-white" aria-hidden="true" />
 									</button>
 								</div>
 							</TransitionChild>
-							<div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
-								<!-- <div
-									class="flex flex-shrink-0 items-center px-4"
-								>
-									<img
-										class="h-8 w-auto"
-										src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-										alt="Your Company"
-									/>
-								</div> -->
-								<nav class="mt-5 space-y-1 px-2">
-									<a
-										v-for="item in navigation"
-										:key="item.name"
-										:href="item.href"
-										:class="[
-											item.current
-												? 'bg-gray-100 text-gray-900'
-												: 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-											'group flex items-center px-2 py-2 text-base font-medium rounded-md',
-										]"
-									>
-										<component
-											:is="item.icon"
-											:class="[
-												isCurrentRoute(item.href)
-													? 'text-gray-500'
-													: 'text-gray-400 group-hover:text-gray-500',
-												'mr-4 flex-shrink-0 h-6 w-6',
-											]"
-											aria-hidden="true"
-										/>
-										{{ item.name }}
-										{{ item.href }}
-									</a>
-								</nav>
-							</div>
-							<div
-								class="flex flex-shrink-0 border-t border-gray-200 p-4"
-							>
-								<a href="#" class="group block flex-shrink-0">
-									<div class="flex items-center">
-										<div>
-											<img
-												class="inline-block h-10 w-10 rounded-full"
-												:src="userAvatar"
-												alt=""
-											/>
-										</div>
-										<div class="ml-3">
-											<p
-												class="text-base font-medium text-gray-700 group-hover:text-gray-900"
+							<!-- Sidebar component, swap this element with another sidebar if you like -->
+							<div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
+								<div class="flex h-16 shrink-0 items-center">
+									<img class="h-8 w-auto" src="/assets/logo.svg" alt="Your Company" />
+								</div>
+								<nav class="flex flex-1 flex-col">
+									<ul role="list" class="flex flex-1 flex-col gap-y-7">
+										<li>
+											<ul role="list" class="-mx-2 space-y-1">
+												<div class="mb-8">
+													<img class="w-full rounded-3xl mb-2 h-[15rem] object-cover" :src="currentUser
+															?.avatars[0]
+															?.value
+														" alt="Your Company" />
+													<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
+														{{
+															currentUser.firstName
+														}}
+														{{
+															currentUser.lastName
+														}}
+													</h2>
+													<!-- <div
+														class="text-xl text-[#B1AFBA] pl-2 mb-20"
+													>
+														{{
+															currentUser.address
+														}}
+													</div> -->
+												</div>
+												<li v-for="item in navigation" :key="item.name">
+													<router-link :to="item.href" :class="[
+														item.current
+															? 'bg-gray-50 text-indigo-600'
+															: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+														'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+													]">
+														<component :is="item.icon" :class="[
+															item.current
+																? 'text-indigo-600'
+																: 'text-gray-400 group-hover:text-indigo-600',
+															'h-6 w-6 shrink-0',
+														]" aria-hidden="true" />
+														{{ item.name }}
+													</router-link>
+												</li>
+											</ul>
+										</li>
+										<li v-if="teams.length">
+											<div class="text-xs font-semibold leading-6 text-gray-400">
+												Your teams
+											</div>
+											<ul role="list" class="-mx-2 mt-2 space-y-1">
+												<li v-for="team in teams" :key="team.name">
+													<router-link :to="team.href" :class="[
+														team.current
+															? 'bg-gray-50 text-indigo-600'
+															: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+														'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+													]">
+														<span :class="[
+															team.current
+																? 'text-indigo-600 border-indigo-600'
+																: 'text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600',
+															'flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white',
+														]">{{
+	team.initial
+}}</span>
+														<span class="truncate">{{
+															team.name
+														}}</span>
+													</router-link>
+												</li>
+											</ul>
+										</li>
+										<li class="mt-auto">
+											<!-- <a
+												href="#"
+												class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
 											>
+												<Cog6ToothIcon
+													class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+													aria-hidden="true"
+												/>
 												Settings
-											</p>
-											<p
-												class="text-sm font-medium text-gray-500 group-hover:text-gray-700"
+											</a> -->
+											<!-- class="mt-6 group block w-full flex-shrink-0" -->
+											<!-- <div
+												class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+												@click="logout"
 											>
-												View profile
-											</p>
-										</div>
-									</div>
-								</a>
+												<div
+													class="flex items-center text-[#A5A8B7]"
+												>
+													<FontAwesomeIcon
+														icon="fa-solid fa-gear"
+														class="bdg-[#F8F7FF] w-6 h-6 px-2"
+													/>
+													<p
+														class="ml-3 text-lg font-bold"
+													>
+														Logoutl
+													</p>
+												</div>
+											</div> -->
+											<button @click="logout" :class="[
+												false
+													? 'bg-gray-50 text-indigo-600'
+													: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+												'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+											]">
+												<div class="flex items-center text-[#A5A8B7]">
+													<FontAwesomeIcon icon="fa-solid fa-gear"
+														class="bdg-[#F8F7FF] w-6 h-6 px-2" />
+													<p class="ml-3 text-md font-bold">
+														Logout
+													</p>
+												</div>
+											</button>
+										</li>
+									</ul>
+								</nav>
 							</div>
 						</DialogPanel>
 					</TransitionChild>
-					<div class="w-14 flex-shrink-0">
-						<!-- Force sidebar to shrink to fit close icon -->
-					</div>
 				</div>
 			</Dialog>
 		</TransitionRoot>
 
 		<!-- Static sidebar for desktop -->
-		<div
-			class="hidden md:inset-y-0 md:flex md:w-[23rem] md:flex-col mt-2 h-[calc(100vh-4rem)] bg-white"
-		>
+		<div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
 			<!-- Sidebar component, swap this element with another sidebar if you like -->
-			<div
-				class="flex min-h-0 flex-1 flex-col justify-end border-r border-gray-200 px-8"
-			>
-				<div class="flex flex-1 flex-col overflow-y-auto pt-9 pb-4">
-					<img
-						class="w-full rounded-3xl mb-2 h-[15rem] object-cover"
-						:src="userAvatar"
-						alt="Your Company"
-					/>
-					<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
-						{{ currentUser.firstName }} {{ currentUser.lastName }}
-					</h2>
-					<div class="text-xl text-[#B1AFBA] pl-2">
-						{{ currentUser.address }}
-					</div>
-
-					<nav class="mt-12 flex-1 space-y-1 bg-white">
-						<router-link
-							v-for="item in navigation"
-							:key="item.name"
-							:to="item.href"
-							:class="[
-								isCurrentRoute(item.href)
-									? 'bg-[#F5F6FF]'
-									: 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-								'mb-2 group flex items-center p-4 text-sm font-medium rounded-xl',
-							]"
-						>
-							<component
-								:is="item.icon"
+			<div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
+				<div class="flex h-16 shrink-0 items-center">
+					<img class="h-8 w-auto" src="/assets/logo.svg" alt="Your Company" />
+				</div>
+				<nav class="flex flex-1 flex-col">
+					<ul role="list" class="flex flex-1 flex-col gap-y-7">
+						<li>
+							<ul role="list" class="-mx-2 space-y-1">
+								<div class="mb-8">
+									<img class="w-full rounded-3xl mb-2 h-[15rem] object-cover"
+										:src="currentUser.avatars[0]?.value" alt="Your Company" />
+									<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
+										{{ currentUser.firstName }}
+										{{ currentUser.lastName }}
+									</h2>
+									<!-- <div
+														class="text-xl text-[#B1AFBA] pl-2 mb-20"
+													>
+														{{
+															currentUser.address
+														}}
+													</div> -->
+								</div>
+								<li v-for="item in navigation" :key="item.name">
+									<router-link :to="item.href" :class="[
+										item.current
+											? 'bg-gray-50 text-indigo-600'
+											: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+										'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+									]">
+										<component :is="item.icon" :class="[
+											item.current
+												? 'text-indigo-600'
+												: 'text-gray-400 group-hover:text-indigo-600',
+											'h-6 w-6 shrink-0',
+										]" aria-hidden="true" />
+										{{ item.name }}
+									</router-link>
+								</li>
+							</ul>
+						</li>
+						<li v-if="teams.length">
+							<div class="text-xs font-semibold leading-6 text-gray-400">
+								Your teams
+							</div>
+							<ul role="list" class="-mx-2 mt-2 space-y-1">
+								<li v-for="team in teams" :key="team.name">
+									<router-link :href="team.href" :class="[
+										team.current
+											? 'bg-gray-50 text-indigo-600'
+											: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+										'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+									]">
+										<span :class="[
+											team.current
+												? 'text-indigo-600 border-indigo-600'
+												: 'text-gray-400 border-gray-200 group-hover:border-indigo-600 group-hover:text-indigo-600',
+											'flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white',
+										]">{{ team.initial }}</span>
+										<span class="truncate">{{
+											team.name
+										}}</span>
+									</router-link>
+								</li>
+							</ul>
+						</li>
+						<li class="mt-auto">
+							<!-- <a
+								href="#"
+								class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+							>
+								<Cog6ToothIcon
+									class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+									aria-hidden="true"
+								/>
+								Settings
+							</a> -->
+							<!-- <div
+								class="mt-6 group block w-full flex-shrink-0"
+								@click="logout"
+							>
+								<div class="flex items-center text-[#A5A8B7]">
+									<FontAwesomeIcon
+										icon="fa-solid fa-gear"
+										class="bdg-[#F8F7FF] w-6 h-6 px-2"
+									/>
+									<p class="ml-3 text-lg font-bold">Logout</p>
+								</div>
+							</div> -->
+							<!-- <component
+									:is="item.icon"
+									:class="[
+										item.current
+											? 'text-indigo-600'
+											: 'text-gray-400 group-hover:text-indigo-600',
+										'h-6 w-6 shrink-0',
+									]"
+									aria-hidden="true"
+								/>
+								{{ item.name }} -->
+							<!-- <router-link
+								@click="logout"
 								:class="[
-									isCurrentRoute(item.href)
-										? 'text-[#5C5EED]'
-										: 'text-gray-400 group-hover:text-gray-500',
-									'font-bold mr-3 flex-shrink-0 h-6 w-6',
+									true
+										? 'bg-gray-50 text-indigo-600'
+										: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+									'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
 								]"
-								aria-hidden="true"
-							/>
-							<div class="text-xl">{{ item.name }}</div>
-						</router-link>
-					</nav>
-				</div>
-				<div class="border-t border-gray-200 px-4 py-8">
-					<div
-						class="mt-6 group block w-full flex-shrink-0"
-						@click="logout"
-					>
-						<div class="flex items-center text-[#A5A8B7]">
-							<FontAwesomeIcon
-								icon="fa-solid fa-gear"
-								class="bdg-[#F8F7FF] w-6 h-6 px-2"
-							/>
-							<p class="ml-3 text-lg font-bold">Logout</p>
-						</div>
-					</div>
-				</div>
+							>
+
+							thanks					<div class="flex items-center text-[#A5A8B7]">
+									<FontAwesomeIcon
+										icon="fa-solid fa-gear"
+										class="bdg-[#F8F7FF] w-6 h-6 px-2"
+									/>
+									<p class="ml-3 text-lg font-bold">Logout</p>
+								</div>
+							</router-link> -->
+							<button @click="logout" :class="[
+								false
+									? 'bg-gray-50 text-indigo-600'
+									: 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50',
+								'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+							]">
+								<div class="flex items-center text-[#A5A8B7]">
+									<FontAwesomeIcon icon="fa-solid fa-gear" class="bdg-[#F8F7FF] w-6 h-6 px-2" />
+									<p class="ml-3 text-md font-bold">Logout</p>
+								</div>
+							</button>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
-		<div class="flex flex-1 flex-col md:pl-64">
+
+		<div class="lg:pl-72">
 			<div
-				class="sticky top-0 z-10 bg-gray-100 pl-1 pt-1 sm:pl-3 sm:pt-3 md:hidden"
-			>
-				<button
-					type="button"
-					class="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-					@click="sidebarOpen = true"
-				>
+				class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+				<button type="button" class="-m-2.5 p-2.5 text-gray-700 lg:hidden" @click="sidebarOpen = true">
 					<span class="sr-only">Open sidebar</span>
 					<Bars3Icon class="h-6 w-6" aria-hidden="true" />
 				</button>
+
+				<!-- Separator -->
+				<div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true" />
+
+				<div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 justify-end">
+					<form class="flex flex-1 w-full" action="#" v-on:submit.prevent>
+						<label for="search-field" class="sr-only">Search</label>
+						<div className="flex w-[90%] sm:w-[50%] md:w-[50%] lg:w-[35%] xl:w-[24%]">
+							<div className="relative w-full">								
+								<MagnifyingGlassIcon class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
+									aria-hidden="true" />
+								<input id="search-field"
+									class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+									placeholder="Search..." type="search" name="search" @keyup="searchUsers"
+									autocomplete="off" />
+								<div className="absolute w-full p-2 bg-white shadow-lg rounded-bl rounded-br max-h-56 overflow-y-auto"
+									v-if="search_users.length > 0">
+									<div className="cursor-pointer hover:bg-black hover:bg-opacity-10 p-2"
+										v-for="user in search_users">
+										<router-link :to="{path: `/user/${user.id}`}">
+										<div className="flex items-center gap-x-4">
+											<div className="flex-shrink-0">
+												<img className="h-7 w-7 rounded-full" :src="user.avatar" alt="" />
+											</div>
+											<div className="flex-1 min-w-0">
+												<p className="text-sm font-medium text-gray-900 truncate">
+													{{ user.first_name }} {{ user.last_name }}
+												</p>
+												<p className="text-sm text-gray-500 truncate">
+													{{ user.gender }}
+												</p>
+											</div>
+										</div>
+									</router-link>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</form>
+					<!-- <div className="h-screen flex items-center justify-center">
+						<div
+							className="relative"
+						>
+							<input
+							type="text"
+							className="w-[600px] px-5 py-3 text-lg rounded-full border-2 border-gray-500 focus:border-gray-700 outline-none transition"
+							placeholder="Search your query..."
+							/>
+
+						</div>
+    </div> -->
+					<div class="flex items-center gap-x-4 lg:gap-x-6">
+						<!-- <button
+							type="button"
+							class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+						>
+							<span class="sr-only">View notifications</span>
+							<BellIcon class="h-6 w-6" aria-hidden="true" />
+						</button> -->
+						<notification class="nofitication-button mr-6" />
+
+						<!-- Separator -->
+						<!-- <div
+							class="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"
+							aria-hidden="true"
+						/> -->
+
+						<!-- Profile dropdown -->
+						<!-- <Menu as="div" class="relative">
+							<MenuButton class="-m-1.5 flex items-center p-1.5">
+								<span class="sr-only">Open user menu</span>
+								<img
+									:src="currentUser.avatars[0].value"
+									class="h-8 w-8 rounded-full bg-gray-50"
+									alt=""
+								/>
+								<span class="hidden lg:flex lg:items-center">
+									<span
+										class="ml-4 text-sm font-semibold leading-6 text-gray-900"
+										aria-hidden="true"
+										>{{ currentUser.firstName }}
+										{{ currentUser.lastName }}</span
+									>
+									<ChevronDownIcon
+										class="ml-2 h-5 w-5 text-gray-400"
+										aria-hidden="true"
+									/>
+								</span>
+							</MenuButton>
+							<transition
+								enter-active-class="transition ease-out duration-100"
+								enter-from-class="transform opacity-0 scale-95"
+								enter-to-class="transform opacity-100 scale-100"
+								leave-active-class="transition ease-in duration-75"
+								leave-from-class="transform opacity-100 scale-100"
+								leave-to-class="transform opacity-0 scale-95"
+							>
+								<MenuItems
+									class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+								>
+									<MenuItem
+										v-for="item in userNavigation"
+										:key="item.name"
+										v-slot="{ active }"
+									>
+										<router-link
+											:to="item.href"
+											:class="[
+												active ? 'bg-gray-50' : '',
+												'block px-3 py-1 text-sm leading-6 text-gray-900',
+											]"
+											>{{ item.name }}</router-link
+										>
+									</MenuItem>
+								</MenuItems>
+							</transition>
+						</Menu> -->
+					</div>
+				</div>
 			</div>
-			<main class="flex-1"></main>
+
+			<main class="py-3">
+				<div class="px-4 sm:px-6 lg:px-8">
+					<slot></slot>
+				</div>
+			</main>
 		</div>
 	</div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+import {
+	Dialog,
+	DialogPanel,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuItems,
+	TransitionChild,
+	TransitionRoot,
+} from '@headlessui/vue';
+import {
+	Bars3Icon,
+	BellIcon,
+	CalendarIcon,
+	ChartPieIcon,
+	Cog6ToothIcon,
+	DocumentDuplicateIcon,
+	FolderIcon,
+	HomeIcon,
+	UsersIcon,
+	XMarkIcon,
+} from '@heroicons/vue/24/outline';
+import {
+	ChevronDownIcon,
+	MagnifyingGlassIcon,
+} from '@heroicons/vue/20/solid';
+import { useUserStore } from '@/store/user';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from '../store/auth.ts';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import apiClient from '../modules/apiClient';
+
+import {
+	ChatBubbleOvalLeftEllipsisIcon,
+	HeartIcon,
+	UserIcon,
+	CogIcon
+} from '@heroicons/vue/24/solid';
+// chat-bubble-oval-left-ellipsis
+
+const navigation = [
+	{ name: 'Dating', href: '/', icon: HeartIcon },
+	{ name: 'Profile', href: '/profile', icon: UserIcon },
+	{
+		name: 'Messages',
+		href: '/messages',
+		icon: ChatBubbleOvalLeftEllipsisIcon,
+	},
+	{ name: 'Settings', href: '/settings', icon: CogIcon },
+
+];
+
+const sidebarOpen = ref(false);
+
+const router = useRouter();
+const isCurrentRoute = link => {
+	return link === router.currentRoute.value.path;
+};
+
+const userStore = useUserStore();
+
+const { currentUser } = storeToRefs(userStore);
+const { getCurrentUser } = userStore;
+
+let { logout } = useAuthStore();
+
+const userAvatar = computed(() => {
+	let value = currentUser.value.avatars?.[0];
+	return value?.filePath;
+});
+
+const teams = [];
+const userNavigation = [
+	{ name: 'Your profile', href: '#' },
+	{ name: 'Sign out', href: '#' },
+];
+const search_users = ref([]);
+const searchUsers = async e => {
+	if (e.target.value.length === 0) {
+		search_users.value = [];
+		return ;
+	}
+	const results = await apiClient.get(
+		`/user/search/user/${e.target.value}`
+	);
+	search_users.value = results.data.message;
+	console.log(search_users.value);
+};
+</script>

@@ -1,9 +1,9 @@
 <template>
-  <div class="fixed top-16 w-full max-w-sm px-4">
+  <div class="fixedd top-e16 w-full max-dw-sm dpx-4">
     <Popover v-slot="{ open }" class="relative">
       <PopoverButton :class="open ? '' : 'text-opacity-90'" @click="clickHandler(open)"
         class="group inline-flex items-center rounded-md text-base font-medium text-white hover:text-opacity-100 focus:outline-none">
-        <div class="relative inline-flex w-fit left-24">
+        <div class="relative inline-flex w-fit left-24d">
           <div
           class="flex items-center justify-center rounded-lg px-1 py-1 text-center text-white dark:text-gray-200">
           <div
@@ -25,7 +25,7 @@
             class="overflow-y-scroll scroll- rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
             <div v-if="notificationList.length > 0">
               <div class="flex flex-col gap-7 bg-white p-4 lg:grid-cols-2">
-                <router-link v-for="item in notificationList" :key="item.name"  :to="{path: `/Profile/${item.userId}`}"
+                <router-link v-for="item in notificationList" :key="item.name"  :to="{path: `/user/${item.userId}`}"
                 :class="item.seen === false ? 'bg-gray-200' : ''"
                   class="-m-3 flex items-center  rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
                   <div class="flex h-14 w-14 shrink-0 items-center justify-center text-white sm:h-14 sm:w-14">

@@ -32,7 +32,6 @@
 		<div
 			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
 		>
-			{{ currentConversation?.id }}
 			{{ userFullName }}
 		</div>
 		<div class="py-6 px-5" ref="messages">

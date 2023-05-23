@@ -9,13 +9,13 @@
 
 	const feedStore = useFeedStore();
 
-	const { showNextProfile } = feedStore;
+	const { getNewProfiles } = feedStore;
 
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
 
 	onMounted(async () => {
-		
+
 		const messagesStore = useChatStore();
 		const { listenForChats } = messagesStore;
 		const { msg } = storeToRefs(messagesStore);
@@ -55,7 +55,7 @@
 
 			await userService.updateUser(newUser);
 
-			showNextProfile();
+			getNewProfiles();
 
 		}, 50);
 	});
@@ -66,6 +66,6 @@
 </template>
 <style>
 	body {
-		@apply h-screen overflow-hidden;
+		@apply h-screen overflow-scroll;
 	}
 </style>
