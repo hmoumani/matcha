@@ -11,13 +11,13 @@
 	const avatars = ref(currentUser.value.avatars);
 	const avatarsInputs = ref([]);
 
-	const uploadAvatar = avatarInputIndex => {
+	const uploadAvatar = async avatarInputIndex => {
 		const uploadedFiles =
 			avatarsInputs.value[avatarInputIndex - 1 - avatars.value.length]
 				.files;
+		await userService.uploadAvatars(uploadedFiles);
 		avatars.value = avatars.value.concat(uploadedFiles);
 		currentUser.value.avatars = avatars.value;
-		userService.uploadAvatars(uploadedFiles);
 	};
 
 	const getImg = avatar => {
