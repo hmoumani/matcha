@@ -16,6 +16,7 @@
 			avatarsInputs.value[avatarInputIndex - 1 - avatars.value.length]
 				.files;
 		avatars.value = avatars.value.concat(uploadedFiles);
+		currentUser.value.avatars = avatars.value;
 		userService.uploadAvatars(uploadedFiles);
 	};
 
