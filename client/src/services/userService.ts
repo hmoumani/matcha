@@ -5,7 +5,7 @@ const blockUser = blockedId => apiClient.post(`/user/block`, { blockedId });
 const reportUser = reportedId => apiClient.post(`/user/report`, {reportedId});
 const updateUser = user => apiClient.put('/user', user);
 
-const uploadAvatars = avatars => {
+const uploadAvatars = async avatars => {
 	const formData = new FormData();
 
 	for (let i = 0; i < avatars.length; i++) {
@@ -18,7 +18,7 @@ const uploadAvatars = avatars => {
 		},
 	};
 
-	apiClient.put('/user/avatar', formData, config);
+	await apiClient.put('/user/avatar', formData, config);
 };
 
 export default {
