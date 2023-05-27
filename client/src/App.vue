@@ -20,8 +20,6 @@
 		const { listenForChats } = messagesStore;
 		const { msg } = storeToRefs(messagesStore);
 
-		listenForEvents();
-		listenForChats();
 		let currentUserRef = currentUser?.value;
 		if (!currentUserRef?.isAutoLocatorEnabled) {
 			return;

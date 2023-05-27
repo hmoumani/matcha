@@ -1,6 +1,10 @@
 import userService from '@/services/userService';
 import { defineStore, storeToRefs } from 'pinia';
 import { useChatStore } from '@/store/chat';
+import app from '@/main';
+import socketIO from '../plugins/socketIO';
+import userToken from '../helpers/userToken';
+import { listenForEvents } from '@/notifications'
 
 function removeItemOnce(arr, value) {
 	var index = arr.indexOf(value);
@@ -18,10 +22,23 @@ export const useUserStore = defineStore('user', {
 	}),
 	actions: {
 		async getCurrentUser() {
+			const messagesStore = useChatStore();
+			const { listenForChats } = messagesStore;	
 			let {
 				data: { message },
 			} = await userService.getUserProfile();
 			this.currentUser = message;
+				// SETUP GATEWAY
+			app.use(socketIO, {
+				connection: `${
+					process.env.NODE_ENV == 'development'
+						? 'ws://localhost:1574' // TODO change
+						: 'htt5Bop://PROD'
+				}?token=${await userToken()}`,
+			});
+			listenForEvents();
+			listenForChats();
+	
 		},
 		async reportUser(userID) {
 			await userService.reportUser(userID);

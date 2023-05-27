@@ -35,15 +35,6 @@ const setupApp = async app => {
 	if (isPublicRoute(currentRoute)) {
 		router.push({ name: 'home' });
 	}
-
-	// SETUP GATEWAY
-	app.use(socketIO, {
-		connection: `${
-			process.env.NODE_ENV == 'development'
-				? 'ws://localhost:1574' // TODO change
-				: 'htt5Bop://PROD'
-		}?token=${await userToken()}`,
-	});
 };
 
 export default setupApp;
