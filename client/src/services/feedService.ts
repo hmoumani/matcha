@@ -8,7 +8,7 @@ const getNewProfiles = () => apiClient.get('feed/profiles');
 const likeUser = likedUserId => {
 	const socket = app.config.globalProperties.$socket;
 	socket.emit(USER_LIKE_EVENT, likedUserId);
-};
+};	
 
 const unLikeUser = userId => {
 	const socket = app.config.globalProperties.$socket;

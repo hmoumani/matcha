@@ -41,7 +41,6 @@ declare module '@vue-router/routes' {
     '/ResetPassword/[token]': RouteRecordInfo<'/ResetPassword/[token]', '/ResetPassword/:token', { token: ParamValue<true> }, { token: ParamValue<false> }>,
     '/ResetPassword/success': RouteRecordInfo<'/ResetPassword/success', '/ResetPassword/success', Record<never, never>, Record<never, never>>,
     'Settings': RouteRecordInfo<'Settings', '/settings', Record<never, never>, Record<never, never>>,
-    'homes': RouteRecordInfo<'homes', '/toor', Record<never, never>, Record<never, never>>,
     'homes': RouteRecordInfo<'homes', '/user/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/VerifyEmail/[token]': RouteRecordInfo<'/VerifyEmail/[token]', '/VerifyEmail/:token', { token: ParamValue<true> }, { token: ParamValue<false> }>,
   }

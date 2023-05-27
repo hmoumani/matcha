@@ -20,14 +20,14 @@
 		<searchconversations />
 		<!-- <h1 class="py-4 text-xl text-[#3C444B] font-medium">Last Chats</h1> -->
 		<div
-			class="mt-9 overflow-y-scroll overflow-hidden h-[calc(100vh-16rem)]"
+			class="mt-9 overflow-y-hidden overflow-hidden h-[calc(100vh-16rem)]"
 		>
 			<div
 				v-for="(conversation, index) of conversations"
 				@click="showConversationMessages(conversation)"
-				class="flex py-6 px-6 rounded-xl cursor-pointer shadow-sm"
+				class="flex py-6 px-6 rounded-xl cursor-pointer bg-white shadow-md "
 				:class="{
-					'bg-[#EDF0F4]':
+					'bg-primary-color':
 						conversation.user.id == currentConversation?.user?.id,
 				}"
 			>
@@ -35,7 +35,7 @@
 					class="w-12 h-12 bg-red-300 rounded-full"
 					:src="conversation.user.avatar"
 				/>
-				<div class="flex flex-col pl-4">
+				<div class="flex flex-col pl-4 ">
 					<h1 class="font-medium">
 						{{
 							conversation.user.firstName +
