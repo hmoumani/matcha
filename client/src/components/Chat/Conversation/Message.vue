@@ -33,7 +33,9 @@
 	});
 
 	const goToProfile = () => {
-		router.push(`/user/${currentConversation.value?.user.id}`);
+		showUserProfile.value = true;
+		// router.push(`/user/${currentConversation.value?.user.id}`);
+		router.push(`/matchProfile`);
 	};
 </script>
 <template>

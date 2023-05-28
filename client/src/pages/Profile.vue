@@ -115,7 +115,7 @@
 	</div>
 </template>
 <route lang="yaml">
-name: profile
+name: profileS
 meta:
     layout: pageWithSidebar
 </route>
