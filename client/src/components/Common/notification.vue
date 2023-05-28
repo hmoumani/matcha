@@ -79,6 +79,6 @@ onMounted(() => {
 
 const clickHandler = (open) => {
   isOpen = true;
-  return open ? notificationList.forEach(elem => elem.seen = true) : apiClient.post('feed/markAsSeen')
+  return open ? notificationList.value.forEach(elem => elem.seen = true) : apiClient.post('feed/markAsSeen')
 }
 </script>

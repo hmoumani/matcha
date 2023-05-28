@@ -1,3 +1,7 @@
+console.log = () => {};
+console.warn = () => {};
+console.debug = () => {};
+console.trace = () => {};
 import App from '@/App.vue';
 
 import '@/styles/index.css';

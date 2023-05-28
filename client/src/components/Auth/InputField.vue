@@ -38,7 +38,6 @@
 		<div class="mt-1 mb-2 relative">
 			<input
 				ref="inputRef"
-				id="email"
 				name="email"
 				:placeholder="placeholder"
 				:type="type"

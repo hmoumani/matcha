@@ -84,7 +84,7 @@
 </template>
 
 <route lang="yaml">
-name: profilek
+name: profile
 meta:
-	layout: pageWithSidebar
+    layout: pageWithSidebar
 </route>

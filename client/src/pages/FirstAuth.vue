@@ -58,6 +58,7 @@ const handleChangePassions = passions => {
                                             <select class="w-full rounded-md" v-model="user.sexualOrientation">
                                                 <option value="female">female</option>
                                                 <option value="male">male</option>
+                                                <option value="both">both</option>
                                             </select>
 
                                             <div class="pointer-cursor absolute inset-y-0 right-0 flex items-center pr-3">
