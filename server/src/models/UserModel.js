@@ -31,6 +31,7 @@ class UserModel extends Model {
         sexual_orientation,
         users.id,
         gender,
+        last_connection,
         CAST(users.location AS JSON),
         (
           6371 * acos(
