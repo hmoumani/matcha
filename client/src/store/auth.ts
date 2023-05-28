@@ -38,8 +38,8 @@ export const useAuthStore = () => {
 			async changePassword(newPassword, token) {
 				try {
 					await changePassword({ password: newPassword, token });
+					router.push({ path: '/ResetPassword/success' });
 				} catch (e) {}
-				router.push({ path: '/ResetPassword/success' });
 			},
 			async FirstAuth(user: object){
 				const { getCurrentUser } = useUserStore();
