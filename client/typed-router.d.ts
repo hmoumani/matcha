@@ -34,6 +34,7 @@ declare module '@vue-router/routes' {
     '/ConfirmationEmailSent': RouteRecordInfo<'/ConfirmationEmailSent', '/ConfirmationEmailSent', Record<never, never>, Record<never, never>>,
     'messages': RouteRecordInfo<'messages', '/conversation', Record<never, never>, Record<never, never>>,
     'messages': RouteRecordInfo<'messages', '/conversation/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/FirstAuth': RouteRecordInfo<'/FirstAuth', '/FirstAuth', Record<never, never>, Record<never, never>>,
     '/Login': RouteRecordInfo<'/Login', '/Login', Record<never, never>, Record<never, never>>,
     'messages': RouteRecordInfo<'messages', '/messages', Record<never, never>, Record<never, never>>,
     'profile': RouteRecordInfo<'profile', '/Profile', Record<never, never>, Record<never, never>>,

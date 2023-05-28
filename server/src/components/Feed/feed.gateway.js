@@ -17,6 +17,10 @@ const onUserLikeCallback = async (socket, likedUserId) => {
     return;
   }
   const currentUser = await UserService.find(currentUserId);
+  const likedUser = await UserService.find(likedUserId);
+  if (currentUser.avatars.length === 0 || likedUser.avatars.length === 0) {
+    return;
+  }
 
   await feedService.like(currentUserId, likedUserId);
 
@@ -50,7 +54,6 @@ const onUserLikeCallback = async (socket, likedUserId) => {
   });
   
   // acknowledge the current user
-  const likedUser = await UserService.find(likedUserId);
   emitToUser(currentUserId, USER_MATCH_EVENT, 
     {
       avatar: likedUser.avatars?.[0]?.value,
