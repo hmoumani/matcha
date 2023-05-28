@@ -9,7 +9,8 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
 const options = {
-    position: "bottom-right",
+    position: "top-right",
+	timeout: 2500,
 };
 
 

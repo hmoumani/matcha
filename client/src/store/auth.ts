@@ -8,6 +8,7 @@ import {
 	firstAuth
 } from '../services/authService';
 import { useUserStore } from './user';
+import app from '@/main';
 
 export const useAuthStore = () => {
 	const router = useRouter();
@@ -27,7 +28,8 @@ export const useAuthStore = () => {
 			},
 			async logout() {
 				await logout();
-				router.push({ path: '/login' });
+				app.config.globalProperties.$socket.disconnect();
+				window.location = '/login';
 			},
 			async requestPasswordReset(email: string) {
 				await requestPasswordReset(email);

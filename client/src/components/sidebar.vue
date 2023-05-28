@@ -49,17 +49,27 @@
 							<!-- Sidebar component, swap this element with another sidebar if you like -->
 							<div class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
 								<div class="flex h-16 shrink-0 items-center">
-									<img class="h-8 w-auto" src="/assets/logo.svg" alt="Your Company" />
+									<img class="h-8 w-auto" src="/assets/logo.svg" alt="" />
 								</div>
 								<nav class="flex flex-1 flex-col">
 									<ul role="list" class="flex flex-1 flex-col gap-y-7">
 										<li>
 											<ul role="list" class="-mx-2 space-y-1">
 												<div class="mb-8">
-													<img class="w-full rounded-3xl mb-2 h-[15rem] object-cover" :src="currentUser
-															?.avatars[0]
-															?.value
-														" alt="Your Company" />
+													<img class="w-full rounded-3xl mb-2 h-[15rem] object-cover" 
+													:src="getImg(currentUser.avatars[0])"
+															v-if="currentUser.avatars[0]"  />
+
+														<svg
+														v-else
+														class="h-[15rem] w-full text-gray-300"
+														fill="currentColor"
+														viewBox="0 0 24 24"
+														>
+														<path
+															d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"
+														/>
+														</svg>
 													<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
 														{{
 															currentUser.firstName
@@ -180,7 +190,7 @@
 			<!-- Sidebar component, swap this element with another sidebar if you like -->
 			<div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
 				<div class="flex h-16 shrink-0 items-center">
-					<img class="h-8 w-auto" src="/assets/logo.svg" alt="Your Company" />
+					<img class="h-8 w-auto" src="/assets/logo.svg" alt="" />
 				</div>
 				<nav class="flex flex-1 flex-col">
 					<ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -188,7 +198,17 @@
 							<ul role="list" class="-mx-2 space-y-1">
 								<div class="mb-8">
 									<img class="w-full rounded-3xl mb-2 h-[15rem] object-cover"
-										:src="currentUser.avatars[0]?.value" alt="Your Company" />
+										:src="getImg(currentUser.avatars[0])"
+										v-if="currentUser.avatars[0]"  />
+										<svg v-else
+														class="h-full w-full text-gray-300"
+														fill="currentColor"
+														viewBox="0 0 24 24"
+														>
+														<path
+															d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"
+														/>
+														</svg>
 									<h2 class="mt-3 text-2xl text-[#504E6E] font-medium pl-2">
 										{{ currentUser.firstName }}
 										{{ currentUser.lastName }}
@@ -540,5 +560,16 @@ const searchUsers = async e => {
 	);
 	search_users.value = results.data.message;
 	console.log(search_users.value);
+};
+const getImg = avatar => {
+	if (!avatar.value) {
+		let [file] = avatar;
+		if (file) return URL.createObjectURL(file);
+	} else {
+		let { value } = avatar;
+		let fileName = value;
+
+		return fileName;
+	}
 };
 </script>
