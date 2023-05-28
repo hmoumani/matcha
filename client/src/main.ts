@@ -2,6 +2,8 @@ console.log = () => {};
 console.warn = () => {};
 console.debug = () => {};
 console.trace = () => {};
+// console.info = () => {};
+// console.error = () => {};
 import App from '@/App.vue';
 
 import '@/styles/index.css';
