@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	import { useUserStore } from '@/store/user';
+	import moment from 'moment';
 
 	const { user } = defineProps({
 		user: Object,
@@ -11,7 +12,7 @@
 </script>
 <template>
 	<div
-		class="relative h-[calc(100vh-14rem)] bg-white shadow-sm mx-auto overflow-y-scroll overflow-x-hidden"
+		class="relative h-[calc(100vh-18rem)] bg-white shadow-sm mx-auto overflow-y-scroll overflow-x-hidden"
 	>
 		<!-- <avatars2Slider :avatars="userAvatars" /> -->
 		<!-- <div class="w-full h-[20rem] py-3 px-8 rounded-full"> -->
@@ -28,7 +29,14 @@
 				>
 					{{ user.firstName }} {{ user.lastName }},
 					{{ user.age }}
-					<span class="rounded-full bg-[#4EB3AC] w-3 h-3"></span>
+					<span
+						v-if="user?.isOnline"
+						class="dot bg-[#4EB3AC] w-3 h-3"
+					></span>
+					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
+					<p
+						v-if="!user?.isOnline"
+						class="text-[#aaa] text-sm font-semibold">{{ moment(user.last_connection, "YYYY-MM-DDThh:mm:ss").fromNow() }}</p>
 				</div>
 				<div
 					class="text-md text-[#B7B5BF] font-bold flex items-center gap-x-1"
@@ -47,12 +55,14 @@
 					{{ Math.floor(user.distance) }} km from you
 				</div>
 				<div class="text-lg mt-5">{{ user.biography }}</div>
-				<div class="my-5 text-2xl font-semibold text-[#646688]">
+				<div class="my-5 text-2xl font-semibold text-[#646688]"
+				v-if="user.passions && user.passions[0]">
 					Passions
 				</div>
 				<div class="flex">
 					<div
 						v-for="passion of user.passions"
+						v-if="passion !== null"
 						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
 							'bg-[#F8F7FF] text-black border-[#F3F3F3] border-2':
