@@ -1,12 +1,16 @@
 <script setup lang="ts">
-	import { useChatStore } from '@/store/chat';
+	import { router } from '@/router';
+import { useChatStore } from '@/store/chat';
 	import { storeToRefs } from 'pinia';
 
 	const messagesStore = useChatStore();
 	const { conversations, currentConversation } = storeToRefs(messagesStore);
 	const { fetchConversations, showConversationMessages } = messagesStore;
 
-	fetchConversations();
+	const fetchConversation = (conversation) => {
+		showConversationMessages(conversation)
+		router.push('/conversation');
+	}
 </script>
 <template>
 	<div class="mt-8">
@@ -24,10 +28,10 @@
 		>
 			<div
 				v-for="(conversation, index) of conversations"
-				@click="showConversationMessages(conversation)"
+				@click="  (conversation)"
 				class="flex py-6 px-6 rounded-xl cursor-pointer bg-white shadow-md "
 				:class="{
-					'bg-primary-color':
+					'bg-[#EDF0F4]':
 						conversation.user.id == currentConversation?.user?.id,
 				}"
 			>

@@ -31,6 +31,7 @@
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
 				<div
+					v-if="user.distance"
 					class="text-md text-[#B7B5BF] font-bold flex items-center gap-x-1"
 				>
 					<svg

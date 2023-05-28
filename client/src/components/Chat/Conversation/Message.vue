@@ -58,14 +58,14 @@
 			<div
 				class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
 				:class="
-					isCurrentUserMessage ? 'bg-black-color reverse' : 'bg-white'
+					isCurrentUserMessage ? 'bg-primary-color reverse text-white' : 'bg-white'
 				"
 			>
 				<div
 					id="triangle"
 					class="absolute left-[-.6rem] bottom-0"
 					:class="{
-						'!border-b-black-color border-b-[1rem]':
+						'!border-b-primary-color border-b-[1rem]':
 							isCurrentUserMessage,
 					}"
 				></div>

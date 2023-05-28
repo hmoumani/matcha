@@ -32,6 +32,8 @@ declare module '@vue-router/routes' {
     'home': RouteRecordInfo<'home', '/', Record<never, never>, Record<never, never>>,
     '/[...all]': RouteRecordInfo<'/[...all]', '/:all(.*)', { all: ParamValue<true> }, { all: ParamValue<false> }>,
     '/ConfirmationEmailSent': RouteRecordInfo<'/ConfirmationEmailSent', '/ConfirmationEmailSent', Record<never, never>, Record<never, never>>,
+    'messages': RouteRecordInfo<'messages', '/conversation', Record<never, never>, Record<never, never>>,
+    'messages': RouteRecordInfo<'messages', '/conversation/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/Login': RouteRecordInfo<'/Login', '/Login', Record<never, never>, Record<never, never>>,
     'messages': RouteRecordInfo<'messages', '/messages', Record<never, never>, Record<never, never>>,
     'profile': RouteRecordInfo<'profile', '/Profile', Record<never, never>, Record<never, never>>,
@@ -41,7 +43,7 @@ declare module '@vue-router/routes' {
     '/ResetPassword/[token]': RouteRecordInfo<'/ResetPassword/[token]', '/ResetPassword/:token', { token: ParamValue<true> }, { token: ParamValue<false> }>,
     '/ResetPassword/success': RouteRecordInfo<'/ResetPassword/success', '/ResetPassword/success', Record<never, never>, Record<never, never>>,
     'Settings': RouteRecordInfo<'Settings', '/settings', Record<never, never>, Record<never, never>>,
-    'homes': RouteRecordInfo<'homes', '/user/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/user/[id]': RouteRecordInfo<'/user/[id]', '/user/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/VerifyEmail/[token]': RouteRecordInfo<'/VerifyEmail/[token]', '/VerifyEmail/:token', { token: ParamValue<true> }, { token: ParamValue<false> }>,
   }
 }
