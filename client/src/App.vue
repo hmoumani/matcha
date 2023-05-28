@@ -65,5 +65,6 @@
 <style>
 	body {
 		@apply h-screen overflow-scroll;
+		@apply bg-[#F6F7FF]
 	}
 </style>

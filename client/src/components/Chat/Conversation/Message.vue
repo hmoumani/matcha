@@ -3,6 +3,7 @@
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
 	import { formatTime } from '@/helpers/formatTime';
+	import { router } from '@/router';
 
 	const { message, user } = defineProps({
 		message: Object,
@@ -30,6 +31,10 @@
 		}
 		return userFullName.value;
 	});
+
+	const goToProfile = () => {
+		router.push(`/user/${currentConversation.value?.user.id}`);
+	};
 </script>
 <template>
 	<div
@@ -40,7 +45,7 @@
 	>
 		<img
 			v-if="!isCurrentUserMessage"
-			@click="showUserProfile = true"
+			@click="goToProfile"
 			class="w-10 h-10 rounded-full mt-12 cursor-pointer"
 			:src="currentConversation?.user?.avatar"
 			alt=""
@@ -53,14 +58,14 @@
 			<div
 				class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
 				:class="
-					isCurrentUserMessage ? 'bg-black-color reverse' : 'bg-white'
+					isCurrentUserMessage ? 'bg-primary-color reverse text-white' : 'bg-white'
 				"
 			>
 				<div
 					id="triangle"
 					class="absolute left-[-.6rem] bottom-0"
 					:class="{
-						'!border-b-black-color border-b-[1rem]':
+						'!border-b-primary-color border-b-[1rem]':
 							isCurrentUserMessage,
 					}"
 				></div>

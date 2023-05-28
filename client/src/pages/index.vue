@@ -24,7 +24,7 @@
 		<ProfileCard
 			v-if="currentProfile"
 			:user="currentProfile"
-			class="ml-[6rem] profile"
+			class="sm:ml-[6rem] profile"
 		/>
 		<searchSettings class="ml-[3rem] hidden 2xl:block w-4/12 " />
 	</div>

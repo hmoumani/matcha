@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { useUserStore } from '@/store/user';
 import { now } from '@vueuse/core';
 import app from '@/main';
+import { router } from '@/router';
 
 const getConversationUserID = conversation => conversation.user.id;
 

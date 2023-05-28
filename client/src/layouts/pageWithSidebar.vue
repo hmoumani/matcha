@@ -1,5 +1,4 @@
 <template>
-	<!-- <Header /> -->
 	<div class="fldex bg-[#F6F7FF] h-screen">
 	<Sidebar>
 		<router-view></router-view>
