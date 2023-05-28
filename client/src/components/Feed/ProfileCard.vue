@@ -16,8 +16,8 @@
 		class="w-12/12 lg:w-8/12 xl:w-5/12 bg-white shadow-slate-300 shadow-sm rounded-[2rem] h-[calc(100vh-7rem)] overflow-y-scroll overflow-x-hidden"
 	>
 		<avatarsSlider :avatars="user.avatars" />
-		<div class="px-8 py-8 flex justify-between">
-			<div>
+		<div class="px-8 py-8 flex justify-between flex-wrap">
+			<div class="">
 				<div
 					class="font-medium text-[#48496B] text-2xl flex items-center gap-x-3"
 				>
@@ -31,6 +31,7 @@
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
 				<div
+					v-if="user.distance"
 					class="text-md text-[#B7B5BF] font-bold flex items-center gap-x-1"
 				>
 					<svg

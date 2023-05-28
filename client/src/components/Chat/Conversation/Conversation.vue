@@ -11,9 +11,9 @@
 </script>
 <template>
 	<div
-		class="bg-[#ECF0F4] w-[100%] rounded-xl h-[calc(100vh-2rem)] pr-6 pt-4"
+		class="bg-[#ECF0F4] rounded-xl h-[calc(100vh-6rem)] pr-6 pt-4"
 	>
-		<MessagesList class="h-[85%] overflow-y-scroll" />
+		<MessagesList class="h-[87%] overflow-y-scroll" />
 		<div>
 			<InputField
 				class="pt-4 pl-6"

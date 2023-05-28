@@ -7,13 +7,9 @@
 	const isProfileSelected = ref(false);
 </script>
 <template>
-	<div class="flex gap-x-2">
-		<ContactsList
-			vd-if="!isProfileSelected"
-			class="pl-d7 pr-d4 w-11/12 xl:w-[30%]"
-		/>
+	<!-- <div class="flex gap-x-2"> -->
 		<Conversation class="w-[76%]  hidden xl:block" />
-	</div>
+	<!-- </div> -->
 	<!-- <UserProfile class="w-[30rem] pl-6 hiddden md:block" :user="currentConversation?.user" /> -->
 </template>
 <route lang="yaml">
