@@ -43,7 +43,7 @@ for i in range(742):
         "last_connection": fake.date_time(),
         "is_email_verified": True,
         "is_auto_locator_enabled": True,
-        'password': '123456',
+        'password': '58D9845E9C86E8EF235F1912F10526703B2F0DDC',
         'location': f'{{"lat": {random_cor[i]["lng"]}, "lng": {random_cor[i]["lat"]}}}',
     }
     users.append(user)

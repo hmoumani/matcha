@@ -29,7 +29,7 @@ const AuthService = {
     }
 
     if (crypto.createHash('sha1').update(requestBody.password).digest('hex').toUpperCase() !== results.rows[0].password) {
-      // throw new Error('Invalid Password!'); // TODO remove
+      throw new Error('Invalid Password!');
     }
 
     if (results.rows[0].is_email_verified !== true) {
@@ -82,7 +82,7 @@ const AuthService = {
     const userModel = new UserModel(); 
     const validationTokenModel = new ValidationTokenModel();
     await userModel.update({password: requestBody.password}, ['id', '=', results.rows[0].user_id]);
-    await validationTokenModel.delete(['token', '=', requestBody.token]);
+    await validationTokenModel.delete([['token', '=', requestBody.token]]);
   },
   getUserIdByEmail: async (email) => {
     let results = await query('select id from users where email=$1', [email]);
