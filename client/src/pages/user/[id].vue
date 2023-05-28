@@ -36,6 +36,7 @@
 			passions: jsonObj.passions,
 			avatars: jsonObj.avatars.map(avatar => avatar.value),
 			isOnline: jsonObj.isOnline,
+			last_connection: jsonObj.lastConnection,
 		};
 		// delete transformedObj.isAutoLocatorEnabled;
 		return transformedObj;

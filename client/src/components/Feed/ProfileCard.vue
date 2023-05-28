@@ -2,6 +2,7 @@
 	/* import font awesome icon component */
 	import { useFeedStore } from '@/store/feed';
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+	import moment from 'moment';
 
 	const { user } = defineProps({
 		user: Object,
@@ -28,6 +29,9 @@
 						class="dot bg-[#4EB3AC] w-3 h-3"
 					></span>
 					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
+					<p
+						v-if="!user?.isOnline"
+						class="text-[#aaa] text-sm font-semibold">{{ moment(user.last_connection, "YYYY-MM-DDThh:mm:ss").fromNow() }}</p>
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
 				<div
