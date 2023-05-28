@@ -7,10 +7,12 @@ import { useChatStore } from '@/store/chat';
 	const { conversations, currentConversation } = storeToRefs(messagesStore);
 	const { fetchConversations, showConversationMessages } = messagesStore;
 
+	fetchConversations();
 	const fetchConversation = (conversation) => {
 		showConversationMessages(conversation)
-		router.push('/conversation');
+		router.push('/chat');
 	}
+	// showConversationMessages();
 </script>
 <template>
 	<div class="mt-8">
@@ -28,7 +30,7 @@ import { useChatStore } from '@/store/chat';
 		>
 			<div
 				v-for="(conversation, index) of conversations"
-				@click="  (conversation)"
+				@click="fetchConversation(conversation)"
 				class="flex py-6 px-6 rounded-xl cursor-pointer bg-white shadow-md "
 				:class="{
 					'bg-[#EDF0F4]':
