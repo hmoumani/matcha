@@ -8,7 +8,7 @@
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
 
-	const avatars = ref(currentUser.value.avatars);
+	const avatars = ref(currentUser.value?.avatars || []);
 	const avatarsInputs = ref([]);
 
 	const uploadAvatar = async avatarInputIndex => {

@@ -34,9 +34,6 @@ export const useFeedStore = defineStore('feed', {
 			this.currentProfile = this.profilesQueue[0];
 		},
 		async getNewProfiles() {
-			if (this.profilesQueue.length > 0) {
-				return;
-			}
 			let { data:{message: people} } = await feedService.getNewProfiles(); //.catch(e => {});,
 			this.profilesQueue = people;
 			this.currentProfile = this.profilesQueue[0];

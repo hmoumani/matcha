@@ -24,6 +24,10 @@ services:
     restart: always
     ports:
       - 8890:8890
+    volumes:
+      - ../client:/app
+      - /app/node_modules
+
   back:
     build:
       context: ..
@@ -33,6 +37,11 @@ services:
     restart: always
     ports:
       - 1574:1574
+    volumes:
+      - ../server:/app
+      - /app/node_modules
+    depends_on:
+      - db
 
 
 volumes:
