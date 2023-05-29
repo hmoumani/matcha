@@ -11,7 +11,7 @@ async function getCurrentUserPosition() {
 	return location;
 }
 
-async function getLocationFromIP() {
+export async function getLocationFromIP() {
 	let location;
 	try {
 		const response = await fetch('http://ip-api.com/json');

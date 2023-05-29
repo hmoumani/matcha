@@ -1,15 +1,25 @@
 <script setup>
-	import { ChevronRightIcon } from '@heroicons/vue/24/solid';
+	import { ChevronLeftIcon } from '@heroicons/vue/24/solid';
 	import { useChatStore } from '@/store/chat';
 	import { storeToRefs } from 'pinia';
+	import { router } from '@/router';
+	import { useMobile } from '@/helpers/useMobile';
+
+	const isMobile = useMobile();
 
 	const messagesStore = useChatStore();
 
 	const { showUserProfile } = storeToRefs(messagesStore);
-
+	1;
 	defineProps({
 		user: Object,
 	});
+
+	function goBack() {
+		showUserProfile.value = false;
+		if (isMobile.value) router.push('/chat');
+		else router.push('/messages');
+	}
 </script>
 <template>
 	<!-- <transition name="slide"> -->
@@ -19,9 +29,9 @@
 		>
 			<div
 				class="bg-grey-color p-3 w-12 h-12 rounded-xl cursor-pointer"
-				@click="showUserProfile = false"
+				@click="goBack"
 			>
-				<ChevronRightIcon class="w-6 h-6 text-black-color" />
+				<ChevronLeftIcon class="w-6 h-6 text-black-color" />
 			</div>
 			<div class="text-2xl">Profile</div>
 		</div>

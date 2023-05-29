@@ -3,9 +3,12 @@
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
 	import { onUpdated, watch } from 'vue';
+	import { ChevronLeftIcon } from '@heroicons/vue/24/solid';
 	import { computed } from '@vue/reactivity';
+	import { useMobile } from '@/helpers/useMobile';
 
 	const chatStore = useChatStore();
+	const isMobile = useMobile();
 	const userStore = useUserStore();
 	const { currentUserFullName, currentUser } = storeToRefs(userStore);
 	const { showUserProfile, currentConversation } = storeToRefs(chatStore);
@@ -30,8 +33,15 @@
 <template>
 	<div v-if="currentConversation" class="text-[#3C444B] relative rounded-xl">
 		<div
-			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium"
+			class="border-b-2 border-dark-color sticky top-0 right-0 bg-grey-color opacity-90 z-10 w-full p-8 text-2xl text-dark-color font-medium flex gap-x-3 items-center"
 		>
+			<router-link
+				to="/messages"
+				v-if="isMobile"
+				class="px-6 py-3 rounded-lg bg-white cursor-pointer"
+			>
+				<ChevronLeftIcon class="w-6 h-6 text-black" />
+			</router-link>
 			{{ userFullName }}
 		</div>
 		<div class="py-6 px-5" ref="messages">

@@ -35,6 +35,7 @@
 	const goToProfile = () => {
 		showUserProfile.value = true;
 		// router.push(`/user/${currentConversation.value?.user.id}`);
+		// if (isMobile())
 		router.push(`/matchProfile`);
 	};
 </script>
@@ -60,7 +61,9 @@
 			<div
 				class="relative shadow-sm rounded-2xl rounded-bl-none py-4 px-5 ml-2 font-medium"
 				:class="
-					isCurrentUserMessage ? 'bg-primary-color reverse text-white' : 'bg-white'
+					isCurrentUserMessage
+						? 'bg-primary-color reverse text-white'
+						: 'bg-white'
 				"
 			>
 				<div
