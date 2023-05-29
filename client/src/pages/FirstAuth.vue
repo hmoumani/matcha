@@ -21,16 +21,16 @@
 	};
 </script>
 <template>
-	<div class="h-screen">
-		<section class="absolute w-full h-full bg-gray-50">
+	<div class="h-full">
+		<section class="w-full min-h-screen bg-gray-50 relative">
 			<div class="absolute top-0 w-full h-full bg-gray-50 bg bg-cover">
 				<div class="absolute inset-0 bg-gray-700 opacity-75"></div>
 			</div>
-			<div class="container mx-auto px-4 h-full">
+			<div class="container mx-auto px-4 h-full pt-20">
 				<div
 					class="flex content-center items-center justify-center h-full"
 				>
-					<div class="w-full lg:w-4/12 px-4">
+					<div class="w-full lg:w-6/12 px-4">
 						<div
 							class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-50 border-0"
 						>
@@ -42,7 +42,7 @@
 									/>
 								</div>
 							</div>
-							<div class="flex-auto px-4 lg:px-10 pt-2 pb-0">
+							<div class="flex-autdo px-4 lg:px-10 pt-2 pb-0">
 								<form @submit.prevent="firstAuth">
 									<div class="flex-1d">
 										<label
@@ -68,7 +68,6 @@
 											></div>
 										</div>
 									</div>
-									<!-- <Avatars class="pdy-4"/> -->
 									<div class="flex-1d">
 										<label
 											class="block text-sm font-medium text-gray-700"
@@ -151,6 +150,7 @@
 											></div>
 										</div>
 									</div>
+									<FirstAuthAvatars class="pdy-4 my-4" />
 									<div class="text-center mt-6">
 										<input
 											class="cursor-pointer bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
