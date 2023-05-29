@@ -20,7 +20,7 @@ apiClient.interceptors.response.use(
 			router.push('/firstAuth');
 		}
 		const toast = useToast();
-		if (error.response.data?.message !== ""
+		if (error.response.data?.message
 			&& error.response.data.message !== 'No token provided!') {
 			toast.error(error.response.data.message);
 		}
