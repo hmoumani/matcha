@@ -1,4 +1,5 @@
-sudo docker-compose  up -d
-pip install -r requirements.txt
+docker-compose down -v
+docker-compose up -d --build
+pip3 install -r requirements.txt
 python3 init_tables.py
 python3 generate_data.py
