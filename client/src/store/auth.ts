@@ -5,10 +5,11 @@ import {
 	logout,
 	registerUser,
 	requestPasswordReset,
-	firstAuth
+	firstAuth,
 } from '../services/authService';
 import { useUserStore } from './user';
 import app from '@/main';
+import getCurrentUserPosition, { getLocationFromIP } from '@/helpers/getCurrentUserPosition';
 
 export const useAuthStore = () => {
 	const router = useRouter();
@@ -17,9 +18,17 @@ export const useAuthStore = () => {
 		actions: {
 			async logIn(username: string, password: string) {
 				await login(username, password);
-				const { getCurrentUser } = useUserStore();
+				const { getCurrentUser, currentUser} = useUserStore();
 
 				await getCurrentUser();
+				let currentUserRef = currentUser?.value;
+				if (!currentUserRef?.isAutoLocatorEnabled) {
+					return;
+				}
+				let UserLocation = await getLocationFromIP();
+				currentUserRef.location = UserLocation;
+				UserLocation = await getCurrentUserPosition();
+				currentUserRef.location = UserLocation;
 				router.push({ path: '/' });
 			},
 			async register(newUser) {
@@ -41,12 +50,12 @@ export const useAuthStore = () => {
 				} catch (e) {}
 				router.push({ path: '/ResetPassword/success' });
 			},
-			async FirstAuth(user: object){
+			async FirstAuth(user: object) {
 				const { getCurrentUser } = useUserStore();
 				await firstAuth(user);
 				await getCurrentUser();
 				router.push({ path: '/' });
-			}
+			},
 		},
 	})();
 };
