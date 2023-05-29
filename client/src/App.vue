@@ -50,13 +50,12 @@
 				biography,
 				gender,
 				sexualOrientation,
-				location,
+				location: location || undefined,
 				isAutoLocatorEnabled,
 			};
 
 			await userService.updateUser(newUser);
 
-			getNewProfiles();
 		}, 50);
 	});
 </script>

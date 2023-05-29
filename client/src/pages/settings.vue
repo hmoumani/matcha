@@ -9,13 +9,6 @@
 
 	const { currentProfile } = storeToRefs(feedStore);
 
-	const { showNextProfile } = feedStore;
-
-	onMounted(async () => {
-		if (currentUser.value?.location) {
-			showNextProfile();
-		}
-	});
 </script>
 
 <template>

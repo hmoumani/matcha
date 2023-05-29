@@ -1,4 +1,6 @@
-import { defineStore } from 'pinia';
+import userService from '../services/userService';
+import { defineStore, storeToRefs } from 'pinia';
+
 import {
 	changePassword,
 	login,
@@ -18,17 +20,19 @@ export const useAuthStore = () => {
 		actions: {
 			async logIn(username: string, password: string) {
 				await login(username, password);
-				const { getCurrentUser, currentUser} = useUserStore();
+				const { getCurrentUser,} = useUserStore();
+				const {currentUser} = storeToRefs(useUserStore());
 
 				await getCurrentUser();
 				let currentUserRef = currentUser?.value;
-				if (!currentUserRef?.isAutoLocatorEnabled) {
-					return;
+				console.log(currentUserRef);
+				if (currentUserRef?.isAutoLocatorEnabled) {
+					let UserLocation = await getLocationFromIP();
+					currentUserRef.location = UserLocation;
+					await userService.updateUser({location: UserLocation});
+					UserLocation = await getCurrentUserPosition();
+					currentUserRef.location = UserLocation;
 				}
-				let UserLocation = await getLocationFromIP();
-				currentUserRef.location = UserLocation;
-				UserLocation = await getCurrentUserPosition();
-				currentUserRef.location = UserLocation;
 				router.push({ path: '/' });
 			},
 			async register(newUser) {
