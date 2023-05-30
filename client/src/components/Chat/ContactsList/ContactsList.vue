@@ -30,7 +30,7 @@
 		<searchconversations />
 		<!-- <h1 class="py-4 text-xl text-[#3C444B] font-medium">Last Chats</h1> -->
 		<div
-			class="mt-9 overflow-y-hidden overflow-hidden h-[calc(100vh-16rem)]"
+			class="mt-9 overflow-y-hidden overflow-hidden h-[calc(100vh-16rem)] gap-y-4"
 		>
 			<div
 				v-for="(conversation, index) of conversations"
