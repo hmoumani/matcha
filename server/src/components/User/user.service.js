@@ -53,7 +53,8 @@ const UserService = {
       users.biography, \
       users.sexual_orientation,\
       users.gender,\
-      users.last_connection \
+      users.last_connection, \
+      users.email \
       FROM users\
     WHERE users.id = $1',
       [userId]

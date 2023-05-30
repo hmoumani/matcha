@@ -53,8 +53,8 @@ const getUserIdFromToken = async (req, res, next) => {
     let payload = jwt.verify(token, config.secret);
     req.userId = payload.id;
     const userModel = new UserModel();
-    if (!await userModel.isInfoCompleted(req.userId) && req.route.path !== '/firstLogin') {
-      return res.status(418).send({
+    if (!await userModel.isInfoCompleted(req.userId) && !['/firstLogin', '/avatar'].includes(req.route.path)) {
+     return res.status(418).send({
         message: 'Please complete your profile!'
       });
     }
