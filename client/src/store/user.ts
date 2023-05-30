@@ -5,6 +5,7 @@ import app from '@/main';
 import socketIO from '../plugins/socketIO';
 import userToken from '../helpers/userToken';
 import { listenForEvents } from '@/notifications'
+import { router } from '@/router';
 
 function removeItemOnce(arr, value) {
 	var index = arr.indexOf(value);
@@ -46,6 +47,7 @@ export const useUserStore = defineStore('user', {
 		async blockUser(userID) {
 			try {
 				await userService.blockUser(userID);
+				router.push('/messages');
 			} catch (e) {
 				// return; TODO uncomment this line
 			}
