@@ -43,6 +43,9 @@
 				sexualOrientation,
 				location,
 				isAutoLocatorEnabled,
+				firstName,
+				lastName,
+				email
 			} = currentUser.value;
 
 			const newUser = {
@@ -52,6 +55,9 @@
 				sexualOrientation,
 				location: location || undefined,
 				isAutoLocatorEnabled,
+				firstName,
+				lastName,
+				email
 			};
 
 			await userService.updateUser(newUser);

@@ -17,7 +17,6 @@ users_images = []
 images_file_name = [str(i) + ".jpg" for i in range(1, 2227)]
 for i in range(len(tags)):
     tag = {
-        'id': i + 1,
         'value': tags[i],
     }
     init_tables.session.add(init_tables.Tag(**tag))

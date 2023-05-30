@@ -95,7 +95,7 @@ const AuthService = {
     const userModel = new UserModel();
     const passions = requestBody.passions;
     delete requestBody.passions;
-    userModel.update(requestBody, ['id', '=', userId]);
+    await userModel.update(requestBody, ['id', '=', userId]);
     const tagModel = new TagModel();
     const tags_ids = await tagModel.insert(passions);
     const userTagModel = new UserTagModel();

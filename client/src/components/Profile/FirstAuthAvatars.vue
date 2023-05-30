@@ -17,7 +17,6 @@
 				.files;
 		await userService.uploadAvatars(uploadedFiles);
 		avatars.value = avatars.value.concat(uploadedFiles);
-		currentUser.value.avatars = avatars.value;
 	};
 
 	const getImg = avatar => {

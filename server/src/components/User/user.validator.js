@@ -39,7 +39,14 @@ const updateUserInfo = ({ body }) => {
     gender: Joi.string().valid('male', 'female').insensitive(),
     sexualOrientation: Joi.string().valid('male', 'female', 'both').insensitive(),
     isAutoLocatorEnabled: Joi.boolean(),
-    location: locationRule
+    location: locationRule,
+    email: Joi.string().email(),
+    firstName: Joi.string().messages({
+      'string.pattern.base': 'Provide valid first name'
+    }),
+    lastName: Joi.string().messages({
+      'string.pattern.base': 'Provide valid last name'
+    }),
   });
   return schema.validate(body, options);
 };

@@ -38,25 +38,25 @@ export const useFeedStore = defineStore('feed', {
 			this.profilesQueue = people;
 			this.currentProfile = this.profilesQueue[0];
 		},
-		async likeUser() {
+		async likeUser(userId) {
 			const {currentUser} = useUserStore();
 			if (currentUser.avatars.length < 1) {
 				toast.error('You need to upload at least one photo to like someone');
 				return ;
 			}
-			const { id } = this.currentProfile;
+			const { id } = this.currentProfile ?? {};
 			await this.showNextProfile();
-			feedService.likeUser(id);
+			feedService.likeUser(userId || id);
 		},
-		async unLikeUser() {
+		async unLikeUser(userId) {
 			const {currentUser} = useUserStore();
 			if (currentUser.avatars.length < 1) {
 				toast.error('You need to upload at least one photo to dislike someone');
 				return ;
 			}
-			const { id } = this.currentProfile;
+			const { id } = this.currentProfile ?? {};
 			this.showNextProfile();
-			feedService.unLikeUser(id);
+			feedService.unLikeUser(userId || id);
 		},
 		async reportUser(userId) {
 			userService.reportUser(userId);

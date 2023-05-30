@@ -18,6 +18,10 @@ export const useAuthStore = () => {
 	return defineStore('auth', {
 		state: () => ({}),
 		actions: {
+			async getPositionWrapper(currentUserRef) {
+				let UserLocation = await getCurrentUserPosition();
+				currentUserRef.location = UserLocation;
+			},
 			async logIn(username: string, password: string) {
 				await login(username, password);
 				const { getCurrentUser,} = useUserStore();
@@ -30,8 +34,7 @@ export const useAuthStore = () => {
 					let UserLocation = await getLocationFromIP();
 					currentUserRef.location = UserLocation;
 					await userService.updateUser({location: UserLocation});
-					UserLocation = await getCurrentUserPosition();
-					currentUserRef.location = UserLocation;
+					this.getPositionWrapper(currentUserRef);
 				}
 				router.push({ path: '/' });
 			},
@@ -57,7 +60,16 @@ export const useAuthStore = () => {
 			async FirstAuth(user: object) {
 				const { getCurrentUser } = useUserStore();
 				await firstAuth(user);
+				const {currentUser} = storeToRefs(useUserStore());
+
 				await getCurrentUser();
+				let currentUserRef = currentUser?.value;
+				if (currentUserRef?.isAutoLocatorEnabled) {
+					let UserLocation = await getLocationFromIP();
+					currentUserRef.location = UserLocation;
+					await userService.updateUser({location: UserLocation});
+					this.getPositionWrapper(currentUserRef);
+				}
 				router.push({ path: '/' });
 			},
 		},

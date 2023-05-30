@@ -50,6 +50,28 @@
 	const handleChangePassions = passions => {
 		currentUser.value.passions = passions;
 	};
+
+	let fields = ref([
+		{
+			name: 'First Name',
+			type: 'text',
+			key: 'firstName',
+			value: currentUser.value.firstName,
+			width: 'half',
+			placeholder: 'First Name',
+			update: handleChangePassions
+		},
+		{
+			name: 'Last Name',
+			type: 'text',
+			key: 'lastName',
+			value: currentUser.value.lastName,
+			width: 'half',
+			placeholder: 'Last Name',
+		},
+		{ name: 'Email', type: 'email', key: 'email', value: currentUser.value.email, placeholder: 'your Email',
+	ppattern:"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" },
+	]);
 </script>
 <template>
 	<div class="bg-[#F6F7FF] flex justify-center w-full h-screen">
@@ -58,6 +80,26 @@
 			class="mb-4 mt-10 bg-white rounded-lg p-8 flex flex-col gap-y-4 overflow-y-scroll hide-scroll h-auto h-d[88%] w-[37rem] shadow-slate-300 shadow-sm"
 		>
 			<Avatars />
+			<div class="fledx mt-6 mb-3">
+				<InputField
+				class="flex-1d"
+				v-for="field of fields"
+				:label="field.name"
+				:type="field.type"
+				:placeholder="field.placeholder"
+				pattern="field.pattern"
+				v-model="field.value"
+				@update:modelValue="
+					fieldValue => {
+						currentUser[field.key] = fieldValue;
+					}"
+				:class="{
+					// '!border-gray-300 !border-1':true,
+					'w-full' : field && field.width !== 'full',
+					'!w-1/2 float-left pr-4': field && field.width === 'half',
+				}"
+			/>
+			</div>
 			<div class="my-2">
 				<label
 					for="comment"

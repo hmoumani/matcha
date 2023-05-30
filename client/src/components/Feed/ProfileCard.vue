@@ -79,12 +79,12 @@
 					@click="reportUser(user?.id)"
 				/>
 				<FontAwesomeIcon
-					@click="unLikeUser"
+					@click="unLikeUser(user?.id)"
 					icon="fa-solid fa-xmark"
 					class="text-black bg-[#F8F7FF] action px-10"
 				/>
 				<FontAwesomeIcon
-					@click="likeUser"
+					@click="likeUser(user?.id)"
 					icon="fa-solid fa-heart"
 					class="text-[#4EB3AC] bg-[#D5F9F7] action"
 				/>
