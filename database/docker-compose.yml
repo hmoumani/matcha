@@ -33,6 +33,8 @@ services:
     restart: always
     ports:
       - 1574:1574
+    depends_on:
+      - db
 
 
 volumes:
