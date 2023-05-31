@@ -22,7 +22,7 @@ class UserModel extends Model {
       .fill(0)
       .map((el, index) => `($${index + 1})`)
       .join(', ')} `;
-    query += `on conflict (value) do update set value=EXCLUDED.value RETURNING id`;
+    query += ` on conflict (value) do update set value=EXCLUDED.value RETURNING id`;
     const result = await executeQuery(query, params);
     return result.rows;
   }

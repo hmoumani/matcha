@@ -31,6 +31,7 @@ class UserModel extends Model {
         sexual_orientation,
         users.id,
         gender,
+        last_connection,
         CAST(users.location AS JSON),
         (
           6371 * acos(
@@ -104,6 +105,7 @@ class UserModel extends Model {
           'lastName', u.last_name,
           'age', u.age,
           'id', u.id,
+          'last_connection', u.last_connection,
           'distance', (
               6371 * acos(
                   cos(radians(CAST(CAST(location AS JSON)->>'lat' AS double precision))) * cos(radians($2)) *

@@ -1,11 +1,13 @@
 <script setup lang="ts">
-	import getCurrentUserPosition from './helpers/getCurrentUserPosition';
+	import getCurrentUserPosition, {
+		getLocationFromIP,
+	} from './helpers/getCurrentUserPosition';
 	import { useUserStore } from '@/store/user';
 	import { storeToRefs } from 'pinia';
 	import userService from './services/userService';
-	import { listenForEvents } from '@/notifications'
+	import { listenForEvents } from '@/notifications';
 	import { useFeedStore } from '@/store/feed';
-	import { useChatStore } from '@/store/chat'
+	import { useChatStore } from '@/store/chat';
 
 	const feedStore = useFeedStore();
 
@@ -15,7 +17,6 @@
 	let { currentUser } = storeToRefs(userStore);
 
 	onMounted(async () => {
-
 		const messagesStore = useChatStore();
 		const { listenForChats } = messagesStore;
 		const { msg } = storeToRefs(messagesStore);
@@ -24,7 +25,9 @@
 		if (!currentUserRef?.isAutoLocatorEnabled) {
 			return;
 		}
-		const UserLocation = await getCurrentUserPosition();
+		let UserLocation = await getLocationFromIP();
+		currentUserRef.location = UserLocation;
+		UserLocation = await getCurrentUserPosition();
 		currentUserRef.location = UserLocation;
 	});
 
@@ -40,6 +43,9 @@
 				sexualOrientation,
 				location,
 				isAutoLocatorEnabled,
+				firstName,
+				lastName,
+				email
 			} = currentUser.value;
 
 			const newUser = {
@@ -47,17 +53,17 @@
 				biography,
 				gender,
 				sexualOrientation,
-				location,
+				location: location || undefined,
 				isAutoLocatorEnabled,
+				firstName,
+				lastName,
+				email
 			};
 
 			await userService.updateUser(newUser);
 
-			getNewProfiles();
-
 		}, 50);
 	});
-
 </script>
 <template>
 	<router-view class="font-poppins" />
@@ -65,6 +71,6 @@
 <style>
 	body {
 		@apply h-screen overflow-scroll;
-		@apply bg-[#F6F7FF]
+		@apply bg-[#F6F7FF];
 	}
 </style>

@@ -7,15 +7,15 @@
 	let { currentUser } = storeToRefs(userStore);
 	const feedStore = useFeedStore();
 
-	const { currentProfile } = storeToRefs(feedStore);
+	const { currentProfile,profilesQueue } = storeToRefs(feedStore);
 
-	const { showNextProfile } = feedStore;
+	const { getNewProfiles } = feedStore;
 
 	onMounted(async () => {
-		if (currentUser.value?.location) {
-			showNextProfile();
-		}
-		console.log('foo', currentUser.value);
+		if (profilesQueue.length > 0) {
+				return;
+			}
+				getNewProfiles();
 	});
 </script>
 

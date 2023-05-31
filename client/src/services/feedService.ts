@@ -1,6 +1,6 @@
 import apiClient from '@/modules/apiClient';
 import app from '@/main';
-import EVENTS from '../../../common/enums/events';
+import EVENTS from '../helpers/events';
 
 const { USER_LIKE_EVENT, USER_DIS_LIKE_EVENT } = EVENTS;
 

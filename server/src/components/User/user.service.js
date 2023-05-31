@@ -52,7 +52,9 @@ const UserService = {
       users.is_auto_locator_enabled, \
       users.biography, \
       users.sexual_orientation,\
-      users.gender\
+      users.gender,\
+      users.last_connection, \
+      users.email \
       FROM users\
     WHERE users.id = $1',
       [userId]

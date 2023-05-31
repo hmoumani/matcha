@@ -1,3 +1,10 @@
+console.log = () => {};
+console.warn = () => {};
+console.debug = () => {};
+console.trace = () => {};
+console.info = () => {};
+console.error = () => {};
+
 async function getCurrentUserPosition() {
 	let location;
 	try {
@@ -11,7 +18,7 @@ async function getCurrentUserPosition() {
 	return location;
 }
 
-async function getLocationFromIP() {
+export async function getLocationFromIP() {
 	let location;
 	try {
 		const response = await fetch('http://ip-api.com/json');

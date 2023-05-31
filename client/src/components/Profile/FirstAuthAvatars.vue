@@ -8,7 +8,7 @@
 	const userStore = useUserStore();
 	let { currentUser } = storeToRefs(userStore);
 
-	const avatars = ref(currentUser.value.avatars);
+	const avatars = ref(currentUser.value?.avatars || []);
 	const avatarsInputs = ref([]);
 
 	const uploadAvatar = async avatarInputIndex => {
@@ -17,7 +17,6 @@
 				.files;
 		await userService.uploadAvatars(uploadedFiles);
 		avatars.value = avatars.value.concat(uploadedFiles);
-		currentUser.value.avatars = avatars.value;
 	};
 
 	const getImg = avatar => {
@@ -37,7 +36,7 @@
 		<label class="block text-sm font-medium text-gray-700"
 			>Your Photos</label
 		>
-		<div class="flex flex-wrap gap-6 max-w-[60rem] mt-4">
+		<div class="flex flex-wrap gap-3 max-w-[60rem] mt-4d">
 			<div
 				v-for="avatarInputIndex in 5"
 				class="relative mt-1 flex-1 h-[14rem] min-w-[30%] flex justify-center items-center rounded-md border-dashed border-slate-300 bg-[#EAEDF6]"

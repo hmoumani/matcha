@@ -2,6 +2,7 @@
 	/* import font awesome icon component */
 	import { useFeedStore } from '@/store/feed';
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+	import moment from 'moment';
 
 	const { user } = defineProps({
 		user: Object,
@@ -28,6 +29,9 @@
 						class="dot bg-[#4EB3AC] w-3 h-3"
 					></span>
 					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
+					<p
+						v-if="!user?.isOnline"
+						class="text-[#aaa] text-sm font-semibold">{{ moment(user.last_connection, "YYYY-MM-DDThh:mm:ss").fromNow() }}</p>
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
 				<div
@@ -49,12 +53,14 @@
 				</div>
 				<div class="text-sm text-[#48496B]">{{ user.address }}</div>
 				<div class="text-lg mt-5">{{ user.biography }}</div>
-				<div class="my-5 text-2xl font-semibold text-[#7a7a7d]">
+				<div class="my-5 text-2xl font-semibold text-[#7a7a7d]"
+					v-if="user.passions && user.passions[0]">
 					Passions
 				</div>
 				<div class="flex flex-wrap gap-4">
 					<div
 						v-for="passion of user.passions"
+						v-if="passion !== null"
 						class="px-3 py-2 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
 							'bg-[#D5F9F7] text-[#4EB3AC] ': passion?.isCommon,
@@ -73,12 +79,12 @@
 					@click="reportUser(user?.id)"
 				/>
 				<FontAwesomeIcon
-					@click="unLikeUser"
+					@click="unLikeUser(user?.id)"
 					icon="fa-solid fa-xmark"
 					class="text-black bg-[#F8F7FF] action px-10"
 				/>
 				<FontAwesomeIcon
-					@click="likeUser"
+					@click="likeUser(user?.id)"
 					icon="fa-solid fa-heart"
 					class="text-[#4EB3AC] bg-[#D5F9F7] action"
 				/>

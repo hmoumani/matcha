@@ -16,11 +16,15 @@ apiClient.interceptors.response.use(
 		// Do something with response data
 		return response;
 	  }, function (error) {
-		if (error.response.status === 418) {
+		if (error?.response?.status === 418) {
 			router.push('/firstAuth');
 		}
 		const toast = useToast();
-		toast.error(error.response.data.message);
+		if (error.response.data?.message
+			&& error.response.data.message !== 'No token provided!'
+			&& error.response.data.message !== 'Unauthorized!') {
+			toast.error(error.response.data.message);
+		}
 		return Promise.reject(error);
 	  }
 );

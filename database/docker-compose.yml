@@ -4,9 +4,8 @@ services:
   db:
     image: postgres
     restart: always
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: matcha
+    env_file:
+      - .env
     ports:
       - 7777:5432
     volumes:
@@ -16,8 +15,34 @@ services:
     restart: always
     ports:
       - 8080:8080
+  front:
+    build:
+      context: ..
+      dockerfile: client/Dockerfile
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - 8890:8890
+    volumes:
+      - ../client:/app
+      - /app/node_modules
 
- 
+  back:
+    build:
+      context: ..
+      dockerfile: server/Dockerfile
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - 1574:1574
+    volumes:
+      - ../server:/app
+      - /app/node_modules
+    depends_on:
+      - db
+
+
 volumes:
   pgdata:
- 

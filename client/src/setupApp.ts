@@ -9,7 +9,8 @@ const inSentitiveComparaison = (str1, str2) =>
 	str1.toLowerCase() === str2.toLowerCase();
 
 const isPublicRoute = routePath =>
-	publicRoutes.some(route => inSentitiveComparaison(route, routePath));
+	publicRoutes.some(route => inSentitiveComparaison(route, routePath)) ||
+	routePath.startsWith('/ResetPassword') || routePath.startsWith('/VerifyEmail');
 
 const setupApp = async app => {
 	// Get user profile
@@ -23,15 +24,16 @@ const setupApp = async app => {
 	// ==> redirect to Home
 
 	const { getCurrentUser } = useUserStore();
+	const currentRoute = window.location.pathname;
 
 	try {
 		await getCurrentUser();
 	} catch (e) {
-		router.push('/login');
-		return;
+		if (!isPublicRoute(currentRoute))
+			router.push('/login');
+			return;
 	}
-
-	const currentRoute = window.location.pathname;
+	
 	if (isPublicRoute(currentRoute)) {
 		router.push({ name: 'home' });
 	}

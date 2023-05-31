@@ -1,5 +1,5 @@
 import app from '@/main';
-import EVENTS from '../../../common/enums/events';
+import EVENTS from '../helpers/events';
 import { useNotificationStore } from '@/store/notification'
 import { storeToRefs } from 'pinia';
 import apiClient from '../modules/apiClient';

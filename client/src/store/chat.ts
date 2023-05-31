@@ -74,8 +74,9 @@ export const useChatStore = defineStore('chat', {
 			}
 
 			socket.on('receiveMessage', data => {
+				if (!this.currentConversation) return;
 				const { user } = this.currentConversation;
-				if (data.sender_id === user.id || data.receiver_id === user.id) {
+				if (data.sender_id === user?.id || data.receiver_id === user?.id) {
 					this.currentConversation.messages.push(data);
 				}
 			});

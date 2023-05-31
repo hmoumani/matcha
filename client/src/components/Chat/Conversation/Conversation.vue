@@ -7,7 +7,6 @@
 	const { sendMessage } = messagesStore;
 	const { msg } = storeToRefs(messagesStore);
 
-	const user_id = 4;
 </script>
 <template>
 	<div
