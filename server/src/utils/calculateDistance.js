@@ -39,7 +39,7 @@ export async function getAddressFromLocation(loc) {
               }
             }
           }
-        }
+       }
       }
     } else {
       throw new Error('Geocoding failed: ' + data.status);

@@ -23,8 +23,11 @@ export const useAuthStore = () => {
 				currentUserRef.location = UserLocation;
 			},
 			async logIn(username: string, password: string) {
-				await login(username, password);
-				const { getCurrentUser,} = useUserStore();
+				try{
+					await login(username, password);
+				}
+				catch(e){}
+				const { getCurrentUser} = useUserStore();
 				const {currentUser} = storeToRefs(useUserStore());
 
 				await getCurrentUser();
@@ -39,8 +42,12 @@ export const useAuthStore = () => {
 				router.push({ path: '/' });
 			},
 			async register(newUser) {
-				await registerUser(newUser);
-				router.push({ path: '/ConfirmationEmailSent' });
+				try{
+					await registerUser(newUser);
+					router.push({ path: '/ConfirmationEmailSent' });
+				}catch(e){
+
+				}
 			},
 			async logout() {
 				await logout();
@@ -48,8 +55,12 @@ export const useAuthStore = () => {
 				window.location = '/login';
 			},
 			async requestPasswordReset(email: string) {
-				await requestPasswordReset(email);
-				router.push({ path: '/ResetEmailSent' });
+				try{
+					await requestPasswordReset(email);
+					router.push({ path: '/ResetEmailSent' });
+				}catch(e){
+
+				}
 			},
 			async changePassword(newPassword, token) {
 				try {

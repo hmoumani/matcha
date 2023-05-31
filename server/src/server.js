@@ -41,7 +41,7 @@ function onError(error) {
     throw error;
   }
 
-  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
+  const bind = `Port ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -64,7 +64,7 @@ function onError(error) {
 
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+  const bind = `port ${addr.port}`;
   console.info(`Listening on ${bind}`);
 }
 
