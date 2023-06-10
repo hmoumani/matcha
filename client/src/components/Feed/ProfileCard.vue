@@ -31,9 +31,23 @@
 					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
 					<p
 						v-if="!user?.isOnline"
-						class="text-[#aaa] text-sm font-semibold">{{ moment(user.last_connection, "YYYY-MM-DDThh:mm:ss").fromNow() }}</p>
+						class="text-[#aaa] text-sm font-semibold"
+					>
+						{{
+							moment(
+								user.last_connection,
+								'YYYY-MM-DDThh:mm:ss'
+							).fromNow()
+						}}
+					</p>
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
+				<div class="text-md text-gray-500 font-bold">
+					gender : {{ user.gender }}
+				</div>
+				<div class="text-md text-gray-500 font-bold">
+					orientation : {{ user.sexual_orientation }}
+				</div>
 				<div
 					v-if="user.distance"
 					class="text-md text-[#B7B5BF] font-bold flex items-center gap-x-1"
@@ -53,8 +67,10 @@
 				</div>
 				<div class="text-sm text-[#48496B]">{{ user.address }}</div>
 				<div class="text-lg mt-5">{{ user.biography }}</div>
-				<div class="my-5 text-2xl font-semibold text-[#7a7a7d]"
-					v-if="user.passions && user.passions[0]">
+				<div
+					class="my-5 text-2xl font-semibold text-[#7a7a7d]"
+					v-if="user.passions && user.passions[0]"
+				>
 					Passions
 				</div>
 				<div class="flex flex-wrap gap-4">

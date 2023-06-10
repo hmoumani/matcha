@@ -6,7 +6,6 @@ import ImageModel from '../../models/ImageModel';
 import SettingsModel from '../../models/SettingsModel';
 import ReportedUsersModel from '../../models/reportedUsersModel';
 import BlockedUsersModel from '../../models/BlockedUsersModel';
-import { getAddressFromLocation, getDistanceBetweenTwoLocations } from '../../utils/calculateDistance';
 import { isClientOnline } from './user.gateway';
 
 const UserService = {

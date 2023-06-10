@@ -31,7 +31,8 @@ app.use(
     secret: process.env.COOKIE_SECRET || 'wanna know my secret?',
     httpOnly: true,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    sameSite:'lax',
   })
 );
 

@@ -27,7 +27,8 @@ const AuthController = {
         emitToUser(parseInt(req.params.id), USER_VISIT_EVENT, {
           msg:`${currentUser.first_name} ${currentUser.last_name} just visited your profile.`,
           avatar: currentUser.avatars?.[0]?.value,
-          title: 'user visit'
+          title: 'user visit',
+          userId: req.userId
         });
         notificationModel.insert({
           seen: false,
