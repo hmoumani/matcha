@@ -1,5 +1,18 @@
 # Web Matcha Project
 
+## Installation
+To run the Web Matcha project, make sure you have Docker installed on your system. Follow the instructions for your operating system to install Docker.
+
+Once Docker is installed, perform the following steps:
+
+1. Clone the project repository to your local machine.
+2. Open a terminal and navigate to the `database` directory within the project.
+3. Run the `sh run.sh` command to start the necessary database services.
+
+The application will be built and launched
+
+You can access it by visiting `http://localhost:8890` in your web browser.
+
 ## IV.1 Registration and Signing-in
 - [x] The app must allow a user to register by requesting at least their email address, username, last name, first name, and a password that is somehow protected. After registration, an email with a unique link must be sent to the registered user to verify their account.
 - [x] The user must be able to login using their username and password, and also receive an email allowing them to reset their password if they forget it.
