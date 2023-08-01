@@ -1,4 +1,4 @@
-# Web Matcha Project
+# Matcha (Tinder Clone) Project
 
 ## Installation
 To run the Web Matcha project, make sure you have Docker installed on your system. Follow the instructions for your operating system to install Docker.
