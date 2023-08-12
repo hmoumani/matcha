@@ -4,6 +4,7 @@
 	import { storeToRefs } from 'pinia';
 	import { formatTime } from '@/helpers/formatTime';
 	import { router } from '@/router';
+import apiClient from '../../../modules/apiClient';
 
 	const { message, user } = defineProps({
 		message: Object,
@@ -34,8 +35,8 @@
 
 	const goToProfile = () => {
 		showUserProfile.value = true;
-		// router.push(`/user/${currentConversation.value?.user.id}`);
-		// if (isMobile())
+		let userId = currentConversation.value?.user?.id;
+		apiClient.get(`/user/${userId}`);
 		router.push(`/matchProfile`);
 	};
 </script>

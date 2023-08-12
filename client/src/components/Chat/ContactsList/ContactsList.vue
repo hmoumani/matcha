@@ -30,12 +30,12 @@
 		<searchconversations />
 		<!-- <h1 class="py-4 text-xl text-[#3C444B] font-medium">Last Chats</h1> -->
 		<div
-			class="mt-9 overflow-y-hidden overflow-hidden h-[calc(100vh-16rem)] gap-y-4"
+			class="mt-9 overflow-y-hidden overflow-hidden h-[calc(100vh-16rem)]"
 		>
 			<div
 				v-for="(conversation, index) of conversations"
 				@click="fetchConversation(conversation)"
-				class="flex py-6 px-6 rounded-xl cursor-pointer bg-white shadow-md"
+				class="flex py-6 px-6 rounded-xl cursor-pointer bg-white shadow-md mb-4"
 				:class="{
 					'bg-[#EDF0F4]':
 						conversation.user.id == currentConversation?.user?.id,

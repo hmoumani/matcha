@@ -42,13 +42,17 @@
 		return transformedObj;
 	}
 
-	onMounted(async () => {
-		const route = useRoute();
+	const route = useRoute();
+	async function fetchProfile() {
 		let { id } = route.params;
 		const {
 			data: { message: user },
 		} = await apiClient.get(`/user/${id}`);
 		userProfile.value = transformJSON(user);
+	}
+
+	onMounted(async () => {
+		fetchProfile();
 	});
 	const navigation = [
 		{ name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -60,6 +64,8 @@
 	];
 
 	const sidebarOpen = ref(false);
+
+	watch(() => route.params.id, fetchProfile);
 </script>
 <template>
 	<div class="fldex bg-[#F6F7FF] h-screen">
@@ -71,9 +77,7 @@
 					class="ml-[17rem] profile"
 				/>
 			</div> -->
-			<div
-				class="flex mt-4 w-full items-center justify-center"
-			>
+			<div class="flex mt-4 w-full items-center justify-center">
 				<ProfileCard
 					v-if="userProfile"
 					:user="userProfile"
