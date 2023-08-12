@@ -1,5 +1,22 @@
 # Matcha (Tinder Clone) Project
 
+## Project Overview
+Matcha is similar to Tinder, which uses a swiping interface to help users find potential matches based on shared interests and location. Users can easily
+connect and chat if they mutually swipe right on each other's profiles, potentially leading to a date.
+
+<div align="center">
+  <img src="https://github.com/hmellahi/Tinder-Clone/blob/master/Feed.png?raw=true" alt="Matcha Project" width="80%">
+    <p><em>Screenshot of the Matcha Feed Page</em></p>
+</div>
+
+## Technology Stack
+This project employs the following technologies:
+- Express
+- Vue 3 with Composition API
+- Tailwind CSS
+- Postgres (native SQL queries)
+
+
 **Demo:** You can check out the live demo of this project at [matcha.hmellahi.me](https://matcha.hmellahi.me)
 
 ## Installation
