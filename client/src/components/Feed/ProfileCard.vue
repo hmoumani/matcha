@@ -2,7 +2,6 @@
 	/* import font awesome icon component */
 	import { useFeedStore } from '@/store/feed';
 	import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-	import moment from 'moment';
 
 	const { user } = defineProps({
 		user: Object,
@@ -14,24 +13,43 @@
 </script>
 <template>
 	<div
-		class="w-12/12 lg:w-8/12 xl:w-5/12 bg-white shadow-slate-300 shadow-sm rounded-[2rem] h-[calc(100vh-7rem)] overflow-y-scroll overflow-x-hidden"
+		class="w-12/12 lg:w-8/12 xl:w-5/12 bg-white shadow-slate-300 shadow-md rounded-[2rem] h-[calc(100vh-7rem)] overflow-y-scroll overflow-x-hidden"
 	>
 		<avatarsSlider :avatars="user.avatars" />
 		<div class="px-8 py-8 flex justify-between flex-wrap">
-			<div class="">
+			<div class="w-full">
 				<div
-					class="font-medium text-[#48496B] text-2xl flex items-center gap-x-3"
+					class="font-medium text-[#48496B] text-2xl flex items-center justify-between"
 				>
-					{{ user.first_name }} {{ user.last_name }},
-					{{ user.age }}
-					<span
-						v-if="user?.isOnline"
-						class="dot bg-[#4EB3AC] w-3 h-3"
-					></span>
-					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
-					<p
+					<div>
+						{{ user.first_name }} {{ user.last_name }},
+						{{ user.age }}
+						<span
+							v-if="user?.isOnline"
+							class="dot bg-[#4EB3AC] w-3 h-3"
+						></span>
+						<span v-else class="dot bg-gray-500 w-3 h-3"></span>
+					</div>
+					<div class="text-xl flex gap-x-3">
+						<FontAwesomeIcon
+							icon="fa-solid fa-flag"
+							class="text-[#E11653] bg-[#f4a8bf] action"
+							@click="reportUser(user?.id)"
+						/>
+						<FontAwesomeIcon
+							@click="unLikeUser(user?.id)"
+							icon="fa-solid fa-xmark"
+							class="text-black bg-[#F8F7FF] action px-10"
+						/>
+						<FontAwesomeIcon
+							@click="likeUser(user?.id)"
+							icon="fa-solid fa-heart"
+							class="text-[#4EB3AC] bg-[#D5F9F7] action"
+						/>
+					</div>
+					<!-- <p
 						v-if="!user?.isOnline"
-						class="text-[#aaa] text-sm font-semibold">{{ moment(user.last_connection, "YYYY-MM-DDThh:mm:ss").fromNow() }}</p>
+						class="text-[#aaa] text-sm font-semibold">{{ moment(user.last_connection, "YYYY-MM-DDThh:mm:ss").fromNow() }}</p> -->
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
 				<div
@@ -53,8 +71,10 @@
 				</div>
 				<div class="text-sm text-[#48496B]">{{ user.address }}</div>
 				<div class="text-lg mt-5">{{ user.biography }}</div>
-				<div class="my-5 text-2xl font-semibold text-[#7a7a7d]"
-					v-if="user.passions && user.passions[0]">
+				<div
+					class="my-5 text-2xl font-semibold text-[#7a7a7d]"
+					v-if="user.passions && user.passions[0]"
+				>
 					Passions
 				</div>
 				<div class="flex flex-wrap gap-4">
@@ -71,23 +91,6 @@
 						# {{ passion }}
 					</div>
 				</div>
-			</div>
-			<div class="text-xl flex gap-x-3">
-				<FontAwesomeIcon
-					icon="fa-solid fa-flag"
-					class="text-[#E11653] bg-[#f4a8bf] action"
-					@click="reportUser(user?.id)"
-				/>
-				<FontAwesomeIcon
-					@click="unLikeUser(user?.id)"
-					icon="fa-solid fa-xmark"
-					class="text-black bg-[#F8F7FF] action px-10"
-				/>
-				<FontAwesomeIcon
-					@click="likeUser(user?.id)"
-					icon="fa-solid fa-heart"
-					class="text-[#4EB3AC] bg-[#D5F9F7] action"
-				/>
 			</div>
 		</div>
 	</div>
