@@ -10,6 +10,7 @@ Matcha is a modern web application inspired by Tinder's swiping interface. It en
   <img style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);" src="https://github.com/hmellahi/Tinder-Clone/blob/master/Feed.png?raw=true" alt="Matcha Project" width="80%">
   <p><em>Screenshot of the Matcha Feed Page</em></p>
 </div>
+
 ## Technology Stack
 
 This project employs a range of cutting-edge technologies:
