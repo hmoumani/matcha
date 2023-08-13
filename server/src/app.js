@@ -12,7 +12,8 @@ import cookieSession from 'cookie-session';
 // setupUserSocket(app);
 // const io = require('socket.io')(http);
 
-dotenv.config();
+  console.log(process.env.PASSWORD)
+  dotenv.config();
 
 app.use('/public', express.static('static_files/'));
 

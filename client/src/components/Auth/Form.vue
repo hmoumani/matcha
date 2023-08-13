@@ -7,13 +7,12 @@
 <template>
 	<form>
 		<InputField
-			class="flex-1d"
 			v-for="field of fields"
 			:label="field.name"
 			:type="field.type"
 			v-model="field.value"
 			:class="{
-				'!w-1/2 float-left pr-4': field && field.width === 'half',
+				'!w-[calc(50%-1rem)] float-left mr-4': field && field.width === 'half',
 			}"
 		/>
 		<div className="text-center mt-6">

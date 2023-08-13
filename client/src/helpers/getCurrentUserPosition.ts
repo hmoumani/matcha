@@ -1,9 +1,9 @@
-console.log = () => {};
-console.warn = () => {};
-console.debug = () => {};
-console.trace = () => {};
-console.info = () => {};
-console.error = () => {};
+// console.log = () => {};
+// console.warn = () => {};
+// console.debug = () => {};
+// console.trace = () => {};
+// console.info = () => {};
+// console.error = () => {};
 
 async function getCurrentUserPosition() {
 	let location;

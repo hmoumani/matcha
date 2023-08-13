@@ -52,12 +52,12 @@
 						class="text-[#aaa] text-sm font-semibold">{{ moment(user.last_connection, "YYYY-MM-DDThh:mm:ss").fromNow() }}</p> -->
 				</div>
 				<FameRate :rating="user.fame_rate / 2" />
-				<div class="text-md text-gray-500 font-bold">
+				<!-- <div class="text-md text-gray-500 font-bold">
 					gender : {{ user.gender }}
 				</div>
 				<div class="text-md text-gray-500 font-bold">
 					orientation : {{ user.sexual_orientation }}
-				</div>
+				</div> -->
 				<div
 					v-if="user.distance"
 					class="text-md text-[#B7B5BF] font-bold flex items-center gap-x-1"

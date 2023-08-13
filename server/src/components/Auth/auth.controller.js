@@ -25,6 +25,19 @@ const AuthController = {
       return ControllerResponse(HttpStatusCode.BAD_REQUEST, error.message);
     }
   },
+  loginWithFakeUser: async (req, res) => {
+    try {
+      const userId = await AuthService.loginWithFakeUser();
+      const token = jwt.sign({ id: userId }, config.secret, {
+        expiresIn: 86400 // expires in 24 hours
+      });
+      console.log({userId, token})
+      req.session.token = token;
+      return ControllerResponse(HttpStatusCode.OK, 'User logged in successfully!');
+    } catch (error) {
+      return ControllerResponse(HttpStatusCode.BAD_REQUEST, error.message);
+    }
+  },
   logout: async (req, res) => {
     req.session = null;
     return ControllerResponse(HttpStatusCode.OK, "You've been signed out!");

@@ -2,10 +2,11 @@
 	import { useUserStore } from '@/store/user';
 	import moment from 'moment';
 
-	const { user } = defineProps({
+	const props = defineProps({
 		user: Object,
 	});
 
+	const user = computed(() => props.user);
 	const userStore = useUserStore();
 
 	const { blockUser, reportUser } = userStore;
@@ -36,7 +37,15 @@
 					<span v-else class="dot bg-gray-500 w-3 h-3"></span>
 					<p
 						v-if="!user?.isOnline"
-						class="text-[#aaa] text-sm font-semibold">{{ moment(user.last_connection, "YYYY-MM-DDThh:mm:ss").fromNow() }}</p>
+						class="text-[#aaa] text-sm font-semibold"
+					>
+						{{
+							moment(
+								user.last_connection,
+								'YYYY-MM-DDThh:mm:ss'
+							).fromNow()
+						}}
+					</p>
 				</div>
 				<div
 					class="text-md text-[#B7B5BF] font-bold flex items-center gap-x-1"
@@ -55,8 +64,10 @@
 					{{ Math.floor(user.distance) }} km from you
 				</div>
 				<div class="text-lg mt-5">{{ user.biography }}</div>
-				<div class="my-5 text-2xl font-semibold text-[#646688]"
-				v-if="user.passions && user.passions[0]">
+				<div
+					class="my-5 text-2xl font-semibold text-[#646688]"
+					v-if="user.passions && user.passions[0]"
+				>
 					Passions
 				</div>
 				<div class="flex">
@@ -65,8 +76,7 @@
 						v-if="passion !== null"
 						class="px-3 py-2 mr-3 rounded-md text-base capitalize whitespace-nowrap"
 						:class="{
-							'bg-[#F8F7FF] text-black border-[#F3F3F3] border-2':
-								true,
+							'bg-[#F8F7FF] text-black border-[#F3F3F3] border-2': true,
 						}"
 					>
 						# {{ passion }}

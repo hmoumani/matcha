@@ -32,6 +32,7 @@
 							<div class="flex-auto mx-auto pt-4 text-lg">
 								{{ secondaryHeader }}
 							</div>
+							<slot></slot>
 							<hr class="mt-6 border-b-1 border-gray-400" />
 						</div>
 					</div>

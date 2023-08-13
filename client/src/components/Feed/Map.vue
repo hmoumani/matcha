@@ -5,7 +5,7 @@
 	var map = null;
 	let infoWindow = null;
 	var marker = null;
-	const radius = 1000;
+	const radius = 5000;
 
 	const { center, zoom } = defineProps({
 		center: Object,
@@ -55,13 +55,23 @@
 			return;
 		}
 
+		google.maps.event.addListenerOnce(map, 'idle', function () {
+			console.log('shit');
+			const infoWindowElement = document.querySelector('.gm-style-iw');
+			const previousDiv = infoWindowElement.previousElementSibling;
+			if (previousDiv) {
+				previousDiv.remove();
+			}
+		});
+
 		const autocomplete = new google.maps.places.Autocomplete(
 			searchInput.value
 		);
 		marker = createMarker();
+		marker.setMap(map);
 
 		const content =
-			'<div class="bg-blue-400  h-14 text-white rounded-md flex items-center font-poppins max-w-none">\
+			'<div class="bg-blue-400  h-14 text-white rounded-md flex items-center font-poppins">\
 				<div class="w-3/12 border-r-2 p-3">\
 					<svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="#fff">\
 						<!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->\
@@ -86,7 +96,7 @@
 	};
 
 	const handleMapClick = event => {
-		marker.setMap(map);
+		console.log(event.latLng.lat());
 		marker.setCenter(event.latLng);
 		infoWindow.setPosition(event.latLng);
 		infoWindow.open(map);
@@ -149,6 +159,12 @@
 		max-width: none !important;
 	}
 	.gm-style-iw-tc::after {
+		@apply bg-blue-400 !important;
+	}
+	.gm-style .gm-style-iw-d::-webkit-scrollbar-track,
+	.gm-style .gm-style-iw-d::-webkit-scrollbar-track-piece,
+	.gm-style .gm-style-iw-c,
+	.gm-style .gm-style-iw-t::after {
 		@apply bg-blue-400 !important;
 	}
 </style>

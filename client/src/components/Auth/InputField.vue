@@ -44,7 +44,7 @@
 				block
 				autocomplete="off"
 				required=""
-				class="w-full appearance-none rounded-md border-0 px-3 py-2 placeholder-gray-400 shadow-sm"
+				class="border-[.5px] w-full appearance-none rounded-md px-3 py-2 placeholder-gray-400 shadow-sm"
 				:class="css"
 				:value="modelValue"
 				@input="updateValue"

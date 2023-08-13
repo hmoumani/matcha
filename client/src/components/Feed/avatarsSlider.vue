@@ -3,7 +3,7 @@
 		<slide v-for="avatarUrl in avatars" :key="avatar">
 			<img
 				:src="avatarUrl"
-				class="min-w-full h-[34rem] rounded-t-[2rem] object-cover"
+				class="min-w-full h-[30rem] rounded-t-[2rem] object-cover"
 			/>
 		</slide>
 
@@ -37,7 +37,7 @@
 	import 'vue3-carousel/dist/carousel.css';
 	import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
-	defineProps({
+	const props = defineProps({
 		avatars: Array,
 	});
 
@@ -45,6 +45,10 @@
 
 	const next = () => currentSlide.value++;
 	const prev = () => currentSlide.value--;
+
+	watch(props, () => {
+		currentSlide.value = 0;
+	});
 </script>
 
 <style>

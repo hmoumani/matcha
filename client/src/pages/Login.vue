@@ -4,7 +4,7 @@
 		{ name: 'Username', type: 'text', value: '' },
 		{ name: 'Password', type: 'password', value: '' },
 	]);
-	let { logIn } = useAuthStore();
+	let { logIn, loginWithFakeUser } = useAuthStore();
 
 	const login = () => {
 		const [username, password] = fields.value;
@@ -12,9 +12,9 @@
 	};
 </script>
 <template>
-	<div class="h-screen">
-		<section class="absolute w-full h-full bg-gray-50">
-			<div class="absolute top-0 w-full h-full bg-gray-50 bg bg-cover">
+	<div class="h-screen overflow-hidden">
+		<section class="absolute w-full !h-screen">
+			<div class="absolute top-0 w-full h-full bg bg-cover">
 				<div class="absolute inset-0 bg-gray-700 opacity-75"></div>
 			</div>
 			<div class="container mx-auto px-4 h-full">
@@ -39,6 +39,12 @@
 									title="Sign In"
 									@submit.prevent="login"
 								/>
+								<input
+									@click="loginWithFakeUser"
+									className="uppercase mt-4 cursor-pointer border-md border-2 border-gray-700 bg-white active:text-gray-700 text-sm font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+									type="submit"
+									value="Try Demo Account"
+								/>
 							</div>
 							<hr class="mt-6 border-b-1 border-gray-400" />
 							<div class="flex">
@@ -60,8 +66,3 @@
 		</section>
 	</div>
 </template>
-<style>
-	.bg {
-		background-image: url('https://tinder.com/static/build/07eef8b101ca939c978a599f508aa955.webp');
-	}
-</style>

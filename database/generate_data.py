@@ -44,6 +44,7 @@ for i in range(742):
         "is_auto_locator_enabled": True,
         'password': '58D9845E9C86E8EF235F1912F10526703B2F0DDC',
         'location': f'{{"lat": {random_cor[i]["lng"]}, "lng": {random_cor[i]["lat"]}}}',
+        'is_fake': True
     }
     users.append(user)
     settings.append({
