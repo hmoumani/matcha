@@ -14,8 +14,8 @@ Matcha is a modern web application inspired by Tinder's swiping interface. It en
 
 This project employs a range of cutting-edge technologies:
 
-- <p><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vuejs-colored.svg" width="18" height="18" alt="Vue" /> Vue 3 with Composition API and
-  <a style="display:inline" href="https://vitejs.dev/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg" width="18" height="18" alt="Vite" /></a> Vite for optimized bundling</p>
+- <span><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vuejs-colored.svg" width="18" height="18" alt="Vue" /> Vue 3 with Composition API and
+  <a style="display:inline" href="https://vitejs.dev/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg" width="18" height="18" alt="Vite" /></a> Vite for optimized bundling</span>
 - <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" width="18" height="18" alt="TailwindCSS" /> Tailwind CSS for responsive and modern styling
 - <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg" width="18" height="18" alt="Express" /> Express JS for building the server-side application logic
 - <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/postgresql-colored.svg" width="18" height="18" alt="PostgreSQL" /> Postgres for efficient data storage with native SQL queries
