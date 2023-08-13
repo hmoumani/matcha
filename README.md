@@ -7,19 +7,19 @@
 Matcha is a modern web application inspired by Tinder's swiping interface. It enables users to discover potential matches based on shared interests and location. If two users mutually swipe right on each other's profiles, they can connect and start chatting, potentially leading to meaningful connections.
 
 <div align="center">
-  <img src="https://github.com/hmellahi/Tinder-Clone/blob/master/Feed.png?raw=true" alt="Matcha Project" width="80%" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+  <img style="box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);" src="https://github.com/hmellahi/Tinder-Clone/blob/master/Feed.png?raw=true" alt="Matcha Project" width="80%">
   <p><em>Screenshot of the Matcha Feed Page</em></p>
 </div>
-
 ## Technology Stack
 
 This project employs a range of cutting-edge technologies:
 
-- Vue 3 with Composition API and Vite for optimized bundling
-- Tailwind CSS for responsive and modern styling
-- Express JS for building the server-side application logic
-- Postgres for efficient data storage with native SQL queries
-- WebSockets for real-time communication
+- <p><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vuejs-colored.svg" width="18" height="18" alt="Vue" /> Vue 3 with Composition API and
+  <a style="display:inline" href="https://vitejs.dev/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg" width="18" height="18" alt="Vite" /></a> Vite for optimized bundling</p>
+- <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" width="18" height="18" alt="TailwindCSS" /> Tailwind CSS for responsive and modern styling
+- <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg" width="18" height="18" alt="Express" /> Express JS for building the server-side application logic
+- <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/postgresql-colored.svg" width="18" height="18" alt="PostgreSQL" /> Postgres for efficient data storage with native SQL queries
+- <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="18" height="18" alt="JavaScript" /> WebSockets for real-time communication
 
 ## Installation
 
@@ -36,33 +36,33 @@ Once the application is built and launched, access it by visiting [http://localh
 
 ### Registration and Signing-in
 
-<div style="margin-left: 20px">✔️ Users can register with their email address, username, name, and protected password. A verification link is sent via email for account confirmation.</div>
-<div style="margin-left: 20px">✔️ Secure user login and password reset functionality.</div>
-<div style="margin-left: 20px">✔️ Convenient one-click logout from any page.</div>
+- ✔️ Users can register with their email address, username, name, and protected password. A verification link is sent via email for account confirmation.
+- ✔️ Secure user login and password reset functionality.
+- ✔️ Convenient one-click logout from any page.
 
 ### User Profile
 
-<div style="margin-left: 20px">✔️ Users can create detailed profiles including gender, sexual preferences, biography, interests with reusable tags, and profile pictures.</div>
-<div style="margin-left: 20px">✔️ Profile information is modifiable, including personal details.</div>
-<div style="margin-left: 20px">✔️ Tracking of profile visits and "likes" received from other users.</div>
-<div style="margin-left: 20px">✔️ Public "fame rating" to add an interactive element.</div>
+- ✔️ Users can create detailed profiles including gender, sexual preferences, biography, interests with reusable tags, and profile pictures.
+- ✔️ Profile information is modifiable, including personal details.
+- ✔️ Tracking of profile visits and "likes" received from other users.
+- ✔️ Public "fame rating" to add an interactive element.
 
 ### Browsing and Matching
 
-<div style="margin-left: 20px">✔️ Users receive curated match suggestions based on geographic area, common tags, and "fame rating."</div>
-<div style="margin-left: 20px">✔️ Intelligent matching prioritizes profiles from the same region and offers sort and filter options.</div>
-<div style="margin-left: 20px">✔️ Advanced search functionality with customizable criteria, including age, "fame rating," location, and interests.</div>
+- ✔️ Users receive curated match suggestions based on geographic area, common tags, and "fame rating."
+- ✔️ Intelligent matching prioritizes profiles from the same region and offers sort and filter options.
+- ✔️ Advanced search functionality with customizable criteria, including age, "fame rating," location, and interests.
 
 ### Interaction and Communication
 
-<div style="margin-left: 20px">✔️ Explore other users' profiles, see their information, and track visits.</div>
-<div style="margin-left: 20px">✔️ "Like" a profile picture to initiate connections for real-time chat when mutual.</div>
-<div style="margin-left: 20px">✔️ Real-time chat functionality for connected users.</div>
-<div style="margin-left: 20px">✔️ Notifications for events like receiving "likes," profile views, messages, and mutual "likes."</div>
+- ✔️ Explore other users' profiles, see their information, and track visits.
+- ✔️ "Like" a profile picture to initiate connections for real-time chat when mutual.
+- ✔️ Real-time chat functionality for connected users.
+- ✔️ Notifications for events like receiving "likes," profile views, messages, and mutual "likes."
 
 ### Location Services
 
-<div style="margin-left: 20px">✔️ Integration of Google Maps for changing user location and enhancing the matching experience.</div>
+- ✔️ Integration of Google Maps for changing user location and enhancing the matching experience.
 
 ## Contributing
 
