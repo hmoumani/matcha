@@ -28,6 +28,7 @@ import {
 	faPlane,
 	faArrowRight,
 	faPaperPlane,
+	// arrowLeftSquare
 } from '@fortawesome/free-solid-svg-icons';
 import { createApp } from 'vue';
 import setupApp from './setupApp';
@@ -43,6 +44,8 @@ library.add(faFlag);
 library.add(faArrowLeft);
 library.add(faArrowRight);
 library.add(faGear);
+library.add(faGear);
+// library.add(arrowLeftSquare)
 
 const app = createApp(App).use(createPinia()).use(router);
 

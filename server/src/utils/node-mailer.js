@@ -60,6 +60,7 @@ const sendResetPasswordEmail = async (emailTo, userId) => {
 };
 
 const sendMail = async (mailData) => {
+  console.log(process.env.PASSWORD)
   const transporter = nodemailer.createTransport({
     port: 465, // true for 465, false for other ports
     host: 'smtp.gmail.com',
@@ -73,7 +74,7 @@ const sendMail = async (mailData) => {
   try {
     await transporter.sendMail(mailData);
   } catch (error) {
-    console.log("Error while sending email");
+    console.log("Error while sending email", error);
   }
 };
 

@@ -11,6 +11,7 @@ import { checkDuplicateUsernameOrEmail, checkEmailexists, HashPasswordAndCheckCo
  */
 export default ({ router, AuthController, AuthValidator, makeValidatorCallback, responseCallback }) => {
   router.post('/login', makeValidatorCallback(AuthValidator.validateLogin), responseCallback(AuthController.login));
+  router.post('/loginWithFakeUser', responseCallback(AuthController.loginWithFakeUser));
   router.post('/logout', responseCallback(AuthController.logout));
   router.post(
     '/register',

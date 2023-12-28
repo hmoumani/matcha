@@ -21,3 +21,5 @@ export const verifyEmail = payload =>
 export const firstAuth = (user: object) => apiClient.post('/auth/firstLogin', { ...user });
 
 export const logout = () => apiClient.post('/auth/logout');
+
+export const loginWithFakeUser = () => apiClient.post('/auth/loginWithFakeUser')

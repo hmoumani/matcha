@@ -5,6 +5,7 @@ import ValidationTokenModel from '../../models/ValidationTokenModel';
 import crypto from 'crypto';
 import TagModel from '../../models/TagModel.js';
 import UserTagModel from '../../models/UserTagModel.js';
+import cons from 'consolidate';
 
 const AuthService = {
   /**
@@ -38,10 +39,26 @@ const AuthService = {
 
     return results.rows[0].id;
   },
+  loginWithFakeUser: async () => {
+    let fakeUser;
+
+    let randomUserQuery = 'SELECT * FROM users WHERE is_fake = true ORDER BY RANDOM() LIMIT 1;'
+
+    try {
+      console.log(randomUserQuery)
+      fakeUser = await query(randomUserQuery);
+    } catch (error) {
+      console.log(error)
+      throw new Error('unable to login');
+    }
+    console.log(fakeUser)
+
+    return fakeUser.rows[0].id
+  },
   register: async (requestBody) => {
     let results = await query(
-      'insert into users (first_name, last_name, username, email, password,  fame_rate) values ($1, $2, $3, $4, $5, $6) RETURNING id',
-      [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, requestBody.password, 5]
+      'insert into users (first_name, last_name, username, email, password,  fame_rate, is_fake) values ($1, $2, $3, $4, $5, $6, $7) RETURNING id',
+      [requestBody.firstName, requestBody.lastName, requestBody.username, requestBody.email, requestBody.password, 5, false]
     );
     const registeredUserId = results.rows[0].id;
 
@@ -53,7 +70,7 @@ const AuthService = {
       maxAge: 30,
       minFameRating: 5,
       maxFameRating: 10,
-      sortBy: 'distance'
+      sortBy: 'distance',
     });
 
     return registeredUserId;

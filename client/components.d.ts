@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     Avatars2Slider: typeof import('./src/components/Chat/UserProfile/avatars2Slider.vue')['default']
     AvatarsSlider: typeof import('./src/components/Feed/avatarsSlider.vue')['default']
     Button: typeof import('./src/components/Auth/Button.vue')['default']
+    Card: typeof import('./src/components/card.vue')['default']
     ContactsList: typeof import('./src/components/Chat/ContactsList/ContactsList.vue')['default']
     Conversation: typeof import('./src/components/Chat/Conversation/Conversation.vue')['default']
     copy: typeof import('./src/components/avatarsSlider copy.vue')['default']

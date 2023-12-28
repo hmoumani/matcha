@@ -70,7 +70,9 @@
 		if (!settings.value?.sortBy) {
 			return sortUsersByOptions[0];
 		}
-		return sortUsersByOptions.find(option => option.value === settings.value?.sortBy);
+		return sortUsersByOptions.find(
+			option => option.value === settings.value?.sortBy
+		);
 	});
 
 	onMounted(async () => {

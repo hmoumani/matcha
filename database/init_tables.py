@@ -26,6 +26,7 @@ class User(Base):
 	created_at = Column(DateTime(timezone=True), server_default=func.now())
 	is_auto_locator_enabled = Column(Boolean, default=False)
 	fame_rate = Column(Float, default=5)
+	is_fake = Column(Boolean)
 	
 class Image(Base):
 	__tablename__ = "images"
